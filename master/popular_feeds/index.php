@@ -133,13 +133,4 @@ $result = mysqli_query($gconnet,$query);
         <? include "./add_member.php"?>
     </div>
 </div>
-<script src="../vendor/jquery/jquery.min.js"></script>
-<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-<script src="../vendor/datatables/jquery.dataTables.js"></script>
-<script src="../vendor/datatables/dataTables.bootstrap4.js"></script>
-<script src="../js/sb-admin.min.js"></script>
-<script src="../js/demo/datatables-demo.js?ver=<?=time()?>"></script>
-
-</body>
-</html>
+<? include $_SERVER['DOCUMENT_ROOT']."/master/include/footer.php"?>

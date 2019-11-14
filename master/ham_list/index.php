@@ -134,7 +134,7 @@ $totalpage	= ($iTotalSubCnt - 1)/$pageScale  + 1;
             <div class="card mb-3">
                 <div class="card-header">
                     <i class="fas fa-table"></i>
-                    재보 리스트
+                    제보 리스트
                     <i class="fas fa-plus fa-pull-right" href="#" data-toggle="modal" data-target="#addModal"></i>
                 </div>
                 <div class="card-body">
@@ -185,12 +185,11 @@ $totalpage	= ($iTotalSubCnt - 1)/$pageScale  + 1;
 
             <div class="card">
                 <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-                    <div class="pagination mt0">
+                    <div class="pagination mt-1 mb-1 ml-2 mr-2">
                         <?include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/paging.php";?>
                     </div>
                 </div>
             </div>
-
 
         </div>
     </div>
@@ -230,23 +229,5 @@ $totalpage	= ($iTotalSubCnt - 1)/$pageScale  + 1;
         </div>
     </div>
 </div>
-<!-- Bootstrap core JavaScript-->
-<script src="../vendor/jquery/jquery.min.js"></script>
-<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<!-- Core plugin JavaScript-->
-<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-
-<!-- Page level plugin JavaScript-->
-<script src="../vendor/datatables/jquery.dataTables.js"></script>
-<script src="../vendor/datatables/dataTables.bootstrap4.js"></script>
-
-<!-- Custom scripts for all pages-->
-<script src="../js/sb-admin.min.js"></script>
-
-<!-- Demo scripts for this page-->
-<script src="../js/demo/datatables-demo.js?ver=<?=time()?>"></script>
-
-</body>
-
-</html>
+<? include $_SERVER['DOCUMENT_ROOT']."/master/include/footer.php"?>

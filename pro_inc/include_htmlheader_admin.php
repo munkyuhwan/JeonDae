@@ -13,13 +13,13 @@
 <meta http-equiv="X-UA-Compatible" content="requiresActiveX=true" >
 <!-- 끝  -->
 <title><?=$_SITE_ADMIN_TITLE?></title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js?ver=<?=time()?>"></script>
 <!-- <script type="text/javascript" src="/master/js/jquery-1.9.1.js"></script> -->
-<script type="text/javascript" src="/master/js/jquery.bxslider.min.js"></script>
-<script type="text/javascript" src="/master/js/placeholders.js"></script>
-<script type="text/javascript" src="/master/js/layout.js"></script>
-<script type="text/javascript" src="/master/js/common_js.js"></script>
-<link rel="stylesheet" type="text/css" href="/master/css/general.css"/>
+<script type="text/javascript" src="/master/js/jquery.bxslider.min.js?ver=<?=time()?>"></script>
+<script type="text/javascript" src="/master/js/placeholders.js?ver=<?=time()?>"></script>
+<script type="text/javascript" src="/master/js/layout.js?ver=<?=time()?>"></script>
+<script type="text/javascript" src="/master/js/common_js.js?ver=<?=time()?>"></script>
+<link rel="stylesheet" type="text/css" href="/master/css/general.css?ver=<?=time()?>"/>
 <!-- <link rel="shortcut icon" href="/favicon.ico"> -->
 </head>
 <!--<body>

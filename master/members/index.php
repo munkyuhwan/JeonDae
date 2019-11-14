@@ -121,8 +121,8 @@ $category_result = mysqli_query($gconnet,$query_category);
             </div>
 
             <div class="card">
-                <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-                    <div class="pagination mt0">
+                <div class="dataTables_paginate paging_simple_numbers " id="dataTable_paginate">
+                    <div class="pagination mt-1 mb-1 ml-2 mr-2">
                         <?include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/paging.php";?>
                     </div>
                 </div>
@@ -165,13 +165,4 @@ $category_result = mysqli_query($gconnet,$query_category);
         </div>
     </div>
 </div>
-<script src="../vendor/jquery/jquery.min.js"></script>
-<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-<script src="../vendor/datatables/jquery.dataTables.js"></script>
-<script src="../vendor/datatables/dataTables.bootstrap4.js"></script>
-<script src="../js/sb-admin.min.js"></script>
-<script src="../js/demo/datatables-demo.js?ver=<?=time()?>"></script>
-
-</body>
-</html>
+<? include $_SERVER['DOCUMENT_ROOT']."/master/include/footer.php"?>

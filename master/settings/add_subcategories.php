@@ -11,7 +11,7 @@
                         <div class="col-md-6">
                             <div class="form-label-group">
                                 <input type="text" id="category_name" name="category_name" class="form-control" placeholder="카테고리 이름" required="required" autofocus="autofocus">
-                                <label for="report_name">카테고리 이름</label>
+                                <label for="category_name">카테고리 이름</label>
                             </div>
                         </div>
                     </div>

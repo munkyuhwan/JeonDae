@@ -6,6 +6,7 @@
     e.preventDefault();
     $("body").toggleClass("sidebar-toggled");
     $(".sidebar").toggleClass("toggled");
+    $('.bg-shade').toggleClass("bg-shade-show");
   });
 
   // Prevent the content wrapper from scrolling when the fixed side navigation hovered over
