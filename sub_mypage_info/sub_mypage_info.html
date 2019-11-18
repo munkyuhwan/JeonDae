@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi">
+        <meta name="format-detection" content="telephone=no, address=no, email=no">
+        <title> 전대전 - 전국대신전해드립니다  </title>
+        <link rel="stylesheet" type="text/css" href="css/reset.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="css/notosans.css">
+        <script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+
+    </head>
+    <body>
+        <div class="wrapper">
+            <header>
+                <div class="header grd_bg sub">
+                    <h1>개인정보수정</h1>
+                    <a class="back_btn" href="javascript:history.go(-1)"></a>
+                </div>
+            </header>
+            <nav class="main_nav">
+                <ul>
+                    <li class="main_menu1"><a href="main1.html" title="메인"></a></li>
+                    <li class="main_menu2"><a href="main2.html" title=""></a></li>
+                    <li class="main_menu3"><a href="main3.html" title="거래"></a></li>
+                    <li class="main_menu4"><a href="main4.html" title="알림"></a></li>
+                    <li class="main_menu5"><a href="main5.html" title="검색"></a></li>
+                </ul>
+            </nav>
+            <section class="main_section">
+                <div class="myinfo_wrap">
+                    <div class="user_wrap">
+                        <div class="user_img_wrap">
+                            <div class="user_img">
+                                <img src="images/img_sample2.jpg" alt="유저 사진">
+                            </div>                        
+                            <input type="file" id="img_change">
+                            <label for="img_change" class="img_change_btn"></label>
+                        </div>
+                    </div>
+                    <div class="info_row">
+                        <p class="info_tlt">이름</p>
+                        <div class="info_con name_con"><input type="text" class=""></div>
+                    </div>                        
+                    <div class="user_certi">
+                        <span class="certi1">학교인증</span>
+                        <span class="certi2 on">지역인증</span>
+                    </div>
+                    <div class="info_row">
+                        <p class="info_tlt">성별</p>
+                        <div class="info_con gender"><input type="radio" id="check_male" name="gender"><label for="check_male">남</label><input type="radio" id="check_female" name="gender"><label for="check_female">녀</label></div>
+                    </div>
+                    <div class="info_row">
+                        <p class="info_tlt">연령</p>
+                        <div class="info_con">
+                            <div class="select_div">
+                                <select name="" id="">
+                                    <option value="1991">1991</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>     
+                    <div class="info_row">
+                        <p class="info_tlt">가입일</p>
+                        <div class="info_con">
+                            2019.08.08
+                        </div>
+                    </div>  
+                    <div class="info_row">
+                        <p class="info_tlt">관심해시태그</p>
+                        <div class="info_con">
+                            <div class="selected_tag">
+                                <span>#성동구</span><span>#10대</span><span>#모임</span><span>#자전거</span><span>#성동구</span><span>#10대</span><span>#모임</span><span>#자전거</span>
+                                <button type="button" class="tag_arrow"></button>
+                            </div>
+                            <div class="tag_type">                                    
+                                <ul>
+                                    <li><input type="checkbox" id="subs1"><label for="subs1">일상</label></li>
+                                    <li><input type="checkbox" id="subs2"><label for="subs2">중고거래</label></li>
+                                    <li><input type="checkbox" id="subs3"><label for="subs3">알바</label></li>
+                                    <li><input type="checkbox" id="subs4"><label for="subs4">동호회</label></li>
+                                    <li><input type="checkbox" id="subs5"><label for="subs5">인디밴드</label></li>
+                                    <li><input type="checkbox" id="subs6"><label for="subs6">20대</label></li>
+                                    <li><input type="checkbox" id="subs7"><label for="subs7">30대</label></li>
+                                    <li><input type="checkbox" id="subs8"><label for="subs8">40대</label></li>
+                                    <li><input type="checkbox" id="subs9"><label for="subs9">심야영화</label></li>
+                                    <li><input type="checkbox" id="subs10"><label for="subs10">기타</label></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>         
+                    <div class="info_row">
+                        <p class="info_tlt">구독정보</p>
+                        <div class="info_con subs_info">
+                            <span>광진구</span>, <span>성동구</span>, <span>마포구</span>
+                        </div>
+                    </div>            
+                    <div class="info_row">
+                        <p class="info_tlt">클린필터</p>
+                        <div class="info_con">
+                            <div class="clean_level">
+                                <p class="level1">
+                                    <input type="radio" name="subs_clean" id="lv1" checked=""><label for="lv1"><span>클린</span></label>
+                                </p>
+                                <p class="level2">
+                                    <input type="radio" name="subs_clean" id="lv2"><label for="lv2"><span>중간</span></label>
+                                </p>
+                                <p class="level3">
+                                    <input type="radio" name="subs_clean" id="lv3"><label for="lv3"><span>없음</span></label>
+                                </p>
+                                <div class="clean_bar"></div>
+                            </div>
+                        </div>
+                    </div>    
+                    <div class="info_row btn_row">
+                        <button type="button" class="blue_btn">저장</button><button type="button">취소</button>
+                    </div>         
+                </div>
+                <div class="mylist">
+                    <div class="tab_menu">
+                        <button tpye="button" class="on">작성한 글</button>
+                        <button tpye="button">작성한 댓글</button>
+                        <button tpye="button">좋아요한 글</button>
+                    </div>
+                    <div class="tab_con">
+                        <div class="con1" style="display:block">
+                            <p class="cnt_row"><span>176</span>개의 글이 있습니다.</p>
+                            <ul>
+                                <li class="item">                                    
+                                    <div class="item_box">
+                                        <p class="con_box">위 사진 오른쪽 지갑을 2019년 11월 2일 토요일 태안-> 부천 방향 충남고속 고속버스에서 잃어버렸어요 <a href="" class="more_btn">...더보기</a></p>
+                                        <div class="con_info">
+                                            <p>8월 20일 오후 6:18</p><p>N번째 제보</p><p><span>#구리시</span> <span>#20대</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="reply_cnt">
+                                        <div class="cnt_box">
+                                            <p class="cnt_num">0</p>
+                                            <p>댓글</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item">                                    
+                                    <div class="item_box">
+                                        <p class="con_box">위 사진 오른쪽 지갑을 2019년 11월 2일 토요일 태안-> 부천 방향 충남고속 고속버스에서 잃어버렸어요 <a href="" class="more_btn">...더보기</a></p>
+                                        <div class="con_info">
+                                            <p>8월 20일 오후 6:18</p><p>N번째 제보</p><p><span>#구리시</span> <span>#20대</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="reply_cnt">
+                                        <div class="cnt_box">
+                                            <p class="cnt_num">0</p>
+                                            <p>댓글</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="con2">
+                            <p class="cnt_row"><span>176</span>개의 댓글이 있습니다.</p>
+                            <ul>
+                                <li class="item">                       
+                                    <div class="item_box">
+                                        <p class="con_box">위 사진 오른쪽 지갑을 2019년 11월 2일 토요일 태안-> 부천 방향 충남고속 고속버스에서 잃어버렸어요 <a href="" class="more_btn">...더보기</a></p>
+                                        <div class="con_info">
+                                            <p>8월 20일 오후 6:18</p><p>N번째 제보</p><p><span>#구리시</span> <span>#20대</span></p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="con3">
+                            <p class="cnt_row"><span>176</span>개의 글이 있습니다.</p>
+                            <ul>
+                                <li class="item">
+                                    <div class="item_box">
+                                        <p class="con_box">위 사진 오른쪽 지갑을 2019년 11월 2일 토요일 태안-> 부천 방향 충남고속 고속버스에서 잃어버렸어요 <a href="" class="more_btn">...더보기</a></p>
+                                        <div class="con_info">
+                                            <p>8월 20일 오후 6:18</p><p>N번째 제보</p><p><span>#구리시</span> <span>#20대</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="reply_cnt">
+                                        <div class="cnt_box">
+                                            <p class="cnt_num">0</p>
+                                            <p>댓글</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>         
+                        </div>
+                    </div>
+                </div>
+
+            </section>        
+        </div>        
+    </body>
+</html>
+
+<!--
+
+-->
