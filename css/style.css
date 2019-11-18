@@ -211,7 +211,7 @@ header { height:50px;}
 .post_btn_wrap li > * { display:block; width:100%; height:40px; line-height: 38px; font-size:14px; font-weight:350; color:#505050; text-align:center; }
 .post_btn_wrap li { background:#fff; border-bottom:1px solid #c8c8c8;  }
 .post_btn_wrap li:last-child { border-bottom:0 none; }
-.post_btn_wrap + button {  width:100%; height:40px; margin-top:15px; line-height: 38px; font-size:14px; font-weight:350; color:#505050;  background:#fff; border-radius:10px; }
+.post_btn_wrap + button { width:100%; height:40px; margin-top:15px; line-height: 38px; font-size:14px; font-weight:350; color:#505050;  background:#fff; border-radius:10px; }
 
 /* 이미지 팝업 */
 .popup.img_pop  { background:rgba(0,0,0,0.7)}
