@@ -124,7 +124,7 @@ header { height:50px;}
 .list_wrap .user_box .etc_info p { margin-right:3px; }
 .list_wrap .user_box .etc_info p:after { content:"·"; margin-left:3px;}
 .list_wrap .user_box .etc_info button { margin-right:2px;}
-.list_wrap .item .pop_call {  width:30px; height:40px; background:url(../images/icon_more.png) no-repeat center; background-size:22px auto;  }
+.list_wrap .item button.pop_call {  width:30px; height:40px; background:url(../images/icon_more.png) no-repeat center; background-size:22px auto;  }
 .list_wrap .item .img_wrap { border-radius:10px; overflow:hidden; position:relative; flex-direction:column; padding-bottom:60%;  }
 .list_wrap .item .img_wrap img { display:inline-block; }
 .list_wrap .item .img_wrap > .flex_wrap { position:absolute; top:0; left:0; height:100%; width:100%;  }
