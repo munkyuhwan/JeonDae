@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi">
+        <meta name="format-detection" content="telephone=no, address=no, email=no">
+        <title> 전대전 - 전국대신전해드립니다  </title>
+        <link rel="stylesheet" type="text/css" href="css/reset.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="css/notosans.css">
+        <script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+
+    </head>
+    <body>
+        <div class="wrapper">
+            <header>
+                <div class="header grd_bg write">
+                    <h1 class="hidden">제보하기</h1>
+                    <button type="button" class="complte_btn">제보</button>
+                    <button type="button" class="pop_call cancle_btn" data-pop="confirm_pop">취소</button>
+                    <button type="button" class="pop_call temp_list_btn" data-pop="temp_pop" style="display:none">임시보관함</button>
+                </div>
+            </header>
+            <section class="main_section">
+                <div class="wirte_wrap">
+                    <div class="write_top">
+                        <div class="prf_box">
+                            <img src="images/img_sample2.jpg" alt="">
+                        </div>
+                        <textarea name="" id="" cols="" rows="" placeholder="어떤 이야기를 제보해 주시겠어요?"></textarea>
+                    </div>
+                    <div class="write_bot">
+                        <div class="tag_input">
+                            <textarea name="" id="" placeholder="태그를 입력해주세요. 예) #성동구 #홍대"></textarea>
+                        </div>
+                        <div class="add_wrap">
+                            <button type="button" class="add_img_btn"></button>
+                            <!-- 이미지 추가 -->
+                            <div class="added_img">
+                                <img src="images/img_sample2.jpg" alt="">
+                                <button  type="button" class="img_del"></button>
+                            </div>
+                            <!-- 이미지 추가 -->
+                            <div class="added_img">
+                                <img src="images/img_sample2.jpg" alt="">
+                                <button  type="button" class="img_del"></button>
+                            </div>
+                            <div class="added_img">
+                                <img src="images/img_sample2.jpg" alt="">
+                                <button  type="button" class="img_del"></button>
+                            </div>
+                            <div class="added_img">
+                                <img src="images/img_sample2.jpg" alt="">
+                                <button  type="button" class="img_del"></button>
+                            </div>
+                        </div>
+                        <p class="img_cnt"><span>0</span> / 5</p>
+                    </div>
+                </div>
+            </section>        
+        </div>    
+        <div class="popup confirm_pop">
+            <div class="popup_wrap post_btn">
+                <h2 class="hidden">임시</h2>
+                <div class="post_btn_wrap">
+                    <ul>
+                        <li><p class="cofirm_tlt">임시 저장하시겠어요?</p>
+                            <p class="confirm_desc">임시 저장을 사용해  내용을 저장하고<br>나중에  다시 작업할 수 있습니다.</p></li>
+                        <li><button type="button" class="blue_txt pop_close">임시 저장</button></li>
+                        <li><button type="button" class="pop_close">삭제</button></li>
+                    </ul>
+                </div>
+            </div>
+        </div>  
+        <div class="popup temp_pop">
+            <div class="pop_head grd_bg">
+                <h2>임시보관함</h2>
+                <button type="button" class="pop_close"></button>
+                <button type="button" class="revise_btn">편집</button>
+            </div>
+            <!-- 내용 클릭시 임시저장내용 볼러옴 -->
+            <div class="pop_body">
+                <ul>
+                    <li>
+                        <div class="slide_top">
+                            <p class="tlt">2019년 11월 12일 임시저장</p>
+                            <button type="button" class="temp_del_btn"></button>
+                        </div>
+                        <div class="slide_bot">
+                            전국의 모든 소식을 대신 전해 드림으로써 더 많은 사람들에게 더 많은 소식을 알려드립니다. <br>
+                            가슴 속에 하나 둘 새겨지는 별을 이제 다 못 헤는 것은 쉬이 아침이 오는 까닭이요. 내일 밤이 남은 까닭이요. 아직 나의 청춘이 다하지 않은 까닭입니다.
+                        </div>
+                    </li>
+                    <li>
+                        <div class="slide_top">
+                            <p class="tlt">2019년 11월 12일 임시저장</p>
+                            <button type="button" class="temp_del_btn"></button>
+                        </div>
+                        <div class="slide_bot">
+                            전국의 모든 소식을 대신 전해 드림으로써 더 많은 사람들에게 더 많은 소식을 알려드립니다. <br>
+                            가슴 속에 하나 둘 새겨지는 별을 이제 다 못 헤는 것은 쉬이 아침이 오는 까닭이요. 내일 밤이 남은 까닭이요. 아직 나의 청춘이 다하지 않은 까닭입니다.
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>
+
+<!--
+
+-->
