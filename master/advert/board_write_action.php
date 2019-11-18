@@ -4,7 +4,7 @@
 <? include $_SERVER["DOCUMENT_ROOT"]."/master/include/check_login_frame.php"; // 관리자 로그인여부 확인?>
 
 <?
-if(!$_AUTH_WRITE){
+if($_AUTH_WRITE){
 	error_frame("본문작성 권한이 없습니다.");
 	exit;
 }
@@ -23,7 +23,7 @@ $bbs_tag = sqlfilter($_REQUEST['bbs_tag']);
 $scrap_ok = sqlfilter($_REQUEST['scrap_ok']);	
 $ccl_ok = sqlfilter($_REQUEST['ccl_ok']);	
 
-$content = trim(sqlfilter($_REQUEST['ir2']));										//내용
+$content = trim(sqlfilter($_REQUEST['content']));										//내용
 $ip = trim(sqlfilter($_REQUEST['ip']));											//ip
 $wdate = date("Y-m-d H:i:s");
 

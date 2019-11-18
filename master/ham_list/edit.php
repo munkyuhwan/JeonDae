@@ -141,10 +141,29 @@ $assoc = mysqli_fetch_assoc($result);
 
 </script>
 <body class="">
+<nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-<div class="container">
+    <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Navbar Search -->
+    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+</nav>
+
+<div id="wrapper">
+    <? include $_SERVER['DOCUMENT_ROOT']."/master/include/master_left.php" ?>
+
     <div class="card card-register mx-auto mt-5">
-        <div class="card-header">Register an Account</div>
         <div class="card-body">
             <form name="frm" id="addFrm" action="edit_action.php"   method="post" enctype="multipart/form-data">
                 <input type="hidden" name="idx" value="<?=$idx?>">
@@ -198,18 +217,12 @@ $assoc = mysqli_fetch_assoc($result);
                 </div>
 
                 <button class="btn btn-primary btn-block" type="submit"  >등록</button>
+                <button class="btn btn-secondary btn-block" type="button" onclick="history.back();"  >취소</button>
             </form>
         </div>
     </div>
 </div>
-
-<!-- Bootstrap core JavaScript-->
-<script src="../vendor/jquery/jquery.min.js"></script>
-<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<!-- Core plugin JavaScript-->
-<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-
+<? include $_SERVER['DOCUMENT_ROOT']."/master/include/footer.php"?>
 </body>
 
 </html>

@@ -196,6 +196,7 @@ if($bbs_code){
                             <thead>
                                 <th>
                                     제목
+                                    <i class="fas fa-plus fa-pull-right" onclick="location.href='board_write.php?<?=$total_param?>' " ></i>
                                 </th>
                             </thead>
                             <tbody>
@@ -213,7 +214,7 @@ if($bbs_code){
                                 $ad_cate_name1 = $row_sub_notice_2['cate_name1'];
                                 ?>
                                 <tr>
-                                    <td>
+                                    <td onclick="location.href='board_view.php?idx=<?=$row['idx']?>&<?=$total_param?>'; ">
                                         <?=$row[subject]?>
                                     </td>
                                 </tr>

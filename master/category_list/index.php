@@ -33,7 +33,7 @@ $category_idx = trim(sqlfilter($_REQUEST['idx']));
 ################## 파라미터 조합 #####################
 $total_param = 'bmenu='.$bmenu.'&smenu='.$smenu.'&field='.$field.'&keyword='.$keyword.'&v_sect='.$v_sect.'&s_gubun='.$s_gubun.'&s_level='.$s_level.'&s_gender='.$s_gender.'&s_sect1='.$s_sect1.'&s_sect2='.$s_sect2.'&s_cnt='.$s_cnt.'&s_order='.$s_order."&idx=".$category_idx;
 
-$query = "SELECT report.idx AS report_idx, report.content_text, member.real_name, member.file_chg, category.category_name, sub_category.sub_name  FROM report_list AS report, member_info AS member, report_categories AS category, report_sub_categories AS sub_category WHERE report.member_idx=member.idx AND report.category=category.idx AND report.sub_category=sub_category.idx AND report.category=".$category_idx;
+$query = "SELECT report.idx AS report_idx, report.content_text, report.report_hashtag, member.real_name, member.file_chg, category.category_name  FROM report_list AS report, member_info AS member, report_categories AS category WHERE report.member_idx=member.idx AND report.category=category.idx AND report.category=".$category_idx;
 
 if (str_replace(" ","", $keyword) != "") {
     if ($sub_category == "category") {
@@ -165,11 +165,9 @@ $jaeboham = mysqli_fetch_assoc($category_result);
                                             <div class="card" >
                                                 <div class="card-header table" >
                                                     <div style="display: table-cell; " >
-                                                        <img width="40" src="../../upload_file/member/<?=$row['file_chg']?>" ><?=$row['real_name']?> <?=$row['report_idx']?>번째 제보 | #<?=$row['category_name']?> #<?=$row['sub_name']?>
+                                                        <img width="40" src="../../upload_file/member/<?=$row['file_chg']?>" ><?=$row['real_name']?> <?=$row['report_idx']?>번째 제보 | <?=$row['report_hashtag']?>
                                                     </div>
-                                                    <div style="display: table-cell; text-align: left; " >
-                                                        <input type="checkbox" name="report_idx[]" value="<?=$row['report_idx']?>" >
-                                                    </div>
+
                                                     <div class="dropdown" style="display: table-cell; vertical-align: middle; " >
                                                         <button type="button" id="menu_btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border: none; background-color: transparent; display: table; vertical-align: middle" >
                                                             <img src="../../master/images/common/dot.png" style=" display: table-row; margin-bottom: 2px; ">
@@ -187,6 +185,27 @@ $jaeboham = mysqli_fetch_assoc($category_result);
                                                         <?=$row['content_text']?>
                                                     </p>
                                                 </div>
+                                                <?
+                                                $child_comment_query = "SELECT report.*, member.file_chg, member.real_name FROM report_comments AS report, member_info AS member WHERE report.del_yn='N' AND report.report_idx=".$row['report_idx']." AND member.idx=report.member_idx";
+                                                $child_result = mysqli_query($gconnet, $child_comment_query);
+                                                ?>
+                                            </div>
+                                            <div>
+                                                댓글
+                                                <table class="" id="dataTable" width="100%" cellspacing="0">
+                                                    <?while ($child_row = mysqli_fetch_assoc($child_result)) {?>
+                                                        <tr>
+                                                            <td>
+                                                                <div>
+                                                                    <img width="30" src="../../upload_file/member/<?=$child_row['file_chg']?>"><?=$child_row['real_name']?>
+                                                                </div>
+                                                                <div>
+                                                                    <?=$child_row['comment_txt']?>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    <?}?>
+                                                </table>
                                             </div>
                                         </td>
                                     </tr>

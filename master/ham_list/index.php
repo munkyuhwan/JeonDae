@@ -31,7 +31,7 @@ $s_order = trim(sqlfilter($_REQUEST['s_order'])); // 목록 정렬
 ################## 파라미터 조합 #####################
 $total_param = 'bmenu='.$bmenu.'&smenu='.$smenu.'&field='.$field.'&keyword='.$keyword.'&v_sect='.$v_sect.'&s_gubun='.$s_gubun.'&s_level='.$s_level.'&s_gender='.$s_gender.'&s_sect1='.$s_sect1.'&s_sect2='.$s_sect2.'&s_cnt='.$s_cnt.'&s_order='.$s_order;
 
-$query = "SELECT report.idx AS report_idx, report.content_text, report.report_hashtag, member.real_name, member.file_chg  FROM report_list AS report, member_info AS member WHERE report.del_yn='N' AND report.member_idx=member.idx ";
+$query = "SELECT report.idx AS report_idx, report.content_text, report.report_hashtag, report.category, report.likes, member.real_name, member.file_chg  FROM report_list AS report, member_info AS member WHERE report.del_yn='N' AND report.member_idx=member.idx ";
 $query_limit .= $query." LIMIT ".$StarRowNum." , ".$EndRowNum ;
 $result = mysqli_query($gconnet,$query_limit);
 
@@ -170,6 +170,16 @@ $totalpage	= ($iTotalSubCnt - 1)/$pageScale  + 1;
                                                 <p class="sorting_1">
                                                     <?=$row['content_text']?>
                                                 </p>
+                                                <div>
+                                                    <?= $row['category']==null || $row['category']==0 ? "<span style='font-size: 10px; color: red;'>미발행</span>":"<span  style='font-size: 10px; color: blue;'>발행</span>" ?>
+                                                    <span>추천수 <?=$row['likes']?> </span>
+                                                    <?
+                                                        $child_comment_query = "SELECT COUNT(*) cnt FROM report_comments WHERE del_yn='N' AND report_idx=".$row['report_idx'];
+                                                        $child_result = mysqli_query($gconnet, $child_comment_query);
+                                                        $child_row = mysqli_fetch_assoc($child_result);
+                                                    ?>
+                                                    <span>댓글수 <?=$child_row['cnt']?></span>
+                                                </div>
                                             </div>
                                         </div>
                                     </td>

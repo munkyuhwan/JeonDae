@@ -99,7 +99,7 @@ $result = mysqli_query($gconnet,$query);
                                 $row = mysqli_fetch_array($result);?>
                                 <tr onclick="location.href='../category_list?idx=<?=$row['idx']?>'; ">
                                     <td>
-                                        <?=$row['category_name']?>
+                                        <img width="30" src="../../upload_file/category_profile/<?=$row['profile_img']?>"><?=$row['category_name']?>
                                     </td>
                                 </tr>
                             <?}?>

@@ -35,7 +35,9 @@ $query .= "real_name = '".$user_name."', ";
 $query .= "gender = '".$gender."', ";
 $query .= "birthday = '".$year_birth."', ";
 $query .= "clean_filter = ".$clean_filter." ";
-$query .= "file_chg = ".$file_c." ";
+if ($_FILES['profile_img']['size']>0) {
+    $query .= "file_chg = '" . $file_c . "' ";
+}
 
 $result = mysqli_query($gconnet,$query);
 $member_id = 0;
@@ -54,10 +56,10 @@ $hashtag = trim(sqlfilter($_REQUEST['hashtag']));
 
 foreach ($subscribes as $k=>$v) {
 
-    $sub_category_query = "SELECT idx FROM report_sub_categories WHERE del_yn='N' AND report_id=".$v;
+    $sub_category_query = "SELECT idx FROM report_sub_categories WHERE del_yn='N' AND report_idx=".$v;
     $sub_result = mysqli_query($gconnet,$sub_category_query);
     while ($row = mysqli_fetch_row($sub_result) ) {
-        $insert_subscribe_list  = "INSERT INTO subscribe_list SET category_id=".$v.", sub_category_id=".$row[0].", member_id=".$member_id;
+        $insert_subscribe_list  = "INSERT INTO subscribe_list SET category_idx=".$v.", sub_category_idx=".$row[0].", member_idx=".$member_id;
         $inser_sub_result = mysqli_query($gconnet,$insert_subscribe_list);
     }
 
@@ -65,7 +67,7 @@ foreach ($subscribes as $k=>$v) {
 
 $hatag_array = explode(',', $hashtag);
 foreach ($hatag_array as $k=>$v) {
-    $insert_hashtag  = "INSERT INTO user_hashtags SET "." member_id=".$member_id.", hash_tag='".$v."'";
+    $insert_hashtag  = "INSERT INTO user_hashtags SET "." member_idx=".$member_id.", hash_tag='".$v."'";
     $insert_hashtag_result = mysqli_query($gconnet,$insert_hashtag);
 }
 
@@ -118,7 +120,7 @@ if($result){
         <!--
         alert('등록이 정상적으로 완료 되었습니다.');
         //parent.location.href =  "member_list.php?<?=$total_param?>";
-        parent.location.href =  "../main/?bmenu=3&smenu=1";
+        parent.location.href =  "../members/?bmenu=3&smenu=1";
         //-->
     </SCRIPT>
 <?}else{?>

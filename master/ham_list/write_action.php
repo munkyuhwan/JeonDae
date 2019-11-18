@@ -9,18 +9,17 @@ $publish_interval = trim(sqlfilter($_REQUEST['publish_interval']));
 $page_info_query = "SELECT app_id,app_secret,page_id FROM report_categories WHERE idx=".$publish_page;
 $page_info_result = mysqli_query($gconnet, $page_info_query);
 $fbInfo = mysqli_fetch_assoc($page_info_result);
-
 //print_r($fbInfo);
 
-$accessTokenJson = getAccessToken($fbInfo['app_id'], $fbInfo['app_secret']);
+//$accessTokenJson = getAccessToken($fbInfo['app_id'], $fbInfo['app_secret']);
 //print_r($accessTokenJson);
-$accessToken =  $accessTokenJson['access_token'];
-echo $accessToken;
+//$accessToken =  $accessTokenJson['access_token'];
+
 //print_r($selected_report);
 
 foreach ($selected_report as $v) {
     $query = "UPDATE report_list SET";
-    $query .= " published_category = ".$publish_page.", ";
+    $query .= " category = ".$publish_page.", ";
     $query .= " published_yn = 'Y', ";
     $query .= " publish_time = ".$publish_time.", ";
     $query .= " publish_interval = ".$publish_interval." ";
@@ -33,7 +32,7 @@ foreach ($selected_report as $v) {
     $fbContentText = mysqli_fetch_assoc($fbContentResult);
 
     $contents = $fbContentText['content_text'];
-    uploadToFB($fbInfo['app_id'], $accessToken, $contents, $fbInfo['page_id']);
+    //uploadToFB($fbInfo['app_id'], $accessToken, $contents, $fbInfo['page_id']);
 
     //echo $contents."<br><br>";
 }
@@ -84,7 +83,7 @@ function getAccessToken($appID, $appSecret) {
     return  json_decode($result, true) ;
 }
 
-/*
+
 if($result){
     ?>
     <SCRIPT LANGUAGE="JavaScript">
@@ -101,7 +100,7 @@ if($result){
         //-->
     </SCRIPT>
 <?}
-*/
+
 
 
 ?>
