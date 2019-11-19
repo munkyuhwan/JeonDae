@@ -12,7 +12,13 @@ error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING ^ E_DEPRECATED);
 ini_set("display_errors", "1");  
 //@ini_set("allow_url_fopen ", true);
 //오류 코드 - 없는 변수를 출력하라고 
-
+if ($_SESSION['idx'] == '') {
+	/*?>
+<script type="application/javascript">
+	location.replace("<?=$_SERVER['DOCUMENT_ROOT']?>/intro");
+</script>
+<?*/
+}
 //echo $_SERVER["HTTP_HOST"];
 if($_SERVER["HTTP_HOST"] == "besuit.net"){
 	//header('Location: https://besuit.co.kr'.$_SERVER['REQUEST_URI']);
@@ -21,7 +27,7 @@ if($_SERVER["HTTP_HOST"] == "besuit.net"){
 	//	header('Location: https://'.$_SERVER["HTTP_HOST"].$_SERVER['REQUEST_URI']);
 	}
 }
-
+$TMP_ROOT = "https://3359fda6.ngrok.io";
 include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/user_function.php"; // PHP 유저 함수 모음 
 //include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/erp_db_conn.php"; 
 include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/db_conn.php"; 
@@ -82,56 +88,6 @@ $include_current_month_s = date("Y-m")."-01";
 $include_current_month_e = date("Y-m")."-31";
 $include_current_time = date("Hi");
 
-		if($_SESSION['member_coinc_age'] < 10){
-			$include_member_age = "1";
-		} elseif($_SESSION['member_coinc_age'] >= 10 && $_SESSION['member_coinc_age'] < 20){
-			$include_member_age = "10";
-		} elseif($_SESSION['member_coinc_age'] >= 20 && $_SESSION['member_coinc_age'] < 30){
-			$include_member_age = "20";
-		} elseif($_SESSION['member_coinc_age'] >= 30 && $_SESSION['member_coinc_age'] < 40){
-			$include_member_age = "30";
-		} elseif($_SESSION['member_coinc_age'] >= 40 && $_SESSION['member_coinc_age'] < 50){
-			$include_member_age = "40";
-		} elseif($_SESSION['member_coinc_age'] >= 50 && $_SESSION['member_coinc_age'] < 60){
-			$include_member_age = "50";
-		} elseif($_SESSION['member_coinc_age'] >= 60 && $_SESSION['member_coinc_age'] < 70){
-			$include_member_age = "60";
-		} elseif($_SESSION['member_coinc_age'] >= 70 && $_SESSION['member_coinc_age'] < 80){
-			$include_member_age = "70";
-		} elseif($_SESSION['member_coinc_age'] >= 80 && $_SESSION['member_coinc_age'] < 90){
-			$include_member_age = "80";
-		}
 
-$inc_mem_cate_query = "select cate_code1,cate_name1,file_c from viva_cate where 1 and set_code='memcat' and cate_level = '1' and is_del='N' order by cate_align desc"; 
-$inc_mem_cate_result = mysqli_query($gconnet,$inc_mem_cate_query);
-for ($inc_mem_cate_i=0; $inc_mem_cate_i<mysqli_num_rows($inc_mem_cate_result); $inc_mem_cate_i++){
-	$inc_mem_cate_row = mysqli_fetch_array($inc_mem_cate_result);
-	if($inc_mem_cate_i == mysqli_num_rows($inc_mem_cate_result)-1){
-		$inc_mem_cate_value .= $inc_mem_cate_row['cate_code1'];
-		$inc_mem_cate_txt .= $inc_mem_cate_row['cate_name1'];
-		$inc_mem_cate_img .= $inc_mem_cate_row['file_c'];
-	} else {
-		$inc_mem_cate_value .= $inc_mem_cate_row['cate_code1'].",";
-		$inc_mem_cate_txt .= $inc_mem_cate_row['cate_name1'].",";
-		$inc_mem_cate_img .= $inc_mem_cate_row['file_c'].",";
-	}
-}
-$inc_mem_cate_value_arr = explode(",",$inc_mem_cate_value);
-$inc_mem_cate_txt_arr = explode(",",$inc_mem_cate_txt);
-$inc_mem_cate_img_arr = explode(",",$inc_mem_cate_img);
 
-$inc_mem_hash_query = "select cate_code1,cate_name1 from viva_cate where 1 and set_code='memhas' and cate_level = '1' and is_del='N' order by cate_align desc"; 
-$inc_mem_hash_result = mysqli_query($gconnet,$inc_mem_hash_query);
-for ($inc_mem_hash_i=0; $inc_mem_hash_i<mysqli_num_rows($inc_mem_hash_result); $inc_mem_hash_i++){
-	$inc_mem_hash_row = mysqli_fetch_array($inc_mem_hash_result);
-	if($inc_mem_hash_i == mysqli_num_rows($inc_mem_hash_result)-1){
-		$inc_mem_hash_value .= $inc_mem_hash_row['cate_code1'];
-		$inc_mem_hash_txt .= $inc_mem_hash_row['cate_name1'];
-	} else {
-		$inc_mem_hash_value .= $inc_mem_hash_row['cate_code1'].",";
-		$inc_mem_hash_txt .= $inc_mem_hash_row['cate_name1'].",";
-	}
-}
-$inc_mem_hash_value_arr = explode(",",$inc_mem_hash_value);
-$inc_mem_hash_txt_arr = explode(",",$inc_mem_hash_txt);
 ?>

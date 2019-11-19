@@ -161,37 +161,10 @@ $num = count($cnt);
                 <?}?>
             </ul>
         </div>
-        <a href="sub_write.html" class="post_write_btn"></a>
+        <a href="../sub_write" class="post_write_btn"></a>
     </section>
 </div>
-<div class="snb">
-    <div class="snb_wrap">
-        <div class="snb_top user_wrap">
-            <div class="user_img">
-                <img src="../images/img_sample2.jpg" alt="유저 사진">
-            </div>
-            <div class="user_name">
-                김충분
-            </div>
-            <div class="user_tag">
-                <button type="button">#서울</button><button type="button">#구리시</button><button type="button">#구리시</button>
-            </div>
-            <div class="user_certi">
-                <span class="certi1">학교인증</span>
-                <span class="certi2 on">지역인증</span>
-            </div>
-        </div>
-        <div class="snb_mid">
-            <ul>
-                <li class="snb_menu1"><a href="sub_mypage1.html"><p><img src="../images/icon_snb_menu1.png" width="16" alt=""></p> 내가 제보한 글</a></li>
-                <li class="snb_menu2"><a href="sub_mypage2.html"><p><img src="../images/icon_snb_menu2.png" width="10" alt=""></p> 스크랩 한 글</a></li>
-                <li class="snb_menu3"><a href="sub_mypage3.html"><p><img src="../images/icon_snb_menu3.png" width="15" alt=""></p> 구독관리</a></li>
-                <li class="snb_menu4"><a href="sub_mypage4.html"><p><img src="../images/icon_snb_menu4.png" width="15" alt=""></p> 일반설정</a></li>
-            </ul>
-        </div>
-        <button type="button" class="snb_close"></button>
-    </div>
-</div>
+<? include $_SERVER['DOCUMENT_ROOT']."/include/gnb.php" ?>
 <div class="popup post_pop">
     <div class="popup_wrap post_btn">
         <div class="post_btn_wrap">
