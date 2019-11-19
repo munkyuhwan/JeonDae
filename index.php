@@ -1,5 +1,4 @@
 <? include $_SERVER['DOCUMENT_ROOT']."/include/head.php"; ?>
-<? include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/include_default.php"; // 공통함수 인클루드 ?>
 <?
 $block = 10;
 $scroll_num = 0;
