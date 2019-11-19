@@ -1,6 +1,14 @@
 <? include $_SERVER['DOCUMENT_ROOT'] . "/include/head.php" ?>
 <?
+$block = 10;
+$scroll_num = 0;
+$query = "SELECT report.idx AS report_idx, report.wdate, report.content_text, report.report_hashtag, report.likes, (SELECT COUNT(*) AS cnt FROM report_comments WHERE report_idx=report.idx) AS comment_cnt,  member.real_name, member.file_chg  FROM report_list AS report, member_info AS member WHERE report.del_yn='N' AND report.member_idx=member.idx ";
+$query_limit .= $query." LIMIT ".($block*$scroll_num)." , ".$block ;
+$result = mysqli_query($gconnet,$query_limit);
 
+$cnt_result = mysqli_query($gconnet,$query);
+$cnt = mysqli_fetch_all($cnt_result);
+$num = count($cnt);
 
 ?>
 <body>
@@ -23,232 +31,134 @@
     <section class="main_section">
         <div class="list_wrap">
             <ul>
-                <li class="item">
-                    <div class="item_top user_box">
-                        <div class="prf_box">
-                            <img src="../images/img_sample2.jpg" alt="">
-                        </div>
-                        <div class="info_box ">
-                            <p class="name">사나</p>
-                            <div class="etc_info">
-                                <p>8월 20일 오후 6:18</p><p>N번째 제보</p><button type="button">#구리시</button><button type="button">#20대</button>
+                <?while($row = mysqli_fetch_assoc($result)) {?>
+                    <li class="item">
+                        <div class="item_top user_box">
+                            <div class="prf_box">
+                                <img src="../upload_file/member/<?=$row['file_chg']?>" alt="">
                             </div>
-                        </div>
-                        <button type="button" class="pop_call" data-pop="post_pop"></button>
-                    </div>
-                    <div class="item_mid">
-                        <div class="text_box">
-                            <p> 위 사진 오른쪽 지갑을 2019년 11월 2일 토요일 태안-> 부천 방향
-                                충남고속 고속버스에서 잃어버렸어요 </p>
-                            <button type="button" class="more_btn">...더보기</button>
-                        </div>
-                        <div class="img_wrap">
-                            <div class="flex_wrap">
-                                <div class="flex2_wrap item2">
-                                    <a href="#" class="pop_call" data-pop="img_pop">
-                                        <img src="../images/img_sample5.jpg" alt="">
-                                    </a>
-                                    <a href="#" class="pop_call" data-pop="img_pop">
-                                        <img src="../images/img_sample4.jpg" alt="">
-                                    </a>
-                                </div>
-                                <div class="flex2_wrap item3">
-                                    <a href="#" class="pop_call" data-pop="img_pop">
-                                        <img src="../images/img_sample5.jpg" alt="">
-                                    </a>
-                                    <a href="#" class="pop_call" data-pop="img_pop">
-                                        <img src=../"images/img_sample6.jpg" alt="">
-                                    </a>
-                                    <a href="#" class="pop_call" data-pop="img_pop">
-                                        <img src="../images/img_sample6.jpg" alt="">
-                                    </a>
+                            <div class="info_box ">
+                                <p class="name"><?=$row['real_name']?></p>
+                                <div class="etc_info">
+                                    <p><?=date("m월 d일 h:i", strtotime($row['wdate']) )?></p><p><?=$row['report_idx']?>번째 제보</p>
+                                    <?$hashtags = explode(",",$row['report_hashtag'])?>
+                                    <?foreach($hashtags as $v) {?>
+                                        <button type="button"><?=$v?></button>
+                                    <?}?>
                                 </div>
                             </div>
+                            <button type="button" class="pop_call" data-pop="post_pop"></button>
                         </div>
-                        <div class="btn_box">
-                            <button type="button" class="like_btn">26</button>
-                            <span class="reply_cnt">15</span>
-                        </div>
-                    </div>
-                    <div class="item_bot">
-                        <div class="reply_list">
-                            <button type="button" class="reply_all">댓글 <span>00</span>개 모두 보기</button>
-                            <ul>
-                                <li class="reply_item user_box">
-                                    <div class="reply_inner">
-                                        <div class="prf_box">
-                                            <img src="../images/img_sample2.jpg" alt="">
-                                        </div>
-                                        <div class="info_box ">
-                                            <div class="reply_top"><p class="name">사나</p><p class="reply_txt">얼른 지갑 찾으시길 바래요..</p></div>
-                                            <div class="etc_info">
-                                                <p>8월 20일 오후 6:18</p><button type="button">답글 달기</button>
-                                            </div>
-                                        </div>
-                                        <button type="button" class="like_btn"></button>
-                                    </div>
-                                    <ul>
-                                        <li class="reply_item user_box">
-                                            <div class="reply_inner">
-                                                <div class="prf_box">
-                                                    <img src="../images/img_sample2.jpg" alt="">
-                                                </div>
-                                                <div class="info_box ">
-                                                    <div class="reply_top"><p class="name">사나</p><p class="reply_txt">얼른 지갑 찾으시길 바래요..얼른 지갑 찾으시길 바래요..얼른 지갑 찾으시길 바래요..얼른 지갑 찾으시길 바래요..얼른 지갑 찾으시길 바래요..</p></div>
-                                                    <div class="etc_info">
-                                                        <p>8월 20일 오후 6:18</p><button type="button">답글 달기</button>
-                                                    </div>
-                                                </div>
-                                                <button type="button" class="like_btn"></button>
-                                            </div>
-                                            <ul>
-                                                <li class="reply_item user_box">
-                                                    <div class="reply_inner">
-                                                        <div class="prf_box">
-                                                            <img src="../images/img_sample2.jpg" alt="">
-                                                        </div>
-                                                        <div class="info_box ">
-                                                            <div class="reply_top"><p class="name">사나</p><p class="reply_txt">얼른 지갑 찾으시길 바래요..</p></div>
-                                                            <div class="etc_info">
-                                                                <p>8월 20일 오후 6:18</p><button type="button">답글 달기</button>
-                                                            </div>
-                                                        </div>
-                                                        <button type="button" class="like_btn"></button>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
+                        <div class="item_mid">
+                            <div class="text_box">
+                                <p><?=$row['content_text']?></p>
+                                <button type="button" class="more_btn">...더보기</button>
+                            </div>
+                            <div class="img_wrap">
+                                <div class="flex_wrap">
 
-                        </div>
-                    </div>
-                    <div class="item_reply_input">
-                        <div class="prf_box">
-                            <img src="../images/img_sample2.jpg" alt="">
-                        </div>
-                        <div class="input_box">
-                            <form action="">
-                                <input type="text" placeholder="댓글 달기...">
-                                <button type="button">게시</button>
-                            </form>
-                        </div>
-                    </div>
-                </li>
-                <li class="item">
-                    <div class="item_top user_box">
-                        <div class="prf_box">
-                            <img src="../images/img_sample2.jpg" alt="">
-                        </div>
-                        <div class="info_box ">
-                            <p class="name">사나</p>
-                            <div class="etc_info">
-                                <p>8월 20일 오후 6:18</p><p>N번째 제보</p><button type="button">#구리시</button><button type="button">#20대</button>
-                            </div>
-                        </div>
-                        <button type="button" class="pop_call" data-pop="post_pop"></button>
-                    </div>
-                    <div class="item_mid">
-                        <div class="text_box">
-                            <p> 위 사진 오른쪽 지갑을 2019년 11월 2일 토요일 태안-> 부천 방향
-                                충남고속 고속버스에서 잃어버렸어요 </p>
-                            <button type="button" class="more_btn">...더보기</button>
-                        </div>
-                        <div class="img_wrap">
-                            <div class="flex_wrap">
-                                <div class="flex2_wrap item2">
-                                    <a href="">
-                                        <img src="../images/img_sample5.jpg" alt="">
-                                    </a>
-                                    <a href="">
-                                        <img src="../images/img_sample4.jpg" alt="">
-                                    </a>
-                                </div>
-                                <div class="flex2_wrap item3">
-                                    <a href="">
-                                        <img src="../images/img_sample5.jpg" alt="">
-                                    </a>
-                                    <a href="">
-                                        <img src="../images/img_sample6.jpg" alt="">
-                                    </a>
-                                    <a href="">
-                                        <img src="../images/img_sample6.jpg" alt="">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="btn_box">
-                            <button type="button" class="like_btn">26</button>
-                            <span class="reply_cnt">15</span>
-                        </div>
-                    </div>
-                    <div class="item_bot">
-                        <div class="reply_list">
-                            <button type="button" class="reply_all">댓글 <span>00</span>개 모두 보기</button>
-                            <ul>
-                                <li class="reply_item user_box">
-                                    <div class="reply_inner">
-                                        <div class="prf_box">
-                                            <img src="../images/img_sample2.jpg" alt="">
-                                        </div>
-                                        <div class="info_box ">
-                                            <div class="reply_top"><p class="name">사나</p><p class="reply_txt">얼른 지갑 찾으시길 바래요..</p></div>
-                                            <div class="etc_info">
-                                                <p>8월 20일 오후 6:18</p><button type="button">답글 달기</button>
-                                            </div>
-                                        </div>
-                                        <button type="button" class="like_btn"></button>
+                                    <div class="flex2_wrap item2">
+                                        <a href="">
+                                            <img src="../images/img_sample5.jpg" alt="">
+                                        </a>
+                                        <a href="">
+                                            <img src="../images/img_sample4.jpg" alt="">
+                                        </a>
                                     </div>
-                                    <ul>
-                                        <li class="reply_item user_box">
-                                            <div class="reply_inner">
-                                                <div class="prf_box">
-                                                    <img src="../images/img_sample2.jpg" alt="">
-                                                </div>
-                                                <div class="info_box ">
-                                                    <div class="reply_top"><p class="name">사나</p><p class="reply_txt">얼른 지갑 찾으시길 바래요..</p></div>
-                                                    <div class="etc_info">
-                                                        <p>8월 20일 오후 6:18</p><button type="button">답글 달기</button>
-                                                    </div>
-                                                </div>
-                                                <button type="button" class="like_btn"></button>
+                                    <div class="flex2_wrap item3">
+                                        <a href="">
+                                            <img src="../images/img_sample5.jpg" alt="">
+                                        </a>
+                                        <a href="">
+                                            <img src="../images/img_sample6.jpg" alt="">
+                                        </a>
+                                        <a href="">
+                                            <img src="../images/img_sample6.jpg" alt="">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btn_box">
+                                <button type="button" class="like_btn"><?=$row['likes']?></button>
+                                <span class="reply_cnt"><?=$row['comment_cnt']?></span>
+                            </div>
+                        </div>
+                        <div class="item_bot">
+                            <div class="reply_list">
+                                <?
+                                $comment_query = "SELECT report.comment_txt, report.idx AS comment_idx, report.parent_idx, report.wdate, (SELECT real_name FROM member_info WHERE idx=report.member_idx ) AS member_name, (SELECT file_chg FROM member_info WHERE idx=report.member_idx ) AS file_chg  FROM report_comments AS report WHERE report.del_yn='N' AND parent_idx=0 AND report.report_idx=".$row['report_idx']." ORDER BY idx DESC LIMIT 0,2";
+                                $comment_res = mysqli_query($gconnet, $comment_query);
+                                ?>
+                                <button type="button" class="reply_all">댓글 <span><?=$row['comment_cnt']?></span>개 모두 보기</button>
+                                <ul>
+                                    <?while ($r = mysqli_fetch_assoc($comment_res)) {?>
+                                    <li class="reply_item user_box">
+                                        <div class="reply_inner">
+                                            <div class="prf_box">
+                                                <img src="../upload_file/member/<?=$row['file_chg']?>" alt="">
                                             </div>
+                                            <div class="info_box ">
+                                                <div class="reply_top"><p class="name"><?=$r['member_name']?></p><p class="reply_txt"><?=$r['comment_txt']?></p></div>
+                                                <div class="etc_info">
+                                                    <p><?=date("m월 d일 h:i", strtotime($r['wdate']) )?></p><button type="button">답글 달기</button>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="like_btn"></button>
+                                        </div>
+                                        <?
+                                        $sub_comment_query = "SELECT report.comment_txt, report.idx AS comment_idx, report.wdate, (SELECT real_name FROM member_info WHERE idx=report.member_idx ) AS member_name,(SELECT file_chg FROM member_info WHERE idx=report.member_idx ) AS file_chg  FROM report_comments AS report WHERE report.del_yn='N' AND parent_idx=".$r['comment_idx']." ORDER BY idx DESC LIMIT 0,2";
+                                        $sub_comment_res = mysqli_query($gconnet, $sub_comment_query);
+                                        ?>
+                                        <? if (mysqli_num_rows($sub_comment_res) > 0 ) {?>
                                             <ul>
-                                                <li class="reply_item user_box">
-                                                    <div class="reply_inner">
-                                                        <div class="prf_box">
-                                                            <img src="../images/img_sample2.jpg" alt="">
-                                                        </div>
-                                                        <div class="info_box ">
-                                                            <div class="reply_top"><p class="name">사나</p><p class="reply_txt">얼른 지갑 찾으시길 바래요..</p></div>
-                                                            <div class="etc_info">
-                                                                <p>8월 20일 오후 6:18</p><button type="button">답글 달기</button>
+                                                <?while ($sub_row = mysqli_fetch_assoc($sub_comment_res) ) {?>
+                                                    <?//=print_r($sub_row)?>
+                                                    <li class="reply_item user_box">
+                                                        <div class="reply_inner">
+                                                            <div class="prf_box">
+                                                                <img src="../upload_file/member/<?=$row['file_chg']?>" alt="">
                                                             </div>
+                                                            <div class="info_box ">
+                                                                <div class="reply_top"><p class="name"><?=$sub_row['member_name']?></p><p class="reply_txt"><?=$sub_row['comment_txt']?></p></div>
+                                                                <div class="etc_info">
+                                                                    <p><?=date("m월 d일 h:i", strtotime($sub_row['wdate']) )?></p><button type="button">답글 달기</button>
+                                                                </div>
+                                                            </div>
+                                                            <button type="button" class="like_btn"></button>
                                                         </div>
-                                                        <button type="button" class="like_btn"></button>
-                                                    </div>
-                                                </li>
+                                                    </li>
+                                                    <?
+                                                    if (mysqli_num_rows($sub_comment_res) > 2) {
+                                                        break;
+                                                    }
+                                                    ?>
+                                                <?}?>
                                             </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
+                                        <?}?>
 
+
+                                    </li>
+                                    <?}?>
+
+
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <div class="item_reply_input">
-                        <div class="prf_box">
-                            <img src="../images/img_sample2.jpg" alt="">
+                        <div class="item_reply_input">
+                            <div class="prf_box">
+                                <img src="images/img_sample2.jpg" alt="">
+                            </div>
+                            <div class="input_box">
+                                <form action="write_comment_action.php" method="post" name="frm">
+                                    <input type="text" name="content_txt" required >
+                                    <input type="hidden" name="report_idx" id="report_idx" value="<?=$row['report_idx']?>" >
+                                    <input type="hidden" name="parent_idx" id="parent_idx" >
+                                    <button type="submit">게시</button>
+                                </form>
+                            </div>
                         </div>
-                        <div class="input_box">
-                            <form action="">
-                                <input type="text" placeholder="댓글 달기...">
-                                <button type="button">게시</button>
-                            </form>
-                        </div>
-                    </div>
-                </li>
+                    </li>
+                <?}?>
             </ul>
         </div>
         <a href="sub_write.html" class="post_write_btn"></a>
