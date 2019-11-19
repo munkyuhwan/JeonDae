@@ -67,7 +67,7 @@ select::-ms-expand { display:none; }
     50% { background-size: 100% 100%;  }
     100% { background-size: 150% 150%;  } 
 }
-@-moz-keyframes full_bg { 
+@-moz-keyframes full_bg {
     0% { background-position:0% 100%  }
     50% { background-position:100% 100%;  }
     100% { background-position:0% 100%;  } 
