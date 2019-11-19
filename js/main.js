@@ -81,6 +81,10 @@ $(document).ready(function(){
 			$(this).remove();
 		});
 	});
+	/* 검색 */
+	$(".sc_option .option_btn").on("click",function(){
+		$(".sc_option").toggleClass("on");
+	});
 });
 
 
