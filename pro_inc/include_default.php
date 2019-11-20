@@ -20,7 +20,7 @@ if ($_SESSION['idx'] == '') {
 <?*/
 }
 
-$profile_img = $_SERVER['DOCUMENT_ROOT']."/upload_file/member/".$_SESSION['profile_img'];
+$profile_img = "../upload_file/member/".$_SESSION['profile_img'];
 //echo $_SERVER["HTTP_HOST"];
 if($_SERVER["HTTP_HOST"] == "besuit.net"){
 	//header('Location: https://besuit.co.kr'.$_SERVER['REQUEST_URI']);
