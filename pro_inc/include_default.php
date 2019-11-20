@@ -12,7 +12,7 @@ error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING ^ E_DEPRECATED);
 ini_set("display_errors", "1");  
 //@ini_set("allow_url_fopen ", true);
 //오류 코드 - 없는 변수를 출력하라고 
-if ($_SESSION['idx'] == '') {
+if ($_SESSION['user_access_idx'] == '') {
 	/*?>
 <script type="application/javascript">
 	location.replace("<?=$_SERVER['DOCUMENT_ROOT']?>/intro");
@@ -29,7 +29,7 @@ if($_SERVER["HTTP_HOST"] == "besuit.net"){
 	//	header('Location: https://'.$_SERVER["HTTP_HOST"].$_SERVER['REQUEST_URI']);
 	}
 }
-$TMP_ROOT = "https://3359fda6.ngrok.io";
+//$TMP_ROOT = "https://3359fda6.ngrok.io";
 include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/user_function.php"; // PHP 유저 함수 모음 
 //include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/erp_db_conn.php"; 
 include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/db_conn.php"; 

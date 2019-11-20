@@ -2,10 +2,11 @@
 
 <body>
 <div class="wrapper">
+    <form name="frm" action="write_action.php" method="post" enctype="multipart/form-data" >
     <header>
         <div class="header grd_bg write">
             <h1 class="hidden">제보하기</h1>
-            <button type="button" class="complte_btn">제보</button>
+            <button type="submit" class="complte_btn">제보</button>
             <button type="button" class="pop_call cancle_btn" data-pop="confirm_pop">취소</button>
             <button type="button" class="pop_call temp_list_btn" data-pop="temp_pop" style="display:none">임시보관함</button>
         </div>
@@ -14,7 +15,7 @@
         <div class="wirte_wrap">
             <div class="write_top">
                 <div class="prf_box">
-                    <img src="../images/img_sample2.jpg" alt="">
+                    <img src="<?=$profile_img?>" alt="">
                 </div>
                 <textarea name="" id="" cols="" rows="" placeholder="어떤 이야기를 제보해 주시겠어요?"></textarea>
             </div>
@@ -23,7 +24,8 @@
                     <textarea name="" id="" placeholder="태그를 입력해주세요. 예) #성동구 #홍대"></textarea>
                 </div>
                 <div class="add_wrap">
-                    <button type="button" class="add_img_btn"></button>
+                    <input type="file" id="add_pic" name="add_pic" >
+                    <button type="button" class="add_img_btn" onclick="$('#add_pic').click(); "></button>
                     <!-- 이미지 추가 -->
                     <div class="added_img">
                         <img src="../images/img_sample2.jpg" alt="">
@@ -47,6 +49,8 @@
             </div>
         </div>
     </section>
+    </form>
+
 </div>
 <div class="popup confirm_pop">
     <div class="popup_wrap post_btn">

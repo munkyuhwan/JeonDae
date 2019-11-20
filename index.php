@@ -10,7 +10,6 @@ $cnt_result = mysqli_query($gconnet,$query);
 $cnt = mysqli_fetch_all($cnt_result);
 $num = count($cnt);
 
-
 ?>
 <body>
 <div class="wrapper">

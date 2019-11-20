@@ -1,4 +1,17 @@
 <? include $_SERVER['DOCUMENT_ROOT'] . "/include/head.php" ?>
+<?
+
+$_SESSION['user_access_idx'] = 51;
+
+$query = "SELECT idx, real_name, file_chg FROM member_info WHERE idx=".$_SESSION['user_access_idx'] ;
+$result = mysqli_query($gconnet, $query);
+$row = mysqli_fetch_assoc($result);
+
+
+$_SESSION['user_access_name'] = $row['real_name'];
+$_SESSION['profile_img'] = $row['file_chg'];
+echo "<script>location.replace('../main1');</script>";
+?>
 <body>
 <div class="wrapper">
     <section class="intro_section grd_bg">
@@ -11,8 +24,6 @@
 <form name="frm" id="frm" action="check_member.php" method="get" >
     <input type="hidden" name="fb_id" id="fb_id" >
 </form>
-</body>
-</html>
 <script>
     window.fbAsyncInit = function() {
         FB.init({
@@ -57,7 +68,7 @@
                 }, {scope: 'public_profile,email'});
             } else {
                 // 그 사람은 Facebook에 로그인하지 않았으므로이 앱에 로그인했는지 여부는 확실하지 않습니다.
-        }
+            }
 
         }, true);
     }
@@ -66,34 +77,35 @@
         $('#fb_id').val(idx);
         $('#frm').submit();
         /*
-        $.ajax({
-            url:"check_member.php",
-            method:"POST",
-            data:{"fb_id":idx},
-            success:function(response) {
+         $.ajax({
+         url:"check_member.php",
+         method:"POST",
+         data:{"fb_id":idx},
+         success:function(response) {
 
-                try {
-                    var res = JSON.parse(response);
-                    console.log(res.result)
-                    if (res.result != true ) {
-                        location.href = '../join/';
-                    }else {
-                        location.href = '../main1/';
-                    }
+         try {
+         var res = JSON.parse(response);
+         console.log(res.result)
+         if (res.result != true ) {
+         location.href = '../join/';
+         }else {
+         location.href = '../main1/';
+         }
 
-                }catch (e) {
+         }catch (e) {
 
-                }
+         }
 
-            },
-            error:function(error) {
+         },
+         error:function(error) {
 
-            }
-        })
-        */
+         }
+         })
+         */
     }
 
 
 
 </script>
-</script>
+</body>
+</html>

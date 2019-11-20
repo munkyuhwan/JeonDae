@@ -6,11 +6,11 @@
                 <img src="../thumb/thumb.php?src=../upload_file/member/<?=$_SESSION['profile_img']?>&size=400x300" alt="유저 사진">
             </div>
             <div class="user_name">
-                <?=$_SESSION['user_name']?>
+                <?=$_SESSION['user_access_name']?>
             </div>
             <div class="user_tag">
                 <?
-                $hashtag_query = "SELECT * FROM user_hashtags WHERE member_idx=".$_SESSION['idx']." LIMIT 0,3";
+                $hashtag_query = "SELECT * FROM user_hashtags WHERE member_idx=".$_SESSION['user_access_idx']." LIMIT 0,3";
                 $hashtag_result = mysqli_query($gconnet, $hashtag_query);
                 ?>
                 <?while($hashtag_row = mysqli_fetch_assoc($hashtag_result) ) { ?>

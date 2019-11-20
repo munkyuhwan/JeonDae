@@ -1,7 +1,6 @@
 <? include $_SERVER['DOCUMENT_ROOT'] . "/include/head.php" ?>
 <?
 
-$_SESSION['user_access_idx'] = $_SESSION['idx'];
 $idx = $_SESSION['user_access_idx'];
 $query = "SELECT * FROM member_info WHERE idx=".$idx;
 $result = mysqli_query($gconnet,$query);
@@ -41,7 +40,7 @@ $current_year = date('Y',time())
             <div class="user_wrap">
                 <div class="user_img_wrap">
                     <div class="user_img">
-                        <img src="../thumb/thumb.php?src=../upload_file/member/<?=$row['file_chg']?>" alt="유저 사진">
+                        <img src="../thumb/thumb.php?src=../upload_file/member/<?=$_SESSION['profile_img']?>&size=400x300" alt="유저 사진">
                     </div>
                     <input type="file" id="img_change">
                     <label for="img_change" class="img_change_btn"></label>
@@ -49,7 +48,7 @@ $current_year = date('Y',time())
             </div>
             <div class="info_row">
                 <p class="info_tlt">이름</p>
-                <div class="info_con name_con"><input type="text" class="" value="<?=$row['real_name']?>"></div>
+                <div class="info_con name_con"><input type="text" class="" value="<?=$_SESSION['user_access_name']?>"></div>
             </div>
             <div class="user_certi">
                 <span class="certi1">학교인증</span>
