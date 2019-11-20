@@ -1,7 +1,22 @@
 <? include $_SERVER['DOCUMENT_ROOT'] . "/include/head.php" ?>
 <?
-$user_idx = $_SESSION['idx'];
-$query = "SELECT real_name, birthday, gender, file_chg, wdate, clean_filter FROM member_info  ";
+
+$_SESSION['user_access_idx'] = $_SESSION['idx'];
+$idx = $_SESSION['user_access_idx'];
+$query = "SELECT * FROM member_info WHERE idx=".$idx;
+$result = mysqli_query($gconnet,$query);
+$row = mysqli_fetch_assoc($result);
+
+$hashtag_query ="SELECT * FROM user_hashtags WHERE member_idx=".$idx;
+$hashtag_result = mysqli_query($gconnet, $hashtag_query);
+
+
+$subscribe_query = "SELECT subscribe.idx, subscribe.category_idx FROM subscribe_list AS subscribe WHERE member_idx=".$idx;
+$subscribe_result = mysqli_query($gconnet, $subscribe_query);
+
+$current_year = date('Y',time())
+
+
 
 ?>
 <body>
@@ -26,7 +41,7 @@ $query = "SELECT real_name, birthday, gender, file_chg, wdate, clean_filter FROM
             <div class="user_wrap">
                 <div class="user_img_wrap">
                     <div class="user_img">
-                        <img src="../images/img_sample2.jpg" alt="유저 사진">
+                        <img src="../thumb/thumb.php?src=../upload_file/member/<?=$row['file_chg']?>" alt="유저 사진">
                     </div>
                     <input type="file" id="img_change">
                     <label for="img_change" class="img_change_btn"></label>
@@ -34,7 +49,7 @@ $query = "SELECT real_name, birthday, gender, file_chg, wdate, clean_filter FROM
             </div>
             <div class="info_row">
                 <p class="info_tlt">이름</p>
-                <div class="info_con name_con"><input type="text" class=""></div>
+                <div class="info_con name_con"><input type="text" class="" value="<?=$row['real_name']?>"></div>
             </div>
             <div class="user_certi">
                 <span class="certi1">학교인증</span>
@@ -42,14 +57,21 @@ $query = "SELECT real_name, birthday, gender, file_chg, wdate, clean_filter FROM
             </div>
             <div class="info_row">
                 <p class="info_tlt">성별</p>
-                <div class="info_con gender"><input type="radio" id="check_male" name="gender"><label for="check_male">남</label><input type="radio" id="check_female" name="gender"><label for="check_female">녀</label></div>
+                <div class="info_con gender">
+                    <input type="radio" id="check_male" <?=$row['gender']=='M' ? "checked":"" ?> name="gender">
+                    <label for="check_male">남</label>
+                    <input type="radio" id="check_female" <?=$row['gender']=='F' ? "checked":"" ?>  name="gender">
+                    <label for="check_female">녀</label>
+                </div>
             </div>
             <div class="info_row">
                 <p class="info_tlt">연령</p>
                 <div class="info_con">
                     <div class="select_div">
                         <select name="" id="">
-                            <option value="1991">1991</option>
+                            <?for($i=$current_year;$i>1950;$i--) {?>
+                                <option value="<?=$i?>" <?=$i==$row['birthday'] ? "selected":"" ?> ><?=$i?></option>
+                            <?}?>
                         </select>
                     </div>
                 </div>
@@ -57,14 +79,16 @@ $query = "SELECT real_name, birthday, gender, file_chg, wdate, clean_filter FROM
             <div class="info_row">
                 <p class="info_tlt">가입일</p>
                 <div class="info_con">
-                    2019.08.08
+                    <?=date("Y.m.d", strtotime($row['wdate']) )?>
                 </div>
             </div>
             <div class="info_row">
                 <p class="info_tlt">관심해시태그</p>
                 <div class="info_con">
                     <div class="selected_tag">
-                        <span>#성동구</span><span>#10대</span><span>#모임</span><span>#자전거</span><span>#성동구</span><span>#10대</span><span>#모임</span><span>#자전거</span>
+                        <?while($hashtag_row = mysqli_fetch_assoc($hashtag_result)) {?>
+                            <span><?=$hashtag_row['hash_tag']?></span>
+                        <?}?>
                         <button type="button" class="tag_arrow"></button>
                     </div>
                     <div class="tag_type">
@@ -86,6 +110,9 @@ $query = "SELECT real_name, birthday, gender, file_chg, wdate, clean_filter FROM
             <div class="info_row">
                 <p class="info_tlt">구독정보</p>
                 <div class="info_con subs_info">
+                    <?while($sub_row = mysqli_fetch_assoc($subscribe_result) ) {?>
+                        <span><?=$sub_row['category_nam']?></span>
+                    <?}?>
                     <span>광진구</span>, <span>성동구</span>, <span>마포구</span>
                 </div>
             </div>
@@ -94,13 +121,13 @@ $query = "SELECT real_name, birthday, gender, file_chg, wdate, clean_filter FROM
                 <div class="info_con">
                     <div class="clean_level">
                         <p class="level1">
-                            <input type="radio" name="subs_clean" id="lv1" checked=""><label for="lv1"><span>클린</span></label>
+                            <input type="radio" name="subs_clean" id="lv1" <?=$row['clean_filter'] == 1 ? "checked":"" ?> ><label for="lv1"><span>클린</span></label>
                         </p>
                         <p class="level2">
-                            <input type="radio" name="subs_clean" id="lv2"><label for="lv2"><span>중간</span></label>
+                            <input type="radio" name="subs_clean" id="lv2" <?=$row['clean_filter'] == 2 ? "checked":"" ?>><label for="lv2"><span>중간</span></label>
                         </p>
                         <p class="level3">
-                            <input type="radio" name="subs_clean" id="lv3"><label for="lv3"><span>없음</span></label>
+                            <input type="radio" name="subs_clean" id="lv3" <?=$row['clean_filter'] == 3 ? "checked":"" ?>><label for="lv3"><span>없음</span></label>
                         </p>
                         <div class="clean_bar"></div>
                     </div>
@@ -118,69 +145,13 @@ $query = "SELECT real_name, birthday, gender, file_chg, wdate, clean_filter FROM
             </div>
             <div class="tab_con">
                 <div class="con1" style="display:block">
-                    <p class="cnt_row"><span>176</span>개의 글이 있습니다.</p>
-                    <ul>
-                        <li class="item">
-                            <div class="item_box">
-                                <p class="con_box">위 사진 오른쪽 지갑을 2019년 11월 2일 토요일 태안-> 부천 방향 충남고속 고속버스에서 잃어버렸어요 <a href="" class="more_btn">...더보기</a></p>
-                                <div class="con_info">
-                                    <p>8월 20일 오후 6:18</p><p>N번째 제보</p><p><span>#구리시</span> <span>#20대</span></p>
-                                </div>
-                            </div>
-                            <div class="reply_cnt">
-                                <div class="cnt_box">
-                                    <p class="cnt_num">0</p>
-                                    <p>댓글</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="item">
-                            <div class="item_box">
-                                <p class="con_box">위 사진 오른쪽 지갑을 2019년 11월 2일 토요일 태안-> 부천 방향 충남고속 고속버스에서 잃어버렸어요 <a href="" class="more_btn">...더보기</a></p>
-                                <div class="con_info">
-                                    <p>8월 20일 오후 6:18</p><p>N번째 제보</p><p><span>#구리시</span> <span>#20대</span></p>
-                                </div>
-                            </div>
-                            <div class="reply_cnt">
-                                <div class="cnt_box">
-                                    <p class="cnt_num">0</p>
-                                    <p>댓글</p>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+                    <? include "write_list.php"?>
                 </div>
                 <div class="con2">
-                    <p class="cnt_row"><span>176</span>개의 댓글이 있습니다.</p>
-                    <ul>
-                        <li class="item">
-                            <div class="item_box">
-                                <p class="con_box">위 사진 오른쪽 지갑을 2019년 11월 2일 토요일 태안-> 부천 방향 충남고속 고속버스에서 잃어버렸어요 <a href="" class="more_btn">...더보기</a></p>
-                                <div class="con_info">
-                                    <p>8월 20일 오후 6:18</p><p>N번째 제보</p><p><span>#구리시</span> <span>#20대</span></p>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+                    <? include "comment_list.php"?>
                 </div>
                 <div class="con3">
-                    <p class="cnt_row"><span>176</span>개의 글이 있습니다.</p>
-                    <ul>
-                        <li class="item">
-                            <div class="item_box">
-                                <p class="con_box">위 사진 오른쪽 지갑을 2019년 11월 2일 토요일 태안-> 부천 방향 충남고속 고속버스에서 잃어버렸어요 <a href="" class="more_btn">...더보기</a></p>
-                                <div class="con_info">
-                                    <p>8월 20일 오후 6:18</p><p>N번째 제보</p><p><span>#구리시</span> <span>#20대</span></p>
-                                </div>
-                            </div>
-                            <div class="reply_cnt">
-                                <div class="cnt_box">
-                                    <p class="cnt_num">0</p>
-                                    <p>댓글</p>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+                    <? include "likes_list.php"?>
                 </div>
             </div>
         </div>
