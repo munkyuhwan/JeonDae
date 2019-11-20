@@ -9,8 +9,8 @@ if ($fb_id) {
     if ($result) {
         $row = mysqli_fetch_assoc($result);
         session_start();
-        $_SESSION['idx'] = $row['idx'];
-        $_SESSION['user_name'] = $row['real_name'];
+        $_SESSION['user_access_idx'] = $row['idx'];
+        $_SESSION['user_access_name'] = $row['real_name'];
         $_SESSION['profile_img'] = $row['file_chg'];
         $result = array(
               "result"=>true
