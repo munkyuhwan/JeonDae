@@ -86,7 +86,7 @@
                                             <?for ($i=0; $i<mysqli_num_rows($category_result); $i++) {
                                                 $row = mysqli_fetch_array($category_result);?>
                                                 <label>
-                                                    <input type="checkbox" id="subscribe_<?=$row['id']?>" name="subscribes[]" value="<?=$row['id']?>" >
+                                                    <input type="checkbox" id="subscribe_<?=$row['id']?>" name="subscribes[]" value="<?=$row['idx']?>" >
                                                     <?=$row['category_name']?>
                                                 </label>
                                             <?}?>

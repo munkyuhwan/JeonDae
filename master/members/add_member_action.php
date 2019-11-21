@@ -2,7 +2,6 @@
 <? include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/include_htmlheader_admin.php"; // 관리자페이지 헤더?>
 <? include $_SERVER["DOCUMENT_ROOT"]."/master/include/check_login_frame.php"; // 관리자 로그인여부 확인?>
 <?
-//print_r($_REQUEST);
 
 $user_name = trim(sqlfilter($_REQUEST['user_name']));
 $gender = trim(sqlfilter($_REQUEST['gender']));
@@ -28,17 +27,19 @@ if ($_FILES['profile_img']['size']>0){
     $file_c = uploadFile($_FILES, "profile_img", $_FILES['profile_img'], $_P_DIR_FILE); // 파일 업로드후 변형된 파일이름 리턴.
 }
 
+
 $query = "INSERT INTO member_info SET ";
 $query .= "member_type = '".$member_type."', ";
 $query .= "member_gubun = 'NOR', ";
 $query .= "real_name = '".$user_name."', ";
 $query .= "gender = '".$gender."', ";
 $query .= "birthday = '".$year_birth."', ";
-$query .= "clean_filter = ".$clean_filter." ";
 if ($_FILES['profile_img']['size']>0) {
-    $query .= "file_chg = '" . $file_c . "' ";
+    $query .= "file_chg = '" . $file_c . "', ";
 }
+$query .= "clean_filter = ".$clean_filter." ";
 
+echo $query;
 $result = mysqli_query($gconnet,$query);
 $member_id = 0;
 if($member_id == 0){
@@ -52,7 +53,7 @@ if($member_id == 0){
 
 
 $subscribes = ($_REQUEST['subscribes']);
-$hashtag = trim(sqlfilter($_REQUEST['hashtag']));
+//$hashtag = trim(sqlfilter($_REQUEST['hashtag']));
 
 foreach ($subscribes as $k=>$v) {
 
@@ -65,54 +66,14 @@ foreach ($subscribes as $k=>$v) {
 
 }
 
+/*
 $hatag_array = explode(',', $hashtag);
 foreach ($hatag_array as $k=>$v) {
     $insert_hashtag  = "INSERT INTO user_hashtags SET "." member_idx=".$member_id.", hash_tag='".$v."'";
     $insert_hashtag_result = mysqli_query($gconnet,$insert_hashtag);
 }
-
-
-
-
-/*
-$total_param = trim(sqlfilter($_REQUEST['total_param']));
-$s_gubun = "NOR";
-
-$report_name = trim(sqlfilter($_REQUEST['report_name']));
-$inputFB = trim(sqlfilter($_REQUEST['inputFB']));
-$app_id = trim(sqlfilter($_REQUEST['app_id']));
-$app_secret = trim(sqlfilter($_REQUEST['app_secret']));
-$page_id = trim(sqlfilter($_REQUEST['page_id']));
-
-
-
-$bbs = "member";
-$_P_DIR_FILE = $_P_DIR_FILE.$bbs."/";
-$_P_DIR_WEB_FILE = $_P_DIR_WEB_FILE.$bbs."/";
-################ 사진 이미지 업로드 ##############
-
-
-if ($_FILES['profile_img']['size']>0){
-    $file_o = $_FILES['profile_img']['name'];
-    $i_width = "185";
-    $i_height = "185";
-    $i_width2 = "";
-    $i_height2 = "";
-    //$watermark_sect = "imgw";
-    $watermark_sect = "";
-    $file_c = uploadFile($_FILES, "profile_img", $_FILES['profile_img'], $_P_DIR_FILE); // 파일 업로드후 변형된 파일이름 리턴.
-}
-
-
-$query = " insert into report_categories set ";
-$query .= " category_name = '".$report_name."', ";
-$query .= " profile_img = '".$file_c."', ";
-$query .= " app_id = '".$app_id."', ";
-$query .= " app_secret = '".$app_secret."', ";
-$query .= " page_id = '".$page_id."' ";
-
-$result = mysqli_query($gconnet,$query);
 */
+
 
 if($result){
     ?>
@@ -127,6 +88,7 @@ if($result){
     <SCRIPT LANGUAGE="JavaScript">
         <!--
         alert('등록중 오류가 발생했습니다.');
+        history.back();
         //-->
     </SCRIPT>
 <?}

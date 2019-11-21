@@ -59,11 +59,10 @@ foreach ($subscribes as $k=>$v) {
     }
 }
 
+/*
 $hatag_array = explode(',', $hashtag);
-
 $del_hashtag = "DELETE FROM user_hashtags WHERE member_idx=".$member_id;
 $hash_result = mysqli_query($gconnet,$del_hashtag);
-
 foreach ($hatag_array as $k=>$v) {
     $tmp = str_replace(" ","", $v);
     if ( $tmp != '') {
@@ -71,7 +70,7 @@ foreach ($hatag_array as $k=>$v) {
         $insert_hashtag_result = mysqli_query($gconnet, $insert_hashtag);
     }
 }
-
+*/
 
 
 
