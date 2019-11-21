@@ -13,21 +13,7 @@ $num = count($cnt);
 ?>
 <body>
 <div class="wrapper">
-    <header>
-        <div class="header grd_bg">
-            <h1><a href="main1.html"><img src="../images/logo_txt.png" alt="전대전 - 전국 대신 전해드립니다"></a></h1>
-            <button type="button" class="snb_btn"></button>
-        </div>
-    </header>
-    <nav class="main_nav">
-        <ul>
-            <li class="main_menu1"><a href="main1.html" title="메인" class="on"></a></li>
-            <li class="main_menu2"><a href="main2.html" title=""></a></li>
-            <li class="main_menu3"><a href="main3.html" title="거래"></a></li>
-            <li class="main_menu4"><a href="main4.html" title="알림"></a></li>
-            <li class="main_menu5"><a href="main5.html" title="검색"></a></li>
-        </ul>
-    </nav>
+    <? include $_SERVER['DOCUMENT_ROOT']."/include/main_nav.php"?>
     <section class="main_section">
         <div class="list_wrap">
             <ul>
@@ -266,33 +252,7 @@ $num = count($cnt);
     </div>
     <button tpye="button" class="pop_close"></button>
 </div>
-<div class="popup share_pop">
-    <h2 class="hidden">공유하기</h2>
-    <div class="popup_wrap">
-        <div class="share_top grd_bg">
-            <img src="../images/logo2.png" alt="">
-        </div>
-        <div class="share_mid">
-            <ul>
-                <li class="fb_link" >
-                    <a href="#" title="페이스북 공유하기"></a>
-                </li>
-                <li class="tw_link" >
-                    <a href="#" title="트위터 공유하기"></a>
-                </li>
-                <li class="kt_ink">
-                    <a href="#" title="카카오톡 공유하기"></a>
-                </li>
-                <li class="ks_link">
-                    <a href="#" title="카카오스토리 공유하기"></a>
-                </li>
-            </ul>
-        </div>
-        <div class="btn_row">
-            <button type="button" class="pop_close blue_btn">확인</button>
-        </div>
-    </div>
-</div>
+<?include $_SERVER['DOCUMENT_ROOT']."/include/share_pop.php"?>
 </body>
 </html>
 

@@ -1,187 +1,9 @@
-<? include $_SERVER['DOCUMENT_ROOT']."/include/head.php" ?>
+<? include $_SERVER['DOCUMENT_ROOT'] . "/include/head.php" ?>
+
 <body>
 <div class="wrapper">
-    <header>
-        <div class="header grd_bg">
-            <h1><a href="main1.html"><img src="../images/logo_txt.png" alt="전대전 - 전국 대신 전해드립니다"></a></h1>
-            <button type="button" class="snb_btn"></button>
-        </div>
-    </header>
-    <nav class="main_nav">
-        <ul>
-            <li class="main_menu1"><a href="main1.html" title="메인"></a></li>
-            <li class="main_menu2"><a href="main2.html" title="지역" class="on"></a></li>
-            <li class="main_menu3"><a href="main3.html" title="인기"></a></li>
-            <li class="main_menu4"><a href="main4.html" title="알림"></a></li>
-            <li class="main_menu5"><a href="main5.html" title="검색"></a></li>
-        </ul>
-    </nav>
+    <? include $_SERVER['DOCUMENT_ROOT']."/include/main_nav.php"?>
     <section class="main_section">
-        <h2 class="hidden">지역 메인</h2>
-        <div class="area_tlt">
-            <div class="area_img">
-                <img src="../images/img_banner.jpg" alt="지역 이미지">
-            </div>
-            <div class="area_inner">
-                <p class="area_logo"><img src="../images/img_sample1.png" alt="원 이미지"></p>
-                <span>광진구 대신전해드려요.</span>
-                <button type="button" class="subs_btn blue_btn">구독</button>
-            </div>
-        </div>
-        <div class="list_wrap popular">
-            <p class="desc">이 구역의 인기글은 나야 :)</p>
-            <div class="swiper-container2">
-                <ul class="swiper-wrapper">
-                    <li class="item swiper-slide">
-                        <div class="item_top user_box">
-                            <div class="prf_box">
-                                <img src="../images/img_sample2.jpg" alt="">
-                            </div>
-                            <div class="info_box ">
-                                <p class="name">사나</p>
-                                <div class="etc_info">
-                                    <p>8월 20일 오후 6:18</p><p>N번째 제보</p><button type="button">#구리시</button><button type="button">#20대</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item_mid">
-                            <div class="text_box">
-                                <p>1111 위 사진 오른쪽 지갑을 2019년 11월 2일 토요일 태안-&gt; 부천 방향
-                                    충남고속 고속버스에서 잃어버렸어요 </p>
-                                <button type="button" class="more_btn">...더보기</button>
-                            </div>
-                            <div class="img_wrap">
-                                <div class="flex_wrap">
-                                    <div class="flex2_wrap item2">
-                                        <a href="#" class="pop_call" data-pop="img_pop">
-                                            <img src="../images/img_sample5.jpg" alt="">
-                                        </a>
-                                        <a href="#" class="pop_call" data-pop="img_pop">
-                                            <img src="../images/img_sample4.jpg" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="flex2_wrap item3">
-                                        <a href="#" class="pop_call" data-pop="img_pop">
-                                            <img src="../images/img_sample5.jpg" alt="">
-                                        </a>
-                                        <a href="#" class="pop_call" data-pop="img_pop">
-                                            <img src="../images/img_sample6.jpg" alt="">
-                                        </a>
-                                        <a href="#" class="pop_call" data-pop="img_pop">
-                                            <img src="../images/img_sample6.jpg" alt="">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="btn_box">
-                                <button type="button" class="like_btn">26</button>
-                                <span class="reply_cnt">15</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="item swiper-slide">
-                        <div class="item_top user_box">
-                            <div class="prf_box">
-                                <img src="../images/img_sample2.jpg" alt="">
-                            </div>
-                            <div class="info_box ">
-                                <p class="name">사나</p>
-                                <div class="etc_info">
-                                    <p>8월 20일 오후 6:18</p><p>N번째 제보</p><button type="button">#구리시</button><button type="button">#20대</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item_mid">
-                            <div class="text_box">
-                                <p>2222 위 사진 오른쪽 지갑을 2019년 11월 2일 토요일 태안-&gt; 부천 방향
-                                    충남고속 고속버스에서 잃어버렸어요 </p>
-                                <button type="button" class="more_btn">...더보기</button>
-                            </div>
-                            <div class="img_wrap">
-                                <div class="flex_wrap">
-                                    <div class="flex2_wrap item2">
-                                        <a href="#" class="pop_call" data-pop="img_pop">
-                                            <img src="../images/img_sample5.jpg" alt="">
-                                        </a>
-                                        <a href="#" class="pop_call" data-pop="img_pop">
-                                            <img src="../images/img_sample4.jpg" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="flex2_wrap item3">
-                                        <a href="#" class="pop_call" data-pop="img_pop">
-                                            <img src="../images/img_sample5.jpg" alt="">
-                                        </a>
-                                        <a href="#" class="pop_call" data-pop="img_pop">
-                                            <img src="../images/img_sample6.jpg" alt="">
-                                        </a>
-                                        <a href="#" class="pop_call" data-pop="img_pop">
-                                            <img src="../images/img_sample6.jpg" alt="">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="btn_box">
-                                <button type="button" class="like_btn">26</button>
-                                <span class="reply_cnt">15</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="item swiper-slide">
-                        <div class="item_top user_box">
-                            <div class="prf_box">
-                                <img src="../images/img_sample2.jpg" alt="">
-                            </div>
-                            <div class="info_box ">
-                                <p class="name">사나</p>
-                                <div class="etc_info">
-                                    <p>8월 20일 오후 6:18</p><p>N번째 제보</p><button type="button">#구리시</button><button type="button">#20대</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item_mid">
-                            <div class="text_box">
-                                <p>3333 위 사진 오른쪽 지갑을 2019년 11월 2일 토요일 태안-&gt; 부천 방향
-                                    충남고속 고속버스에서 잃어버렸어요 </p>
-                                <button type="button" class="more_btn">...더보기</button>
-                            </div>
-                            <div class="img_wrap">
-                                <div class="flex_wrap">
-                                    <div class="flex2_wrap item2">
-                                        <a href="#" class="pop_call" data-pop="img_pop">
-                                            <img src="../images/img_sample5.jpg" alt="">
-                                        </a>
-                                        <a href="#" class="pop_call" data-pop="img_pop">
-                                            <img src="../images/img_sample4.jpg" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="flex2_wrap item3">
-                                        <a href="#" class="pop_call" data-pop="img_pop">
-                                            <img src="../images/img_sample5.jpg" alt="">
-                                        </a>
-                                        <a href="#" class="pop_call" data-pop="img_pop">
-                                            <img src="../images/img_sample6.jpg" alt="">
-                                        </a>
-                                        <a href="#" class="pop_call" data-pop="img_pop">
-                                            <img src="../images/img_sample6.jpg" alt="">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="btn_box">
-                                <button type="button" class="like_btn">26</button>
-                                <span class="reply_cnt">15</span>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                <div class="swiper-pagination">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
-            <a href="" class="more_btn">더보기</a>
-        </div>
         <div class="list_wrap">
             <ul>
                 <li class="item">
@@ -415,34 +237,8 @@
         <a href="sub_write.html" class="post_write_btn"></a>
     </section>
 </div>
-<div class="snb">
-    <div class="snb_wrap">
-        <div class="snb_top user_wrap">
-            <div class="user_img">
-                <img src="../images/img_sample2.jpg" alt="유저 사진">
-            </div>
-            <div class="user_name">
-                김충분
-            </div>
-            <div class="user_tag">
-                <button type="button">#서울</button><button type="button">#구리시</button><button type="button">#구리시</button>
-            </div>
-            <div class="user_certi">
-                <span class="certi1">학교인증</span>
-                <span class="certi2 on">지역인증</span>
-            </div>
-        </div>
-        <div class="snb_mid">
-            <ul>
-                <li class="snb_menu1"><a href="sub_mypage1.html"><p><img src="../images/icon_snb_menu1.png" width="16" alt=""></p> 내가 제보한 글</a></li>
-                <li class="snb_menu2"><a href="sub_mypage2.html"><p><img src="../images/icon_snb_menu2.png" width="10" alt=""></p> 스크랩 한 글</a></li>
-                <li class="snb_menu3"><a href="sub_mypage3.html"><p><img src="../images/icon_snb_menu3.png" width="15" alt=""></p> 구독관리</a></li>
-                <li class="snb_menu4"><a href="sub_mypage4.html"><p><img src="../images/icon_snb_menu4.png" width="15" alt=""></p> 일반설정</a></li>
-            </ul>
-        </div>
-        <button type="button" class="snb_close"></button>
-    </div>
-</div>
+<? include $_SERVER['DOCUMENT_ROOT']."/include/gnb.php" ?>
+
 <div class="popup post_pop">
     <div class="popup_wrap post_btn">
         <div class="post_btn_wrap">
@@ -488,7 +284,8 @@
     </div>
     <button tpye="button" class="pop_close"></button>
 </div>
-<? include $_SERVER['DOCUMENT_ROOT']."/include/share_pop.php"?>
+<?include $_SERVER['DOCUMENT_ROOT']."/include/share_pop.php"?>
+
 </body>
 </html>
 
