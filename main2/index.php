@@ -1,6 +1,7 @@
 <? include $_SERVER['DOCUMENT_ROOT'] . "/include/head.php" ?>
 <body>
 <div class="wrapper">
+    <? include $_SERVER['DOCUMENT_ROOT']."/include/header.php"?>
     <? include $_SERVER['DOCUMENT_ROOT']."/include/main_nav.php"?>
     <section class="main_section">
         <div class="area_wrap">

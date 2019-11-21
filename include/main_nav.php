@@ -1,10 +1,3 @@
-
-<header>
-    <div class="header grd_bg">
-        <h1><a href="main1.html"><img src="../images/logo_txt.png" alt="전대전 - 전국 대신 전해드립니다"></a></h1>
-        <button type="button" class="snb_btn"></button>
-    </div>
-</header>
 <nav class="main_nav">
     <ul>
         <li class="main_menu1"><a href="../main1" title="메인" <?= $_SERVER['REQUEST_URI']=="/main1/" ? "class=\"on\"":"" ?> ></a></li>

@@ -7,15 +7,7 @@
             <a class="back_btn" href="javascript:history.go(-1)"></a>
         </div>
     </header>
-    <nav class="main_nav">
-        <ul>
-            <li class="main_menu1"><a href="main1.html" title="메인"></a></li>
-            <li class="main_menu2"><a href="main2.html" title=""></a></li>
-            <li class="main_menu3"><a href="main3.html" title="거래"></a></li>
-            <li class="main_menu4"><a href="main4.html" title="알림"></a></li>
-            <li class="main_menu5"><a href="main5.html" title="검색"></a></li>
-        </ul>
-    </nav>
+    <? include $_SERVER['DOCUMENT_ROOT']."/include/main_nav.php"?>
     <section class="main_section">
         <div class="setting_list">
             <ul>
