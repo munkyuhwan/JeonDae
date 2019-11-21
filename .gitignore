@@ -2,3 +2,4 @@
 master/vendor
 cache/*
 .idea
+upload_file/*
