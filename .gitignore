@@ -1,5 +1,5 @@
-./admin_templ
-./master/vendor
-./cache/*
-./.idea
-./upload_file/*
+admin_templ
+master/vendor
+cache/*
+.idea
+upload_file/*
