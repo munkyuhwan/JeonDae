@@ -1,5 +1,54 @@
 <? include $_SERVER['DOCUMENT_ROOT'] . "/include/head.php" ?>
+<script type="text/javascript" >
 
+    var addPicTmp = "" +
+        "<div class=\"added_img\" name='img_wrapper' >"+
+        "   <img alt=\"\" name='tmp_img' >"+
+        "   <button  type=\"button\" class=\"img_del\" name='del_btn' onclick='deleteFile(this)'></button>"+
+        "   <input hidden type=\"file\" name=\"add_pic[]\" onblur='onFileChoose(event,this)' onchange=\"onFileChoose(event, this)\" >"+
+        "</div>";
+
+    function onFileChoose(event, el) {
+
+        var str = "";
+        var reader = new FileReader;
+        reader.onload = function() {
+            str = addPicTmp.format(reader.result);
+            var idx = $("input[name='add_pic[]']").index(el)
+            $("img[name='tmp_img']")[idx].src=reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+        $("#picCnt").html( $("div[name='img_wrapper']").length );
+    }
+
+    function addFile() {
+        if ( checkCnt() == true ) {
+            var str = "";
+            str = addPicTmp.format();
+            $('#photo_wrapper').append(str);
+            var inpLength = $("input[name='add_pic[]']").length;
+            $("input[name='add_pic[]']")[inpLength - 1].click()
+
+
+        }else {
+            alert('5개 이상 추가하실 수 없습니다.');
+        }
+
+    }
+
+    function deleteFile(ord) {
+        var idx = $("button[name=del_btn]").index(ord);
+        $("div[name='img_wrapper']")[idx].remove()
+    }
+
+    function checkCnt() {
+        if ($("div[name='img_wrapper']").length < 5) {
+            return true;
+        }else {
+            return false;
+        }
+    }
+</script>
 <body>
 <div class="wrapper">
     <form name="frm" action="write_action.php" method="post" enctype="multipart/form-data" >
@@ -7,7 +56,7 @@
         <div class="header grd_bg write">
             <h1 class="hidden">제보하기</h1>
             <button type="submit" class="complte_btn">제보</button>
-            <button type="button" class="pop_call cancle_btn" data-pop="confirm_pop">취소</button>
+            <button type="button" class="pop_call cancle_btn" data-pop="confirm_pop" id="cancelBtn">취소</button>
             <button type="button" class="pop_call temp_list_btn" data-pop="temp_pop" style="display:none">임시보관함</button>
         </div>
     </header>
@@ -17,22 +66,17 @@
                 <div class="prf_box">
                     <img src="<?=$profile_img?>" alt="">
                 </div>
-                <textarea name="" id="" cols="" rows="" placeholder="어떤 이야기를 제보해 주시겠어요?"></textarea>
+                <textarea name="input_text" id="input_text" cols="" rows="" placeholder="어떤 이야기를 제보해 주시겠어요?" required ></textarea>
             </div>
             <div class="write_bot">
                 <div class="tag_input">
-                    <textarea name="" id="" placeholder="태그를 입력해주세요. 예) #성동구 #홍대"></textarea>
+                    <textarea name="hash_tags" id="hash_tags" placeholder="태그를 입력해주세요. 예) #성동구 #홍대" required></textarea>
                 </div>
-                <div class="add_wrap">
-                    <input type="file" id="add_pic" name="add_pic" >
-                    <button type="button" class="add_img_btn" onclick="$('#add_pic').click(); "></button>
+                <div class="add_wrap" id="photo_wrapper">
+                    <!-- input hidden type="file" id="add_pic" name="add_pic[]" onchange="onFileChoose(event, this)" -->
+                    <button type="button" class="add_img_btn" onclick="addFile();"></button>
                     <!-- 이미지 추가 -->
-                    <div class="added_img">
-                        <img src="../images/img_sample2.jpg" alt="">
-                        <button  type="button" class="img_del"></button>
-                    </div>
-                    <!-- 이미지 추가 -->
-                    <div class="added_img">
+                    <!-- div class="added_img">
                         <img src="../images/img_sample2.jpg" alt="">
                         <button  type="button" class="img_del"></button>
                     </div>
@@ -44,8 +88,16 @@
                         <img src="../images/img_sample2.jpg" alt="">
                         <button  type="button" class="img_del"></button>
                     </div>
+                    <div class="added_img">
+                        <img src="../images/img_sample2.jpg" alt="">
+                        <button  type="button" class="img_del"></button>
+                    </div>
+                    <div class="added_img">
+                        <img src="../images/img_sample2.jpg" alt="">
+                        <button  type="button" class="img_del"></button>
+                    </div -->
                 </div>
-                <p class="img_cnt"><span>0</span> / 5</p>
+                <p class="img_cnt"><span id="picCnt">0</span> / 5</p>
             </div>
         </div>
     </section>

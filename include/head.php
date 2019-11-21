@@ -13,6 +13,7 @@
         <script type="text/javascript" src="../js/jquery-1.12.0.min.js"></script>
         <script type="text/javascript" src="../js/main.js"></script>
         <script type="text/javascript" src="../js/swiper.min.js"></script>
+        <script type="text/javascript" src="../js/functions.js"></script>
 
     </head>
 <? include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/include_default.php"; // 공통함수 인클루드 ?>
