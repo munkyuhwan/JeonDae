@@ -67,11 +67,16 @@
                     <div class="col-md-6">
                         <div class="form-label-group">
                             <?
-                            $hashtag_query ="SELECT * FROM user_hashtags WHERE member_idx=".$idx;
-                            $hashtag_result = mysqli_query($gconnet, $hashtag_query);
-                            $hash_str="";
-                            while ($hash_row = mysqli_fetch_assoc($hashtag_result)) {?>
-                                <? $hash_str.=$hash_row['hash_tag'].", "?>
+                            //$subscribe_query ="SELECT main_cat.*, sub_cat.sub_name, report_cat.category_name FROM subscribe_list AS main_cat, report_sub_categories AS sub_cat, report_categories AS report_cat  WHERE main_cat.member_idx=".$idx." AND main_cat.sub_category_idx=sub_cat.idx AND main_cat.category_idx=report_cat.idx GROUP BY main_cat.category_idx";
+                            $subscribe_query = "SELECT category.category_name  FROM subscribe_list AS subscribe, report_categories AS category  WHERE subscribe.member_idx=".$idx." AND subscribe.category_idx=category.idx GROUP BY category_idx ";
+                            $subscribe_result = mysqli_query($gconnet, $subscribe_query);
+
+
+                            $sub_category_query = "SELECT sub_category.idx, sub_category.sub_name FROM subscribe_list AS subscribe, report_sub_categories AS sub_category WHERE subscribe.member_idx=".$idx." AND subscribe.sub_category_idx=sub_category.idx";
+                            $sub_category_result = mysqli_query($gconnet, $sub_category_query);
+
+                            while ($hash_row = mysqli_fetch_assoc($sub_category_result)) {?>
+                                <? $hash_str.= "#".$hash_row['sub_name'].", "?>
                             <?}?>
                             <input type="text" id="hashtag" name="hashtag" class="form-control" placeholder="관심 해시태그" required="required" autofocus="autofocus" value="<?=$hash_str?>">
                             <label for="hashtag">관심 해시태그</label>

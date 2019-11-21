@@ -6,14 +6,17 @@ $query = "SELECT * FROM member_info WHERE idx=".$idx;
 $result = mysqli_query($gconnet,$query);
 $row = mysqli_fetch_assoc($result);
 
-$hashtag_query ="SELECT * FROM user_hashtags WHERE member_idx=".$idx;
-$hashtag_result = mysqli_query($gconnet, $hashtag_query);
+$current_year = date('Y',time());
 
 
-$subscribe_query = "SELECT subscribe.idx, subscribe.category_idx FROM subscribe_list AS subscribe WHERE member_idx=".$idx;
-$subscribe_result = mysqli_query($gconnet, $subscribe_query);
+// 회원 제보함 구독 리스트
+$main_category = "SELECT subscribe.category_idx, report.category_name FROM subscribe_list AS subscribe, report_categories AS report WHERE subscribe.member_idx=".$idx." AND subscribe.category_idx=report.idx GROUP BY subscribe.category_idx ";
+$main_cat_result = mysqli_query($gconnet, $main_category);
 
-$current_year = date('Y',time())
+// 해시태그
+$hashtag_query = "SELECT subscribe.category_idx, sub_cat.sub_name FROM subscribe_list AS subscribe, report_sub_categories AS sub_cat WHERE subscribe.member_idx=".$idx." AND subscribe.sub_category_idx=sub_cat.idx ";
+$hastag_result = mysqli_query($gconnet, $hashtag_query);
+
 
 
 
@@ -85,23 +88,22 @@ $current_year = date('Y',time())
                 <p class="info_tlt">관심해시태그</p>
                 <div class="info_con">
                     <div class="selected_tag">
-                        <?while($hashtag_row = mysqli_fetch_assoc($hashtag_result)) {?>
-                            <span><?=$hashtag_row['hash_tag']?></span>
+                        <?while($sub_cat_row = mysqli_fetch_assoc($hastag_result)) {?>
+                            <span><?=$sub_cat_row["sub_name"]?></span>
                         <?}?>
-                        <button type="button" class="tag_arrow"></button>
+                         <button type="button" class="tag_arrow"></button>
                     </div>
                     <div class="tag_type">
                         <ul>
-                            <li><input type="checkbox" id="subs1"><label for="subs1">일상</label></li>
-                            <li><input type="checkbox" id="subs2"><label for="subs2">중고거래</label></li>
-                            <li><input type="checkbox" id="subs3"><label for="subs3">알바</label></li>
-                            <li><input type="checkbox" id="subs4"><label for="subs4">동호회</label></li>
-                            <li><input type="checkbox" id="subs5"><label for="subs5">인디밴드</label></li>
-                            <li><input type="checkbox" id="subs6"><label for="subs6">20대</label></li>
-                            <li><input type="checkbox" id="subs7"><label for="subs7">30대</label></li>
-                            <li><input type="checkbox" id="subs8"><label for="subs8">40대</label></li>
-                            <li><input type="checkbox" id="subs9"><label for="subs9">심야영화</label></li>
-                            <li><input type="checkbox" id="subs10"><label for="subs10">기타</label></li>
+                            <? while($main_cat_row = mysqli_fetch_assoc($main_cat_result) ) {?>
+                                <?
+                                $sub_query = "SELECT * FROM report_sub_categories WHERE report_idx=".$main_cat_row['category_idx'];
+                                $sub_query_res = mysqli_query($gconnet, $sub_query);
+                                ?>
+                                <?while ($sub_row = mysqli_fetch_assoc($sub_query_res)) {?>
+                                    <li><input type="checkbox" id="subs<?=$sub_row['idx']?>" value="<?=$sub_row['idx']?>" checked><label for="subs<?=$sub_row['idx']?>"><?=$sub_row['sub_name']?></label></li>
+                                <?}?>
+                           <?}?>
                         </ul>
                     </div>
                 </div>
@@ -109,10 +111,9 @@ $current_year = date('Y',time())
             <div class="info_row">
                 <p class="info_tlt">구독정보</p>
                 <div class="info_con subs_info">
-                    <?while($sub_row = mysqli_fetch_assoc($subscribe_result) ) {?>
-                        <span><?=$sub_row['category_nam']?></span>
+                    <? while($main_cat_row = mysqli_fetch_assoc($main_cat_result) ) {?>
+                        <span><?=$main_cat_row['category_name']?></span>
                     <?}?>
-                    <span>광진구</span>, <span>성동구</span>, <span>마포구</span>
                 </div>
             </div>
             <div class="info_row">
