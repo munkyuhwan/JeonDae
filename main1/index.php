@@ -54,30 +54,87 @@ $num = count($cnt);
                                 <p><?=$row['content_text']?></p>
                                 <button type="button" class="more_btn">...더보기</button>
                             </div>
-                            <div class="img_wrap">
-                                <div class="flex_wrap">
+                            <?
+                            $img_query = "SELECT * FROM report_additional_files WHERE report_idx=".$row['report_idx'];
+                            $img_result = mysqli_query($gconnet, $img_query);
+                            $img_row = mysqli_fetch_all($img_result);
+                            //$img_cnt = mysqli_fetch_all($img_result);
+                            ?>
+                            <?if(count($img_row) > 0) {?>
+                                <div class="img_wrap">
+                                    <div class="flex_wrap">
+                                        <?if(count($img_row) == 1) {?>
+                                            <div class="flex2_wrap item1">
+                                                <a href="">
+                                                    <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[0][2]?>" alt="">
+                                                </a>
+                                            </div>
 
-                                    <div class="flex2_wrap item2">
-                                        <a href="">
-                                            <img src="../images/img_sample5.jpg" alt="">
-                                        </a>
-                                        <a href="">
-                                            <img src="../images/img_sample4.jpg" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="flex2_wrap item3">
-                                        <a href="">
-                                            <img src="../images/img_sample5.jpg" alt="">
-                                        </a>
-                                        <a href="">
-                                            <img src="../images/img_sample6.jpg" alt="">
-                                        </a>
-                                        <a href="">
-                                            <img src="../images/img_sample6.jpg" alt="">
-                                        </a>
-                                    </div>
+                                        <?} else if(count($img_row) == 2 ) {?>
+                                            <div class="flex2_wrap item1">
+                                                <a href="">
+                                                    <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[0][2]?>" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="flex2_wrap item1">
+                                                <a href="">
+                                                    <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[1][2]?>" alt="">
+                                                </a>
+                                            </div>
+                                        <?} else if(count($img_row) == 3 ) {?>
+                                            <div class="flex2_wrap item2">
+                                                <a href="">
+                                                    <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[0][2]?>" alt="">
+                                                </a>
+                                                <a href="">
+                                                    <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[1][2]?>" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="flex2_wrap item1">
+                                                <a href="">
+                                                    <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[2][2]?>" alt="">
+                                                </a>
+                                            </div>
+                                        <?} else if(count($img_row) == 4 ) {?>
+                                            <div class="flex2_wrap item2">
+                                                <a href="">
+                                                    <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[0][2]?>" alt="">
+                                                </a>
+                                                <a href="">
+                                                    <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[1][2]?>" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="flex2_wrap item2">
+                                                <a href="">
+                                                    <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[2][2]?>" alt="">
+                                                </a>
+                                                <a href="">
+                                                    <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[3][2]?>" alt="">
+                                                </a>
+                                            </div>
+                                        <?} else if(count($img_row) == 5 ) {?>
+                                            <div class="flex2_wrap item2">
+                                                <a href="">
+                                                    <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[0][2]?>" alt="">
+                                                </a>
+                                                <a href="">
+                                                    <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[1][2]?>" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="flex2_wrap item3">
+                                                <a href="">
+                                                    <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[2][2]?>" alt="">
+                                                </a>
+                                                <a href="">
+                                                    <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[3][2]?>" alt="">
+                                                </a>
+                                                <a href="">
+                                                    <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[4][2]?>" alt="">
+                                                </a>
+                                            </div>
+                                        <?}?>
                                 </div>
-                            </div>
+                            <?}?>
                             <div class="btn_box">
                                 <button type="button" class="like_btn"><?=$row['likes']?></button>
                                 <span class="reply_cnt"><?=$row['comment_cnt']?></span>
@@ -112,7 +169,6 @@ $num = count($cnt);
                                         <? if (mysqli_num_rows($sub_comment_res) > 0 ) {?>
                                             <ul>
                                                 <?while ($sub_row = mysqli_fetch_assoc($sub_comment_res) ) {?>
-                                                    <?//=print_r($sub_row)?>
                                                     <li class="reply_item user_box">
                                                         <div class="reply_inner">
                                                             <div class="prf_box">

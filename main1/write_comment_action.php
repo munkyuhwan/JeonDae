@@ -10,17 +10,19 @@ $query .= " report_idx= ".$reportIdx.", ";
 $query .= " member_idx= ".$userIdx.", ";
 $query .= " comment_txt= '".$commentTxt."' ";
 
-echo $query;
-
 $result = mysqli_query($gconnet, $query);
-if($result) {
 
-}else {
-
-}
-
-//print_r($_REQUEST);
-
-
-
-?>
+if($result){?>
+    <SCRIPT LANGUAGE="JavaScript">
+        <!--
+        alert('등록이 정상적으로 완료 되었습니다.');
+        parent.location.href =  "./";
+        //-->
+    </SCRIPT>
+<?}else{?>
+    <SCRIPT LANGUAGE="JavaScript">
+        <!--
+        alert('등록중 오류가 발생했습니다.');
+        //-->
+    </SCRIPT>
+<?}?>
