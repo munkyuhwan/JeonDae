@@ -1,5 +1,19 @@
 <? include $_SERVER['DOCUMENT_ROOT'] . "/include/head.php" ?>
+<?
+//구독한 제보함 가져오기
+$category_query = "SELECT report.category_idx, pop.view_cnt, pop.comment_cnt, pop.like_cnt FROM subscribe_list AS report, popular_feeds AS pop WHERE 1 ";
+$category_query .= " AND report.member_idx=".$_SESSION['user_access_idx']." AND report.category_idx=pop.category_idx ";
+$category_query .= " GROUP BY report.category_idx, pop.view_cnt, pop.comment_cnt, pop.like_cnt ";
+$category_result = mysqli_query($gconnet, $category_query);
+$categories = array();
+while($row = mysqli_fetch_assoc($category_result)) {
+    array_push($categories, $row);
+}
+echo "<br><br><br><br>";
+print_r($categories);
 
+
+?>
 <body>
 <div class="wrapper">
     <? include $_SERVER['DOCUMENT_ROOT']."/include/header.php"?>
