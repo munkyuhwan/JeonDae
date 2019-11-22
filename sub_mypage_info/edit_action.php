@@ -2,9 +2,6 @@
 <?
 
 
-print_r($_REQUEST);echo "<br><br><br><br>";
-print_r($_FILES);
-
 $user_name = trim(sqlfilter($_REQUEST['user_name']));
 $gender = trim(sqlfilter($_REQUEST['gender']));
 $year_birth = trim(sqlfilter($_REQUEST['year_birth']));
@@ -42,32 +39,33 @@ $query .= " WHERE idx=".$member_idx;
 $result = mysqli_query($gconnet,$query);
 
 
-$subscribes = ($_REQUEST['subscribes']);
-$hashtag = trim(sqlfilter($_REQUEST['hashtag']));
 
 $del_subscribes = "DELETE FROM subscribe_list WHERE member_idx=".$member_idx;
 $sub_result = mysqli_query($gconnet,$del_subscribes);
 
 
 
-$subscribes = ($_REQUEST['subscribes']);
-$hashtag = trim(sqlfilter($_REQUEST['hashtag']));
-
+$subscribes = ($_REQUEST['hashtags']);
 $del_subscribes = "DELETE FROM subscribe_list WHERE member_idx=".$member_idx;
 $sub_result = mysqli_query($gconnet,$del_subscribes);
 
 
 foreach ($subscribes as $k=>$v) {
-    $sub_category_query = "SELECT idx FROM report_sub_categories WHERE del_yn='N' AND report_idx=".$v;
+    $sub_category_query = "SELECT report_idx FROM report_sub_categories WHERE del_yn='N' AND idx=".$v;
     $sub_result = mysqli_query($gconnet,$sub_category_query);
-    while ($row = mysqli_fetch_row($sub_result) ) {
-        $insert_subscribe_list  = "INSERT INTO subscribe_list SET category_idx=".$v.", sub_category_idx=".$row[0].", member_idx=".$member_idx;
+    $report_idx = mysqli_fetch_assoc($sub_result);
+    //while ($row = mysqli_fetch_row($sub_result) ) {
+        $insert_subscribe_list  = "INSERT INTO subscribe_list SET category_idx=".$report_idx['report_idx'].", sub_category_idx=".$v.", member_idx=".$member_idx;
         $inser_sub_result = mysqli_query($gconnet,$insert_subscribe_list);
-    }
+    //}
 }
 
 if($result){
-    $_SESSION['profile_img'] = $file_c;
+    if ($_FILES['profile_img']['size']>0) {
+        $_SESSION['profile_img'] = $file_c;
+    }else {
+
+    }
     $_SESSION['user_access_name'] = $user_name;
 
     ?>
@@ -75,13 +73,14 @@ if($result){
         <!--
         alert('등록이 정상적으로 완료 되었습니다.');
         //parent.location.href =  "member_list.php?<?=$total_param?>";
-        //parent.location.href =  "./";
+        parent.location.href =  "./";
         //-->
     </SCRIPT>
 <?}else{?>
     <SCRIPT LANGUAGE="JavaScript">
         <!--
-        //alert('등록중 오류가 발생했습니다.');
+        alert('등록중 오류가 발생했습니다.');
+        history.back()
         //-->
     </SCRIPT>
 <?}
