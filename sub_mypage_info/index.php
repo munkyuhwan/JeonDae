@@ -19,9 +19,20 @@ $hastag_result = mysqli_query($gconnet, $hashtag_query);
 
 
 
-
 ?>
 <body>
+
+<script type="application/javascript">
+
+    function imageSelected(event) {
+        var reader = new FileReader;
+        reader.onload = function() {
+            $("#profile_img").attr("src",reader.result);
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+</script>
 <div class="wrapper">
     <header>
         <div class="header grd_bg sub">
@@ -39,19 +50,21 @@ $hastag_result = mysqli_query($gconnet, $hashtag_query);
         </ul>
     </nav>
     <section class="main_section">
+
         <div class="myinfo_wrap">
+            <form name="frm" action="edit_action.php" method="post" enctype="multipart/form-data" >
             <div class="user_wrap">
                 <div class="user_img_wrap">
                     <div class="user_img">
-                        <img src="../thumb/thumb.php?src=../upload_file/member/<?=$_SESSION['profile_img']?>&size=400x300" alt="유저 사진">
+                        <img id="profile_img" src="../thumb/thumb.php?src=../upload_file/member/<?=$_SESSION['profile_img']?>&size=400x300" alt="유저 사진">
                     </div>
-                    <input type="file" id="img_change">
+                    <input type="file" name="profile_img" id="img_change" onchange="imageSelected(event)" >
                     <label for="img_change" class="img_change_btn"></label>
                 </div>
             </div>
             <div class="info_row">
                 <p class="info_tlt">이름</p>
-                <div class="info_con name_con"><input type="text" class="" value="<?=$_SESSION['user_access_name']?>"></div>
+                <div class="info_con name_con"><input type="text" name="user_name" class="" value="<?=$_SESSION['user_access_name']?>"></div>
             </div>
             <div class="user_certi">
                 <span class="certi1">학교인증</span>
@@ -60,9 +73,9 @@ $hastag_result = mysqli_query($gconnet, $hashtag_query);
             <div class="info_row">
                 <p class="info_tlt">성별</p>
                 <div class="info_con gender">
-                    <input type="radio" id="check_male" <?=$row['gender']=='M' ? "checked":"" ?> name="gender">
+                    <input type="radio" id="check_male" value="M" <?=$row['gender']=='M' ? "checked":"" ?> name="gender">
                     <label for="check_male">남</label>
-                    <input type="radio" id="check_female" <?=$row['gender']=='F' ? "checked":"" ?>  name="gender">
+                    <input type="radio" id="check_female" value="F" <?=$row['gender']=='F' ? "checked":"" ?>  name="gender">
                     <label for="check_female">녀</label>
                 </div>
             </div>
@@ -70,7 +83,7 @@ $hastag_result = mysqli_query($gconnet, $hashtag_query);
                 <p class="info_tlt">연령</p>
                 <div class="info_con">
                     <div class="select_div">
-                        <select name="" id="">
+                        <select name="year_birth" id="">
                             <?for($i=$current_year;$i>1950;$i--) {?>
                                 <option value="<?=$i?>" <?=$i==$row['birthday'] ? "selected":"" ?> ><?=$i?></option>
                             <?}?>
@@ -101,7 +114,7 @@ $hastag_result = mysqli_query($gconnet, $hashtag_query);
                                 $sub_query_res = mysqli_query($gconnet, $sub_query);
                                 ?>
                                 <?while ($sub_row = mysqli_fetch_assoc($sub_query_res)) {?>
-                                    <li><input type="checkbox" id="subs<?=$sub_row['idx']?>" value="<?=$sub_row['idx']?>" checked><label for="subs<?=$sub_row['idx']?>"><?=$sub_row['sub_name']?></label></li>
+                                    <li><input type="checkbox" name="hashtags[]" id="subs<?=$sub_row['idx']?>" value="<?=$sub_row['idx']?>" checked><label for="subs<?=$sub_row['idx']?>"><?=$sub_row['sub_name']?></label></li>
                                 <?}?>
                            <?}?>
                         </ul>
@@ -111,7 +124,10 @@ $hastag_result = mysqli_query($gconnet, $hashtag_query);
             <div class="info_row">
                 <p class="info_tlt">구독정보</p>
                 <div class="info_con subs_info">
-                    <? while($main_cat_row = mysqli_fetch_assoc($main_cat_result) ) {?>
+                    <?
+                    $main_cat_result = mysqli_query($gconnet, $main_category);
+                    ?>
+                    <? while( $main_cat_row = mysqli_fetch_assoc($main_cat_result) ) {?>
                         <span><?=$main_cat_row['category_name']?></span>
                     <?}?>
                 </div>
@@ -121,23 +137,26 @@ $hastag_result = mysqli_query($gconnet, $hashtag_query);
                 <div class="info_con">
                     <div class="clean_level">
                         <p class="level1">
-                            <input type="radio" name="subs_clean" id="lv1" <?=$row['clean_filter'] == 1 ? "checked":"" ?> ><label for="lv1"><span>클린</span></label>
+                            <input type="radio" name="subs_clean" value="1" id="lv1" <?=$row['clean_filter'] == 1 ? "checked":"" ?> ><label for="lv1"><span>클린</span></label>
                         </p>
                         <p class="level2">
-                            <input type="radio" name="subs_clean" id="lv2" <?=$row['clean_filter'] == 2 ? "checked":"" ?>><label for="lv2"><span>중간</span></label>
+                            <input type="radio" name="subs_clean" value="2"  id="lv2" <?=$row['clean_filter'] == 2 ? "checked":"" ?>><label for="lv2"><span>중간</span></label>
                         </p>
                         <p class="level3">
-                            <input type="radio" name="subs_clean" id="lv3" <?=$row['clean_filter'] == 3 ? "checked":"" ?>><label for="lv3"><span>없음</span></label>
+                            <input type="radio" name="subs_clean" value="3"  id="lv3" <?=$row['clean_filter'] == 3 ? "checked":"" ?>><label for="lv3"><span>없음</span></label>
                         </p>
                         <div class="clean_bar"></div>
                     </div>
                 </div>
             </div>
             <div class="info_row btn_row">
-                <button type="button" class="blue_btn">저장</button><button type="button">취소</button>
+                <button type="submit" class="blue_btn">저장</button><button type="button">취소</button>
             </div>
+
+                <form>
         </div>
-        <div class="mylist">
+
+            <div class="mylist">
             <div class="tab_menu">
                 <button tpye="button" class="on">작성한 글</button>
                 <button tpye="button">작성한 댓글</button>
@@ -158,6 +177,7 @@ $hastag_result = mysqli_query($gconnet, $hashtag_query);
 
     </section>
 </div>
+
 </body>
 </html>
 

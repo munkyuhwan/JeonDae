@@ -29,7 +29,6 @@
             var inpLength = $("input[name='add_pic[]']").length;
             $("input[name='add_pic[]']")[inpLength - 1].click()
 
-
         }else {
             alert('5개 이상 추가하실 수 없습니다.');
         }
