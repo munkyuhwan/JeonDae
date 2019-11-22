@@ -3,7 +3,7 @@
     <h2 class="hidden">공유하기</h2>
     <div class="popup_wrap">
         <div class="share_top grd_bg">
-            <img src="images/logo2.png" alt="">
+            <img src="../images/logo2.png" alt="">
         </div>
         <div class="share_mid">
             <ul>
