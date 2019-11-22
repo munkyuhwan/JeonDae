@@ -12,6 +12,9 @@ $num = count($cnt);
 
 ?>
 <body>
+<script>
+    location.replace('main1');
+</script>
 <div class="wrapper">
     <header>
         <div class="header grd_bg">
