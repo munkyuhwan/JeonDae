@@ -22,7 +22,7 @@ if (count($row)>0) {
     $query .= " view_cnt=".$view_cnt.", ";
     $query .= " comment_cnt=".$comment_cnt.", ";
     $query .= " like_cnt=".$like_cnt;
-    $query .= "WHERE category_idx=".$category_idx;
+    $query .= " WHERE category_idx=".$category_idx;
 }else {
     $query = "INSERT INTO popular_feeds SET";
     $query .= " category_idx=".$category_idx.", ";
@@ -32,7 +32,7 @@ if (count($row)>0) {
 }
 $result = mysqli_query($gconnet,$query);
 
-
+echo $query;
 if($result){
     ?>
     <SCRIPT LANGUAGE="JavaScript">
