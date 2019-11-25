@@ -18,8 +18,8 @@
                 <?}?>
             </div>
             <div class="user_certi">
-                <span class="certi1" >학교인증</span>
-                <span class="certi2 on" >지역인증</span>
+                <span class="certi1" onclick="location.href='../sub_certi1'; " >학교인증</span>
+                <span class="certi2 on">지역인증</span>
             </div>
         </div>
         <div class="snb_mid">
