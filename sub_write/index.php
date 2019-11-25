@@ -1,4 +1,32 @@
 <? include $_SERVER['DOCUMENT_ROOT'] . "/include/head.php" ?>
+<?
+$category_query = "SELECT report.category_idx, pop.view_cnt, pop.comment_cnt, pop.like_cnt, (SELECT COUNT(*) AS comment_cnt FROM report_comments WHERE report_idx=report.category_idx ) AS reply_cnt ";
+$category_query .= "FROM subscribe_list AS report, popular_feeds AS pop WHERE 1 ";
+$category_query .= " AND report.member_idx=".$_SESSION['user_access_idx']." AND report.category_idx=pop.category_idx ";
+$category_query .= " GROUP BY report.category_idx, pop.view_cnt, pop.comment_cnt, pop.like_cnt ";
+$category_result = mysqli_query($gconnet, $category_query);
+$categories = array();
+
+while($row = mysqli_fetch_assoc($category_result)) {
+    $category_idx = $row['category_idx'];
+    $view_cnt = $row['view_cnt'];
+    $comment_cnt = $row['comment_cnt'];
+    $like_cnt = $row['like_cnt'];
+    $total_comment_cnt = $row['reply_cnt'];
+
+    //구독 상세 카테고리 리스트 쿼리
+    $my_subscribe = "SELECT sub_list.category_idx AS subscribe_cat_idx, sub_list.sub_category_idx, sub_cat.sub_name ";
+    $my_subscribe .= " FROM subscribe_list AS sub_list, report_sub_categories AS sub_cat ";
+    $my_subscribe .= " WHERE sub_list.sub_category_idx=sub_cat.idx AND sub_list.member_idx=".$_SESSION['user_access_idx']." AND sub_list.category_idx=".$category_idx;
+    $my_sub_result = mysqli_query($gconnet, $my_subscribe);
+
+    while($sub_row = mysqli_fetch_assoc($my_sub_result)) {
+        array_push($categories, $sub_row['sub_name']);
+
+    }
+
+}
+?>
 <script type="text/javascript" >
 
     var addPicTmp = "" +
@@ -69,7 +97,7 @@
             </div>
             <div class="write_bot">
                 <div class="tag_input">
-                    <textarea name="hash_tags" id="hash_tags" placeholder="태그를 입력해주세요. 예) #성동구 #홍대" required></textarea>
+                    <textarea name="hash_tags" id="hash_tags" placeholder="태그를 입력해주세요. 예) #성동구 #홍대" required><? foreach($categories as $k=>$v){ echo "#".$v;if( $k<(count($categories)-1) ){echo ",";} }?></textarea>
                 </div>
                 <div class="add_wrap" id="photo_wrapper">
                     <!-- input hidden type="file" id="add_pic" name="add_pic[]" onchange="onFileChoose(event, this)" -->
