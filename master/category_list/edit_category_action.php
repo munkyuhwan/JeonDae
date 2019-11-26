@@ -12,6 +12,7 @@ $inputFB = trim(sqlfilter($_REQUEST['inputFB']));
 $app_id = trim(sqlfilter($_REQUEST['app_id']));
 $app_secret = trim(sqlfilter($_REQUEST['app_secret']));
 $page_id = trim(sqlfilter($_REQUEST['page_id']));
+$area_idx = trim(sqlfilter($_REQUEST['area_idx']));
 
 $original_profile = trim(sqlfilter($_REQUEST['original_profile']));
 $original_cover = trim(sqlfilter($_REQUEST['original_cover']));
@@ -61,6 +62,7 @@ if ($_FILES['profile_img']['size']>0) {
 if ($_FILES['cover_img']['size']>0) {
     $query .= " cover_img = '".$file_cover."', ";
 }
+$query .= " area_idx = '".$area_idx."', ";
 $query .= " app_id = '".$app_id."', ";
 $query .= " app_secret = '".$app_secret."', ";
 $query .= " page_id = '".$page_id."' ";

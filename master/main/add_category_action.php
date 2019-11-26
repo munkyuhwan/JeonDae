@@ -11,6 +11,7 @@ $inputFB = trim(sqlfilter($_REQUEST['inputFB']));
 $app_id = trim(sqlfilter($_REQUEST['app_id']));
 $app_secret = trim(sqlfilter($_REQUEST['app_secret']));
 $page_id = trim(sqlfilter($_REQUEST['page_id']));
+$area_idx = trim(sqlfilter($_REQUEST['area_idx']));
 
 
 /*
@@ -127,6 +128,7 @@ $query = " insert into report_categories set ";
 $query .= " category_name = '".$report_name."', ";
 $query .= " profile_img = '".$file_profile."', ";
 $query .= " cover_img = '".$file_cover."', ";
+$query .= " area_idx = '".$area_idx."', ";
 $query .= " app_id = '".$app_id."', ";
 $query .= " app_secret = '".$app_secret."', ";
 $query .= " page_id = '".$page_id."' ";

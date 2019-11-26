@@ -2,6 +2,11 @@
 $cat_query = "SELECT * FROM report_categories WHERE idx=".$category_idx;
 $cat_result = mysqli_query($gconnet, $cat_query);
 $cat_row = mysqli_fetch_assoc($cat_result);
+
+
+$gus_query = "SELECT * FROM gus ";
+$gus_result = mysqli_query($gconnet, $gus_query);
+
 ?>
 <div   id="wrapper" role="document">
     <div class="card card-register mx-auto mt-5">
@@ -38,6 +43,15 @@ $cat_row = mysqli_fetch_assoc($cat_result);
                     <div class="form-label-group">
                         <img src="../../upload_file/category_cover/<?=$cat_row['cover_img']?>" width="140">
                         <input type="file" id="cover_img" name="cover_img" class="form-control" placeholder="커버 이미지" >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-label-group">
+                        <select name="area_idx">
+                            <?while($gus_row = mysqli_fetch_assoc($gus_result)) {?>
+                                <option value="<?=$gus_row['idx']?>" <?=$cat_row['area_idx']==$gus_row['idx'] ? "selected":""?> ><?=$gus_row['gu_name']?></option>
+                            <?}?>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">

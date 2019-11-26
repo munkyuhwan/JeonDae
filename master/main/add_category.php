@@ -1,4 +1,7 @@
-
+<?
+$gus_query = "SELECT * FROM gus ";
+$gus_result = mysqli_query($gconnet, $gus_query);
+?>
 <div   id="wrapper" role="document">
     <div class="card card-register mx-auto mt-5">
         <div class="card-header">제보함 추가</div>
@@ -30,6 +33,15 @@
                     <div class="form-label-group">
                         <input type="file" id="cover_img" name="cover_img" class="form-control" placeholder="커버 이미지" required="required">
                         <label for="cover_img">커버 이미지</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-label-group">
+                        <select name="area_idx">
+                            <?while($gus_row = mysqli_fetch_assoc($gus_result)) {?>
+                                <option value="<?=$gus_row['idx']?>" ><?=$gus_row['gu_name']?></option>
+                            <?}?>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">
