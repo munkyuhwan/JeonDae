@@ -1,5 +1,30 @@
 <? include $_SERVER['DOCUMENT_ROOT'] . "/include/head.php" ?>
-<body>
+<script>
+    var page = 0;
+    var block = 10;
+    function getFaq() {
+        $.ajax({
+            url:"faq_template.php",
+            data:{"page":page, "block":block},
+            success:function(response) {
+                $('#faq_list').append(response);
+                $(".slide_top").on("click",function(){
+                    if( $(this).closest(".del_body").length){
+                        return false;
+                    }else{
+                        $(this).toggleClass("on");
+                        $(this).next().slideToggle();
+                    }
+                });
+            },
+            error:function(error) {
+
+            }
+
+        })
+    }
+</script>
+<body onload="getFaq();">
 <div class="wrapper">
     <header>
         <div class="header grd_bg sub">
@@ -16,25 +41,8 @@
             <div class="tab_con">
                 <div class="" style="display: block;">
                     <p class="tab_tlt">자주 묻는 질문 BEST%</p>
-                    <ul>
-                        <li>
-                            <div class="slide_top">
-                                <p class="tlt">자주묻는 질문 나와라1</p>
-                            </div>
-                            <div class="slide_bot">
-                                전국의 모든 소식을 대신 전해 드림으로써 더 많은 사람들에게 더 많은 소식을 알려드립니다. <br>
-                                가슴 속에 하나 둘 새겨지는 별을 이제 다 못 헤는 것은 쉬이 아침이 오는 까닭이요. 내일 밤이 남은 까닭이요. 아직 나의 청춘이 다하지 않은 까닭입니다.
-                            </div>
-                        </li>
-                        <li>
-                            <div class="slide_top">
-                                <p class="tlt">자주묻는 질문 나와라1</p>
-                            </div>
-                            <div class="slide_bot">
-                                전국의 모든 소식을 대신 전해 드림으로써 더 많은 사람들에게 더 많은 소식을 알려드립니다. <br>
-                                가슴 속에 하나 둘 새겨지는 별을 이제 다 못 헤는 것은 쉬이 아침이 오는 까닭이요. 내일 밤이 남은 까닭이요. 아직 나의 청춘이 다하지 않은 까닭입니다.
-                            </div>
-                        </li>
+                    <ul id="faq_list">
+
                     </ul>
                 </div>
                 <div class="inquiry_1n1">
