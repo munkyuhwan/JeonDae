@@ -78,6 +78,11 @@ $total_param = 'bmenu='.$bmenu.'&smenu='.$smenu.'&field='.$field.'&keyword='.$ke
                                         공지사항 관리
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td onclick="go_views('../advert/board_list.php?<?=$total_param."&bbs_code=faq"?>')">
+                                        자주묻는 질문 관리
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

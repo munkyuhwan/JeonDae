@@ -23,98 +23,11 @@ $s_gender = sqlfilter($_REQUEST['s_gender']); // 성별 검색
 ################## 파라미터 조합 #####################
 $total_param = 'bmenu='.$bmenu.'&smenu='.$smenu.'&field='.$field.'&keyword='.$keyword.'&bbs_code='.$bbs_code.'&v_sect='.$v_sect.'&s_cate_code='.$s_cate_code.'&s_sect1='.$s_sect1.'&s_sect2='.$s_sect2.'&s_gender='.$s_gender.'&s_level='.$s_level;
 
-if(!$pageNo){
-	$pageNo = 1;
-}
-
-if ($v_sect){
-	$where .= "and a.bbs_sect = '".$v_sect."' and is_del='N'";
-}
-
-if($bbs_code){
-	$where .= " and a.bbs_code = '".$bbs_code."' "; // 선택한 게시판에 해당하는 내용만 추출한다
-} elseif($s_cate_code) {
-
-	$sc_board_sql = "select board_code from board_config where 1=1 and cate1 = '".$s_cate_code."' ";
-	$sc_board_query = mysqli_query($gconnet,$sc_board_sql);
-	$sc_board_cnt = mysqli_num_rows($sc_board_query);
-
-	for ($sc_board_j=0; $sc_board_j<$sc_board_cnt; $sc_board_j++){
-		$sc_board_row = mysqli_fetch_array($sc_board_query);
-
-			if($sc_board_j == $sc_board_cnt-1){
-				$sc_board_where .= "'".$sc_board_row['board_code']."'";
-			} else {
-				$sc_board_where .= "'".$sc_board_row['board_code']."',";
-			}
-
-	}
-
-	if($sc_board_cnt > 0){
-		$where .= " and a.bbs_code in (".$sc_board_where.") and is_del='N'"; // 해당 카테고리로 만들어진 게시판이 있을 경우 카테고리에 해당하는 게시판 코드를 추출하여 in query 로 내용을 추출한다.
-	} else {
-		$where .= " and a.idx = '0' "; // 해당 카테고리로 만들어진 게시판이 없을 경우 글 리스트를 추출하지 않는다.
-	}
-
-}
-
-if($s_sect1){
-	$where .= " and a.sido = '".$s_sect1."' ";
-}
-
-if($s_sect2){
-	$where .= " and a.gugun = '".$s_sect2."' ";
-}
-
-if($s_gender){
-	$where .= " and b.gender = '".$s_gender."' ";
-}
-
-if($s_level){
-	$where .= " and b.user_level = '".$s_level."' ";
-}
-
-if ($field && $keyword){
-	if($field == "subtent"){
-		$where .= "and (a.subject like '%".$keyword."%' or a.content like '%".$keyword."%')";
-	} else {
-		$where .= "and ".$field." like '%".$keyword."%'";
-	}
-}
-
-$pageScale = 20; // 페이지당 20 개씩 
-$start = ($pageNo-1)*$pageScale;
-
-$StarRowNum = (($pageNo-1) * $pageScale);
-$EndRowNum = $pageScale;
-
-$order_by = " ORDER BY a.ref desc, a.step asc, a.depth asc ";
-
-$query = "select * from board_content a where 1 ".$where.$order_by." limit ".$StarRowNum." , ".$EndRowNum;
-$query_cnt = "select a.idx from board_content a where 1 ".$where;
+$query = "SELECT * FROM board_content WHERE 1 ";
+$where = " AND bbs_code='".$bbs_code."' AND is_del='N' ";
+$result = mysqli_query($gconnet, $query.$where);
 
 
-$result = mysqli_query($gconnet,$query);
-$result_cnt = mysqli_query($gconnet,$query_cnt);
-$num = mysqli_num_rows($result_cnt);
-
-//echo $num;
-
-$iTotalSubCnt = $num;
-$totalpage	= ($iTotalSubCnt - 1)/$pageScale;
-
-if($s_cate_code) {
-	$sql_sub1 = "select cate_name1 from board_cate where cate_code1='".$s_cate_code."' and cate_level='1' ";
-	$query_sub1 = mysqli_query($gconnet,$sql_sub1);
-	$row_sub1 = mysqli_fetch_array($query_sub1);
-	$bbs_cate_name = $row_sub1['cate_name1'];
-}
-
-if($bbs_code){
-	$bbs_str = $_include_board_board_title;
-} elseif($s_cate_code) {
-	$bbs_str = $bbs_cate_name." 카테고리에 해당하는 ";
-}
 ?>
 
 <SCRIPT LANGUAGE="JavaScript">
@@ -185,7 +98,7 @@ if($bbs_code){
                 <li class="breadcrumb-item">
                     <a href="../settings/?<?=$total_param?>">설정</a>
                 </li>
-                <li class="breadcrumb-item active">공지사항</li>
+                <li class="breadcrumb-item active"><?= $bbs_code=="notice"?"공지사항":($bbs_code=="faq"?"자주하는 질문":"") ?></li>
             </ol>
 
             <!-- DataTables Example -->
@@ -200,25 +113,14 @@ if($bbs_code){
                                 </th>
                             </thead>
                             <tbody>
-                                <?
-                                for ($i=0; $i<mysqli_num_rows($result); $i++){
-                                $row = mysqli_fetch_array($result);
 
-                                $listnum	= $iTotalSubCnt - (( $pageNo - 1 ) * $pageScale ) - $i;
-                                $reg_time3 = to_time(substr($row[write_time],0,10));
-
-                                $sql_sub_notice_2 = "select cate_name1 from viva_cate where 1 and set_code='memcat' and cate_level = '1' and cate_code1='".$row[cate_code1]."'";
-                                //echo $sql_sub_notice_2."<br>";
-                                $query_sub_notice_2 = mysqli_query($gconnet,$sql_sub_notice_2);
-                                $row_sub_notice_2 = mysqli_fetch_array($query_sub_notice_2);
-                                $ad_cate_name1 = $row_sub_notice_2['cate_name1'];
-                                ?>
+                            <?while($row = mysqli_fetch_assoc($result) ) {?>
                                 <tr>
                                     <td onclick="location.href='board_view.php?idx=<?=$row['idx']?>&<?=$total_param?>'; ">
                                         <?=$row[subject]?>
                                     </td>
                                 </tr>
-                                <?}?>
+                            <?}?>
                             </tbody>
                         </table>
                     </div>

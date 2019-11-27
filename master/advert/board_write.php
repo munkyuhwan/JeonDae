@@ -93,15 +93,17 @@ $total_param = 'bmenu='.$bmenu.'&smenu='.$smenu.'&field='.$field.'&keyword='.$ke
 					<li class="breadcrumb-item">
 						<a href="../settings/?<?=$total_param?>">설정</a>
 					</li>
-					<li class="breadcrumb-item active">공지사항</li>
+					<li class="breadcrumb-item active"><?= $bbs_code=="notice"?"공지사항":($bbs_code=="faq"?"자주하는 질문":"") ?></li>
 				</ol>
 
 				<!-- DataTables Example -->
 				<div class="card mb-3">
 
 					<form name="frm" id="addFrm" action="board_write_action.php"   method="post" enctype="multipart/form-data">
+						<input type="hidden" name="bbs_code" value="<?=$bbs_code?>">
+						<input type="hidden" name="total_param" value="<?=$total_param?>">
 						<div class="card-header">
-							공지사항 제목
+							<?= $bbs_code=="notice"?"공지사항":($bbs_code=="faq"?"자주하는 질문":"") ?> 제목
 						</div>
 						<div class="card-body">
 							<div class="form-label-group">
@@ -111,7 +113,7 @@ $total_param = 'bmenu='.$bmenu.'&smenu='.$smenu.'&field='.$field.'&keyword='.$ke
 						</div>
 
 						<div class="card-header">
-							공지사항 내용
+							<?= $bbs_code=="notice"?"공지사항":($bbs_code=="faq"?"자주하는 질문":"") ?> 내용
 						</div>
 						<div class="card-body">
 							<div class="form-label-group">

@@ -1,5 +1,5 @@
 <? include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/include_default.php"; // 공통함수 인클루드 ?>
-<? include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/include_board_config.php"; // 게시판 설정파일 인클루드 ?>
+<? //include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/include_board_config.php"; // 게시판 설정파일 인클루드 ?>
 <? include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/include_htmlheader_admin.php"; // 관리자페이지 헤더?>
 <? include $_SERVER["DOCUMENT_ROOT"]."/master/include/check_login_frame.php"; // 관리자 로그인여부 확인?>
 
@@ -113,6 +113,7 @@ if($is_html != "Y"){
 	
 	$result = mysqli_query($gconnet,$query);
 
+/*
 	$sql_pre2 = " select idx from board_content where 1=1 and bbs_code = '".$bbs_code."' order by idx desc limit 0,1"; 
 	$result_pre2  = mysqli_query($gconnet,$sql_pre2);
 	$mem_row2 = mysqli_fetch_array($result_pre2);
@@ -158,7 +159,7 @@ if($is_html != "Y"){
 	} // 설정된 갯수만큼 루프 종료
 
 	################# 첨부파일 업로드 종료 #######################
-	
+	*/
 	if($result){
 	?>
 	<SCRIPT LANGUAGE="JavaScript">

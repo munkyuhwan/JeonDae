@@ -62,7 +62,7 @@ if ($writer==""){
 	$query .= " where idx = ".$idx;
 
 	//echo $query;
-echo $query;
+
 	$result = mysqli_query($gconnet,$query);
 
 	################# 첨부파일 업로드 종료 #######################
