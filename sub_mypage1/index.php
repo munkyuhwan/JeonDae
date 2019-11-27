@@ -1,246 +1,65 @@
 <? include $_SERVER['DOCUMENT_ROOT'] . "/include/head.php" ?>
-<body>
+<?
+$mywrite_query="SELECT COUNT(*) AS cnt FROM report_list WHERE member_idx=".$_SESSION['user_access_idx']." AND published_yn='Y' AND complete_yn='Y' AND del_yn='N' ";
+$mywrite_result = mysqli_query($gconnet, $mywrite_query);
+$mywrite_cnt = mysqli_fetch_assoc($mywrite_result);
+
+$mycomment_query = "SELECT COUNT(*) AS cnt FROM report_comments WHERE member_idx=".$_SESSION['user_access_idx'];
+$mycomment_result = mysqli_query($gconnet, $mycomment_query);
+$mycomment_cnt = mysqli_fetch_assoc($mycomment_result);
+?>
+<script>
+    var page=0;
+    var block=10;
+
+    function getWriteList() {
+        $.ajax({
+            url:'list_template.php',
+            data:{"page":page, "block":block},
+            success:function(response) {
+                $('#myWrite').html(response);
+            },
+            error:function(error) {
+
+            }
+        })
+    }
+    function getCommentList() {
+        $.ajax({
+            url:'comment_template.php',
+            data:{"page":page, "block":block},
+            success:function(response) {
+                $('#myComment').html(response);
+            },
+            error:function(error) {
+
+            }
+        })
+    }
+</script>
+<body onload="getWriteList()">
 <div class="wrapper">
     <? include $_SERVER['DOCUMENT_ROOT']."/include/header.php"?>
     <? include $_SERVER['DOCUMENT_ROOT']."/include/main_nav.php"?>
 
     <section class="main_section">
         <div class="tab_menu my_tab">
-            <button tpye="button" class="on">작성한 글 <span>55</span></button>
-            <button tpye="button" class="">작성한 댓글 <span>345</span></button>
+            <button tpye="button" class="on" onclick="getWriteList()">작성한 글 <span><?=$mywrite_cnt['cnt']?></span></button>
+            <button tpye="button" class="" onclick="getCommentList()">작성한 댓글 <span><?=$mycomment_cnt['cnt']?></span></button>
         </div>
         <div class="tab_con">
             <div class="list_wrap" style="display:block;">
-                <ul>
-                    <li class="item">
-                        <div class="item_top user_box">
-                            <div class="prf_box">
-                                <img src="images/img_sample2.jpg" alt="">
-                            </div>
-                            <div class="info_box ">
-                                <p class="name">사나</p>
-                                <div class="etc_info">
-                                    <p>8월 20일 오후 6:18</p><p>N번째 제보</p><button type="button">#구리시</button><button type="button">#20대</button>
-                                </div>
-                            </div>
-                            <button type="button" class="pop_call" data-pop="post_pop"></button>
-                        </div>
-                        <div class="item_mid">
-                            <div class="text_box">
-                                <p> 위 사진 오른쪽 지갑을 2019년 11월 2일 토요일 태안-> 부천 방향
-                                    충남고속 고속버스에서 잃어버렸어요 </p>
-                                <button type="button" class="more_btn">...더보기</button>
-                            </div>
-                            <div class="img_wrap">
-                                <div class="flex_wrap">
-                                    <div class="flex2_wrap item2">
-                                        <a href="#" class="pop_call" data-pop="img_pop">
-                                            <img src="images/img_sample5.jpg" alt="">
-                                        </a>
-                                        <a href="#" class="pop_call" data-pop="img_pop">
-                                            <img src="images/img_sample4.jpg" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="flex2_wrap item3">
-                                        <a href="#" class="pop_call" data-pop="img_pop">
-                                            <img src="images/img_sample5.jpg" alt="">
-                                        </a>
-                                        <a href="#" class="pop_call" data-pop="img_pop">
-                                            <img src="images/img_sample6.jpg" alt="">
-                                        </a>
-                                        <a href="#" class="pop_call" data-pop="img_pop">
-                                            <img src="images/img_sample6.jpg" alt="">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="btn_box">
-                                <button type="button" class="like_btn">26</button>
-                                <span class="reply_cnt">15</span>
-                            </div>
-                        </div>
-                        <div class="item_bot">
-                            <div class="reply_list">
-                                <button type="button" class="reply_all">댓글 <span>00</span>개 모두 보기</button>
-                                <ul>
-                                    <li class="reply_item user_box">
-                                        <div class="reply_inner">
-                                            <div class="prf_box">
-                                                <img src="images/img_sample2.jpg" alt="">
-                                            </div>
-                                            <div class="info_box ">
-                                                <div class="reply_top"><p class="name">사나</p><p class="reply_txt">얼른 지갑 찾으시길 바래요..</p></div>
-                                                <div class="etc_info">
-                                                    <p>8월 20일 오후 6:18</p><button type="button">답글 달기</button>
-                                                </div>
-                                            </div>
-                                            <button type="button" class="like_btn"></button>
-                                        </div>
-                                        <ul>
-                                            <li class="reply_item user_box">
-                                                <div class="reply_inner">
-                                                    <div class="prf_box">
-                                                        <img src="images/img_sample2.jpg" alt="">
-                                                    </div>
-                                                    <div class="info_box ">
-                                                        <div class="reply_top"><p class="name">사나</p><p class="reply_txt">얼른 지갑 찾으시길 바래요..얼른 지갑 찾으시길 바래요..얼른 지갑 찾으시길 바래요..얼른 지갑 찾으시길 바래요..얼른 지갑 찾으시길 바래요..</p></div>
-                                                        <div class="etc_info">
-                                                            <p>8월 20일 오후 6:18</p><button type="button">답글 달기</button>
-                                                        </div>
-                                                    </div>
-                                                    <button type="button" class="like_btn"></button>
-                                                </div>
-                                                <ul>
-                                                    <li class="reply_item user_box">
-                                                        <div class="reply_inner">
-                                                            <div class="prf_box">
-                                                                <img src="images/img_sample2.jpg" alt="">
-                                                            </div>
-                                                            <div class="info_box ">
-                                                                <div class="reply_top"><p class="name">사나</p><p class="reply_txt">얼른 지갑 찾으시길 바래요..</p></div>
-                                                                <div class="etc_info">
-                                                                    <p>8월 20일 오후 6:18</p><button type="button">답글 달기</button>
-                                                                </div>
-                                                            </div>
-                                                            <button type="button" class="like_btn"></button>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-
-                            </div>
-                        </div>
-                        <div class="item_reply_input">
-                            <div class="prf_box">
-                                <img src="images/img_sample2.jpg" alt="">
-                            </div>
-                            <div class="input_box">
-                                <form action="">
-                                    <input type="text" placeholder="댓글 달기...">
-                                    <button type="button">게시</button>
-                                </form>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="item">
-                        <div class="item_top user_box">
-                            <div class="prf_box">
-                                <img src="images/img_sample2.jpg" alt="">
-                            </div>
-                            <div class="info_box ">
-                                <p class="name">사나</p>
-                                <div class="etc_info">
-                                    <p>8월 20일 오후 6:18</p><p>N번째 제보</p><button type="button">#구리시</button><button type="button">#20대</button>
-                                </div>
-                            </div>
-                            <button type="button" class="pop_call" data-pop="post_pop"></button>
-                        </div>
-                        <div class="item_mid">
-                            <div class="text_box">
-                                <p> 위 사진 오른쪽 지갑을 2019년 11월 2일 토요일 태안-> 부천 방향
-                                    충남고속 고속버스에서 잃어버렸어요 </p>
-                                <button type="button" class="more_btn">...더보기</button>
-                            </div>
-                            <div class="img_wrap">
-                                <div class="flex_wrap">
-                                    <div class="flex2_wrap item2">
-                                        <a href="">
-                                            <img src="images/img_sample5.jpg" alt="">
-                                        </a>
-                                        <a href="">
-                                            <img src="images/img_sample4.jpg" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="flex2_wrap item3">
-                                        <a href="">
-                                            <img src="images/img_sample5.jpg" alt="">
-                                        </a>
-                                        <a href="">
-                                            <img src="images/img_sample6.jpg" alt="">
-                                        </a>
-                                        <a href="">
-                                            <img src="images/img_sample6.jpg" alt="">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="btn_box">
-                                <button type="button" class="like_btn">26</button>
-                                <span class="reply_cnt">15</span>
-                            </div>
-                        </div>
-                        <div class="item_bot">
-                            <div class="reply_list">
-                                <button type="button" class="reply_all">댓글 <span>00</span>개 모두 보기</button>
-                                <ul>
-                                    <li class="reply_item user_box">
-                                        <div class="reply_inner">
-                                            <div class="prf_box">
-                                                <img src="images/img_sample2.jpg" alt="">
-                                            </div>
-                                            <div class="info_box ">
-                                                <div class="reply_top"><p class="name">사나</p><p class="reply_txt">얼른 지갑 찾으시길 바래요..</p></div>
-                                                <div class="etc_info">
-                                                    <p>8월 20일 오후 6:18</p><button type="button">답글 달기</button>
-                                                </div>
-                                            </div>
-                                            <button type="button" class="like_btn"></button>
-                                        </div>
-                                        <ul>
-                                            <li class="reply_item user_box">
-                                                <div class="reply_inner">
-                                                    <div class="prf_box">
-                                                        <img src="images/img_sample2.jpg" alt="">
-                                                    </div>
-                                                    <div class="info_box ">
-                                                        <div class="reply_top"><p class="name">사나</p><p class="reply_txt">얼른 지갑 찾으시길 바래요..</p></div>
-                                                        <div class="etc_info">
-                                                            <p>8월 20일 오후 6:18</p><button type="button">답글 달기</button>
-                                                        </div>
-                                                    </div>
-                                                    <button type="button" class="like_btn"></button>
-                                                </div>
-                                                <ul>
-                                                    <li class="reply_item user_box">
-                                                        <div class="reply_inner">
-                                                            <div class="prf_box">
-                                                                <img src="images/img_sample2.jpg" alt="">
-                                                            </div>
-                                                            <div class="info_box ">
-                                                                <div class="reply_top"><p class="name">사나</p><p class="reply_txt">얼른 지갑 찾으시길 바래요..</p></div>
-                                                                <div class="etc_info">
-                                                                    <p>8월 20일 오후 6:18</p><button type="button">답글 달기</button>
-                                                                </div>
-                                                            </div>
-                                                            <button type="button" class="like_btn"></button>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-
-                            </div>
-                        </div>
-                        <div class="item_reply_input">
-                            <div class="prf_box">
-                                <img src="images/img_sample2.jpg" alt="">
-                            </div>
-                            <div class="input_box">
-                                <form action="">
-                                    <input type="text" placeholder="댓글 달기...">
-                                    <button type="button">게시</button>
-                                </form>
-                            </div>
-                        </div>
-                    </li>
+                <ul id="myWrite">
                 </ul>
             </div>
+            <div class="list_wrap mylist"  style="display: block;">
+                <ul id="myComment">
+
+                </ul>
+            </div>
+
         </div>
+
     </section>
 </div>
 <? include $_SERVER['DOCUMENT_ROOT']."/include/gnb.php" ?>

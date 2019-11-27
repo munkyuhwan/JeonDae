@@ -148,17 +148,16 @@ $hastag_result = mysqli_query($gconnet, $hashtag_query);
                     </div>
                 </div>
                 <div class="info_row btn_row">
-                    <button type="submit" class="blue_btn">저장</button><button type="button">취소</button>
+                    <button type="submit" class="blue_btn" >저장</button><button type="button">취소</button>
                 </div>
-
-                <form>
+            <form>
         </div>
 
             <div class="mylist">
             <div class="tab_menu">
-                <button tpye="button" class="on">작성한 글</button>
-                <button tpye="button">작성한 댓글</button>
-                <button tpye="button">좋아요한 글</button>
+                <button type="button" class="on">작성한 글</button>
+                <button type="button">작성한 댓글</button>
+                <button type="button">좋아요한 글</button>
             </div>
             <div class="tab_con">
                 <div class="con1" style="display:block">
@@ -171,7 +170,6 @@ $hastag_result = mysqli_query($gconnet, $hashtag_query);
                     <? include "likes_list.php"?>
                 </div>
             </div>
-        </div>
 
     </section>
 </div>
