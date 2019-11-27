@@ -3,7 +3,7 @@
 $page = trim(sqlfilter($_REQUEST['page']));
 $block = trim(sqlfilter($_REQUEST['block']));
 
-$query = "SELECT write_time, subject, content FROM board_content WHERE is_del='N' ";
+$query = "SELECT write_time, subject, content FROM board_content WHERE is_del='N' AND bbs_code='notice' ";
 $limit = " LIMIT ".($page*$block).",".$block;
 
 $result = mysqli_query($gconnet, $query.$limit);
