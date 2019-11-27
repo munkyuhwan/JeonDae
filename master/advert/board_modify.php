@@ -80,6 +80,7 @@ if(mysqli_num_rows($query) == 0){
 				<!-- DataTables Example -->
 				<form name="frm" id="addFrm" action="board_modify_action.php"   method="post" enctype="multipart/form-data">
 					<input type="hidden" name="idx" value="<?=$idx?>" >
+					<input type="hidden" name="total_param" value="<?=$total_param?>" >
 					<div class="card mb-3">
 
 						<div class="card-header">
