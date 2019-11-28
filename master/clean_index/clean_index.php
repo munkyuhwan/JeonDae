@@ -55,11 +55,11 @@ $title_row = mysqli_fetch_assoc($title_result);
                             <div class="col-md-6">
                                 <div class="card">
                                     <div class="card-header">
-                                        1. 클린 게시물 기준
+                                        1. 없음 게시물 기준
                                     </div>
                                     <div class="card-body">
                                         <div class="form-label-group">
-                                            <input type="number" id="clean_content_cnt" name="clean_content_cnt" class="form-control" onkeyup="$('#mid_content_cnt_start').val(this.value)"  placeholder="클린 게시물 기준" required="required" autofocus="autofocus" value="<?=$row['clean_content_cnt']?>" >
+                                            <input type="number" id="clean_content_cnt" name="clean_content_cnt" class="form-control" onkeyup="$('#mid_content_cnt_start').val(this.value)"  placeholder="클린 게시물 기준" required="required" autofocus="autofocus" value="<?=$row['non_content_cnt']?>" >
                                             <label for="clean_content_cnt">클린 게시물 기준</label>
                                         </div>
                                     </div>
@@ -94,11 +94,11 @@ $title_row = mysqli_fetch_assoc($title_result);
                                 <div class="form-label-group">
                                     <div class="card">
                                         <div class="card-header">
-                                            3. 없음 게시물 기준
+                                            3. 클린 게시물 기준
                                         </div>
                                         <div class="card-body">
                                             <div class="form-label-group">
-                                                <input type="number" id="content_standard" name="content_standard" class="form-control" placeholder="게시물 기준" required="required" autofocus="autofocus" value="<?=$row['content_standard']?>">
+                                                <input type="number" id="content_standard" name="content_standard" class="form-control" placeholder="게시물 기준" required="required" autofocus="autofocus" value="<?=$row['clean_content_cnt']?>">
                                                 <label for="content_standard">게시물 기준</label>개~
                                             </div>
                                         </div>

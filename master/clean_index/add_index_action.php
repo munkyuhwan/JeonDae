@@ -19,17 +19,17 @@ $row = mysqli_fetch_array($result);
 $query = "";
 if (count($row)>0) {
     $query = "UPDATE clean_index SET ";
-    $query .= " clean_content_cnt=".$clean_content_cnt.", ";
+    $query .= " non_content_cnt=".$clean_content_cnt.", ";
     $query .= " mid_content_cnt_start=".$mid_content_cnt_start.", ";
     $query .= " mid_content_cnt_end=".$mid_content_cnt_end.", ";
-    $query .= " content_standard=".$content_standard." ";
+    $query .= " clean_content_cnt=".$content_standard." ";
     $query .= "WHERE category_idx=".$category_idx;
 }else {
     $query = "INSERT INTO clean_index SET";
     $query .= " category_idx=".$category_idx.", ";
-    $query .= " clean_content_cnt=".$clean_content_cnt.", ";
+    $query .= " non_content_cnt=".$clean_content_cnt.", ";
     $query .= " mid_content_cnt_start=".$mid_content_cnt_start.", ";
-    $query .= " mid_content_cnt_end=".$mid_content_cnt_end.", ";
+    $query .= " clean_content_cnt=".$mid_content_cnt_end.", ";
     $query .= " content_standard=".$content_standard." ";
 }
 $result = mysqli_query($gconnet,$query);
