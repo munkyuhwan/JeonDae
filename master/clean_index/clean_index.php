@@ -94,7 +94,7 @@ $title_row = mysqli_fetch_assoc($title_result);
                                 <div class="form-label-group">
                                     <div class="card">
                                         <div class="card-header">
-                                            3. 게시물 기준
+                                            3. 없음 게시물 기준
                                         </div>
                                         <div class="card-body">
                                             <div class="form-label-group">
