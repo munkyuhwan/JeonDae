@@ -121,6 +121,7 @@ $num = count($cnt);
                                                 </a>
                                             </div>
                                         <?}?>
+                                    </div>
                                 </div>
                             <?}?>
                             <div class="btn_box">
@@ -140,7 +141,7 @@ $num = count($cnt);
                                     <li class="reply_item user_box">
                                         <div class="reply_inner">
                                             <div class="prf_box">
-                                                <img src="../upload_file/member/<?=$row['file_chg']?>" alt="">
+                                                <img src="../upload_file/member/<?=$r['file_chg']?>" alt="">
                                             </div>
                                             <div class="info_box ">
                                                 <div class="reply_top"><p class="name"><?=$r['member_name']?></p><p class="reply_txt"><?=$r['comment_txt']?></p></div>
@@ -160,7 +161,7 @@ $num = count($cnt);
                                                     <li class="reply_item user_box">
                                                         <div class="reply_inner">
                                                             <div class="prf_box">
-                                                                <img src="../upload_file/member/<?=$row['file_chg']?>" alt="">
+                                                                <img src="../upload_file/member/<?=$sub_row['file_chg']?>" alt="">
                                                             </div>
                                                             <div class="info_box ">
                                                                 <div class="reply_top"><p class="name"><?=$sub_row['member_name']?></p><p class="reply_txt"><?=$sub_row['comment_txt']?></p></div>
