@@ -1,178 +1,195 @@
 <? include $_SERVER['DOCUMENT_ROOT']."/include/head.php" ?>
-<body>
+<?
+$idx = trim(sqlfilter($_REQUEST['idx']));
+$query = "SELECT cover_img, profile_img, category_name  FROM report_categories WHERE idx=".$idx;
+$result = mysqli_query($gconnet, $query);
+$row = mysqli_fetch_assoc($result);
+
+if ($_SESSION['user_access_idx']!='') {
+    $subscribe_query = "SELECT COUNT(*) AS cnt  FROM subscribe_list WHERE category_idx=" . $idx . " AND member_idx=" . $_SESSION['user_access_idx'];
+    $sub_res = mysqli_query($gconnet, $subscribe_query);
+    $sub_assoc = mysqli_fetch_assoc($sub_res);
+    $subscribe_cnt = $sub_assoc['cnt'];
+}
+
+?>
+<script type="application/javascript">
+    var page = 0;
+    var block = 10;
+
+    function loadData() {
+        $.ajax({
+            url:"get_data.php",
+            data:{"page":page, "block":block, "category_idx":<?=$idx?>},
+            method:"POST",
+            success:function(response) {
+                $('#report_list').append(response);
+            },
+            error:function(error) {
+
+            }
+        })
+    }
+
+
+</script>
+<body onload="loadData();">
 <div class="wrapper">
-    <header>
-        <div class="header grd_bg">
-            <h1><a href="main1.html"><img src="../images/logo_txt.png" alt="전대전 - 전국 대신 전해드립니다"></a></h1>
-            <button type="button" class="snb_btn"></button>
-        </div>
-    </header>
-    <nav class="main_nav">
-        <ul>
-            <li class="main_menu1"><a href="main1.html" title="메인"></a></li>
-            <li class="main_menu2"><a href="main2.html" title="지역" class="on"></a></li>
-            <li class="main_menu3"><a href="main3.html" title="인기"></a></li>
-            <li class="main_menu4"><a href="main4.html" title="알림"></a></li>
-            <li class="main_menu5"><a href="main5.html" title="검색"></a></li>
-        </ul>
-    </nav>
+    <? include $_SERVER['DOCUMENT_ROOT']."/include/header.php" ?>
+    <? include $_SERVER['DOCUMENT_ROOT']."/include/main_nav.php" ?>
     <section class="main_section">
         <h2 class="hidden">지역 메인</h2>
         <div class="area_tlt">
             <div class="area_img">
-                <img src="../images/img_banner.jpg" alt="지역 이미지">
+                <img src="../thumb/thumb.php?src=../upload_file/category_cover/<?=$row['cover_img']?>" alt="지역 이미지">
             </div>
             <div class="area_inner">
-                <p class="area_logo"><img src="../images/img_sample1.png" alt="원 이미지"></p>
-                <span>광진구 대신전해드려요.</span>
-                <button type="button" class="subs_btn blue_btn">구독</button>
+                <p class="area_logo"><img src="../thumb/thumb.php?src=../upload_file/category_profile/<?=$row['profile_img']?>" alt="원 이미지"></p>
+                <span><?=$row['category_name']?></span>
+                <?if (intval($subscribe_cnt) <= 0 ) {?>
+                    <form action="do_subscribe.php" name="frm" method="post" target="_fra_admin"  >
+                        <input type="hidden" name="category_idx" value="<?=$idx?>">
+                        <button type="submit" class="subs_btn blue_btn" >구독</button>
+                    </form>
+                <?}?>
             </div>
         </div>
         <div class="list_wrap popular">
             <p class="desc">이 구역의 인기글은 나야 :)</p>
-            <div class="swiper-container2">
+            <div class="swiper-container">
                 <ul class="swiper-wrapper">
+                    <?
+                    $category_query = "SELECT report.category_idx, pop.view_cnt AS limit_view, pop.comment_cnt AS limit_comment, pop.like_cnt AS limit_like ";
+                    $category_query .= "FROM subscribe_list AS report, popular_feeds AS pop WHERE 1 ";
+                    $category_query .= " AND report.category_idx=".$idx." ";
+                    $category_query .= " AND report.member_idx=".$_SESSION['user_access_idx']." AND report.category_idx=pop.category_idx ";
+                    $category_query .= " GROUP BY report.category_idx, pop.view_cnt, pop.comment_cnt, pop.like_cnt ";
+
+                    $category_result = mysqli_query($gconnet, $category_query);
+                    $result = array();
+                    while($row = mysqli_fetch_assoc($category_result)) {
+                        $report_query = "SELECT report.*, (SELECT profile_img FROM report_categories WHERE idx=report.category) AS category_profile, (SELECT COUNT(*) FROM report_comments WHERE report_idx=report.idx ) AS comment_cnt FROM report_list AS report WHERE 1";
+                        $report_query .= " AND report.category = ".$row['category_idx'];
+                        $report_query .= " AND report.likes >= ".$row['limit_like'];
+                        $report_query .= " AND report.view_cnt >= ".$row['limit_view'];
+                        $report_query .= " AND (SELECT COUNT(*) FROM report_comments WHERE report_idx=report.idx ) >= ".$row['limit_comment'];
+
+                        $report_result = mysqli_query($gconnet, $report_query);
+                        while( $report_row = mysqli_fetch_assoc($report_result) ) {
+                            array_push($result, $report_row);
+                        }
+                    }
+                    ?>
+                    <?foreach ($result as $k=>$v) {?>
                     <li class="item swiper-slide">
                         <div class="item_top user_box">
                             <div class="prf_box">
-                                <img src="../images/img_sample2.jpg" alt="">
+                                <img src="../upload_file/category_profile/<?=$v['category_profile']?>" alt="">
                             </div>
                             <div class="info_box ">
-                                <p class="name">사나</p>
+                                <p class="name"><?=$v['real_name']?></p>
                                 <div class="etc_info">
-                                    <p>8월 20일 오후 6:18</p><p>N번째 제보</p><button type="button">#구리시</button><button type="button">#20대</button>
+                                    <p><?=date("m월 d일 h:i", strtotime($v['wdate']) )?></p><p><?=$v['idx']?>번째 제보</p>
+                                    <?$hashtags = explode(",",$v['report_hashtag'])?>
+                                    <?foreach($hashtags as $val) {?>
+                                        <button type="button"><?=$val?></button>
+                                    <?}?>
                                 </div>
                             </div>
                         </div>
                         <div class="item_mid">
                             <div class="text_box">
-                                <p>1111 위 사진 오른쪽 지갑을 2019년 11월 2일 토요일 태안-&gt; 부천 방향
-                                    충남고속 고속버스에서 잃어버렸어요 </p>
+                                <p><?=$v['content_text']?></p>
                                 <button type="button" class="more_btn">...더보기</button>
                             </div>
-                            <div class="img_wrap">
-                                <div class="flex_wrap">
-                                    <div class="flex2_wrap item2">
-                                        <a href="#" class="pop_call" data-pop="img_pop">
-                                            <img src="../images/img_sample5.jpg" alt="">
-                                        </a>
-                                        <a href="#" class="pop_call" data-pop="img_pop">
-                                            <img src="../images/img_sample4.jpg" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="flex2_wrap item3">
-                                        <a href="#" class="pop_call" data-pop="img_pop">
-                                            <img src="../images/img_sample5.jpg" alt="">
-                                        </a>
-                                        <a href="#" class="pop_call" data-pop="img_pop">
-                                            <img src="../images/img_sample6.jpg" alt="">
-                                        </a>
-                                        <a href="#" class="pop_call" data-pop="img_pop">
-                                            <img src="../images/img_sample6.jpg" alt="">
-                                        </a>
+                            <?
+                            $img_query = "SELECT * FROM report_additional_files WHERE report_idx=".$v['idx'];
+                            $img_result = mysqli_query($gconnet, $img_query);
+                            $img_row = mysqli_fetch_all($img_result);
+                            ?>
+                            <?if(count($img_row) > 0) {?>
+                                <div class="img_wrap">
+                                    <div class="flex_wrap">
+                                        <?if(count($img_row) == 1) {?>
+                                            <div class="flex2_wrap item1">
+                                                <a href="">
+                                                    <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[0][2]?>" alt="">
+                                                </a>
+                                            </div>
+
+                                        <?} else if(count($img_row) == 2 ) {?>
+                                            <div class="flex2_wrap item1">
+                                                <a href="">
+                                                    <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[0][2]?>" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="flex2_wrap item1">
+                                                <a href="">
+                                                    <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[1][2]?>" alt="">
+                                                </a>
+                                            </div>
+                                        <?} else if(count($img_row) == 3 ) {?>
+                                            <div class="flex2_wrap item2">
+                                                <a href="">
+                                                    <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[0][2]?>" alt="">
+                                                </a>
+                                                <a href="">
+                                                    <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[1][2]?>" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="flex2_wrap item1">
+                                                <a href="">
+                                                    <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[2][2]?>" alt="">
+                                                </a>
+                                            </div>
+                                        <?} else if(count($img_row) == 4 ) {?>
+                                            <div class="flex2_wrap item2">
+                                                <a href="">
+                                                    <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[0][2]?>" alt="">
+                                                </a>
+                                                <a href="">
+                                                    <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[1][2]?>" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="flex2_wrap item2">
+                                                <a href="">
+                                                    <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[2][2]?>" alt="">
+                                                </a>
+                                                <a href="">
+                                                    <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[3][2]?>" alt="">
+                                                </a>
+                                            </div>
+                                        <?} else if(count($img_row) == 5 ) {?>
+                                            <div class="flex2_wrap item2">
+                                                <a href="">
+                                                    <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[0][2]?>" alt="">
+                                                </a>
+                                                <a href="">
+                                                    <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[1][2]?>" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="flex2_wrap item3">
+                                                <a href="">
+                                                    <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[2][2]?>" alt="">
+                                                </a>
+                                                <a href="">
+                                                    <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[3][2]?>" alt="">
+                                                </a>
+                                                <a href="">
+                                                    <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[4][2]?>" alt="">
+                                                </a>
+                                            </div>
+                                        <?}?>
                                     </div>
                                 </div>
-                            </div>
+                            <?}?>
                             <div class="btn_box">
-                                <button type="button" class="like_btn">26</button>
-                                <span class="reply_cnt">15</span>
+                                <button type="button" class="like_btn"><?=$v['likes']?></button>
+                                <span class="reply_cnt"><?=$v['comment_cnt']?></span>
                             </div>
                         </div>
                     </li>
-                    <li class="item swiper-slide">
-                        <div class="item_top user_box">
-                            <div class="prf_box">
-                                <img src="../images/img_sample2.jpg" alt="">
-                            </div>
-                            <div class="info_box ">
-                                <p class="name">사나</p>
-                                <div class="etc_info">
-                                    <p>8월 20일 오후 6:18</p><p>N번째 제보</p><button type="button">#구리시</button><button type="button">#20대</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item_mid">
-                            <div class="text_box">
-                                <p>2222 위 사진 오른쪽 지갑을 2019년 11월 2일 토요일 태안-&gt; 부천 방향
-                                    충남고속 고속버스에서 잃어버렸어요 </p>
-                                <button type="button" class="more_btn">...더보기</button>
-                            </div>
-                            <div class="img_wrap">
-                                <div class="flex_wrap">
-                                    <div class="flex2_wrap item2">
-                                        <a href="#" class="pop_call" data-pop="img_pop">
-                                            <img src="../images/img_sample5.jpg" alt="">
-                                        </a>
-                                        <a href="#" class="pop_call" data-pop="img_pop">
-                                            <img src="../images/img_sample4.jpg" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="flex2_wrap item3">
-                                        <a href="#" class="pop_call" data-pop="img_pop">
-                                            <img src="../images/img_sample5.jpg" alt="">
-                                        </a>
-                                        <a href="#" class="pop_call" data-pop="img_pop">
-                                            <img src="../images/img_sample6.jpg" alt="">
-                                        </a>
-                                        <a href="#" class="pop_call" data-pop="img_pop">
-                                            <img src="../images/img_sample6.jpg" alt="">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="btn_box">
-                                <button type="button" class="like_btn">26</button>
-                                <span class="reply_cnt">15</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="item swiper-slide">
-                        <div class="item_top user_box">
-                            <div class="prf_box">
-                                <img src="../images/img_sample2.jpg" alt="">
-                            </div>
-                            <div class="info_box ">
-                                <p class="name">사나</p>
-                                <div class="etc_info">
-                                    <p>8월 20일 오후 6:18</p><p>N번째 제보</p><button type="button">#구리시</button><button type="button">#20대</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item_mid">
-                            <div class="text_box">
-                                <p>3333 위 사진 오른쪽 지갑을 2019년 11월 2일 토요일 태안-&gt; 부천 방향
-                                    충남고속 고속버스에서 잃어버렸어요 </p>
-                                <button type="button" class="more_btn">...더보기</button>
-                            </div>
-                            <div class="img_wrap">
-                                <div class="flex_wrap">
-                                    <div class="flex2_wrap item2">
-                                        <a href="#" class="pop_call" data-pop="img_pop">
-                                            <img src="../images/img_sample5.jpg" alt="">
-                                        </a>
-                                        <a href="#" class="pop_call" data-pop="img_pop">
-                                            <img src="../images/img_sample4.jpg" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="flex2_wrap item3">
-                                        <a href="#" class="pop_call" data-pop="img_pop">
-                                            <img src="../images/img_sample5.jpg" alt="">
-                                        </a>
-                                        <a href="#" class="pop_call" data-pop="img_pop">
-                                            <img src="../images/img_sample6.jpg" alt="">
-                                        </a>
-                                        <a href="#" class="pop_call" data-pop="img_pop">
-                                            <img src="../images/img_sample6.jpg" alt="">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="btn_box">
-                                <button type="button" class="like_btn">26</button>
-                                <span class="reply_cnt">15</span>
-                            </div>
-                        </div>
-                    </li>
+                    <?}?>
                 </ul>
                 <div class="swiper-pagination">
                     <span></span>
@@ -180,282 +197,18 @@
                     <span></span>
                 </div>
             </div>
-            <a href="" class="more_btn">더보기</a>
+            <a href="../main3?sub_idx=<?=$idx?>" class="more_btn">더보기</a>
         </div>
         <div class="list_wrap">
-            <ul>
-                <li class="item">
-                    <div class="item_top user_box">
-                        <div class="prf_box">
-                            <img src="../images/img_sample2.jpg" alt="">
-                        </div>
-                        <div class="info_box ">
-                            <p class="name">사나</p>
-                            <div class="etc_info">
-                                <p>8월 20일 오후 6:18</p><p>N번째 제보</p><button type="button">#구리시</button><button type="button">#20대</button>
-                            </div>
-                        </div>
-                        <button type="button" class="pop_call" data-pop="post_pop"></button>
-                    </div>
-                    <div class="item_mid">
-                        <div class="text_box">
-                            <p> 위 사진 오른쪽 지갑을 2019년 11월 2일 토요일 태안-> 부천 방향
-                                충남고속 고속버스에서 잃어버렸어요 </p>
-                            <button type="button" class="more_btn">...더보기</button>
-                        </div>
-                        <div class="img_wrap">
-                            <div class="flex_wrap">
-                                <div class="flex2_wrap item2">
-                                    <a href="#" class="pop_call" data-pop="img_pop">
-                                        <img src="../images/img_sample5.jpg" alt="">
-                                    </a>
-                                    <a href="#" class="pop_call" data-pop="img_pop">
-                                        <img src="../images/img_sample4.jpg" alt="">
-                                    </a>
-                                </div>
-                                <div class="flex2_wrap item3">
-                                    <a href="#" class="pop_call" data-pop="img_pop">
-                                        <img src="../images/img_sample5.jpg" alt="">
-                                    </a>
-                                    <a href="#" class="pop_call" data-pop="img_pop">
-                                        <img src="../images/img_sample6.jpg" alt="">
-                                    </a>
-                                    <a href="#" class="pop_call" data-pop="img_pop">
-                                        <img src="../images/img_sample6.jpg" alt="">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="btn_box">
-                            <button type="button" class="like_btn">26</button>
-                            <span class="reply_cnt">15</span>
-                        </div>
-                    </div>
-                    <div class="item_bot">
-                        <div class="reply_list">
-                            <button type="button" class="reply_all">댓글 <span>00</span>개 모두 보기</button>
-                            <ul>
-                                <li class="reply_item user_box">
-                                    <div class="reply_inner">
-                                        <div class="prf_box">
-                                            <img src="../images/img_sample2.jpg" alt="">
-                                        </div>
-                                        <div class="info_box ">
-                                            <div class="reply_top"><p class="name">사나</p><p class="reply_txt">얼른 지갑 찾으시길 바래요..</p></div>
-                                            <div class="etc_info">
-                                                <p>8월 20일 오후 6:18</p><button type="button">답글 달기</button>
-                                            </div>
-                                        </div>
-                                        <button type="button" class="like_btn"></button>
-                                    </div>
-                                    <ul>
-                                        <li class="reply_item user_box">
-                                            <div class="reply_inner">
-                                                <div class="prf_box">
-                                                    <img src="../images/img_sample2.jpg" alt="">
-                                                </div>
-                                                <div class="info_box ">
-                                                    <div class="reply_top"><p class="name">사나</p><p class="reply_txt">얼른 지갑 찾으시길 바래요..얼른 지갑 찾으시길 바래요..얼른 지갑 찾으시길 바래요..얼른 지갑 찾으시길 바래요..얼른 지갑 찾으시길 바래요..</p></div>
-                                                    <div class="etc_info">
-                                                        <p>8월 20일 오후 6:18</p><button type="button">답글 달기</button>
-                                                    </div>
-                                                </div>
-                                                <button type="button" class="like_btn"></button>
-                                            </div>
-                                            <ul>
-                                                <li class="reply_item user_box">
-                                                    <div class="reply_inner">
-                                                        <div class="prf_box">
-                                                            <img src="../images/img_sample2.jpg" alt="">
-                                                        </div>
-                                                        <div class="info_box ">
-                                                            <div class="reply_top"><p class="name">사나</p><p class="reply_txt">얼른 지갑 찾으시길 바래요..</p></div>
-                                                            <div class="etc_info">
-                                                                <p>8월 20일 오후 6:18</p><button type="button">답글 달기</button>
-                                                            </div>
-                                                        </div>
-                                                        <button type="button" class="like_btn"></button>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-
-                        </div>
-                    </div>
-                    <div class="item_reply_input">
-                        <div class="prf_box">
-                            <img src="../images/img_sample2.jpg" alt="">
-                        </div>
-                        <div class="input_box">
-                            <form action="">
-                                <input type="text" placeholder="댓글 달기...">
-                                <button type="button">게시</button>
-                            </form>
-                        </div>
-                    </div>
-                </li>
-                <li class="item">
-                    <div class="item_top user_box">
-                        <div class="prf_box">
-                            <img src="../images/img_sample2.jpg" alt="">
-                        </div>
-                        <div class="info_box ">
-                            <p class="name">사나</p>
-                            <div class="etc_info">
-                                <p>8월 20일 오후 6:18</p><p>N번째 제보</p><button type="button">#구리시</button><button type="button">#20대</button>
-                            </div>
-                        </div>
-                        <button type="button" class="pop_call" data-pop="post_pop"></button>
-                    </div>
-                    <div class="item_mid">
-                        <div class="text_box">
-                            <p> 위 사진 오른쪽 지갑을 2019년 11월 2일 토요일 태안-> 부천 방향
-                                충남고속 고속버스에서 잃어버렸어요 </p>
-                            <button type="button" class="more_btn">...더보기</button>
-                        </div>
-                        <div class="img_wrap">
-                            <div class="flex_wrap">
-                                <div class="flex2_wrap item2">
-                                    <a href="">
-                                        <img src="../images/img_sample5.jpg" alt="">
-                                    </a>
-                                    <a href="">
-                                        <img src="../images/img_sample4.jpg" alt="">
-                                    </a>
-                                </div>
-                                <div class="flex2_wrap item3">
-                                    <a href="">
-                                        <img src="../images/img_sample5.jpg" alt="">
-                                    </a>
-                                    <a href="">
-                                        <img src="../images/img_sample6.jpg" alt="">
-                                    </a>
-                                    <a href="">
-                                        <img src="../images/img_sample6.jpg" alt="">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="btn_box">
-                            <button type="button" class="like_btn">26</button>
-                            <span class="reply_cnt">15</span>
-                        </div>
-                    </div>
-                    <div class="item_bot">
-                        <div class="reply_list">
-                            <button type="button" class="reply_all">댓글 <span>00</span>개 모두 보기</button>
-                            <ul>
-                                <li class="reply_item user_box">
-                                    <div class="reply_inner">
-                                        <div class="prf_box">
-                                            <img src="../images/img_sample2.jpg" alt="">
-                                        </div>
-                                        <div class="info_box ">
-                                            <div class="reply_top"><p class="name">사나</p><p class="reply_txt">얼른 지갑 찾으시길 바래요..</p></div>
-                                            <div class="etc_info">
-                                                <p>8월 20일 오후 6:18</p><button type="button">답글 달기</button>
-                                            </div>
-                                        </div>
-                                        <button type="button" class="like_btn"></button>
-                                    </div>
-                                    <ul>
-                                        <li class="reply_item user_box">
-                                            <div class="reply_inner">
-                                                <div class="prf_box">
-                                                    <img src="../images/img_sample2.jpg" alt="">
-                                                </div>
-                                                <div class="info_box ">
-                                                    <div class="reply_top"><p class="name">사나</p><p class="reply_txt">얼른 지갑 찾으시길 바래요..</p></div>
-                                                    <div class="etc_info">
-                                                        <p>8월 20일 오후 6:18</p><button type="button">답글 달기</button>
-                                                    </div>
-                                                </div>
-                                                <button type="button" class="like_btn"></button>
-                                            </div>
-                                            <ul>
-                                                <li class="reply_item user_box">
-                                                    <div class="reply_inner">
-                                                        <div class="prf_box">
-                                                            <img src="../images/img_sample2.jpg" alt="">
-                                                        </div>
-                                                        <div class="info_box ">
-                                                            <div class="reply_top"><p class="name">사나</p><p class="reply_txt">얼른 지갑 찾으시길 바래요..</p></div>
-                                                            <div class="etc_info">
-                                                                <p>8월 20일 오후 6:18</p><button type="button">답글 달기</button>
-                                                            </div>
-                                                        </div>
-                                                        <button type="button" class="like_btn"></button>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-
-                        </div>
-                    </div>
-                    <div class="item_reply_input">
-                        <div class="prf_box">
-                            <img src="../images/img_sample2.jpg" alt="">
-                        </div>
-                        <div class="input_box">
-                            <form action="">
-                                <input type="text" placeholder="댓글 달기...">
-                                <button type="button">게시</button>
-                            </form>
-                        </div>
-                    </div>
-                </li>
+            <ul id="report_list" >
             </ul>
         </div>
-        <a href="sub_write.html" class="post_write_btn"></a>
+        <a href="../sub_write" class="post_write_btn"></a>
     </section>
 </div>
-<div class="snb">
-    <div class="snb_wrap">
-        <div class="snb_top user_wrap">
-            <div class="user_img">
-                <img src="../images/img_sample2.jpg" alt="유저 사진">
-            </div>
-            <div class="user_name">
-                김충분
-            </div>
-            <div class="user_tag">
-                <button type="button">#서울</button><button type="button">#구리시</button><button type="button">#구리시</button>
-            </div>
-            <div class="user_certi">
-                <span class="certi1">학교인증</span>
-                <span class="certi2 on">지역인증</span>
-            </div>
-        </div>
-        <div class="snb_mid">
-            <ul>
-                <li class="snb_menu1"><a href="sub_mypage1.html"><p><img src="../images/icon_snb_menu1.png" width="16" alt=""></p> 내가 제보한 글</a></li>
-                <li class="snb_menu2"><a href="sub_mypage2.html"><p><img src="../images/icon_snb_menu2.png" width="10" alt=""></p> 스크랩 한 글</a></li>
-                <li class="snb_menu3"><a href="sub_mypage3.html"><p><img src="../images/icon_snb_menu3.png" width="15" alt=""></p> 구독관리</a></li>
-                <li class="snb_menu4"><a href="sub_mypage4.html"><p><img src="../images/icon_snb_menu4.png" width="15" alt=""></p> 일반설정</a></li>
-            </ul>
-        </div>
-        <button type="button" class="snb_close"></button>
-    </div>
-</div>
-<div class="popup post_pop">
-    <div class="popup_wrap post_btn">
-        <div class="post_btn_wrap">
-            <ul>
-                <li><button type="button">게시물 저장(스크랩)</button></li>
-                <li><a href="">해당 게시물 신고하기</a></li>
-                <li><button type="button" class="pop_call" data-pop="share_pop">해당 게시물 공유</button></li>
-                <li><button type="button">해당 카테고리 구독 취소</button></li>
-            </ul>
-        </div>
-        <button type="button" class="pop_close">취소</button>
-    </div>
-</div>
+<? include $_SERVER['DOCUMENT_ROOT']."/include/gnb.php" ?>
+<? include $_SERVER['DOCUMENT_ROOT']."/include/share_pop.php" ?>
+
 <div class="popup img_pop">
     <div class="img_slider">
         <div class="swiper-container">
@@ -489,6 +242,7 @@
     <button tpye="button" class="pop_close"></button>
 </div>
 <? include $_SERVER['DOCUMENT_ROOT']."/include/share_pop.php"?>
+<? include $_SERVER['DOCUMENT_ROOT']."/include/footer.php"?>
 </body>
 </html>
 

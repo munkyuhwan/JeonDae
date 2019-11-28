@@ -20,7 +20,6 @@ if ($_SESSION['user_access_idx'] == '') {
 <?*/
 }
 
-$profile_img = "../upload_file/member/".$_SESSION['profile_img'];
 //echo $_SERVER["HTTP_HOST"];
 if($_SERVER["HTTP_HOST"] == "besuit.net"){
 	//header('Location: https://besuit.co.kr'.$_SERVER['REQUEST_URI']);
@@ -91,5 +90,11 @@ $include_current_month_e = date("Y-m")."-31";
 $include_current_time = date("Hi");
 
 
+$profile_img_query = "SELECT file_chg FROM member_info WHERE idx=".$_SESSION['user_access_idx'];
+$profile_img_result = mysqli_query($gconnet, $profile_img_query);
+$profile_img_assoc = mysqli_fetch_assoc($profile_img_result);
+
+$_SESSION['profile_img'] = $profile_img_assoc['file_chg'];
+$profile_img = "../upload_file/member/".$_SESSION['profile_img'];
 
 ?>
