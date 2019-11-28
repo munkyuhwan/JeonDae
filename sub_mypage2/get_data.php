@@ -6,7 +6,8 @@ $block = trim(sqlfilter($_REQUEST['block']));
 
 $query = "SELECT report.*,
           (SELECT COUNT(*) AS cnt FROM report_comments WHERE report_idx=report.idx) AS comment_cnt,
-          (SELECT file_chg FROM member_info WHERE idx=report.member_idx) AS file_chg
+          (SELECT file_chg FROM member_info WHERE idx=report.member_idx) AS file_chg,
+          (SELECT real_name FROM member_info WHERE idx=report.member_idx) AS real_name
           FROM scrab_list AS scrab, report_list AS report WHERE 1 ";
 $where = " AND scrab.member_idx=".$_SESSION['user_access_idx']." ";
 $where .= " AND scrab.report_idx = report.idx ";
@@ -23,7 +24,7 @@ while($row = mysqli_fetch_assoc($result) ) {
             <img src="../upload_file/member/<?=$row['file_chg']?>" alt="">
         </div>
         <div class="info_box ">
-            <p class="name">사나</p>
+            <p class="name"><?=$row['real_name']?></p>
             <div class="etc_info">
                 <p><?=date("m월 d일 h:i", strtotime($row['wdate']) )?></p><p><?=$row['idx']?>번째 제보</p>
                 <?$hashtags = explode(",",$row['report_hashtag'])?>
