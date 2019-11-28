@@ -56,13 +56,13 @@ $result = mysqli_query($gconnet,$query);
                             <h4>클린 지수 설정</h4>
                             <div class="clean_level">
                                 <p class="level1">
-                                    <input type="radio" name="subs_clean" id="lv1" checked><label for="lv1"><span>클린</span></label>
+                                    <input type="radio" name="subs_clean_<?=$row['idx']?>" id="lv1_<?=$row['idx']?>" checked><label for="lv1_<?=$row['idx']?>"><span>클린</span></label>
                                 </p>
                                 <p class="level2">
-                                    <input type="radio" name="subs_clean" id="lv2"><label for="lv2"><span>중간</span></label>
+                                    <input type="radio" name="subs_clean_<?=$row['idx']?>" id="lv2_<?=$row['idx']?>"><label for="lv2_<?=$row['idx']?>"><span>중간</span></label>
                                 </p>
                                 <p class="level3">
-                                    <input type="radio" name="subs_clean" id="lv3"><label for="lv3"><span>없음</span></label>
+                                    <input type="radio" name="subs_clean_<?=$row['idx']?>" id="lv3_<?=$row['idx']?>"><label for="lv3_<?=$row['idx']?>"><span>없음</span></label>
                                 </p>
                                 <div class="clean_bar"></div>
                             </div>
