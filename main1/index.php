@@ -35,7 +35,7 @@ $num = count($cnt);
                                     <?}?>
                                 </div>
                             </div>
-                            <button type="button" class="pop_call" data-pop="post_pop"></button>
+                            <button type="button" class="pop_call" data-pop="post_pop" onclick="openEtcPopup(<?=$row['report_idx']?>)"></button>
                         </div>
                         <div class="item_mid">
                             <div class="text_box">
@@ -210,19 +210,8 @@ $num = count($cnt);
     </section>
 </div>
 <? include $_SERVER['DOCUMENT_ROOT']."/include/gnb.php" ?>
-<div class="popup post_pop">
-    <div class="popup_wrap post_btn">
-        <div class="post_btn_wrap">
-            <ul>
-                <li><button type="button">게시물 저장(스크랩)</button></li>
-                <li><a href="">해당 게시물 신고하기</a></li>
-                <li><button type="button" class="pop_call" data-pop="share_pop">해당 게시물 공유</button></li>
-                <li><button type="button">해당 카테고리 구독 취소</button></li>
-            </ul>
-        </div>
-        <button type="button" class="pop_close">취소</button>
-    </div>
-</div>
+<? include $_SERVER['DOCUMENT_ROOT']."/include/etc_popup.php" ?>
+
 <div class="popup img_pop">
     <div class="img_slider">
         <div class="swiper-container">
