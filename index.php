@@ -13,7 +13,7 @@ $num = count($cnt);
 ?>
 <body>
 <script>
-    location.replace('main1');
+    location.replace('intro');
 </script>
 <div class="wrapper">
     <header>
