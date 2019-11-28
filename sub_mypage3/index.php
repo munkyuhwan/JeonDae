@@ -1,13 +1,32 @@
 <? include $_SERVER['DOCUMENT_ROOT'] . "/include/head.php" ?>
 <?
-
 $query = "SELECT main.category_name, main.idx, main.cover_img, main.profile_img ".
 " FROM report_categories AS main, subscribe_list AS subscribe ".
 " WHERE subscribe.category_idx=main.idx AND subscribe.member_idx=".$_SESSION['user_access_idx']." GROUP BY subscribe.category_idx ";
 $result = mysqli_query($gconnet,$query);
-
-
 ?>
+<script type="application/javascript">
+    function updateCleanIndex(categoryIdx, cleanIndex) {
+        $.ajax({
+            url:"update_clean_index.php",
+            data:{"categoryIdx":categoryIdx,"cleanIdx":cleanIndex},
+            success:function(response) {
+                try {
+                    var res = JSON.parse(response);
+                    if(res.result==true) {
+                        toast(res.msg)
+                    }
+                }catch (e) {
+
+                }
+            },
+            error:function(error) {
+
+            }
+        })
+    }
+
+</script>
 <body>
 <div class="wrapper">
     <header>
@@ -54,99 +73,26 @@ $result = mysqli_query($gconnet,$query);
                         </div>
                         <div class="item_bot">
                             <h4>클린 지수 설정</h4>
+                            <?
+                            $clean_query = "SELECT * FROM user_clean_index WHERE member_idx=".$_SESSION['user_access_idx']." AND category_idx=".$row['idx'];
+                            $clean_result = mysqli_query($gconnet, $clean_query);
+                            $clean_index = mysqli_fetch_assoc($clean_result);
+                            ?>
                             <div class="clean_level">
                                 <p class="level1">
-                                    <input type="radio" name="subs_clean_<?=$row['idx']?>" id="lv1_<?=$row['idx']?>" checked><label for="lv1_<?=$row['idx']?>"><span>클린</span></label>
+                                    <input type="radio" name="subs_clean_<?=$row['idx']?>" value="2" onclick="updateCleanIndex(<?=$row['idx']?>, '2')" <?=$clean_index['clean_index']=='2'?"checked":""?> id="lv1_<?=$row['idx']?>"><label for="lv1_<?=$row['idx']?>"><span>클린</span></label>
                                 </p>
                                 <p class="level2">
-                                    <input type="radio" name="subs_clean_<?=$row['idx']?>" id="lv2_<?=$row['idx']?>"><label for="lv2_<?=$row['idx']?>"><span>중간</span></label>
+                                    <input type="radio" name="subs_clean_<?=$row['idx']?>" value="1" onclick="updateCleanIndex(<?=$row['idx']?>, '1')" <?=$clean_index['clean_index']=='1'?"checked":""?> id="lv2_<?=$row['idx']?>"><label for="lv2_<?=$row['idx']?>"><span>중간</span></label>
                                 </p>
                                 <p class="level3">
-                                    <input type="radio" name="subs_clean_<?=$row['idx']?>" id="lv3_<?=$row['idx']?>"><label for="lv3_<?=$row['idx']?>"><span>없음</span></label>
+                                    <input type="radio" name="subs_clean_<?=$row['idx']?>" value="0" onclick="updateCleanIndex(<?=$row['idx']?>, '0')" <?=$clean_index['clean_index']=='0'?"checked":""?> id="lv3_<?=$row['idx']?>"><label for="lv3_<?=$row['idx']?>"><span>없음</span></label>
                                 </p>
                                 <div class="clean_bar"></div>
                             </div>
                         </div>
                     </li>
                 <?}?>
-                <!-- li class="item">
-                    <div class="item_top">
-                        <div class="subs_img">
-                            <img src="images/img_sample1.png" alt="">
-                        </div>
-                        <h2 class="subs_tlt">광진구 대신 전해 드립니다</h2>
-                        <button type="button">구독중</button>
-                    </div>
-                    <div class="item_mid tag_type">
-                        <h3 class="hidden">구독 카테고리</h3>
-                        <ul>
-                            <li><input type="checkbox" id="subs1"><label for="subs1">일상</label></li>
-                            <li><input type="checkbox" id="subs2"><label for="subs2">중고거래</label></li>
-                            <li><input type="checkbox" id="subs3"><label for="subs3">알바</label></li>
-                            <li><input type="checkbox" id="subs4"><label for="subs4">동호회</label></li>
-                            <li><input type="checkbox" id="subs5"><label for="subs5">인디밴드</label></li>
-                            <li><input type="checkbox" id="subs6"><label for="subs6">20대</label></li>
-                            <li><input type="checkbox" id="subs7"><label for="subs7">30대</label></li>
-                            <li><input type="checkbox" id="subs8"><label for="subs8">40대</label></li>
-                            <li><input type="checkbox" id="subs9"><label for="subs9">심야영화</label></li>
-                            <li><input type="checkbox" id="subs10"><label for="subs10">기타</label></li>
-                        </ul>
-                    </div>
-                    <div class="item_bot">
-                        <h4>클린 지수 설정</h4>
-                        <div class="clean_level">
-                            <p class="level1">
-                                <input type="radio" name="subs_clean" id="lv1" checked><label for="lv1"><span>클린</span></label>
-                            </p>
-                            <p class="level2">
-                                <input type="radio" name="subs_clean" id="lv2"><label for="lv2"><span>중간</span></label>
-                            </p>
-                            <p class="level3">
-                                <input type="radio" name="subs_clean" id="lv3"><label for="lv3"><span>없음</span></label>
-                            </p>
-                            <div class="clean_bar"></div>
-                        </div>
-                    </div>
-                </li>
-                <li class="item">
-                    <div class="item_top">
-                        <div class="subs_img">
-                            <img src="images/img_sample1.png" alt="">
-                        </div>
-                        <h2 class="subs_tlt">광진구 대신 전해 드립니다</h2>
-                        <button type="button">구독중</button>
-                    </div>
-                    <div class="item_mid tag_type">
-                        <h3 class="hidden">구독 카테고리</h3>
-                        <ul>
-                            <li><input type="checkbox" id="subs1"><label for="subs1">일상</label></li>
-                            <li><input type="checkbox" id="subs2"><label for="subs2">중고거래</label></li>
-                            <li><input type="checkbox" id="subs3"><label for="subs3">알바</label></li>
-                            <li><input type="checkbox" id="subs4"><label for="subs4">동호회</label></li>
-                            <li><input type="checkbox" id="subs5"><label for="subs5">인디밴드</label></li>
-                            <li><input type="checkbox" id="subs6"><label for="subs6">20대</label></li>
-                            <li><input type="checkbox" id="subs7"><label for="subs7">30대</label></li>
-                            <li><input type="checkbox" id="subs8"><label for="subs8">40대</label></li>
-                            <li><input type="checkbox" id="subs9"><label for="subs9">심야영화</label></li>
-                            <li><input type="checkbox" id="subs10"><label for="subs10">기타</label></li>
-                        </ul>
-                    </div>
-                    <div class="item_bot">
-                        <h4>클린 지수 설정</h4>
-                        <div class="clean_level">
-                            <p class="level1">
-                                <input type="radio" name="subs_clean" id="lv1" checked><label for="lv1"><span>클린</span></label>
-                            </p>
-                            <p class="level2">
-                                <input type="radio" name="subs_clean" id="lv2"><label for="lv2"><span>중간</span></label>
-                            </p>
-                            <p class="level3">
-                                <input type="radio" name="subs_clean" id="lv3"><label for="lv3"><span>없음</span></label>
-                            </p>
-                            <div class="clean_bar"></div>
-                        </div>
-                    </div>
-                </li -->
             </ul>
         </div>
 

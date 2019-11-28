@@ -37,6 +37,19 @@ if($which == "true") {
         $inser_sub_result = mysqli_query($gconnet,$insert_subscribe_list);
     }
 
+    $clean_query = "SELECT * FROM user_clean_index WHERE member_idx=".$_SESSION['user_access_idx']." AND category_idx=".$category_idx;
+    $clean_result = mysqli_query($gconnet, $clean_query);
+    $clean_row = mysqli_fetch_assoc($clean_result);
+
+    if (mysqli_num_rows($clean_row) > 0) {
+        $update_clean = "UPDATE user_clean_index SET clean_index=0 WHERE idx=".$clean_row['idx'];
+        $update_clean_result = mysqli_query($gconnet, $update_clean);
+    }else {
+        $insert_clean = "INSERT INTO user_clean_index SET clean_index=0, member_idx=".$_SESSION['user_access_idx'].", category_idx=".$category_idx;
+        $insert_clean_result = mysqli_query($gconnet, $insert_clean);
+    }
+
+
     if ($sub_result) {
         $result = array(
             "result"=>"success"
