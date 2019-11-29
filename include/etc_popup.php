@@ -8,7 +8,6 @@
             url:"additional_action.php",
             data:{"reportIdx":$('#report_idx').val(), "action":"scrab"},
             success:function(response) {
-                console.log(response)
                 responseResult(response)
             },
             error:function(error) {

@@ -1,7 +1,7 @@
 <? include $_SERVER['DOCUMENT_ROOT'] . "/include/head.php" ?>
 <?
 
-$_SESSION['user_access_idx'] = 51;
+$_SESSION['user_access_idx'] = 54;
 
 $query = "SELECT idx, real_name, file_chg FROM member_info WHERE idx=".$_SESSION['user_access_idx'] ;
 $result = mysqli_query($gconnet, $query);

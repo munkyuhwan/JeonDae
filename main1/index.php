@@ -1,6 +1,6 @@
 <? include $_SERVER['DOCUMENT_ROOT'] . "/include/head.php" ?>
 <?
-//
+/*
 $block = 10;
 $scroll_num = 0;
 $query = "SELECT report.idx AS report_idx, report.wdate, report.content_text, report.report_hashtag, report.likes, (SELECT COUNT(*) AS cnt FROM report_comments WHERE report_idx=report.idx) AS comment_cnt,  member.real_name, member.file_chg  FROM report_list AS report, member_info AS member WHERE report.del_yn='N' AND report.member_idx=member.idx ";
@@ -10,16 +10,48 @@ $result = mysqli_query($gconnet,$query_limit);
 $cnt_result = mysqli_query($gconnet,$query);
 $cnt = mysqli_fetch_all($cnt_result);
 $num = count($cnt);
+*/
 // publ
 ?>
-<body>
+<script>
+    var page = 0;
+    var block = 10;
+    function getList() {
+        $.ajax({
+            url:"get_list.php",
+            data:{"page":page,"block":block},
+            success:function(response) {
+                try {
+                    var res = JSON.parse(response)
+
+                }catch (e) {
+                    $("#main_list").append(response);
+                    $(".pop_call").on("click",function(){
+                        var name = $(this).attr("data-pop");
+                        $(".popup."+name).fadeIn();
+                        $(".mask").fadeIn();
+                        $("html").addClass("scroll_no");
+                        $(".snb").removeClass("snb_on");
+                        swiper.update();
+                    });
+                    page++;
+                }
+
+            },
+            error:function(error) {
+
+            }
+        })
+    }
+</script>
+<body onload="getList();">
 <div class="wrapper">
     <? include $_SERVER['DOCUMENT_ROOT']."/include/header.php"?>
     <? include $_SERVER['DOCUMENT_ROOT']."/include/main_nav.php"?>
     <section class="main_section">
         <div class="list_wrap">
-            <ul>
-                <?while($row = mysqli_fetch_assoc($result)) {?>
+            <ul id="main_list">
+                <?/*while($row = mysqli_fetch_assoc($result)) {?>
                     <li class="item">
                         <div class="item_top user_box">
                             <div class="prf_box">
@@ -203,7 +235,7 @@ $num = count($cnt);
                             </div>
                         </div>
                     </li>
-                <?}?>
+                <?}*/?>
             </ul>
         </div>
         <a href="../sub_write" class="post_write_btn"></a>
