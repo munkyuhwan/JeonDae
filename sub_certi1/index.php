@@ -1,4 +1,28 @@
 <? include $_SERVER['DOCUMENT_ROOT'] . "/include/head.php" ?>
+<script type="application/javascript">
+    function searchUni() {
+        $.ajax({
+            url:"search_for.php",
+            data:{"keyword":$("#keyword").val()},
+            success:function(response) {
+                //$("#uni_list").css("display","block");
+                $("#uni_list").html(response)
+            },
+            error:function(error) {
+
+            }
+        })
+    }
+
+    function onUniSelect(idx) {
+        $("#uni_list").css("display","none");
+        //$("#uni_email").html( $("#uni_email_"+idx).val() );
+        //$("#domain").val( $("#uni_email_"+idx).val() );
+        $("#uni_email").html( "@gmail.com" );
+        $("#domain").val( "@gmail.com" );
+    }
+
+</script>
 <body>
 <div class="wrapper">
     <header>
@@ -13,30 +37,34 @@
                 인증 오류 및 문의는 FAQ나 1:1 문의를 이용해주세요.</div>
             <h2>학교 검색</h2>
             <div class="input_wrap uni">
-                <input type="text">
+                <input type="text" id="keyword" onkeyup="searchUni()">
                 <button type="button" class="input_btn"></button>
                 <div class="auto_complete">
-                    <ul>
+                    <ul id="uni_list">
+                        <!-- li onclick="onUniSelect(1)">한양대학교 사이버캠퍼스</li>
                         <li>한양대학교 사이버캠퍼스</li>
                         <li>한양대학교 사이버캠퍼스</li>
-                        <li>한양대학교 사이버캠퍼스</li>
-                        <li>한양대학교 사이버캠퍼스</li>
+                        <li>한양대학교 사이버캠퍼스</li -->
                     </ul>
                 </div>
             </div>
             <!-- 학교 검색 후 이메일 인증 영역 보여짐 -->
             <div class="result_wrap">
                 <h3>학교 인증 이메일</h3>
-                <input type="email"> @<span>hanyang.ac.kr</span>
-                <p class="mail_desc">인증 메일을 보내기 전에 해당 메일 계정이 활성화 되어있는지 확인해주세요</p>
-                <div class="btn_row">
-                    <button type="button" class="blue_btn">인증메일 전송</button>
-                </div>
+                <form name="frm" action="action.php" target="_fra_admin" >
+                    <input type="hidden" name="domain" id="domain" value="@gmail.com" >
+                    <input type="text" name="email_id" value="munkyuhwan" > <span id="uni_email">@hanyang.ac.kr</span>
+                    <p class="mail_desc">인증 메일을 보내기 전에 해당 메일 계정이 활성화 되어있는지 확인해주세요</p>
+                    <div class="btn_row">
+                        <button type="submit" class="blue_btn">인증메일 전송</button>
+                    </div>
+                </form>
             </div>
         </div>
 
     </section>
 </div>
+<? include $_SERVER['DOCUMENT_ROOT']."/include/footer.php" ?>
 </body>
 </html>
 

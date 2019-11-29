@@ -446,6 +446,7 @@ header { height:50px; }
 .certi_wrap .input_wrap, .certi_result .input_wrap {  position: relative; }
 .certi_wrap .input_wrap input, .certi_result .input_wrap input { padding:10px 40px 10px 10px; line-height:18px; height:40px; width:100%; color:#8d8d8d; border:1px solid #e8e8e8;   }
 .certi_wrap .input_wrap.uni input:focus + button + .auto_complete { display:block; }
+.certi_wrap .input_wrap.uni .auto_complete:active { display:block; }
 .certi_wrap .input_wrap button,  .certi_result .input_wrap button { position:absolute; height:40px; width:50px; top:0; right:0; z-index:1; background:url(../images/icon_search.png) no-repeat 60% center; background-size:20px auto;}
 .certi_wrap .input_wrap .auto_complete { display:none;  position: absolute; top:100%; left:0; right:0; z-index:1; background:#fff; border-right:1px solid #e8e8e8; border-left:1px solid #e8e8e8;  }
 .certi_wrap .input_wrap .auto_complete li {  padding:10px; border-bottom:1px solid #e8e8e8; color:#588cc5;  }
