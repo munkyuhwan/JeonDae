@@ -27,6 +27,29 @@ $result = mysqli_query($gconnet, $query);
 
         })
     }
+
+    function deleteFaq(idx) {
+        if(confirm('삭제 하시겠습니까?')) {
+            $.ajax({
+                url: "delete.php",
+                data: {"idx": idx},
+                method: "post",
+                success: function (response) {
+                    try {
+                        var res = JSON.parse(response);
+                        alert(res.msg);
+                        location.reload();
+                    }catch (e) {
+
+                    }
+                },
+                error: function (error) {
+
+                }
+            })
+        }
+    }
+
 </script>
 <body onload="getFaq();">
 <div class="wrapper">
@@ -70,60 +93,21 @@ $result = mysqli_query($gconnet, $query);
                                 <div class="slide_bot">
                                     <div class="ques">
                                         <?=$row['q_text']?>
-                                        <div class="btn_row">
-                                            <button type="button" class="blue_btn">수정</button><button type="button">삭제</button>
+                                        <?if($row['member_idx']==$_SESSION['user_access_idx']) {?>
+                                            <div class="btn_row">
+                                                <button type="button" class="blue_btn" onclick="location.href='modify.php?idx=<?=$row['idx']?>'; " >수정</button><button type="button" onclick="deleteFaq(<?=$row['idx']?>)" >삭제</button>
+                                            </div>
+                                        <?}?>
+                                    </div>
+                                    <? if($row['reply_yn'] == "Y" ) {?>
+                                        <div class="answer">
+                                            <?=$row['q_reply']?>
                                         </div>
-                                    </div>
+                                    <?}?>
                                 </div>
-                                <? if($row['reply_yn'] == "Y" ) {?>
-                                    <div class="answer">
-                                        <?=$row['q_text']?>
-                                    </div>
-                                <?}?>
                             </li>
                         <?}?>
-                        <!-- li>
-                            <div class="slide_top">
-                                <p class="answer on">답변 완료</p>
-                                <p class="date">2019년 11월29일</p>
-                                <p class="tlt">1:1문의 남겨요!</p>
-                            </div>
-                            <div class="slide_bot">
-                                <div class="ques">
-                                    전국의 모든 소식을 대신 전해 드림으로써 더 많은 사람들에게 더 많은 소식을 알려드립니다. <br>
-                                    가슴 속에 하나 둘 새겨지는 별을 이제 다 못 헤는 것은 쉬이 아침이 오는 까닭이요. 내일 밤이 남은 까닭이요. 아직 나의 청춘이 다하지 않은 까닭입니다.
-                                    <div class="btn_row">
-                                        <button type="button" class="blue_btn">수정</button><button type="button">삭제</button>
-                                    </div>
-                                </div>
-                                <div class="answer">
-                                    전국의 모든 소식을 대신 전해 드림으로써 더 많은 사람들에게 더 많은 소식을 알려드립니다. <br>
-                                    가슴 속에 하나 둘 새겨지는 별을 이제 다 못 헤는 것은 쉬이 아침이 오는 까닭이요. 내일 밤이 남은 까닭이요. 아직 나의 청춘이 다하지 않은 까닭입니다.
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="slide_top">
-                                <p class="answer on">답변 완료</p>
-                                <p class="date">2019년 11월29일</p>
-                                <p class="tlt">1:1문의 남겨요!</p>
-                            </div>
-                            <div class="slide_bot">
-                                <div class="ques">
-                                    전국의 모든 소식을 대신 전해 드림으로써 더 많은 사람들에게 더 많은 소식을 알려드립니다. <br>
-                                    가슴 속에 하나 둘 새겨지는 별을 이제 다 못 헤는 것은 쉬이 아침이 오는 까닭이요. 내일 밤이 남은 까닭이요. 아직 나의 청춘이 다하지 않은 까닭입니다.
-                                    <div class="btn_row">
-                                        <button type="button" class="blue_btn">수정</button><button type="button">삭제</button>
-                                    </div>
-                                </div>
-                                <div class="answer">
-                                    전국의 모든 소식을 대신 전해 드림으로써 더 많은 사람들에게 더 많은 소식을 알려드립니다. <br>
-                                    가슴 속에 하나 둘 새겨지는 별을 이제 다 못 헤는 것은 쉬이 아침이 오는 까닭이요. 내일 밤이 남은 까닭이요. 아직 나의 청춘이 다하지 않은 까닭입니다.
-                                </div>
-                            </div>
-                        </li -->
                     </ul>
-                    </li>
                 </div>
             </div>
         </div>
