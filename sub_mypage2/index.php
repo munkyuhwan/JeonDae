@@ -16,7 +16,6 @@ $row = mysqli_fetch_assoc($result);
             data:{"page":page, "block":block},
             method:"POST",
             success:function(response) {
-                console.log(response)
                 $('#report_list').append(response);
             },
             error:function(error) {
