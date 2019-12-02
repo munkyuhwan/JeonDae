@@ -12,6 +12,10 @@
                 <?
                 $hashtag_query = "SELECT * FROM user_hashtags WHERE member_idx=".$_SESSION['user_access_idx']." LIMIT 0,3";
                 $hashtag_result = mysqli_query($gconnet, $hashtag_query);
+
+                $local_appr = "SELECT local FROM member_info WHERE idx=".$_SESSION['user_access_idx'];
+                $local_res = mysqli_query($gconnet, $local_appr);
+                $local = mysqli_fetch_assoc($local_res);
                 ?>
                 <?while($hashtag_row = mysqli_fetch_assoc($hashtag_result) ) { ?>
                     <button type="button"><?=$hashtag_row['hash_tag']?></button>
@@ -19,7 +23,11 @@
             </div>
             <div class="user_certi">
                 <span class="certi1" onclick="location.href='../sub_certi1'; " >학교인증</span>
-                <span class="certi2 on" onclick="location.href='../sub_certi2'; " >지역인증</span>
+                <?if($local['local'] != null) {?>
+                    <span class="certi2 on" >인증완료</span>
+                <?}else {?>
+                    <span class="certi2 on" onclick="location.href='../sub_certi2'; " >지역인증</span>
+                <?}?>
             </div>
         </div>
         <div class="snb_mid">
