@@ -3,6 +3,7 @@
 <?
 $email_id = trim(sqlfilter($_REQUEST['email_id']));
 $domain = trim(sqlfilter($_REQUEST['domain']));
+$uni_idx = trim(sqlfilter($_REQUEST['uni_idx']));
 $hashStr = hash("sha256", $_SESSION['user_access_name']."jeondae");
 
 $body ='
@@ -32,6 +33,7 @@ $body ='
             <h3>학교 인증 이메일</h3>
             <form name="frm" action="http://192.168.219.102:8888/sub_certi1/email_approve.php" target="_fra_admin" >
                 <input type="hidden" name="token" value="'.$hashStr.'" >
+                <input type="hidden" name="uni_idx" value="'.$uni_idx.'" >
                 <input type="hidden" name="id" value="'.$_SESSION["user_access_idx"].'" >
                 <p class="mail_desc">인증이메일 입니다.</p>
                 <div class="btn_row">

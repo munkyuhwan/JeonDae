@@ -29,9 +29,10 @@ if (count($row)>0) {
     $query .= " category_idx=".$category_idx.", ";
     $query .= " non_content_cnt=".$clean_content_cnt.", ";
     $query .= " mid_content_cnt_start=".$mid_content_cnt_start.", ";
-    $query .= " clean_content_cnt=".$mid_content_cnt_end.", ";
-    $query .= " content_standard=".$content_standard." ";
+    $query .= " mid_content_cnt_end=".$mid_content_cnt_end.", ";
+    $query .= " clean_content_cnt=".$content_standard." ";
 }
+
 $result = mysqli_query($gconnet,$query);
 
 

@@ -7,7 +7,6 @@ $siNm = trim(sqlfilter($_REQUEST['siNm']));
 
 $member_idx = $_SESSION['user_access_idx'];
 
-echo $oldAddr.'<br>'.$sggNm.'<br>'.$siNm.'<br>'.$newAddr."<br>".$member_idx;
 //선택된 구 idx받기
 $gu_query = "SELECT idx FROM gus WHERE gu_name='".$sggNm."'";
 $gu_result = mysqli_query($gconnet, $gu_query);

@@ -19,7 +19,7 @@
         $("#uni_list").css("display","none");
         $("#uni_email").html( $("#uni_email_"+idx).val() );
         $("#domain").val( $("#uni_email_"+idx).val() );
-
+        $("#uni_idx").val(idx);
     }
 
 </script>
@@ -48,6 +48,7 @@
             <div class="result_wrap">
                 <h3>학교 인증 이메일</h3>
                 <form name="frm" action="action.php" target="_fra_admin" >
+                    <input type="hidden" name="uni_idx" id="uni_idx"  >
                     <input type="hidden" name="domain" id="domain" value="@gmail.com" >
                     <input type="text" name="email_id" > <span id="uni_email">@hanyang.ac.kr</span>
                     <p class="mail_desc">인증 메일을 보내기 전에 해당 메일 계정이 활성화 되어있는지 확인해주세요</p>
