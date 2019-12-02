@@ -1624,6 +1624,10 @@ function encode_2047($subject) {
     return '=?utf-8?b?'.base64_encode($subject).'?=';
 }
 
+function smtp_send_email() {
+
+}
+
 function mail_utf_kr($email_str, $subject, $message,$from_name,$from_email)
 {
     mb_internal_encoding('utf-8'); 
