@@ -59,12 +59,14 @@ $(document).ready(function(){
 	});
 	/* 아코디언콘텐츠 - 공지사항, 문의 */
 	$(".slide_top").on("click",function(){
+		/*
 		if( $(this).closest(".del_body").length){
 			return false;
 		}else{			
 			$(this).toggleClass("on");
 			$(this).next().slideToggle();
 		}
+		*/
 	});
 	/* 글쓰기 이미지삭제 */
 	$(".img_del").on("click",function(){
