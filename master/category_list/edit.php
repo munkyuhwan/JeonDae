@@ -106,11 +106,11 @@ $assoc = mysqli_fetch_assoc($result);
 
     function getFileList(idx) {
         var str = "<div class=\"form-label-group border text-align-right file-add-group\" >\n" +
-            "                                            <button type=\"button\" style=\"border: none; background: none;\" name=\"minus_btn[]\" onclick=\"removeExistingFile({0})\" >\n" +
-            "                                                <i class=\"fas fa-minus\"></i>\n" +
-            "                                            </button>\n" +
-            "                                            <img src=\"../../upload_file/report/{1}\" width=\"80\" >\n" +
-            "                                        </div>"
+            "          <button type=\"button\" style=\"border: none; background: none;\" name=\"minus_btn[]\" onclick=\"removeExistingFile({0})\" >\n" +
+            "              <i class=\"fas fa-minus\"></i>\n" +
+            "          </button>\n" +
+            "          <img src=\"../../upload_file/report/{1}\" width=\"80\" >\n" +
+            "      </div>"
         $.ajax({
             url: "get_file.php",
             data: {"idx": idx},

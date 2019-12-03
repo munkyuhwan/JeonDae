@@ -59,8 +59,8 @@ $query .= "FROM report_list AS report , clean_index AS clean, member_info AS mem
 
 $query .= " WHERE report.category=clean.category_idx AND report.member_idx=member.idx ";
 $query .= " AND ( ".$clean_query." )";
-$query .= " AND (".$hashtag_like_query.") ";
-
+$query .= " AND (".$hashtag_like_query.")  ";
+$query .= " ORDER BY report.idx DESC ";
 $query_limit .= $query." LIMIT ".($page*$block)." , ".$block ;
 
 //echo $query;
@@ -97,8 +97,8 @@ $num = count($cnt);
         </div>
         <div class="item_mid">
             <div class="text_box">
-                <p><?=$row['content_text']?></p>
-                <button type="button" class="more_btn">...더보기</button>
+                <p id="content_<?=$row['report_idx']?>" ><?= nl2br($row['content_text']) ?></p>
+                <button type="button" class="more_btn" onclick="$('#content_<?=$row['report_idx']?>').gettag ">...더보기</button>
             </div>
             <?
             $img_query = "SELECT * FROM report_additional_files WHERE report_idx=".$row['report_idx'];
@@ -110,70 +110,70 @@ $num = count($cnt);
                     <div class="flex_wrap">
                         <?if(count($img_row) == 1) {?>
                             <div class="flex2_wrap item1">
-                                <a href="">
+                                <a href="javascript:setImages(<?=$row['report_idx']?>)" class="pop_call" data-pop="img_pop" >
                                     <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[0][2]?>" alt="">
                                 </a>
                             </div>
 
                         <?} else if(count($img_row) == 2 ) {?>
                             <div class="flex2_wrap item1">
-                                <a href="">
+                                <a href="javascript:setImages(<?=$row['report_idx']?>)" class="pop_call" data-pop="img_pop" >
                                     <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[0][2]?>" alt="">
                                 </a>
                             </div>
                             <div class="flex2_wrap item1">
-                                <a href="">
+                                <a href="javascript:setImages(<?=$row['report_idx']?>)" class="pop_call" data-pop="img_pop" >
                                     <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[1][2]?>" alt="">
                                 </a>
                             </div>
                         <?} else if(count($img_row) == 3 ) {?>
                             <div class="flex2_wrap item2">
-                                <a href="">
+                                <a href="javascript:setImages(<?=$row['report_idx']?>)" class="pop_call" data-pop="img_pop" >
                                     <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[0][2]?>" alt="">
                                 </a>
-                                <a href="">
+                                <a href="javascript:setImages(<?=$row['report_idx']?>)" class="pop_call" data-pop="img_pop" >
                                     <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[1][2]?>" alt="">
                                 </a>
                             </div>
                             <div class="flex2_wrap item1">
-                                <a href="">
+                                <a href="javascript:setImages(<?=$row['report_idx']?>)" class="pop_call" data-pop="img_pop" >
                                     <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[2][2]?>" alt="">
                                 </a>
                             </div>
                         <?} else if(count($img_row) == 4 ) {?>
                             <div class="flex2_wrap item2">
-                                <a href="">
+                                <a href="javascript:setImages(<?=$row['report_idx']?>)" class="pop_call" data-pop="img_pop">
                                     <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[0][2]?>" alt="">
                                 </a>
-                                <a href="">
+                                <a href="javascript:setImages(<?=$row['report_idx']?>)" class="pop_call" data-pop="img_pop">
                                     <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[1][2]?>" alt="">
                                 </a>
                             </div>
                             <div class="flex2_wrap item2">
-                                <a href="">
+                                <a href="javascript:setImages(<?=$row['report_idx']?>)" class="pop_call" data-pop="img_pop" >
                                     <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[2][2]?>" alt="">
                                 </a>
-                                <a href="">
+                                <a href="javascript:setImages(<?=$row['report_idx']?>)">
                                     <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[3][2]?>" alt="">
                                 </a>
                             </div>
                         <?} else if(count($img_row) == 5 ) {?>
                             <div class="flex2_wrap item2">
-                                <a href="">
+                                <a href="javascript:setImages(<?=$row['report_idx']?>)" class="pop_call" data-pop="img_pop" >
                                     <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[0][2]?>" alt="">
                                 </a>
-                                <a href="">
+                                <a href="javascript:setImages(<?=$row['report_idx']?>)" class="pop_call" data-pop="img_pop" >
                                     <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[1][2]?>" alt="">
                                 </a>
                             </div>
                             <div class="flex2_wrap item3">
-                                <a href="">
+                                <a href="javascript:setImages(<?=$row['report_idx']?>)" class="pop_call" data-pop="img_pop" >
                                     <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[2][2]?>" alt="">
                                 </a>
-                                <a href="">
+                                <a href="javascript:setImages(<?=$row['report_idx']?>)" class="pop_call" data-pop="img_pop" >
                                     <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[3][2]?>" alt="">
                                 </a>
-                                <a href="">
+                                <a href="javascript:setImages(<?=$row['report_idx']?>)" class="pop_call" data-pop="img_pop" >
                                     <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[4][2]?>" alt="">
                                 </a>
                             </div>

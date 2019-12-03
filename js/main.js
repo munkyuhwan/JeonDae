@@ -1,8 +1,8 @@
 $(document).ready(function(){
 	'use strict';
-	
-	if( $(".swiper-container").length ){	
-		var swiper = new Swiper('.swiper-container',{
+	var swiper;
+	if( $(".swiper-container").length ){
+		swiper = new Swiper('.swiper-container',{
 			effect: "slide",
 			loop: true,
 			navigation:{ nextEl: ".slide_next_btn", prevEl: ".slide_prev_btn" },
@@ -13,6 +13,7 @@ $(document).ready(function(){
 						$(".main_visual").addClass("bounce")  }, 200); }
 			},
 		});
+
 	}
 
 
