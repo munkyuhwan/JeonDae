@@ -24,6 +24,8 @@ if(mysqli_num_rows($result) > 0) {
     $update = "UPDATE uni_approval SET approved_yn='Y' WHERE member_idx=".$idx." AND approve_code='".$token."' ";
     $update_result = mysqli_query($gconnet, $update);
 
+    $update_member = "UPDATE member_info SET uni=".$uni_idx." WHERE idx=".$idx;
+    $update_result = mysqli_query($gconnet, $update_member);
 
     $category_query = "SELECT idx FROM report_categories WHERE school_idx=".$uni_idx;
     $category_result = mysqli_query($gconnet, $category_query);
@@ -55,7 +57,6 @@ if(mysqli_num_rows($result) > 0) {
                     $insert .= " category_idx=" . $category_idx . ", ";
                     $insert .= " sub_category_idx=" . $hashtag_row['idx'];
 
-                    echo $insert."<br><br>";
                     $insert_result = mysqli_query($gconnet, $insert);
 
                 }
