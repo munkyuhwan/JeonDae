@@ -1,4 +1,6 @@
-<script>
+
+
+<script type="application/javascript">
     var popImg = "<li class=\"swiper-slide\" >"+
                  "   <img src=\"../thumb/thumb.php?src={0}\" alt=\"\">"+
                  "</li>"
@@ -21,7 +23,7 @@
                     $("#img_list").html("");
                     $("#img_list").html(str);
 
-                    var swiper = new Swiper('.swiper-container',{
+                    var swiper2 = new Swiper('.swiper-container',{
                         effect: "slide",
                         loop: true,
                         navigation:{ nextEl: ".slide_next_btn", prevEl: ".slide_prev_btn" },
@@ -35,7 +37,8 @@
                         }
                         }
                     });
-                    swiper.update();
+                    swiper2.update();
+
 
                 }catch(e) {
                     console.log(e)
@@ -51,23 +54,8 @@
 </script>
 <div class="popup img_pop">
     <div class="img_slider">
-        <div class="swiper-container">
+        <div class="swiper-container popup-swiper">
             <ul class="swiper-wrapper" id="img_list" >
-                <li class="swiper-slide">
-                    <img src="../images/img_sample2.jpg" alt="">
-                </li>
-                <li class="swiper-slide">
-                    <img src="../images/img_sample4.jpg" alt="">
-                </li>
-                <li class="swiper-slide">
-                    <img src="../images/img_sample5.jpg" alt="">
-                </li>
-                <li class="swiper-slide">
-                    <img src="../images/img_sample6.jpg" alt="">
-                </li>
-                <li class="swiper-slide">
-                    <img src="../images/img_sample4.jpg" alt="">
-                </li>
             </ul>
         </div>
         <div class="slide_nav_btn">

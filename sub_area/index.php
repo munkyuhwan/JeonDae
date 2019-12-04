@@ -16,7 +16,7 @@ if ($_SESSION['user_access_idx']!='') {
 ?>
 <script type="application/javascript">
     var page = 0;
-    var block = 10;
+    var block = 5;
 
     function loadData() {
         $.ajax({
@@ -25,6 +25,16 @@ if ($_SESSION['user_access_idx']!='') {
             method:"POST",
             success:function(response) {
                 $('#report_list').append(response);
+
+                $(".pop_call").on("click",function(){
+                    var name = $(this).attr("data-pop");
+                    $(".popup."+name).fadeIn();
+                    $(".mask").fadeIn();
+                    $("html").addClass("scroll_no");
+                    $(".snb").removeClass("snb_on");
+                    //swiper.update();
+                });
+
             },
             error:function(error) {
 
@@ -33,20 +43,14 @@ if ($_SESSION['user_access_idx']!='') {
     }
 
 
-    function loadMainData() {
-        $.ajax({
-            url:"get_data.php",
-            data:{"page":page, "block":block, "category_idx":<?=$idx?>},
-            method:"POST",
-            success:function(response) {
-                $('#main_list').append(response);
-            },
-            error:function(error) {
 
-            }
-        })
-    }
-
+    $(window).on("scroll", function() {
+        var scrollHeight = $(document).height();
+        var scrollPosition = $(window).height() + $(window).scrollTop();
+        if ((scrollHeight - scrollPosition) / scrollHeight === 0) {
+            getList();
+        }
+    });
 
 </script>
 <body onload="loadData();loadMainData(); ">
@@ -72,7 +76,7 @@ if ($_SESSION['user_access_idx']!='') {
         </div>
         <div class="list_wrap popular">
             <p class="desc">이 구역의 인기글은 나야 :)</p>
-            <div class="swiper-container">
+            <div class="swiper-container2">
                 <ul class="swiper-wrapper" id="main_list">
 
                 </ul>
@@ -91,42 +95,42 @@ if ($_SESSION['user_access_idx']!='') {
         <a href="../sub_write" class="post_write_btn"></a>
     </section>
 </div>
+<script>
+
+    var swiper = new Swiper('.swiper-container2',{
+        effect: "slide",
+        loop: true,
+        navigation:{ nextEl: ".slide_next_btn", prevEl: ".slide_prev_btn" },
+        autoplay: { delay: 3000 },
+        on:{ slideChange: function(){
+            $(".main_visual").removeClass("bounce");
+            setTimeout(function() {
+                $(".main_visual").addClass("bounce")
+            }, 200);
+        }
+
+        }
+    });
+
+    function loadMainData() {
+        $.ajax({
+            url:"get_data.php",
+            data:{"page":page, "block":block, "category_idx":<?=$idx?>},
+            method:"POST",
+            success:function(response) {
+                console.log(response)
+                $('#main_list').append(response);
+                swiper.update();
+            },
+            error:function(error) {
+
+            }
+        })
+    }
+</script>
 <? include $_SERVER['DOCUMENT_ROOT']."/include/gnb.php" ?>
 <? include $_SERVER['DOCUMENT_ROOT']."/include/share_pop.php" ?>
-
-<div class="popup img_pop">
-    <div class="img_slider">
-        <div class="swiper-container">
-            <ul class="swiper-wrapper">
-                <li class="swiper-slide">
-                    <img src="../images/img_sample2.jpg" alt="">
-                </li>
-                <li class="swiper-slide">
-                    <img src="../images/img_sample4.jpg" alt="">
-                </li>
-                <li class="swiper-slide">
-                    <img src="../images/img_sample5.jpg" alt="">
-                </li>
-                <li class="swiper-slide">
-                    <img src="../images/img_sample6.jpg" alt="">
-                </li>
-                <li class="swiper-slide">
-                    <img src="../images/img_sample4.jpg" alt="">
-                </li>
-            </ul>
-        </div>
-        <div class="slide_nav_btn">
-            <button class="slide_prev_btn"><img src="../images/icon_arrow_left.png"></button>
-            <button class="slide_next_btn"><img src="../images/icon_arrow_right.png"></button>
-        </div>
-    </div>
-    <div class="btn_box">
-        <button type="button" class="like_btn">26</button>
-        <span class="reply_cnt">15</span>
-    </div>
-    <button tpye="button" class="pop_close"></button>
-</div>
-<? include $_SERVER['DOCUMENT_ROOT']."/include/share_pop.php"?>
+<? include $_SERVER['DOCUMENT_ROOT']."/include/img_popup.php" ?>
 <? include $_SERVER['DOCUMENT_ROOT']."/include/footer.php"?>
 </body>
 </html>
