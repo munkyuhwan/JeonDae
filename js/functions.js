@@ -5,3 +5,23 @@ String.prototype.format = function() {
     }
     return a
 }
+
+function likeClick(report_idx) {
+    $.ajax({
+       url:"../include/like_clicked.php",
+        data:{"report_idx":report_idx},
+        success:function(response) {
+            console.log(response)
+            try{
+                var res = JSON.parse(response);
+                toast(res.msg)
+            }catch(e) {
+
+            }
+        },
+        error:function(error) {
+
+        }
+    });
+
+}

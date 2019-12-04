@@ -19,22 +19,24 @@ if ($_SESSION['user_access_idx']!='') {
     var block = 5;
 
     function loadData() {
+        console.log(page)
         $.ajax({
             url:"get_data.php",
             data:{"page":page, "block":block, "category_idx":<?=$idx?>},
             method:"POST",
             success:function(response) {
-                $('#report_list').append(response);
-
-                $(".pop_call").on("click",function(){
-                    var name = $(this).attr("data-pop");
-                    $(".popup."+name).fadeIn();
-                    $(".mask").fadeIn();
-                    $("html").addClass("scroll_no");
-                    $(".snb").removeClass("snb_on");
-                    //swiper.update();
-                });
-
+                if (response != "" ) {
+                    $('#report_list').append(response);
+                    $(".pop_call").on("click", function () {
+                        var name = $(this).attr("data-pop");
+                        $(".popup." + name).fadeIn();
+                        $(".mask").fadeIn();
+                        $("html").addClass("scroll_no");
+                        $(".snb").removeClass("snb_on");
+                        //swiper.update();
+                    });
+                    page++;
+                }
             },
             error:function(error) {
 
@@ -48,7 +50,7 @@ if ($_SESSION['user_access_idx']!='') {
         var scrollHeight = $(document).height();
         var scrollPosition = $(window).height() + $(window).scrollTop();
         if ((scrollHeight - scrollPosition) / scrollHeight === 0) {
-            getList();
+            loadData();
         }
     });
 
@@ -118,7 +120,6 @@ if ($_SESSION['user_access_idx']!='') {
             data:{"page":page, "block":block, "category_idx":<?=$idx?>},
             method:"POST",
             success:function(response) {
-                console.log(response)
                 $('#main_list').append(response);
                 swiper.update();
             },

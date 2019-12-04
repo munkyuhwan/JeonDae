@@ -5,17 +5,14 @@ $block = trim(sqlfilter($_REQUEST['block']));
 $category_idx = trim(sqlfilter($_REQUEST['category_idx']));
 
 $query = "SELECT report.idx AS report_idx, report.wdate, report.content_text, report.report_hashtag, report.likes, (SELECT COUNT(*) AS cnt FROM report_comments WHERE report_idx=report.idx) AS comment_cnt,  member.real_name, member.file_chg  FROM report_list AS report, member_info AS member WHERE report.category=".$category_idx." AND report.del_yn='N' AND report.member_idx=member.idx ";
-$query_limit .= $query." LIMIT ".($block*$scroll_num)." , ".$block ;
+$query_limit .= $query." LIMIT ".($page*$block)." , ".$block ;
 $result = mysqli_query($gconnet,$query_limit);
 
 $cnt_result = mysqli_query($gconnet,$query);
 $cnt = mysqli_fetch_all($cnt_result);
 $num = count($cnt);
 
-//$result = mysqli_query($gconnet, $query.$where.$limit);
-
 while($row = mysqli_fetch_assoc($result) ) {
-    //print_r($row);
 ?>
 <li class="item swiper-slide">
     <div class="item_top user_box">
@@ -121,8 +118,8 @@ while($row = mysqli_fetch_assoc($result) ) {
             </div>
         <?}?>
         <div class="btn_box">
-            <button type="button" class="like_btn"><?=$row['likes']?></button>
-            <span class="reply_cnt"><?=$row['comment_cnt']?></span>
+            <button type="button" class="like_btn" onclick="likeClick(<?= $row['report_idx'] ?>)" ><?=$row['likes']?></button>
+            <span class="reply_cnt" onclick="likeClick(<?= $row['report_idx'] ?>)" ><?=$row['comment_cnt']?></span>
         </div>
     </div>
     <div class="item_bot">

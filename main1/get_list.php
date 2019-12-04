@@ -205,7 +205,7 @@ $num = count($cnt);
                 <?
                 } ?>
                 <div class="btn_box">
-                    <button type="button" class="like_btn"><?= $row['likes'] ?></button>
+                    <button type="button" class="like_btn" onclick="likeClick(<?= $row['report_idx'] ?>)" ><?= $row['likes'] ?></button>
                     <span class="reply_cnt"><?= $row['comment_cnt'] ?></span>
                 </div>
             </div>
