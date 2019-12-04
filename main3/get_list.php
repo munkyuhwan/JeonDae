@@ -44,7 +44,7 @@ while($row = mysqli_fetch_assoc($category_result)) {
                     <?}?>
                 </div>
             </div>
-            <button type="button" class="pop_call" data-pop="post_pop"></button>
+            <button type="button" class="pop_call" data-pop="post_pop" onclick="openEtcPopup(<?= $row['idx'] ?>)"  ></button>
         </div>
         <div class="item_mid">
             <div class="text_box">

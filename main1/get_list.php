@@ -96,8 +96,7 @@ $num = count($cnt);
                         } ?>
                     </div>
                 </div>
-                <button type="button" class="pop_call" data-pop="post_pop"
-                        onclick="openEtcPopup(<?= $row['report_idx'] ?>)"></button>
+                <button type="button" class="pop_call" data-pop="post_pop" onclick="openEtcPopup(<?= $row['report_idx'] ?>)" ></button>
             </div>
             <div class="item_mid">
                 <div class="text_box">
