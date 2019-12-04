@@ -48,7 +48,7 @@ while($row = mysqli_fetch_assoc($category_result)) {
         </div>
         <div class="item_mid">
             <div class="text_box">
-                <p><?=$row['content_text']?></p>
+                <p><?=nl2br($row['content_text'])?></p>
                 <button type="button" class="more_btn">...더보기</button>
             </div>
             <?
