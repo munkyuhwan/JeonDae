@@ -6,8 +6,8 @@
 
         $.ajax({
             url:"get_list.php",
-            cache:true,
-            data:{"page":page,"block":block,"sub_idx":<?=$_REQUEST['sub_idx']?>},
+            method:"POST",
+            data:{"page":page,"block":block,"sub_idx":'<?=$_REQUEST['sub_idx']?>' },
             success:function(response) {
                 if (response!="") {
                     $("#main_list").append(response);
