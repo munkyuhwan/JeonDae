@@ -7,7 +7,7 @@ $query_limit .= $query." LIMIT ".($block*$scroll_num)." , ".$block ;
 $result = mysqli_query($gconnet,$query_limit);
 
 $cnt_result = mysqli_query($gconnet,$query);
-$num = mysql_num_rows($cnt_result);
+$num = mysqli_num_rows($cnt_result);
 
 ?>
 <body>
