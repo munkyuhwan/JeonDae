@@ -5,6 +5,11 @@ String.prototype.format = function() {
     }
     return a
 }
+var isApp=false;
+function setIsApp() {
+    isApp = true;
+    alert(isApp)
+}
 
 function likeClick(report_idx) {
     $.ajax({
