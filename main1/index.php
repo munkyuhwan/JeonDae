@@ -1,5 +1,4 @@
 <? include $_SERVER['DOCUMENT_ROOT'] . "/include/head.php" ?>
-
 <script>
     var page = 0;
     var block = 5;
@@ -16,7 +15,7 @@
 
                 }catch (e) {
                     $("#main_list").append(response);
-
+å
                     $(".pop_call").on("click",function(){
                         console.log("pop call")
                         var name = $(this).attr("data-pop");

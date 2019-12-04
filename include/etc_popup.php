@@ -1,7 +1,6 @@
 
 <script type="application/javascript">
     function openEtcPopup(reportIdx) {
-        console.log(reportIdx)
         $('#report_idx').val(reportIdx);
     }
     function doScrab() {

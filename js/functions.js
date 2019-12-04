@@ -23,5 +23,10 @@ function likeClick(report_idx) {
 
         }
     });
+}
 
+
+
+function goShare() {
+    console.log($('#report_idx').val())
 }
