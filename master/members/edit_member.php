@@ -78,7 +78,7 @@
                             while ($hash_row = mysqli_fetch_assoc($sub_category_result)) {?>
                                 <? $hash_str.= "#".$hash_row['sub_name'].", "?>
                             <?}?>
-                            <input type="text" id="hashtag" name="hashtag" class="form-control" placeholder="관심 해시태그" required="required" autofocus="autofocus" value="<?=$hash_str?>">
+                            <input type="text" id="hashtag" name="hashtag" class="form-control" placeholder="관심 해시태그" autofocus="autofocus" value="<?=$hash_str?>">
                             <label for="hashtag">관심 해시태그</label>
                         </div>
                     </div>
