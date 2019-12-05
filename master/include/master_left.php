@@ -1,6 +1,6 @@
 <style>
     .side-menu {
-        position: absolute;
+        #position: absolute;
         z-index: 99999;
     }
     .bg-shade {
