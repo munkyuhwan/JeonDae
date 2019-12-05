@@ -15,7 +15,7 @@
 
                 }catch (e) {
                     $("#main_list").append(response);
-å
+
                     $(".pop_call").on("click",function(){
                         console.log("pop call")
                         var name = $(this).attr("data-pop");
