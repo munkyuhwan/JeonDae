@@ -130,6 +130,7 @@ if ($_SESSION['user_access_idx']!='') {
     }
 </script>
 <? include $_SERVER['DOCUMENT_ROOT']."/include/gnb.php" ?>
+<? include $_SERVER['DOCUMENT_ROOT']."/include/etc_popup.php" ?>
 <? include $_SERVER['DOCUMENT_ROOT']."/include/share_pop.php" ?>
 <? include $_SERVER['DOCUMENT_ROOT']."/include/img_popup.php" ?>
 <? include $_SERVER['DOCUMENT_ROOT']."/include/footer.php"?>
