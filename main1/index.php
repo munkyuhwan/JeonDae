@@ -7,9 +7,13 @@
         $.ajax({
             url:"get_list.php",
             cache:true,
-            data:{"page":page,"block":block},
+            <?if (trim(sqlfilter($_REQUEST['category_idx'])) !='' ) {?>
+                data:{"page":page,"block":block,"category":'<?=trim(sqlfilter($_REQUEST['category_idx']))?>'},
+            <?}else {?>
+                data:{"page":page,"block":block},
+            <?}?>
             success:function(response) {
-
+                console.log(response)
                 try {
                     var res = JSON.parse(response)
 
@@ -30,7 +34,7 @@
 
             },
             error:function(error) {
-
+                console.log(error)
             }
         })
     }

@@ -3,72 +3,97 @@
 //
 $page = trim(sqlfilter($_REQUEST['page']));
 $block = trim(sqlfilter($_REQUEST['block']));
+//$_SESSION['user_access_idx']= "";
 
-$user_clean_query = "SELECT clean_index, category_idx FROM user_clean_index WHERE member_idx=".$_SESSION['user_access_idx'];
+if ($_SESSION['user_access_idx']== "") {
+
+    $category = trim(sqlfilter($_REQUEST['category']));
+
+    $query = "SELECT report.idx AS report_idx, report.category AS categrory_idx, report.content_text, report.report_hashtag, report.bad_report ";
+    $query .= " ,report.likes, (SELECT COUNT(*) FROM report_comments WHERE report_idx=report.idx AND del_yn='N') AS comment_cnt ";
+    $query .= " ,member.file_chg, member.real_name ";
+    $query .= " ,clean.non_content_cnt, clean.clean_content_cnt ";
+
+    $query .= "FROM report_list AS report , clean_index AS clean, member_info AS member ";
+
+    $query .= " WHERE report.category=clean.category_idx AND report.member_idx=member.idx AND report.category=".$category;
+    $query .= " ORDER BY report.idx DESC ";
+    $query_limit .= $query . " LIMIT " . ($page * $block) . " , " . $block;
+
+    $result = mysqli_query($gconnet, $query_limit);
+    $cnt_result = mysqli_query($gconnet, $query);
+    $num = mysqli_num_rows($cnt_result);
+
+}else {
+
+    $user_clean_query = "SELECT clean_index, category_idx FROM user_clean_index WHERE member_idx=" . $_SESSION['user_access_idx'];
 //cleanindex 0:없음 1:중간 2:클린
-$user_clean_result = mysqli_query($gconnet, $user_clean_query);
+    $user_clean_result = mysqli_query($gconnet, $user_clean_query);
 
-$cleanIndex=array();
+    $cleanIndex = array();
 //user_clean_index.clean_index 2:클린 1:중간 0:없음
-$clean_query="";
-while($rows=mysqli_fetch_assoc($user_clean_result)) {
-    //$cleanIndex[$row['category_idx']] = $row['clean_index'];
+    $clean_query = "";
+    while ($rows = mysqli_fetch_assoc($user_clean_result)) {
+        //$cleanIndex[$row['category_idx']] = $row['clean_index'];
 
-    $select_category_clean_index = "SELECT * FROM clean_index WHERE category_idx=".$rows['category_idx'];
-    $category_clean_result = mysqli_query($gconnet, $select_category_clean_index);
-    $clean_row = mysqli_fetch_assoc($category_clean_result);
-    $lowest = $clean_row['non_content_cnt'];
-    $highest = $clean_row['clean_content_cnt'];
+        $select_category_clean_index = "SELECT * FROM clean_index WHERE category_idx=" . $rows['category_idx'];
+        $category_clean_result = mysqli_query($gconnet, $select_category_clean_index);
+        $clean_row = mysqli_fetch_assoc($category_clean_result);
+        $lowest = $clean_row['non_content_cnt'];
+        $highest = $clean_row['clean_content_cnt'];
 
-    switch ($row['clean_index']) {
-        case 0:
-            $clean_query .= " ( report.category=".$rows['category_idx']." AND (report.bad_report >=".$lowest.") ) OR ";
-            break;
-        case 1:
-            $clean_query .= " ( report.category=".$rows['category_idx']." AND (report.bad_report >=".$lowest." AND report.bad_report <=".$highest.") ) OR ";
-            break;
-        case 2:
-            $clean_query .= " ( report.category=".$rows['category_idx']." AND (report.bad_report <=".$highest.") ) OR ";
-            break;
-        default:
-            break;
+        switch ($row['clean_index']) {
+            case 0:
+                $clean_query .= " ( report.category=" . $rows['category_idx'] . " AND (report.bad_report >=" . $lowest . ") ) OR ";
+                break;
+            case 1:
+                $clean_query .= " ( report.category=" . $rows['category_idx'] . " AND (report.bad_report >=" . $lowest . " AND report.bad_report <=" . $highest . ") ) OR ";
+                break;
+            case 2:
+                $clean_query .= " ( report.category=" . $rows['category_idx'] . " AND (report.bad_report <=" . $highest . ") ) OR ";
+                break;
+            default:
+                break;
+        }
+
+    }
+    $clean_query = substr($clean_query, 0, -3);
+
+
+    $subscribe_list_query = "SELECT subscribe.category_idx, category_name.sub_name FROM subscribe_list AS subscribe, report_sub_categories AS category_name WHERE subscribe.member_idx=" . $_SESSION['user_access_idx'] . " AND subscribe.sub_category_idx=category_name.idx  ";
+    $subscribe_list_result = mysqli_query($gconnet, $subscribe_list_query);
+
+    $hashtag_like_query = "";
+    while ($subscribe_row = mysqli_fetch_assoc($subscribe_list_result)) {
+        $hashtag_like_query .= " report.report_hashtag LIKE '%#" . $subscribe_row['sub_name'] . ",%' OR ";
     }
 
-}
-$clean_query = substr($clean_query,0,-3);
+    $hashtag_like_query = substr($hashtag_like_query, 0, -3);
 
+    $query = "SELECT report.idx AS report_idx, report.category AS categrory_idx, report.content_text, report.report_hashtag, report.bad_report ";
+    $query .= " ,report.likes, (SELECT COUNT(*) FROM report_comments WHERE report_idx=report.idx AND del_yn='N') AS comment_cnt ";
+    $query .= " ,member.file_chg, member.real_name ";
+    $query .= " ,clean.non_content_cnt, clean.clean_content_cnt ";
 
+    $query .= "FROM report_list AS report , clean_index AS clean, member_info AS member ";
 
+    $query .= " WHERE report.category=clean.category_idx AND report.member_idx=member.idx ";
+    if (mysqli_num_rows($category_clean_result)>0) {
+        $query .= " AND ( " . $clean_query . " )";
+    }
+    if (mysqli_num_rows($subscribe_list_result)>0) {
+        $query .= " AND (" . $hashtag_like_query . ")  ";
+    }
 
-$subscribe_list_query = "SELECT subscribe.category_idx, category_name.sub_name FROM subscribe_list AS subscribe, report_sub_categories AS category_name WHERE subscribe.member_idx=".$_SESSION['user_access_idx']." AND subscribe.sub_category_idx=category_name.idx  ";
-$subscribe_list_result = mysqli_query($gconnet,$subscribe_list_query);
-
-$hashtag_like_query = "";
-while($subscribe_row = mysqli_fetch_assoc($subscribe_list_result)) {
-    $hashtag_like_query .= " report.report_hashtag LIKE '%#".$subscribe_row['sub_name'].",%' OR ";
-}
-
-$hashtag_like_query = substr($hashtag_like_query, 0 , -3);
-
-$query = "SELECT report.idx AS report_idx, report.category AS categrory_idx, report.content_text, report.report_hashtag, report.bad_report ";
-$query .= " ,report.likes, (SELECT COUNT(*) FROM report_comments WHERE report_idx=report.idx AND del_yn='N') AS comment_cnt ";
-$query .= " ,member.file_chg, member.real_name ";
-$query .= " ,clean.non_content_cnt, clean.clean_content_cnt ";
-
-$query .= "FROM report_list AS report , clean_index AS clean, member_info AS member ";
-
-$query .= " WHERE report.category=clean.category_idx AND report.member_idx=member.idx ";
-$query .= " AND ( ".$clean_query." )";
-$query .= " AND (".$hashtag_like_query.")  ";
-$query .= " ORDER BY report.idx DESC ";
-$query_limit .= $query." LIMIT ".($page*$block)." , ".$block ;
+    $query .= " ORDER BY report.idx DESC ";
+    $query_limit .= $query . " LIMIT " . ($page * $block) . " , " . $block;
 
 //echo $query;
-$result = mysqli_query($gconnet,$query_limit);
+    $result = mysqli_query($gconnet, $query_limit);
 
-$cnt_result = mysqli_query($gconnet,$query);
-$num = mysqli_num_rows($cnt_result);
-
+    $cnt_result = mysqli_query($gconnet, $query);
+    $num = mysqli_num_rows($cnt_result);
+}
 // publ
 
 ?>
