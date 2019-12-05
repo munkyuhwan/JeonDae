@@ -37,11 +37,11 @@ while($row = mysqli_fetch_assoc($result) ) {
     </div>
     <div class="item_mid">
         <div class="text_box">
-            <p><?=$row['content_text']?></p>
+            <p><?=nl2br($row['content_text'])?></p>
             <button type="button" class="more_btn">...더보기</button>
         </div>
         <?
-        $img_query = "SELECT * FROM report_additional_files WHERE report_idx=".$row['report_idx'];
+        $img_query = "SELECT * FROM report_additional_files WHERE report_idx=".$row['idx'];
         $img_result = mysqli_query($gconnet, $img_query);
         $img_row = mysqli_fetch_all($img_result);
         ?>
