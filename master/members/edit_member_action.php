@@ -59,60 +59,6 @@ foreach ($subscribes as $k=>$v) {
     }
 }
 
-/*
-$hatag_array = explode(',', $hashtag);
-$del_hashtag = "DELETE FROM user_hashtags WHERE member_idx=".$member_id;
-$hash_result = mysqli_query($gconnet,$del_hashtag);
-foreach ($hatag_array as $k=>$v) {
-    $tmp = str_replace(" ","", $v);
-    if ( $tmp != '') {
-        $insert_hashtag = "INSERT INTO user_hashtags SET " . " member_idx=" . $member_id . ", hash_tag='" . $v . "'";
-        $insert_hashtag_result = mysqli_query($gconnet, $insert_hashtag);
-    }
-}
-*/
-
-
-
-/*
-$total_param = trim(sqlfilter($_REQUEST['total_param']));
-$s_gubun = "NOR";
-
-$report_name = trim(sqlfilter($_REQUEST['report_name']));
-$inputFB = trim(sqlfilter($_REQUEST['inputFB']));
-$app_id = trim(sqlfilter($_REQUEST['app_id']));
-$app_secret = trim(sqlfilter($_REQUEST['app_secret']));
-$page_id = trim(sqlfilter($_REQUEST['page_id']));
-
-
-
-$bbs = "member";
-$_P_DIR_FILE = $_P_DIR_FILE.$bbs."/";
-$_P_DIR_WEB_FILE = $_P_DIR_WEB_FILE.$bbs."/";
-################ 사진 이미지 업로드 ##############
-
-
-if ($_FILES['profile_img']['size']>0){
-    $file_o = $_FILES['profile_img']['name'];
-    $i_width = "185";
-    $i_height = "185";
-    $i_width2 = "";
-    $i_height2 = "";
-    //$watermark_sect = "imgw";
-    $watermark_sect = "";
-    $file_c = uploadFile($_FILES, "profile_img", $_FILES['profile_img'], $_P_DIR_FILE); // 파일 업로드후 변형된 파일이름 리턴.
-}
-
-
-$query = " insert into report_categories set ";
-$query .= " category_name = '".$report_name."', ";
-$query .= " profile_img = '".$file_c."', ";
-$query .= " app_id = '".$app_id."', ";
-$query .= " app_secret = '".$app_secret."', ";
-$query .= " page_id = '".$page_id."' ";
-
-$result = mysqli_query($gconnet,$query);
-*/
 
 if($result){
     ?>
