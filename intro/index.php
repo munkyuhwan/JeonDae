@@ -9,7 +9,6 @@ $row = mysqli_fetch_assoc($result);
 
 
 $_SESSION['user_access_name'] = $row['real_name'];
-$_SESSION['profile_img'] = $row['file_chg'];
 echo "<script>location.replace('../main1');</script>";
 */
 ?>
