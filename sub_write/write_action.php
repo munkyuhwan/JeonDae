@@ -10,7 +10,7 @@ $member_idx = $_SESSION['user_access_idx'];
 
 
 if ($continue_idx != "") {
-    $query = "UPDATE INTO report_list SET ";
+    $query = "UPDATE report_list SET ";
     $query .= " complete_yn='Y', ";
     $query .= " report_hashtag = '" . $hash_tags . "', ";
     $query .= " content_text = '" . $input_text . "' ";
@@ -22,6 +22,7 @@ if ($continue_idx != "") {
     $query .= " complete_yn = '" . $complete_yn . "', ";
     $query .= " content_text = '" . $input_text . "' ";
 }
+
 $result = mysqli_query($gconnet, $query);
 
 
