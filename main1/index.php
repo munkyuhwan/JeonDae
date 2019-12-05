@@ -13,7 +13,6 @@
                 data:{"page":page,"block":block},
             <?}?>
             success:function(response) {
-                console.log(response)
                 try {
                     var res = JSON.parse(response)
 

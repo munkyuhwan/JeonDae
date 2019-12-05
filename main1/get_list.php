@@ -65,7 +65,7 @@ if ($_SESSION['user_access_idx']== "") {
 
     $hashtag_like_query = "";
     while ($subscribe_row = mysqli_fetch_assoc($subscribe_list_result)) {
-        $hashtag_like_query .= " report.report_hashtag LIKE '%#" . $subscribe_row['sub_name'] . ",%' OR ";
+        $hashtag_like_query .= " report.report_hashtag LIKE '%#" . $subscribe_row['sub_name'] . "%' OR ";
     }
 
     $hashtag_like_query = substr($hashtag_like_query, 0, -3);
