@@ -37,9 +37,9 @@ $query_limit .= $query." LIMIT ".$StarRowNum." , ".$EndRowNum ;
 $result = mysqli_query($gconnet,$query_limit);
 
 $cnt_result = mysqli_query($gconnet,$query);
-$cnt = mysqli_fetch_all($cnt_result);
+$cnt = mysqli_num_rows($cnt_result);
 
-$num = count($cnt);
+$num = ($cnt);
 $iTotalSubCnt = $num;
 $totalpage	= ($iTotalSubCnt - 1)/$pageScale  + 1;
 
