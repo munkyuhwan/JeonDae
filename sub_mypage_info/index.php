@@ -135,13 +135,13 @@ $hastag_result = mysqli_query($gconnet, $hashtag_query);
                     <div class="info_con">
                         <div class="clean_level">
                             <p class="level1">
-                                <input type="radio" name="subs_clean" value="1" id="lv1" <?=$row['clean_filter'] == 1 ? "checked":"" ?> ><label for="lv1"><span>클린</span></label>
+                                <input type="radio" name="subs_clean" value="2" id="lv1" <?=$row['clean_filter'] == 2 ? "checked":"" ?> ><label for="lv1"><span>클린</span></label>
                             </p>
                             <p class="level2">
-                                <input type="radio" name="subs_clean" value="2"  id="lv2" <?=$row['clean_filter'] == 2 ? "checked":"" ?>><label for="lv2"><span>중간</span></label>
+                                <input type="radio" name="subs_clean" value="1" id="lv2" <?=$row['clean_filter'] == 1 ? "checked":"" ?> ><label for="lv2"><span>중간</span></label>
                             </p>
                             <p class="level3">
-                                <input type="radio" name="subs_clean" value="3"  id="lv3" <?=$row['clean_filter'] == 3 ? "checked":"" ?>><label for="lv3"><span>없음</span></label>
+                                <input type="radio" name="subs_clean" value="0" id="lv3" <?=$row['clean_filter'] == 0 ? "checked":"" ?> ><label for="lv3"><span>없음</span></label>
                             </p>
                             <div class="clean_bar"></div>
                         </div>

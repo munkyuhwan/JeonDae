@@ -38,6 +38,9 @@ $query .= "clean_filter = ".$clean_filter." ";
 $query .= " WHERE idx=".$member_idx;
 $result = mysqli_query($gconnet,$query);
 
+//update clean index
+$update_clean_index = "UPDATE user_clean_index SET clean_index=".$clean_filter." WHERE member_idx=".$_SESSION['user_access_idx'];
+$update_clean_result = mysqli_query($gconnet, $update_clean_index);
 
 
 $del_subscribes = "DELETE FROM subscribe_list WHERE member_idx=".$member_idx;
