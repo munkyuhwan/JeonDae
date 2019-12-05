@@ -1,22 +1,22 @@
+<?
+$hashtag_query = "SELECT * FROM user_hashtags WHERE member_idx=".$_SESSION['user_access_idx']." LIMIT 0,3";
+$hashtag_result = mysqli_query($gconnet, $hashtag_query);
 
+$local_appr = "SELECT local, uni, file_chg FROM member_info WHERE idx=".$_SESSION['user_access_idx'];
+$local_res = mysqli_query($gconnet, $local_appr);
+$local = mysqli_fetch_assoc($local_res);
+?>
 <div class="snb">
     <div class="snb_wrap">
         <div class="snb_top user_wrap">
             <div class="user_img">
-                <img src="../thumb/thumb.php?src=../upload_file/member/<?=$_SESSION['profile_img']?>&size=400x300" alt="유저 사진">
+                <img src="../thumb/thumb.php?src=../upload_file/member/<?=$local['file_chg']?>&size=400x300" alt="유저 사진">
             </div>
             <div class="user_name">
                 <?=$_SESSION['user_access_name']?>
             </div>
             <div class="user_tag">
-                <?
-                $hashtag_query = "SELECT * FROM user_hashtags WHERE member_idx=".$_SESSION['user_access_idx']." LIMIT 0,3";
-                $hashtag_result = mysqli_query($gconnet, $hashtag_query);
 
-                $local_appr = "SELECT local, uni FROM member_info WHERE idx=".$_SESSION['user_access_idx'];
-                $local_res = mysqli_query($gconnet, $local_appr);
-                $local = mysqli_fetch_assoc($local_res);
-                ?>
                 <?while($hashtag_row = mysqli_fetch_assoc($hashtag_result) ) { ?>
                     <button type="button"><?=$hashtag_row['hash_tag']?></button>
                 <?}?>
