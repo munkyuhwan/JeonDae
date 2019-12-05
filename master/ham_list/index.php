@@ -38,9 +38,8 @@ $result = mysqli_query($gconnet,$query_limit);
 
 //$cnt_query = "SELECT COUNT(*) AS cnt  FROM report_list AS report, member_info AS member WHERE report.del_yn='N' AND report.member_idx=member.idx ";
 $cnt_result = mysqli_query($gconnet,$query);
-$cnt = mysqli_fetch_all($cnt_result);
 
-$num = count($cnt);
+$num = mysqli_num_rows($cnt_result);
 $iTotalSubCnt = $num;
 $totalpage	= ($iTotalSubCnt - 1)/$pageScale  + 1;
 
