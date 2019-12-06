@@ -1,7 +1,6 @@
 <? include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/include_default.php"; // 공통함수 인클루드 ?>
 <?php
 
-
 $fbId = trim(sqlfilter($_REQUEST['fb_id']));
 $gender= trim(sqlfilter($_REQUEST['gender']));
 $birth= trim(sqlfilter($_REQUEST['birth']));
@@ -27,13 +26,13 @@ if (intval($checkRow['cnt']) > 0 ) {?>
     $query .= " wdate=now()";
     $result = mysqli_query($gconnet, $query);
 
-    $selectQuery = "SELECT idx FROM member_info WHERE user_id='".$fbId."'";
+    $selectQuery = "SELECT idx, real_name, file_chg FROM member_info WHERE user_id='".$fbId."'";
     $selectResult = mysqli_query($gconnet, $selectQuery);
     $selectRow = mysqli_fetch_assoc($selectResult);
     $idx = $selectRow['idx'];
     session_start();
-    $_SESSION['idx'] = $idx;
-
+    $_SESSION['user_access_idx'] = $idx;
+    $_SESSION['user_access_name'] = $row['real_name'];
 
 }
 if ($result) {?>
@@ -47,4 +46,4 @@ if ($result) {?>
         history.back();
     </script>
 
-<?}?>
+<?} ?>

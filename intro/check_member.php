@@ -1,13 +1,17 @@
 <? include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/include_default.php"; // 공통함수 인클루드 ?>
+<html>
+<body>
 <?
 $fb_id = trim(sqlfilter($_REQUEST['fb_id']));
 $result = array();
-if ($fb_id) {
-    $query = "SELECT idx, real_name, file_chg FROM member_info WHERE user_id=".$fb_id;
-    $result = mysqli_query($gconnet, $query);
 
-    if ($result) {
+
+if ($fb_id) {
+    $query = "SELECT idx, real_name, file_chg FROM member_info WHERE user_id='".$fb_id."'";
+    $result = mysqli_query($gconnet, $query);
+    if (mysqli_num_rows($result)>0) {
         $row = mysqli_fetch_assoc($result);
+
         session_start();
         $_SESSION['user_access_idx'] = $row['idx'];
         $_SESSION['user_access_name'] = $row['real_name'];
@@ -15,6 +19,8 @@ if ($fb_id) {
         $result = array(
               "result"=>true
         );
+
+
     }else {
         $result = array(
             "result"=>false
@@ -25,13 +31,19 @@ if ($fb_id) {
         "result"=>false
     );
 }
-
 if ($result['result'] != true) {?>
+
     <script type="application/javascript">
-        location.href = '../join/';
+        location.replace('../join?fb_id=<?=$fb_id?>');
     </script>
 <?}else {?>
     <script type="application/javascript">
         location.href = '../main1/';
     </script>
-<?}?>
+<?}
+
+?>
+
+</body>
+</html>
+

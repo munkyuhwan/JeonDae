@@ -1,7 +1,7 @@
 <? include $_SERVER['DOCUMENT_ROOT'] . "/include/head.php" ?>
 <?
 /*
-$_SESSION['user_access_idx'] = 54;
+$_SESSION['user_access_idx'] = 39;
 
 $query = "SELECT idx, real_name, file_chg FROM member_info WHERE idx=".$_SESSION['user_access_idx'] ;
 $result = mysqli_query($gconnet, $query);
@@ -22,7 +22,7 @@ echo "<script>location.replace('../main1');</script>";
     </section>
 </div>
 <form name="frm" id="frm" action="check_member.php" method="get" >
-    <input type="hidden" name="fb_id" id="fb_id" >
+    <input type="hidden" name="fb_id" id="fb_id" value="" >
 </form>
 <script>
     window.fbAsyncInit = function() {
@@ -67,6 +67,7 @@ echo "<script>location.replace('../main1');</script>";
 
                 }, {scope: 'public_profile,email'});
             } else {
+                alert('페이스북에 로그인 해 주세요.');
                 // 그 사람은 Facebook에 로그인하지 않았으므로이 앱에 로그인했는지 여부는 확실하지 않습니다.
             }
 
