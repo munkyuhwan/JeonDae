@@ -1,6 +1,6 @@
 <? include $_SERVER['DOCUMENT_ROOT'] . "/include/head.php" ?>
 <?
-
+/*
 $_SESSION['user_access_idx'] = 54;
 
 $query = "SELECT idx, real_name, file_chg FROM member_info WHERE idx=".$_SESSION['user_access_idx'] ;
@@ -10,7 +10,7 @@ $row = mysqli_fetch_assoc($result);
 
 $_SESSION['user_access_name'] = $row['real_name'];
 echo "<script>location.replace('../main1');</script>";
-
+*/
 ?>
 <body>
 <div class="wrapper">
