@@ -39,12 +39,12 @@ if (intval($checkRow['cnt']) > 0 ) {?>
 if ($result) {?>
     <script>
         alert('등록 되었습니다');
-        //location.replace('../main1');
+        location.replace('../main1');
     </script>
 <?}else {?>
     <script>
         alert('등록중 오류가 발생했습니다.');
-        //history.back();
+        history.back();
     </script>
 
 <?}?>
