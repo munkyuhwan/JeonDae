@@ -14,6 +14,7 @@
         <script type="text/javascript" src="../js/main.js?ver=<?=time()?>"></script>
         <script type="text/javascript" src="../js/swiper.min.js"></script>
         <script type="text/javascript" src="../js/functions.js?ver=<?=time()?>"></script>
+        <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
 
     </head>
     <? include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/include_default.php"; // 공통함수 인클루드 ?>

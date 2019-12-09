@@ -1,6 +1,6 @@
 <header>
     <div class="header grd_bg">
-        <h1><a href="main1.html"><img src="../images/logo_txt.png" alt="Àü´ëÀü - Àü±¹ ´ë½Å ÀüÇØµå¸³´Ï´Ù"></a></h1>
+        <h1><a href="<?=$_SERVER['DOCUMENT_ROOT']?>/main1"><img src="../images/logo_txt.png" alt="ì „ëŒ€ì „ - ì „êµ­ ëŒ€ì‹  ì „í•´ë“œë¦½ë‹ˆë‹¤"></a></h1>
         <button type="button" class="snb_btn"></button>
     </div>
 </header>

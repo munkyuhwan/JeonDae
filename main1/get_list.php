@@ -227,8 +227,7 @@ if ($_SESSION['user_access_idx']== "") {
                                              alt="">
                                     </a>
                                 </div>
-                            <?
-                            } ?>
+                            <?} ?>
                         </div>
                     </div>
                 <?}?>
@@ -311,7 +310,7 @@ if ($_SESSION['user_access_idx']== "") {
             </div>
             <div class="item_reply_input" id="write_comment_<?=$row['report_idx']?>">
                 <div class="prf_box">
-                    <img src="<?= $profile_img ?>" alt="">
+                    <img src="../upload_file/member/<?= $profile_img_assoc["file_chg"] ?>" alt="">
                 </div>
                 <div class="input_box">
                     <form action="write_comment_action.php" method="post" name="frm">
