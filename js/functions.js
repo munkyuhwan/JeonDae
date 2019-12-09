@@ -47,5 +47,50 @@ function goShare(href) {
         method: 'share',
         href: href,
     }, function(response){});
-    console.log($('#report_idx').val())
 }
+function goShareTwitter(href) {
+    var idx = href.split("?idx=")[1]
+
+    window.open("https://twitter.com/intent/tweet?text="+ decodeURI( href+"\n"+$('#content_'+idx).html()), "_blank" );
+}
+
+
+Kakao.init('6e77fd382a50866acb40aec217b3948d');
+
+function goShareKakaoTalk(href) {
+    var idx = href.split("?idx=")[1]
+    Kakao.Link.sendDefault({
+        objectType: 'feed',
+        content: {
+            title: '전대전',
+            description: $('#content_'+idx).html(),
+            imageUrl: href,
+            link: {
+                mobileWebUrl: href,
+                webUrl: href
+            }
+        },
+        /*
+        social: {
+            likeCount: 286,
+            commentCount: 45,
+            sharedCount: 845
+        },
+        */
+        buttons: [
+            {
+                title: '웹으로 보기',
+                link: {
+                    mobileWebUrl: 'https://developers.kakao.com',
+                    webUrl: 'https://developers.kakao.com'
+                }
+            }
+        ]
+
+    });
+}
+function goShareKakaoStory(href) {
+
+}
+
+
