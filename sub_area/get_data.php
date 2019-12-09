@@ -33,7 +33,7 @@ while($row = mysqli_fetch_assoc($result) ) {
     </div>
     <div class="item_mid">
         <div class="text_box">
-            <p><?=$row['content_text']?></p>
+            <p   id="content_<?=$row['report_idx']?>" ><?=$row['content_text']?></p>
             <button type="button" class="more_btn">...더보기</button>
         </div>
         <?

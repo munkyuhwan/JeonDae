@@ -42,7 +42,7 @@ while($row = mysqli_fetch_assoc($category_result)) {
                 <img src="../upload_file/category_profile/<?=$v['category_profile']?>" alt="">
             </div>
             <div class="info_box ">
-                <p class="name"><?=$v['real_name']?></p>
+                <p class="name" ><?=$v['real_name']?></p>
                 <div class="etc_info">
                     <p><?=date("m월 d일 h:i", strtotime($v['wdate']) )?></p><p><?=$v['idx']?>번째 제보</p>
                     <?$hashtags = explode(",",$v['report_hashtag'])?>
@@ -54,7 +54,7 @@ while($row = mysqli_fetch_assoc($category_result)) {
         </div>
         <div class="item_mid">
             <div class="text_box">
-                <p><?=$v['content_text']?></p>
+                <p  id="content_<?=$v['idx']?>" ><?=$v['content_text']?></p>
                 <button type="button" class="more_btn">...더보기</button>
             </div>
             <?
