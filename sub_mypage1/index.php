@@ -18,6 +18,14 @@ $mycomment_cnt = mysqli_fetch_assoc($mycomment_result);
             data:{"page":page, "block":block},
             success:function(response) {
                 $('#myWrite').html(response);
+                $(".pop_call").on("click",function(){
+                    console.log("pop call")
+                    var name = $(this).attr("data-pop");
+                    $(".popup."+name).fadeIn();
+                    $(".mask").fadeIn();
+                    $("html").addClass("scroll_no");
+                    $(".snb").removeClass("snb_on");
+                });
             },
             error:function(error) {
 
@@ -54,32 +62,15 @@ $mycomment_cnt = mysqli_fetch_assoc($mycomment_result);
             </div>
             <div class="list_wrap mylist"  style="display: block;">
                 <ul id="myComment">
-
                 </ul>
             </div>
-
         </div>
-
     </section>
 </div>
 <? include $_SERVER['DOCUMENT_ROOT']."/include/gnb.php" ?>
-
-<div class="popup post_pop">
-    <div class="popup_wrap post_btn">
-        <div class="post_btn_wrap">
-            <ul>
-                <li><button type="button">삭제하기</button></li>
-                <li><button type="button">링크복사</button></li>
-                <li><button type="button" class="pop_call" data-pop="share_pop">링크공유</button></li>
-            </ul>
-        </div>
-        <button type="button" class="pop_close">취소</button>
-    </div>
-</div>
-
 <? include $_SERVER['DOCUMENT_ROOT']."/include/etc_popup.php" ?>
 <? include $_SERVER['DOCUMENT_ROOT']."/include/img_popup.php" ?>
-<?include $_SERVER['DOCUMENT_ROOT']."/include/share_pop.php"?>
+<? include $_SERVER['DOCUMENT_ROOT']."/include/share_pop.php"?>
 
 </body>
 </html>
