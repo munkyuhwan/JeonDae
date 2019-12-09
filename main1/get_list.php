@@ -65,7 +65,7 @@ if ($_SESSION['user_access_idx']== "") {
 
     $hashtag_like_query = "";
     while ($subscribe_row = mysqli_fetch_assoc($subscribe_list_result)) {
-        $hashtag_like_query .= " report.report_hashtag LIKE '%#" . $subscribe_row['sub_name'] . "%' OR ";
+        $hashtag_like_query .= " report.report_hashtag LIKE '%#" . $subscribe_row['sub_name'] . ",%' OR ";
     }
 
     $hashtag_like_query = substr($hashtag_like_query, 0, -3);
@@ -87,7 +87,6 @@ if ($_SESSION['user_access_idx']== "") {
 
     $query .= " ORDER BY report.idx DESC ";
     $query_limit .= $query . " LIMIT " . ($page * $block) . " , " . $block;
-
 //echo $query;
     $result = mysqli_query($gconnet, $query_limit);
 
@@ -140,7 +139,7 @@ if ($_SESSION['user_access_idx']== "") {
                             <? if (count($img_row) == 1) { ?>
                                 <div class="flex2_wrap item1">
                                     <a href="javascript:setImages(<?= $row['report_idx']?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
-                                        <img src="../thumb/thumb.php?src=../upload_file/report/<?= $img_row[0][2] ?>"
+                                        <img src="../upload_file/report/<?= $img_row[0][2] ?>"
                                              alt="">
                                     </a>
                                 </div>
@@ -148,76 +147,76 @@ if ($_SESSION['user_access_idx']== "") {
                             <? } else if (count($img_row) == 2) { ?>
                                 <div class="flex2_wrap item1">
                                     <a href="javascript:setImages(<?= $row['report_idx'] ?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
-                                        <img src="../thumb/thumb.php?src=../upload_file/report/<?= $img_row[0][2] ?>"
+                                        <img src="../upload_file/report/<?= $img_row[0][2] ?>"
                                              alt="">
                                     </a>
                                 </div>
                                 <div class="flex2_wrap item1">
                                     <a href="javascript:setImages(<?= $row['report_idx']?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
-                                        <img src="../thumb/thumb.php?src=../upload_file/report/<?= $img_row[1][2] ?>"
+                                        <img src="../upload_file/report/<?= $img_row[1][2] ?>"
                                              alt="">
                                     </a>
                                 </div>
                             <? } else if (count($img_row) == 3) { ?>
                                 <div class="flex2_wrap item2">
                                     <a href="javascript:setImages(<?= $row['report_idx'] ?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
-                                        <img src="../thumb/thumb.php?src=../upload_file/report/<?= $img_row[0][2] ?>"
+                                        <img src="../upload_file/report/<?= $img_row[0][2] ?>"
                                              alt="">
                                     </a>
                                     <a href="javascript:setImages(<?= $row['report_idx'] ?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
-                                        <img src="../thumb/thumb.php?src=../upload_file/report/<?= $img_row[1][2] ?>"
+                                        <img src="../upload_file/report/<?= $img_row[1][2] ?>"
                                              alt="">
                                     </a>
                                 </div>
                                 <div class="flex2_wrap item1">
                                     <a href="javascript:setImages(<?= $row['report_idx'] ?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
-                                        <img src="../thumb/thumb.php?src=../upload_file/report/<?= $img_row[2][2] ?>"
+                                        <img src="../upload_file/report/<?= $img_row[2][2] ?>"
                                              alt="">
                                     </a>
                                 </div>
                             <? } else if (count($img_row) == 4) { ?>
                                 <div class="flex2_wrap item2">
                                     <a href="javascript:setImages(<?= $row['report_idx'] ?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
-                                        <img src="../thumb/thumb.php?src=../upload_file/report/<?= $img_row[0][2] ?>"
+                                        <img src="../upload_file/report/<?= $img_row[0][2] ?>"
                                              alt="">
                                     </a>
                                     <a href="javascript:setImages(<?= $row['report_idx'] ?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
-                                        <img src="../thumb/thumb.php?src=../upload_file/report/<?= $img_row[1][2] ?>"
+                                        <img src="../upload_file/report/<?= $img_row[1][2] ?>"
                                              alt="">
                                     </a>
                                 </div>
                                 <div class="flex2_wrap item2">
                                     <a href="javascript:setImages(<?= $row['report_idx'] ?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
-                                        <img src="../thumb/thumb.php?src=../upload_file/report/<?= $img_row[2][2] ?>"
+                                        <img src="../upload_file/report/<?= $img_row[2][2] ?>"
                                              alt="">
                                     </a>
                                     <a href="javascript:setImages(<?= $row['report_idx'] ?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)">
-                                        <img src="../thumb/thumb.php?src=../upload_file/report/<?= $img_row[3][2] ?>"
+                                        <img src="../upload_file/report/<?= $img_row[3][2] ?>"
                                              alt="">
                                     </a>
                                 </div>
                             <? } else if (count($img_row) == 5) { ?>
                                 <div class="flex2_wrap item2">
                                     <a href="javascript:setImages(<?= $row['report_idx'] ?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
-                                        <img src="../thumb/thumb.php?src=../upload_file/report/<?= $img_row[0][2] ?>"
+                                        <img src="../upload_file/report/<?= $img_row[0][2] ?>"
                                              alt="">
                                     </a>
                                     <a href="javascript:setImages(<?= $row['report_idx'] ?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
-                                        <img src="../thumb/thumb.php?src=../upload_file/report/<?= $img_row[1][2] ?>"
+                                        <img src="../upload_file/report/<?= $img_row[1][2] ?>"
                                              alt="">
                                     </a>
                                 </div>
                                 <div class="flex2_wrap item3">
                                     <a href="javascript:setImages(<?= $row['report_idx'] ?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
-                                        <img src="../thumb/thumb.php?src=../upload_file/report/<?= $img_row[2][2] ?>"
+                                        <img src="../upload_file/report/<?= $img_row[2][2] ?>"
                                              alt="">
                                     </a>
                                     <a href="javascript:setImages(<?= $row['report_idx'] ?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
-                                        <img src="../thumb/thumb.php?src=../upload_file/report/<?= $img_row[3][2] ?>"
+                                        <img src="../upload_file/report/<?= $img_row[3][2] ?>"
                                              alt="">
                                     </a>
                                     <a href="javascript:setImages(<?= $row['report_idx'] ?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
-                                        <img src="../thumb/thumb.php?src=../upload_file/report/<?= $img_row[4][2] ?>"
+                                        <img src="../upload_file/report/<?= $img_row[4][2] ?>"
                                              alt="">
                                     </a>
                                 </div>
@@ -241,29 +240,33 @@ if ($_SESSION['user_access_idx']== "") {
                     <button type="button" class="reply_all">댓글 <span><?= $row['comment_cnt'] ?></span>개 모두 보기</button>
                     <ul>
                         <? while ($r = mysqli_fetch_assoc($comment_res)) { ?>
-                            <li class="reply_item user_box">
-                                <div class="reply_inner">
+
+                            <li class="reply_item user_box" >
+                                <div class="reply_inner" >
                                     <div class="prf_box">
                                         <img src="../upload_file/member/<?= $r['file_chg'] ?>" alt="">
                                     </div>
                                     <div class="info_box ">
-                                        <div class="reply_top"><p class="name"><?= $r['member_name'] ?></p>
-                                            <p class="reply_txt"><?= $r['comment_txt'] ?></p></div>
+                                        <div class="reply_top">
+                                            <p class="name"><?= $r['member_name'] ?></p>
+                                            <p class="reply_txt"><?= $r['comment_txt'] ?></p>
+                                        </div>
                                         <div class="etc_info">
                                             <p><?= date("m월 d일 h:i", strtotime($r['wdate'])) ?></p>
-                                            <button type="button">답글 달기</button>
+                                            <button type="button" onclick="$('#write_comment_<?=$row['report_idx']?>').appendTo('#comment_<?= $row['report_idx']."_".$r['comment_idx']?>'); " >답글 달기</button>
                                         </div>
                                     </div>
-                                    <button type="button" class="like_btn"></button>
+                                    <button type="button" class="like_btn" ></button>
                                 </div>
+                                <div id="comment_<?=$row['report_idx']."_".$r['comment_idx'] ?>" ></div>
                                 <?
-                                $sub_comment_query = "SELECT report.comment_txt, report.idx AS comment_idx, report.wdate, (SELECT real_name FROM member_info WHERE idx=report.member_idx ) AS member_name,(SELECT file_chg FROM member_info WHERE idx=report.member_idx ) AS file_chg  FROM report_comments AS report WHERE report.del_yn='N' AND parent_idx=" . $r['comment_idx'] . " ORDER BY idx DESC LIMIT 0,2";
+                                $sub_comment_query = "SELECT report.comment_txt, report.idx AS comment_idx, report.parent_idx, report.wdate, (SELECT real_name FROM member_info WHERE idx=report.member_idx ) AS member_name,(SELECT file_chg FROM member_info WHERE idx=report.member_idx ) AS file_chg  FROM report_comments AS report WHERE report.del_yn='N' AND parent_idx=" . $r['comment_idx'] . " ORDER BY idx DESC LIMIT 0,2";
                                 $sub_comment_res = mysqli_query($gconnet, $sub_comment_query);
                                 ?>
                                 <? if (mysqli_num_rows($sub_comment_res) > 0) { ?>
                                     <ul>
                                         <? while ($sub_row = mysqli_fetch_assoc($sub_comment_res)) { ?>
-                                            <li class="reply_item user_box">
+                                            <li class="reply_item user_box" >
                                                 <div class="reply_inner">
                                                     <div class="prf_box">
                                                         <img src="../upload_file/member/<?= $sub_row['file_chg'] ?>"
@@ -276,7 +279,7 @@ if ($_SESSION['user_access_idx']== "") {
                                                         </div>
                                                         <div class="etc_info">
                                                             <p><?= date("m월 d일 h:i", strtotime($sub_row['wdate'])) ?></p>
-                                                            <button type="button">답글 달기</button>
+                                                            <button type="button" >답글 달기</button>
                                                         </div>
                                                     </div>
                                                     <button type="button" class="like_btn"></button>
@@ -300,7 +303,7 @@ if ($_SESSION['user_access_idx']== "") {
                     </ul>
                 </div>
             </div>
-            <div class="item_reply_input">
+            <div class="item_reply_input" id="write_comment_<?=$row['report_idx']?>">
                 <div class="prf_box">
                     <img src="<?= $profile_img ?>" alt="">
                 </div>
