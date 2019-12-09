@@ -50,70 +50,70 @@ while($row = mysqli_fetch_assoc($result) ) {
                 <div class="flex_wrap">
                     <?if(count($img_row) == 1) {?>
                         <div class="flex2_wrap item1">
-                            <a href="">
+                            <a href="javascript:setImages(<?= $row['idx']?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
                                 <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[0][2]?>" alt="">
                             </a>
                         </div>
 
                     <?} else if(count($img_row) == 2 ) {?>
                         <div class="flex2_wrap item1">
-                            <a href="">
+                            <a href="javascript:setImages(<?= $row['idx']?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
                                 <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[0][2]?>" alt="">
                             </a>
                         </div>
                         <div class="flex2_wrap item1">
-                            <a href="">
+                            <a href="javascript:setImages(<?= $row['idx']?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
                                 <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[1][2]?>" alt="">
                             </a>
                         </div>
                     <?} else if(count($img_row) == 3 ) {?>
                         <div class="flex2_wrap item2">
-                            <a href="">
+                            <a href="javascript:setImages(<?= $row['idx']?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
                                 <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[0][2]?>" alt="">
                             </a>
-                            <a href="">
+                            <a href="javascript:setImages(<?= $row['idx']?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
                                 <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[1][2]?>" alt="">
                             </a>
                         </div>
                         <div class="flex2_wrap item1">
-                            <a href="">
+                            <a href="javascript:setImages(<?= $row['idx']?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
                                 <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[2][2]?>" alt="">
                             </a>
                         </div>
                     <?} else if(count($img_row) == 4 ) {?>
                         <div class="flex2_wrap item2">
-                            <a href="">
+                            <a href="javascript:setImages(<?= $row['idx']?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
                                 <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[0][2]?>" alt="">
                             </a>
-                            <a href="">
+                            <a href="javascript:setImages(<?= $row['idx']?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
                                 <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[1][2]?>" alt="">
                             </a>
                         </div>
                         <div class="flex2_wrap item2">
-                            <a href="">
+                            <a href="javascript:setImages(<?= $row['idx']?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
                                 <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[2][2]?>" alt="">
                             </a>
-                            <a href="">
+                            <a href="javascript:setImages(<?= $row['idx']?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
                                 <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[3][2]?>" alt="">
                             </a>
                         </div>
                     <?} else if(count($img_row) == 5 ) {?>
                         <div class="flex2_wrap item2">
-                            <a href="">
+                            <a href="javascript:setImages(<?= $row['idx']?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
                                 <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[0][2]?>" alt="">
                             </a>
-                            <a href="">
+                            <a href="javascript:setImages(<?= $row['idx']?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
                                 <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[1][2]?>" alt="">
                             </a>
                         </div>
                         <div class="flex2_wrap item3">
-                            <a href="">
+                            <a href="javascript:setImages(<?= $row['idx']?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
                                 <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[2][2]?>" alt="">
                             </a>
-                            <a href="">
+                            <a href="javascript:setImages(<?= $row['idx']?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
                                 <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[3][2]?>" alt="">
                             </a>
-                            <a href="">
+                            <a href="javascript:setImages(<?= $row['idx']?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
                                 <img src="../thumb/thumb.php?src=../upload_file/report/<?=$img_row[4][2]?>" alt="">
                             </a>
                         </div>
