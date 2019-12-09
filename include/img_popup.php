@@ -2,7 +2,7 @@
 
 <script type="application/javascript">
     var popImg = "<li class=\"swiper-slide\" >"+
-                 "   <img src=\"../thumb/thumb.php?src={0}\" alt=\"\">"+
+                 "   <img src=\"{0}\" alt=\"\">"+
                  "</li>"
     function setImages(report_idx, likeCnt, commentCnt) {
 
