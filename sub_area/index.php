@@ -63,10 +63,10 @@ if ($_SESSION['user_access_idx']!='') {
         <h2 class="hidden">지역 메인</h2>
         <div class="area_tlt">
             <div class="area_img">
-                <img src="../thumb/thumb.php?src=../upload_file/category_cover/<?=$row['cover_img']?>" alt="지역 이미지">
+                <img src="../upload_file/category_cover/<?=$row['cover_img']?>" alt="지역 이미지">
             </div>
             <div class="area_inner">
-                <p class="area_logo"><img src="../thumb/thumb.php?src=../upload_file/category_profile/<?=$row['profile_img']?>" alt="원 이미지"></p>
+                <p class="area_logo"><img src="../upload_file/category_profile/<?=$row['profile_img']?>" alt="원 이미지"></p>
                 <span><?=$row['category_name']?></span>
                 <?if (intval($subscribe_cnt) <= 0 ) {?>
                     <form action="do_subscribe.php" name="frm" method="post" target="_fra_admin"  >
