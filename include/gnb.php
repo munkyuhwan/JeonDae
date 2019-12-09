@@ -10,7 +10,7 @@ $local = mysqli_fetch_assoc($local_res);
     <div class="snb_wrap">
         <div class="snb_top user_wrap">
             <div class="user_img">
-                <img src="../thumb/thumb.php?src=../upload_file/member/<?=$local['file_chg']?>&size=400x300" alt="유저 사진">
+                <img src="../upload_file/member/<?=$local['file_chg']?>" alt="유저 사진">
             </div>
             <div class="user_name">
                 <?=$_SESSION['user_access_name']?>
