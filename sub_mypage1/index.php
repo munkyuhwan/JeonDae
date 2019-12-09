@@ -76,39 +76,9 @@ $mycomment_cnt = mysqli_fetch_assoc($mycomment_result);
         <button type="button" class="pop_close">취소</button>
     </div>
 </div>
-<div class="popup img_pop">
-    <div class="img_slider">
-        <div class="swiper-container">
-            <ul class="swiper-wrapper">
-                <li class="swiper-slide">
-                    <img src="../images/img_sample2.jpg" alt="">
-                </li>
-                <li class="swiper-slide">
-                    <img src="../images/img_sample4.jpg" alt="">
-                </li>
-                <li class="swiper-slide">
-                    <img src="../images/img_sample5.jpg" alt="">
-                </li>
-                <li class="swiper-slide">
-                    <img src="../images/img_sample6.jpg" alt="">
-                </li>
-                <li class="swiper-slide">
-                    <img src="../images/img_sample4.jpg" alt="">
-                </li>
-            </ul>
-        </div>
-        <div class="slide_nav_btn">
-            <button class="slide_prev_btn"><img src="../images/icon_arrow_left.png"></button>
-            <button class="slide_next_btn"><img src="../images/icon_arrow_right.png"></button>
-        </div>
-    </div>
-    <div class="btn_box">
-        <button type="button" class="like_btn">26</button>
-        <span class="reply_cnt">15</span>
-    </div>
-    <button tpye="button" class="pop_close"></button>
-</div>
 
+<? include $_SERVER['DOCUMENT_ROOT']."/include/etc_popup.php" ?>
+<? include $_SERVER['DOCUMENT_ROOT']."/include/img_popup.php" ?>
 <?include $_SERVER['DOCUMENT_ROOT']."/include/share_pop.php"?>
 
 </body>
