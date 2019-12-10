@@ -1,4 +1,4 @@
-<? include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/include_default.php"; // °øÅëÇÔ¼ö ÀÎÅ¬·çµå ?>
+<? include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/include_default.php"; // ê³µí†µí•¨ìˆ˜ ì¸í´ë£¨ë“œ ?>
 <?
 $parentIdx = trim(sqlfilter($_REQUEST['parent_idx']));
 $reportIdx = trim(sqlfilter($_REQUEST['report_idx']));
@@ -15,14 +15,14 @@ $result = mysqli_query($gconnet, $query);
 if($result){?>
     <SCRIPT LANGUAGE="JavaScript">
         <!--
-        alert('µî·ÏÀÌ Á¤»óÀûÀ¸·Î ¿Ï·á µÇ¾ú½À´Ï´Ù.');
+        alert('ë“±ë¡ì´ ì •ìƒì ìœ¼ë¡œ ì™„ë£Œ ë˜ì—ˆìŠµë‹ˆë‹¤.');
         parent.location.href =  "./";
         //-->
     </SCRIPT>
 <?}else{?>
     <SCRIPT LANGUAGE="JavaScript">
         <!--
-        alert('µî·ÏÁß ¿À·ù°¡ ¹ß»ýÇß½À´Ï´Ù.');
+        alert('ë“±ë¡ì¤‘ ì˜¤ë¥˜ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤.');
         //-->
     </SCRIPT>
 <?}?>
