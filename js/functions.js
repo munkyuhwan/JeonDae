@@ -42,23 +42,21 @@ function likeClick(report_idx) {
 
 
 
-function goShare(href) {
+function goShare(href, idx) {
     FB.ui({
         method: 'share',
-        href: href,
+        href: href+"?idx="+idx,
     }, function(response){});
 }
-function goShareTwitter(href) {
-    var idx = href.split("?idx=")[1]
+function goShareTwitter(href, idx) {
 
-    window.open("https://twitter.com/intent/tweet?text="+ decodeURI( href+"\n"+$('#content_'+idx).html()), "_blank" );
+    window.open("https://twitter.com/intent/tweet?text="+ decodeURI( href+"?idx="+idx+"\n"+$('#content_'+idx).html()), "_blank" );
 }
 
 
 Kakao.init('6e77fd382a50866acb40aec217b3948d');
 
-function goShareKakaoTalk(href) {
-    var idx = href.split("?idx=")[1]
+function goShareKakaoTalk(href, idx) {
     var imgTag = $('#img_'+idx).attr("src")
 
     Kakao.Link.sendDefault({
@@ -68,8 +66,8 @@ function goShareKakaoTalk(href) {
             description: $('#content_'+idx).html(),
             imageUrl: "https://djund.com/"+imgTag.replace("../",""),
             link: {
-                mobileWebUrl: href,
-                webUrl: href
+                mobileWebUrl: href+"?idx="+idx,
+                webUrl: href+"?idx="+idx
             }
         },
         /*
@@ -91,8 +89,12 @@ function goShareKakaoTalk(href) {
 
     });
 }
-function goShareKakaoStory(href) {
-
+function goShareKakaoStory(href, idx) {
+    console.log(href+"?idx="+idx)
+    Kakao.Story.share({
+        url: href+"?idx="+idx,
+        text: $('#content_'+idx).html()
+    });
 }
 
 
