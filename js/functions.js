@@ -43,49 +43,62 @@ function likeClick(report_idx) {
 
 
 function goShare(href, idx) {
+    if (App != undefined) {
+        App.fb_share($('#content_' + idx).html(), href, idx)
+    }else {
+       goFBShare(href, idx)
+    }
+}
+
+function goFBShare(href, idx) {
     FB.ui({
         method: 'share',
-        href: href+"?idx="+idx,
-    }, function(response){});
+        href: href + "?idx=" + idx,
+    }, function (response) {
+    });
 }
-function goShareTwitter(href, idx) {
 
+function goShareTwitter(href, idx) {
     window.open("https://twitter.com/intent/tweet?text="+ decodeURI( href+"?idx="+idx+"\n"+$('#content_'+idx).html()), "_blank" );
 }
-
 
 Kakao.init('6e77fd382a50866acb40aec217b3948d');
 
 function goShareKakaoTalk(href, idx) {
     var imgTag = $('#img_'+idx).attr("src")
-    if (Android != undefined) {
-        Android.kakao_share($('#content_' + idx).html(), "https://djund.com/" + imgTag.replace("../", ""));
+    if (App != undefined) {
+        App.kakao_share($('#content_' + idx).html(), "https://djund.com/" + imgTag.replace("../", ""), idx);
     }else {
-        Kakao.Link.sendDefault({
-            objectType: 'feed',
-            content: {
-                title: '전대전',
-                description: $('#content_' + idx).html(),
-                imageUrl: "https://djund.com/" + imgTag.replace("../", ""),
-                link: {
-                    mobileWebUrl: href + "?idx=" + idx,
-                    webUrl: href + "?idx=" + idx
-                }
-            },
-            buttons: [
-                {
-                    title: '웹으로 보기',
-                    link: {
-                        mobileWebUrl: 'https://developers.kakao.com',
-                        webUrl: 'https://developers.kakao.com'
-                    }
-                }
-            ]
-
-        });
+        doKakaoTalkSahre(href, idx)
     }
-
 }
+
+function doKakaoTalkSahre(href, idx) {
+    var imgTag = $('#img_'+idx).attr("src")
+    Kakao.Link.sendDefault({
+        objectType: 'feed',
+        content: {
+            title: '전대전',
+            description: $('#content_' + idx).html(),
+            imageUrl: "https://djund.com/" + imgTag.replace("../", ""),
+            link: {
+                mobileWebUrl: href + "?idx=" + idx,
+                webUrl: href + "?idx=" + idx
+            }
+        },
+        buttons: [
+            {
+                title: '웹으로 보기',
+                link: {
+                    mobileWebUrl: 'https://developers.kakao.com',
+                    webUrl: 'https://developers.kakao.com'
+                }
+            }
+        ]
+
+    });
+}
+
 function goShareKakaoStory(href, idx) {
     Kakao.Story.share({
         url: href+"?idx="+idx,
