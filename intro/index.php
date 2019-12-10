@@ -46,8 +46,8 @@ echo "<script>location.replace('../main1');</script>";
     }(document, 'script', 'facebook-jssdk'));
 
     function checkLoginState() {
-        if (Android != undefined) {
-            Android.fb_login();
+        if (App != undefined) {
+            App.fb_login();
         }else {
 
             FB.getLoginStatus(function (response) {
