@@ -66,9 +66,9 @@ function goShareKakaoTalk(href) {
         content: {
             title: '전대전',
             description: $('#content_'+idx).html(),
-            imageUrl: href,
+            imageUrl: "https://djund.com/"+imgTag.replace("../",""),
             link: {
-                mobileWebUrl: "https://djund.com/"+imgTag.replace("../",""),
+                mobileWebUrl: href,
                 webUrl: href
             }
         },
