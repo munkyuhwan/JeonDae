@@ -46,32 +46,37 @@ echo "<script>location.replace('../main1');</script>";
     }(document, 'script', 'facebook-jssdk'));
 
     function checkLoginState() {
-        FB.getLoginStatus(function(response) {
+        if (Android != undefined) {
+            Android.fb_login();
+        }else {
 
-            console.log(response.status)
-            if (response.status === 'connected') {
-                FB.api('/me', function(res) {
-                    // 제일 마지막에 실행
-                    if (res.id!='') {
-                        //checkMember(res.id)
-                        $('#fb_id').val(res.id)
-                        $('#frm').submit()
-                    }
-                    // alert("Success Login : " + response.name);
-                });
-            } else if (response.status === 'not_authorized') {
-                // 사람은 Facebook에 로그인했지만 앱에는 로그인하지 않았습니다.
-                FB.login(function(response) {
-                    // handle the response
-                    $('#fb_id').val(response.id)
+            FB.getLoginStatus(function (response) {
 
-                }, {scope: 'public_profile,email'});
-            } else {
-                alert('페이스북에 로그인 해 주세요.');
-                // 그 사람은 Facebook에 로그인하지 않았으므로이 앱에 로그인했는지 여부는 확실하지 않습니다.
-            }
+                console.log(response.status)
+                if (response.status === 'connected') {
+                    FB.api('/me', function (res) {
+                        // 제일 마지막에 실행
+                        if (res.id != '') {
+                            checkMember(res.id)
+                            //$('#fb_id').val(res.id)
+                            //$('#frm').submit()
+                        }
+                        // alert("Success Login : " + response.name);
+                    });
+                } else if (response.status === 'not_authorized') {
+                    // 사람은 Facebook에 로그인했지만 앱에는 로그인하지 않았습니다.
+                    FB.login(function (response) {
+                        // handle the response
+                        $('#fb_id').val(response.id)
 
-        }, true);
+                    }, {scope: 'public_profile,email'});
+                } else {
+                    alert('페이스북에 로그인 해 주세요.');
+                    // 그 사람은 Facebook에 로그인하지 않았으므로이 앱에 로그인했는지 여부는 확실하지 않습니다.
+                }
+
+            }, true);
+        }
     }
 
     function checkMember(idx) {
