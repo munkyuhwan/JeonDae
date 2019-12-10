@@ -3,7 +3,7 @@
 $parentIdx = trim(sqlfilter($_REQUEST['parent_idx']));
 $reportIdx = trim(sqlfilter($_REQUEST['report_idx']));
 $commentTxt = trim(sqlfilter($_REQUEST['content_txt']));
-$userIdx = $_SESSION['idx'];
+$userIdx = $_SESSION['user_access_idx'];
 
 $query = "INSERT INTO report_comments SET ";
 $query .= " report_idx= ".$reportIdx.", ";
