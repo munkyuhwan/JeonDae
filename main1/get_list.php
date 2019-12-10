@@ -146,7 +146,7 @@ if ($_SESSION['user_access_idx']== "") {
 
                                 <div class="flex2_wrap item1">
                                     <a href="javascript:setImages(<?= $row['report_idx']?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
-                                        <img src="../upload_file/report/<?= $img_res[0]["report_file_name"] ?>"
+                                        <img id="img_<?=$row['report_idx']?>" src="../upload_file/report/<?= $img_res[0]["report_file_name"] ?>"
                                              alt="">
                                     </a>
                                 </div>
@@ -154,7 +154,7 @@ if ($_SESSION['user_access_idx']== "") {
                             <? } else if ($img_cnt == 2) { ?>
                                 <div class="flex2_wrap item1">
                                     <a href="javascript:setImages(<?= $row['report_idx'] ?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
-                                        <img src="../upload_file/report/<?= $img_res[0]["report_file_name"] ?>"
+                                        <img id="img_<?=$row['report_idx']?>" src="../upload_file/report/<?= $img_res[0]["report_file_name"] ?>"
                                              alt="">
                                     </a>
                                 </div>
@@ -167,7 +167,7 @@ if ($_SESSION['user_access_idx']== "") {
                             <? } else if ($img_cnt == 3) { ?>
                                 <div class="flex2_wrap item2">
                                     <a href="javascript:setImages(<?= $row['report_idx'] ?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
-                                        <img src="../upload_file/report/<?= $img_res[0]["report_file_name"] ?>"
+                                        <img id="img_<?=$row['report_idx']?>" src="../upload_file/report/<?= $img_res[0]["report_file_name"] ?>"
                                              alt="">
                                     </a>
                                     <a href="javascript:setImages(<?= $row['report_idx'] ?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
@@ -184,7 +184,7 @@ if ($_SESSION['user_access_idx']== "") {
                             <? } else if ($img_cnt == 4) { ?>
                                 <div class="flex2_wrap item2">
                                     <a href="javascript:setImages(<?= $row['report_idx'] ?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
-                                        <img src="../upload_file/report/<?= $img_res[0]["report_file_name"] ?>"
+                                        <img id="img_<?=$row['report_idx']?>" src="../upload_file/report/<?= $img_res[0]["report_file_name"] ?>"
                                              alt="">
                                     </a>
                                     <a href="javascript:setImages(<?= $row['report_idx'] ?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
@@ -205,7 +205,7 @@ if ($_SESSION['user_access_idx']== "") {
                             <? } else if ($img_cnt == 5) { ?>
                                 <div class="flex2_wrap item2">
                                     <a href="javascript:setImages(<?= $row['report_idx'] ?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
-                                        <img src="../upload_file/report/<?= $img_res[0]["report_file_name"] ?>"
+                                        <img id="img_<?=$row['report_idx']?>" src="../upload_file/report/<?= $img_res[0]["report_file_name"] ?>"
                                              alt="">
                                     </a>
                                     <a href="javascript:setImages(<?= $row['report_idx'] ?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">

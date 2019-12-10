@@ -59,6 +59,8 @@ Kakao.init('6e77fd382a50866acb40aec217b3948d');
 
 function goShareKakaoTalk(href) {
     var idx = href.split("?idx=")[1]
+    var imgTag = $('#img_'+idx).attr("src")
+
     Kakao.Link.sendDefault({
         objectType: 'feed',
         content: {
@@ -66,7 +68,7 @@ function goShareKakaoTalk(href) {
             description: $('#content_'+idx).html(),
             imageUrl: href,
             link: {
-                mobileWebUrl: href,
+                mobileWebUrl: "https://djund.com/"+imgTag.replace("../",""),
                 webUrl: href
             }
         },
