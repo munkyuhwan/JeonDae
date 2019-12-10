@@ -58,39 +58,35 @@ Kakao.init('6e77fd382a50866acb40aec217b3948d');
 
 function goShareKakaoTalk(href, idx) {
     var imgTag = $('#img_'+idx).attr("src")
-
-    Kakao.Link.sendDefault({
-        objectType: 'feed',
-        content: {
-            title: '전대전',
-            description: $('#content_'+idx).html(),
-            imageUrl: "https://djund.com/"+imgTag.replace("../",""),
-            link: {
-                mobileWebUrl: href+"?idx="+idx,
-                webUrl: href+"?idx="+idx
-            }
-        },
-        /*
-        social: {
-            likeCount: 286,
-            commentCount: 45,
-            sharedCount: 845
-        },
-        */
-        buttons: [
-            {
-                title: '웹으로 보기',
+    if (Android != undefined) {
+        Android.kakao_share($('#content_' + idx).html(), "https://djund.com/" + imgTag.replace("../", ""));
+    }else {
+        Kakao.Link.sendDefault({
+            objectType: 'feed',
+            content: {
+                title: '전대전',
+                description: $('#content_' + idx).html(),
+                imageUrl: "https://djund.com/" + imgTag.replace("../", ""),
                 link: {
-                    mobileWebUrl: 'https://developers.kakao.com',
-                    webUrl: 'https://developers.kakao.com'
+                    mobileWebUrl: href + "?idx=" + idx,
+                    webUrl: href + "?idx=" + idx
                 }
-            }
-        ]
+            },
+            buttons: [
+                {
+                    title: '웹으로 보기',
+                    link: {
+                        mobileWebUrl: 'https://developers.kakao.com',
+                        webUrl: 'https://developers.kakao.com'
+                    }
+                }
+            ]
 
-    });
+        });
+    }
+
 }
 function goShareKakaoStory(href, idx) {
-    console.log(href+"?idx="+idx)
     Kakao.Story.share({
         url: href+"?idx="+idx,
         text: $('#content_'+idx).html()
