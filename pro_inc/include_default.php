@@ -34,7 +34,12 @@ include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/user_function.php"; // PHP 유저 �
 include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/db_conn.php"; 
 //include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/function_counter.php"; // 카운터함수  
 include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/function_query.php"; // 유저 DB 함수 모음 
-//include $_SERVER["DOCUMENT_ROOT"]."/login/session_mysql.php"; // 세션 DB 관리 파일  
+//include $_SERVER["DOCUMENT_ROOT"]."/login/session_mysql.php"; // 세션 DB 관리 파일
+
+define("SUBSCRIBE_IOS", "fcm_ios");
+define("SUBSCRIBE_ANDROID", "fcm_and");
+include $_SERVER["DOCUMENT_ROOT"]."/include/send_push.php"; // 푸시 함수
+
 
 $sitetitle_set_sql = "select set_title,set_keyword from sitetitle_set where 1 order by idx desc";
 $sitetitle_set_query = mysqli_query($gconnet,$sitetitle_set_sql);
