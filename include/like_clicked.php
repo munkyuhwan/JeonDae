@@ -10,22 +10,40 @@ $my_like = mysqli_fetch_assoc($likes_result);
 $response = array();
 
 
+
+function addToAlarm($alarmType, $reportIdx, $memberIdx, $alarmMsg, $gconnet) {
+    $query = "INSERT INTO alarm_list SET ";
+    $query .= " alarm_type='".$alarmType."', ";
+    $query .= " report_idx=".$reportIdx.", ";
+    $query .= " member_idx=".$memberIdx.", ";
+    $query .= " alarm_msg='".$alarmMsg."' ";
+
+    $result = mysqli_query($gconnet, $query);
+
+}
+
 if (intval($my_like['cnt']) > 0) {
     $response = array(
         "result"=>"fail",
         "msg" => "이미 좋아요를 하셨습니다."
     );
 }else {
-    $select_query = "SELECT likes FROM report_list WHERE idx=" . $report_idx;
+    $select_query = "SELECT likes, member_idx FROM report_list WHERE idx=" . $report_idx;
     $select_result = mysqli_query($gconnet, $select_query);
     $select_row = mysqli_fetch_assoc($select_result);
     $likes_cnt = $select_row['likes'];
+    $writer_idx = $select_row['member_idx'];
 
     $insert_likes = "INSERT INTO report_likes SET report_idx=" . $report_idx . ", member_idx=" . $_SESSION['user_access_idx'];
     $insert_result = mysqli_query($gconnet, $insert_likes);
     
     $update_query = "UPDATE report_list SET likes=" . ($likes_cnt + 1) . " WHERE idx=" . $report_idx;
     $update_result = mysqli_query($gconnet, $update_query);
+
+    //5개 단위로 알림 보냄
+    if ( (($likes_cnt + 1)%5) == 0 ) {
+        addToAlarm("LIKE", $report_idx, $writer_idx, "", $gconnet);
+    }
 
     if ($update_result) {
         $response = array(
