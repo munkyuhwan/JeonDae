@@ -27,14 +27,31 @@ foreach ($selected_report as $v) {
 
     $result = mysqli_query($gconnet, $query);
 
-    $fbContentQuery = "SELECT content_text FROM report_list WHERE idx=".$v;
+    $fbContentQuery = "SELECT content_text, member_idx  FROM report_list WHERE idx=".$v;
     $fbContentResult = mysqli_query($gconnet, $fbContentQuery);
     $fbContentText = mysqli_fetch_assoc($fbContentResult);
 
     $contents = $fbContentText['content_text'];
+    $member_idx = $fbContentText['member_idx'];
     //uploadToFB($fbInfo['app_id'], $accessToken, $contents, $fbInfo['page_id']);
 
     //echo $contents."<br><br>";
+
+    addToAlarm("PUBL", $v, $member_idx, "", $gconnet);
+
+}
+
+
+
+function addToAlarm($alarmType, $reportIdx, $memberIdx, $alarmMsg, $gconnet) {
+    $query = "INSERT INTO alarm_list SET ";
+    $query .= " alarm_type='".$alarmType."', ";
+    $query .= " report_idx=".$reportIdx.", ";
+    $query .= " member_idx=".$memberIdx.", ";
+    $query .= " alarm_msg='".$alarmMsg."' ";
+
+    $result = mysqli_query($gconnet, $query);
+
 }
 
 
