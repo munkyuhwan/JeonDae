@@ -6,6 +6,9 @@ $commentTxt = trim(sqlfilter($_REQUEST['content_txt']));
 $userIdx = $_SESSION['user_access_idx'];
 
 $query = "INSERT INTO report_comments SET ";
+if ($parentIdx!='') {
+    $query .= " parent_idx= ".$parentIdx.", ";
+}
 $query .= " report_idx= ".$reportIdx.", ";
 $query .= " member_idx= ".$userIdx.", ";
 $query .= " comment_txt= '".$commentTxt."' ";

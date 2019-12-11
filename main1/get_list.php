@@ -101,6 +101,7 @@ if ($_SESSION['user_access_idx']== "") {
     exit();
 }else {
     ?>
+
     <? while ($row = mysqli_fetch_assoc($result)) { ?>
         <li class="item">
             <div class="item_top user_box">
@@ -247,7 +248,7 @@ if ($_SESSION['user_access_idx']== "") {
                         <? while ($r = mysqli_fetch_assoc($comment_res)) { ?>
 
                             <li class="reply_item user_box" >
-                                <div class="reply_inner" >
+                                <div class="reply_inner" id="div_<?=$r['comment_idx']?>" >
                                     <div class="prf_box">
                                         <img src="../upload_file/member/<?= $r['file_chg'] ?>" alt="">
                                     </div>
@@ -258,12 +259,12 @@ if ($_SESSION['user_access_idx']== "") {
                                         </div>
                                         <div class="etc_info">
                                             <p><?= date("m월 d일 h:i", strtotime($r['wdate'])) ?></p>
-                                            <button type="button" onclick="$('#write_comment_<?=$row['report_idx']?>').appendTo('#comment_<?= $row['report_idx']."_".$r['comment_idx']?>'); " >답글 달기</button>
+                                            <button type="button" onclick=" addCommentField('<?=$r['comment_idx']?>', '<?= $row['report_idx'] ?>','<?= $profile_img_assoc["file_chg"] ?>' );  //$('#write_comment_<?=$r['comment_idx']?>').toggle(); " >답글 달기</button>
                                         </div>
                                     </div>
                                     <button type="button" class="like_btn" ></button>
                                 </div>
-                                <div id="comment_<?=$row['report_idx']."_".$r['comment_idx'] ?>" ></div>
+
                                 <?
                                 $sub_comment_query = "SELECT report.comment_txt, report.idx AS comment_idx, report.parent_idx, report.wdate, (SELECT real_name FROM member_info WHERE idx=report.member_idx ) AS member_name,(SELECT file_chg FROM member_info WHERE idx=report.member_idx ) AS file_chg  FROM report_comments AS report WHERE report.del_yn='N' AND parent_idx=" . $r['comment_idx'] . " ORDER BY idx DESC LIMIT 0,2";
                                 $sub_comment_res = mysqli_query($gconnet, $sub_comment_query);
@@ -272,7 +273,7 @@ if ($_SESSION['user_access_idx']== "") {
                                     <ul>
                                         <? while ($sub_row = mysqli_fetch_assoc($sub_comment_res)) { ?>
                                             <li class="reply_item user_box" >
-                                                <div class="reply_inner">
+                                                <div class="reply_inner" id="div_<?=$r['comment_idx']?>_<?= $sub_row['comment_idx'] ?>">
                                                     <div class="prf_box">
                                                         <img src="../upload_file/member/<?= $sub_row['file_chg'] ?>"
                                                              alt="">
@@ -284,11 +285,12 @@ if ($_SESSION['user_access_idx']== "") {
                                                         </div>
                                                         <div class="etc_info">
                                                             <p><?= date("m월 d일 h:i", strtotime($sub_row['wdate'])) ?></p>
-                                                            <button type="button" >답글 달기</button>
+                                                            <button type="button"  onclick="addInnerCommentField('<?=$r['comment_idx']?>',<?= $sub_row['comment_idx'] ?>, '<?= $row['report_idx'] ?>','<?= $profile_img_assoc["file_chg"] ?>' );" >답글 달기</button>
                                                         </div>
                                                     </div>
                                                     <button type="button" class="like_btn"></button>
                                                 </div>
+
                                             </li>
                                             <?
                                             if (mysqli_num_rows($sub_comment_res) > 2) {
@@ -308,7 +310,7 @@ if ($_SESSION['user_access_idx']== "") {
                     </ul>
                 </div>
             </div>
-            <div class="item_reply_input" id="write_comment_<?=$row['report_idx']?>">
+            <div class="item_reply_input" id="main_comment_<?=$row['report_idx']?>" >
                 <div class="prf_box">
                     <img src="../upload_file/member/<?= $profile_img_assoc["file_chg"] ?>" alt="">
                 </div>
