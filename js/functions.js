@@ -43,7 +43,7 @@ function likeClick(report_idx) {
 
 
 function goShare(href, idx) {
-    if (App != undefined) {
+    if (typeof App != "undefined") {
         App.fb_share($('#content_' + idx).html(), href, idx)
     }else {
        goFBShare(href, idx)
@@ -66,7 +66,7 @@ Kakao.init('6e77fd382a50866acb40aec217b3948d');
 
 function goShareKakaoTalk(href, idx) {
     var imgTag = $('#img_'+idx).attr("src")
-    if (App != undefined) {
+    if (typeof App != "undefined") {
         App.kakao_share($('#content_' + idx).html(), "https://djund.com/" + imgTag.replace("../", ""), idx);
     }else {
         doKakaoTalkSahre(href, idx)
