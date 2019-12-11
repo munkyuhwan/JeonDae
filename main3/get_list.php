@@ -49,7 +49,7 @@ while($row = mysqli_fetch_assoc($category_result)) {
         <div class="item_mid">
             <div class="text_box">
                 <p><?=nl2br($row['content_text'])?></p>
-                <button type="button" class="more_btn">...더보기</button>
+                <button type="button" class="more_btn" onclick="location.href='../main_detail/?idx=<?=$row['idx']?>'; ">...더보기</button>
             </div>
             <?
             $img_query = "SELECT * FROM report_additional_files WHERE report_idx=" . $row['idx'];
