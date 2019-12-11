@@ -3,7 +3,7 @@
 <?
 $report_idx = trim(sqlfilter($_REQUEST['idx']));
 
-$query = "SELECT report.idx AS report_idx, report.category AS categrory_idx, report.content_text, report.report_hashtag, report.bad_report ";
+$query = "SELECT report.idx AS report_idx, report.category AS categrory_idx, report.content_text, report.report_hashtag, report.bad_report, report.view_cnt ";
 $query .= " ,report.likes, (SELECT COUNT(*) FROM report_comments WHERE report_idx=report.idx AND del_yn='N') AS comment_cnt ";
 $query .= " ,member.file_chg, member.real_name ";
 
@@ -14,6 +14,7 @@ $query .= " WHERE report.member_idx=member.idx AND report.idx=".$report_idx;
 $result = mysqli_query($gconnet, $query);
 $data = mysqli_fetch_assoc($result);
 
+$view_cnt = $data['view_cnt'];
 $img_query = "SELECT * FROM report_additional_files WHERE report_idx=".$report_idx;
 $img_result = mysqli_query($gconnet, $img_query);
 $img_num = mysqli_num_rows($img_result);
@@ -21,6 +22,23 @@ $img_num = mysqli_num_rows($img_result);
 $img_arr = array();
 while($img_r = mysqli_fetch_assoc($img_result)) {
     array_push($img_arr, $img_r);
+}
+
+
+//조회수 추가
+
+$checkIp = "SELECT COUNT(*) cnt FROM view_host WHERE ip_addr='".$_SERVER['HTTP_HOST']."'";
+$checkIpResult = mysqli_query($gconnet, $checkIp);
+$checkIpRow = mysqli_fetch_assoc($checkIpResult);
+$ipCnt = $checkIpRow['cnt'];
+
+if (intval($ipCnt)<=0) {
+    $update = "UPDATE report_list SET view_cnt=" . (intval($view_cnt) + 1) . " WHERE idx=" . $report_idx;
+    $update_result = mysqli_query($gconnet, $update);
+
+    $insert_ip = "INSERT INTO view_host SET ip_addr='".$_SERVER['HTTP_HOST']."'";
+    $insert_ip_result = mysqli_query($gconnet, $insert_ip);
+
 }
 
 ?>
