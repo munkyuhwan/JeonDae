@@ -19,7 +19,7 @@ function send_notification ($topic, $msg, $category)
             "notification" => array(
                 "body" => $msg,
                 "category" => $category,
-                "title" => "새 오더",
+                "title" => "전대전",
                 "sound" => "default",
             ),
         );
@@ -32,7 +32,7 @@ function send_notification ($topic, $msg, $category)
             "data" => array(
                 "body" => $msg,
                 "category" => $category,
-                "title" => "새 오더",
+                "title" => "전대전",
                 "sound" => "default",
                 'badge' => 1,
                 'content-available' => 1
@@ -84,7 +84,7 @@ function send_notification_individual ($topic, $msg, $category, $fcmToken)
             "notification" => array(
                 "body" => $msg,
                 "category" => $category,
-                "title" => "새 오더",
+                "title" => "전대전",
                 "sound" => "default",
             ),
         );
@@ -97,7 +97,7 @@ function send_notification_individual ($topic, $msg, $category, $fcmToken)
             "data" => array(
                 "body" => $msg,
                 "category" => $category,
-                "title" => "새 오더",
+                "title" => "전대전",
                 "sound" => "default",
                 'badge' => 1,
                 'content-available' => 1
