@@ -39,6 +39,7 @@ include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/function_query.php"; // 유저 DB �
 define("SUBSCRIBE_IOS", "fcm_ios");
 define("SUBSCRIBE_ANDROID", "fcm_and");
 include $_SERVER["DOCUMENT_ROOT"]."/include/send_push.php"; // 푸시 함수
+include $_SERVER["DOCUMENT_ROOT"]."/include/extra_functions.php"; // 푸시 함수
 
 
 $sitetitle_set_sql = "select set_title,set_keyword from sitetitle_set where 1 order by idx desc";
