@@ -145,6 +145,7 @@ if ($_SESSION['user_access_idx']!='') {
         str +=     "    </form>"
         str +=   "  </div>"
         str +=" </div>"
+        $('.item_reply_input').hide();
 
         var innerComment = document.getElementById("write_comment_report_"+comment_idx)
         if ( innerComment != null) {
@@ -171,6 +172,7 @@ if ($_SESSION['user_access_idx']!='') {
         str +=     "    </form>"
         str +=   "  </div>"
         str +=" </div>"
+        $('.item_reply_input').hide();
 
         var innerComment = document.getElementById("write_comment_report_"+parent_idx+"_"+comment_idx)
         if ( innerComment != null) {
