@@ -28,6 +28,9 @@ if (intval($my_like['cnt']) > 0) {
         "msg" => "이미 좋아요를 하셨습니다."
     );
 }else {
+
+    checkPopular($report_idx, $gconnet);
+
     $select_query = "SELECT likes, member_idx FROM report_list WHERE idx=" . $report_idx;
     $select_result = mysqli_query($gconnet, $select_query);
     $select_row = mysqli_fetch_assoc($select_result);
