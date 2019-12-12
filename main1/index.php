@@ -62,6 +62,7 @@
         str +=     "    </form>"
         str +=   "  </div>"
         str +=" </div>"
+        $('.item_reply_input').hide();
 
         var innerComment = document.getElementById("write_comment_"+comment_idx)
         if ( innerComment != null) {
@@ -87,6 +88,7 @@
         str +=     "    </form>"
         str +=   "  </div>"
         str +=" </div>"
+        $('.item_reply_input').hide();
 
         var innerComment = document.getElementById("write_comment_"+parent_idx+"_"+comment_idx)
         if ( innerComment != null) {
