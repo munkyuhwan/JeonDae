@@ -10,7 +10,7 @@ $my_like = mysqli_fetch_assoc($likes_result);
 $response = array();
 
 
-
+/*
 function addToAlarm($alarmType, $reportIdx, $memberIdx, $alarmMsg, $gconnet) {
     $query = "INSERT INTO alarm_list SET ";
     $query .= " alarm_type='".$alarmType."', ";
@@ -21,7 +21,7 @@ function addToAlarm($alarmType, $reportIdx, $memberIdx, $alarmMsg, $gconnet) {
     $result = mysqli_query($gconnet, $query);
 
 }
-
+*/
 if (intval($my_like['cnt']) > 0) {
     $response = array(
         "result"=>"fail",
