@@ -38,8 +38,8 @@ if (intval($ipCnt)<=0) {
 
     $insert_ip = "INSERT INTO view_host SET ip_addr='".$_SERVER['HTTP_HOST']."'";
     $insert_ip_result = mysqli_query($gconnet, $insert_ip);
-
 }
+checkPopular($report_idx, $gconnet);
 
 ?>
 <!DOCTYPE html>
