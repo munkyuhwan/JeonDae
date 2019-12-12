@@ -22,7 +22,7 @@ if ($_SESSION['user_access_idx']!='') {
         console.log(page)
         $.ajax({
             url:"get_data.php",
-            data:{"page":page, "block":block, "category_idx":<?=$idx?>},
+            data:{"page":page, "block":block, "category_idx":<?=$idx?>, "type":"report"},
             method:"POST",
             success:function(response) {
                 if (response != "" ) {
@@ -117,7 +117,7 @@ if ($_SESSION['user_access_idx']!='') {
     function loadMainData() {
         $.ajax({
             url:"get_data.php",
-            data:{"page":page, "block":block, "category_idx":<?=$idx?>},
+            data:{"page":page, "block":block, "category_idx":<?=$idx?>, "type":"top"},
             method:"POST",
             success:function(response) {
                 $('#main_list').append(response);
@@ -128,6 +128,61 @@ if ($_SESSION['user_access_idx']!='') {
             }
         })
     }
+</script>
+
+<script>
+    function addCommentField(comment_idx, report_idx, img) {
+        var str = " <div class=\"item_reply_input\"  id=\"write_comment_report_"+comment_idx+"\">";
+        str += "    <div class=\"prf_box\">";
+        str +=  "       <img src=\"../upload_file/member/"+img+"\" alt=\"\">";
+        str += "    </div>"
+        str += "    <div class=\"input_box\">"
+        str += "        <form action=\"write_comment_action.php\" method=\"post\" name=\"frm\">"
+        str +=     "        <input type=\"text\" name=\"content_txt\" required>"
+        str +=  "           <input type=\"hidden\" name=\"parent_idx\" id=\"parent_idx\" value=\""+comment_idx+"\">"
+        str +=   "          <input type=\"hidden\" name=\"report_idx\" id=\"report_idx\" value=\""+report_idx+"\">"
+        str +=    "         <button type=\"submit\">게시</button>"
+        str +=     "    </form>"
+        str +=   "  </div>"
+        str +=" </div>"
+
+        var innerComment = document.getElementById("write_comment_report_"+comment_idx)
+        if ( innerComment != null) {
+            $("#write_comment_report_"+comment_idx).remove()
+            $('#main_comment_report_'+report_idx).show();
+        }else {
+            console.log(str)
+            $('#div_report_' + comment_idx).after(str);
+            $('#main_comment_report_'+report_idx).hide();
+        }
+    }
+
+    function addInnerCommentField(parent_idx, comment_idx, report_idx, img) {
+        var str = " <div class=\"item_reply_input\"  id=\"write_comment_report_"+parent_idx+"_"+comment_idx+"\">";
+        str += "    <div class=\"prf_box\">";
+        str +=  "       <img src=\"../upload_file/member/"+img+"\" alt=\"\">";
+        str += "    </div>"
+        str += "    <div class=\"input_box\">"
+        str += "        <form action=\"write_comment_action.php\" method=\"post\" name=\"frm\">"
+        str +=     "        <input type=\"text\" name=\"content_txt\" required>"
+        str +=  "           <input type=\"hidden\" name=\"parent_idx\" id=\"parent_idx\" value=\""+parent_idx+"\">"
+        str +=   "          <input type=\"hidden\" name=\"report_idx\" id=\"report_idx\" value=\""+report_idx+"\">"
+        str +=    "         <button type=\"submit\">게시</button>"
+        str +=     "    </form>"
+        str +=   "  </div>"
+        str +=" </div>"
+
+        var innerComment = document.getElementById("write_comment_report_"+parent_idx+"_"+comment_idx)
+        if ( innerComment != null) {
+            $("#write_comment_report_"+parent_idx+"_"+comment_idx).remove()
+            $('#main_comment_report_'+report_idx).show();
+        }else {
+            $('#div_report_'+parent_idx+'_' + comment_idx).after(str);
+            $('#main_comment_report_'+report_idx).hide();
+        }
+    }
+
+
 </script>
 <? include $_SERVER['DOCUMENT_ROOT']."/include/gnb.php" ?>
 <? include $_SERVER['DOCUMENT_ROOT']."/include/etc_popup.php" ?>

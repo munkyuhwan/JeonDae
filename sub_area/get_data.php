@@ -3,6 +3,7 @@
 $page = trim(sqlfilter($_REQUEST['page']));
 $block = trim(sqlfilter($_REQUEST['block']));
 $category_idx = trim(sqlfilter($_REQUEST['category_idx']));
+$type = trim(sqlfilter($_REQUEST['type']));
 
 $query = "SELECT report.idx AS report_idx, report.wdate, report.content_text, report.report_hashtag, report.likes, (SELECT COUNT(*) AS cnt FROM report_comments WHERE report_idx=report.idx) AS comment_cnt,  member.real_name, member.file_chg  FROM report_list AS report, member_info AS member WHERE report.category=".$category_idx." AND report.del_yn='N' AND report.member_idx=member.idx ";
 $query_limit .= $query." LIMIT ".($page*$block)." , ".$block ;
@@ -147,7 +148,7 @@ while($row = mysqli_fetch_assoc($result) ) {
     <div class="item_bot">
         <div class="reply_list">
             <?
-            $comment_query = "SELECT comments.report_idx, comments.parent_idx, comments.comment_txt, comments.wdate, member.real_name, member.file_chg FROM report_comments AS comments, member_info AS member WHERE 1 ";
+            $comment_query = "SELECT comments.idx AS comment_idx, comments.report_idx, comments.parent_idx, comments.comment_txt, comments.wdate, member.real_name, member.file_chg FROM report_comments AS comments, member_info AS member WHERE 1 ";
             $comment_where = " AND comments.report_idx=".$row['report_idx'];
             $comment_where .= " AND comments.member_idx=member.idx";
             $comment_orderby = " ORDER BY comments.idx, comments.parent_idx ";
@@ -161,29 +162,31 @@ while($row = mysqli_fetch_assoc($result) ) {
                 <? while($comment_row = mysqli_fetch_assoc($comment_res) ) {?>
                     <?if ($comment_row['parent_idx']==0) {?>
                         <li class="reply_item user_box">
-                            <div class="reply_inner">
+                            <div class="reply_inner" id="div_<?=$type?>_<?=$comment_row['comment_idx']?>">
                                 <div class="prf_box">
                                     <img src="../upload_file/member/<?=$comment_row['file_chg']?>" alt="">
                                 </div>
                                 <div class="info_box ">
                                     <div class="reply_top"><p class="name"><?=$comment_row['real_name']?></p><p class="reply_txt"><?=$comment_row['comment_txt']?></p></div>
                                     <div class="etc_info">
-                                        <p><?=date("m월 d일 h:i", strtotime($row['wdate']) )?></p><button type="button">답글 달기</button>
+                                        <p><?=date("m월 d일 h:i", strtotime($row['wdate']) )?></p>
+                                        <button type="button" onclick="addCommentField('<?=$comment_row['comment_idx']?>', '<?= $comment_row['report_idx'] ?>','<?= $profile_img_assoc["file_chg"] ?>' );" >답글 달기</button>
                                     </div>
                                 </div>
                                 <button type="button" class="like_btn"></button>
                             </div>
                     <?}else {?>
                         <ul>
-                            <li class="reply_item user_box">
-                                <div class="reply_inner">
+                            <li class="reply_item user_box" >
+                                <div class="reply_inner"  id="div_<?=$type?>_<?=$comment_row['parent_idx']?>_<?= $comment_row['comment_idx'] ?>" >
                                     <div class="prf_box">
                                         <img src="../upload_file/member/<?=$comment_row['file_chg']?>" alt="">
                                     </div>
                                     <div class="info_box ">
                                         <div class="reply_top"><p class="name"><?=$comment_row['real_name']?></p><p class="reply_txt"><?=$comment_row['comment_txt']?></p></div>
                                         <div class="etc_info">
-                                            <p><?=date("m월 d일 h:i", strtotime($row['wdate']) )?></p><button type="button">답글 달기</button>
+                                            <p><?=date("m월 d일 h:i", strtotime($row['wdate']) )?></p>
+                                            <button type="button" onclick="addInnerCommentField('<?=$comment_row['parent_idx']?>',<?= $comment_row['comment_idx'] ?>, '<?= $comment_row['report_idx'] ?>','<?= $profile_img_assoc["file_chg"] ?>' );" >답글 달기</button>
                                         </div>
                                     </div>
                                     <button type="button" class="like_btn"></button>
@@ -198,6 +201,19 @@ while($row = mysqli_fetch_assoc($result) ) {
                             ?>
                 <?}?>
             </ul>
+        </div>
+    </div>
+    <div class="item_reply_input" id="main_comment_<?=$type?>_<?=$row['report_idx']?>" >
+        <div class="prf_box">
+            <img src="../upload_file/member/<?= $profile_img_assoc["file_chg"] ?>" alt="">
+        </div>
+        <div class="input_box">
+            <form action="write_comment_action.php" method="post" name="frm">
+                <input type="text" name="content_txt" required>
+                <input type="hidden" name="report_idx" id="report_idx" value="<?= $row['report_idx'] ?>">
+                <input type="hidden" name="parent_idx" id="parent_idx">
+                <button type="submit">게시</button>
+            </form>
         </div>
     </div>
 </li>
