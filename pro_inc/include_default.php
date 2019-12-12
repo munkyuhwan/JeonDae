@@ -102,4 +102,14 @@ $profile_img_assoc = mysqli_fetch_assoc($profile_img_result);
 $_SESSION['profile_img'] = $profile_img_assoc['file_chg'];
 $profile_img = "../upload_file/member/".$_SESSION['profile_img'];
 
+$SIGNUP_REQUIRED = array(
+	"sub_mypage1",
+	"sub_mypage2",
+	"sub_mypage3",
+	"sub_mypage4",
+	"sub_mypage_info",
+	"sub_mypage_alrim",
+	"main4",
+);
+
 ?>
