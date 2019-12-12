@@ -170,14 +170,15 @@ while($row = mysqli_fetch_assoc($category_result)) {
                 <ul>
                     <?while ($r = mysqli_fetch_assoc($comment_res)) {?>
                         <li class="reply_item user_box">
-                            <div class="reply_inner">
+                            <div class="reply_inner"  id="div_<?=$r['comment_idx']?>" >
                                 <div class="prf_box">
                                     <img src="../upload_file/member/<?=$r['file_chg']?>" alt="">
                                 </div>
                                 <div class="info_box ">
                                     <div class="reply_top"><p class="name"><?=$r['member_name']?></p><p class="reply_txt"><?=$r['comment_txt']?></p></div>
                                     <div class="etc_info">
-                                        <p><?=date("m월 d일 h:i", strtotime($r['wdate']) )?></p><button type="button">답글 달기</button>
+                                        <p><?=date("m월 d일 h:i", strtotime($r['wdate']) )?></p>
+                                        <button type="button" onclick=" addCommentField('<?=$r['comment_idx']?>', '<?= $row['report_idx'] ?>','<?= $profile_img_assoc["file_chg"] ?>' );" >답글 달기</button>
                                     </div>
                                 </div>
                                 <button type="button" class="like_btn"></button>
@@ -190,14 +191,15 @@ while($row = mysqli_fetch_assoc($category_result)) {
                                 <ul>
                                     <?while ($sub_row = mysqli_fetch_assoc($sub_comment_res) ) {?>
                                         <li class="reply_item user_box">
-                                            <div class="reply_inner">
+                                            <div class="reply_inner" id="div_<?=$r['comment_idx']?>_<?= $sub_row['comment_idx'] ?>">
                                                 <div class="prf_box">
                                                     <img src="../upload_file/member/<?=$sub_row['file_chg']?>" alt="">
                                                 </div>
                                                 <div class="info_box ">
                                                     <div class="reply_top"><p class="name"><?=$sub_row['member_name']?></p><p class="reply_txt"><?=$sub_row['comment_txt']?></p></div>
                                                     <div class="etc_info">
-                                                        <p><?=date("m월 d일 h:i", strtotime($sub_row['wdate']) )?></p><button type="button">답글 달기</button>
+                                                        <p><?=date("m월 d일 h:i", strtotime($sub_row['wdate']) )?></p>
+                                                        <button type="button" onclick="addInnerCommentField('<?=$r['comment_idx']?>',<?= $sub_row['comment_idx'] ?>, '<?= $row['report_idx'] ?>','<?= $profile_img_assoc["file_chg"] ?>' );">답글 달기</button>
                                                     </div>
                                                 </div>
                                                 <button type="button" class="like_btn"></button>
@@ -216,7 +218,7 @@ while($row = mysqli_fetch_assoc($category_result)) {
                 </ul>
             </div>
         </div>
-        <div class="item_reply_input">
+        <div class="item_reply_input"  id="main_comment_<?=$row['report_idx']?>" >
             <div class="prf_box">
                 <img src="../upload_file/member/<?=$_SESSION['profile_img']?>" alt="">
             </div>
