@@ -43,18 +43,6 @@ foreach ($selected_report as $v) {
 
 
 
-function addToAlarm($alarmType, $reportIdx, $memberIdx, $alarmMsg, $gconnet) {
-    $query = "INSERT INTO alarm_list SET ";
-    $query .= " alarm_type='".$alarmType."', ";
-    $query .= " report_idx=".$reportIdx.", ";
-    $query .= " member_idx=".$memberIdx.", ";
-    $query .= " alarm_msg='".$alarmMsg."' ";
-
-    $result = mysqli_query($gconnet, $query);
-
-}
-
-
 function uploadToFB($appID, $accessToken, $msg, $pageID){
 
     $curl = curl_init();
@@ -116,8 +104,4 @@ if($result){
         alert('등록중 오류가 발생했습니다.');
         //-->
     </SCRIPT>
-<?}
-
-
-
-?>
+<?} ?>
