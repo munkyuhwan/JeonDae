@@ -1,5 +1,8 @@
 <? include $_SERVER['DOCUMENT_ROOT'] . "/include/head.php" ?>
 <?
+//session_unset();
+//unset($_SESSION);
+//print_r($_SESSION);
 /*
 $_SESSION['user_access_idx'] = 56;
 

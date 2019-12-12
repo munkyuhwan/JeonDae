@@ -102,20 +102,17 @@ $profile_img_assoc = mysqli_fetch_assoc($profile_img_result);
 $_SESSION['profile_img'] = $profile_img_assoc['file_chg'];
 $profile_img = "../upload_file/member/".$_SESSION['profile_img'];
 
-$SIGNUP_REQUIRED = array(
-	"sub_mypage1",
-	"sub_mypage2",
-	"sub_mypage3",
-	"sub_mypage4",
-	"sub_mypage_info",
-	"sub_mypage_alrim",
-	"main4",
+$SIGNUP_NOT_REQUIRED = array(
+	"sub_area",
+	"sub_write",
+	"intro"
 );
 
 include $_SERVER["DOCUMENT_ROOT"]."/include/MemberChecker.php";
 $currentLoc = explode("/", $_SERVER['REQUEST_URI'])[1];
 
-if (in_array($currentLoc, $SIGNUP_REQUIRED)) {
+if (!in_array($currentLoc, $SIGNUP_NOT_REQUIRED)) {
+
 	$memberCheck = new MemberChecker($gconnet);
 	if ($memberCheck->checkMember() == false) {
 		?>
@@ -125,5 +122,6 @@ if (in_array($currentLoc, $SIGNUP_REQUIRED)) {
 		</script>
 		<?
 	}
+
 }
 ?>
