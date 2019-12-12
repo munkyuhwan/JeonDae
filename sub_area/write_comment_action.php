@@ -10,8 +10,14 @@ $query .= " parent_idx= ".$parentIdx.", ";
 $query .= " report_idx= ".$reportIdx.", ";
 $query .= " member_idx= ".$userIdx.", ";
 $query .= " comment_txt= '".$commentTxt."' ";
-echo $query;
+
 $result = mysqli_query($gconnet, $query);
+
+
+$get_receiver = "SELECT member_idx FROM report_list WHERE idx=".$reportIdx;
+$receiver_result = mysqli_query($gconnet, $get_receiver);
+$receiver = mysqli_fetch_assoc($receiver_result);
+addToAlarm("CMNT", $reportIdx, $receiver['member_idx'], "", $gconnet);
 
 if($result){?>
     <SCRIPT LANGUAGE="JavaScript">
