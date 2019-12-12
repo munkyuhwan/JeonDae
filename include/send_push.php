@@ -42,7 +42,7 @@ function send_notification ($topic, $msg, $category)
 
 
     $headers = array(
-        'Authorization:key=AAAA5QviajM:APA91bHeRgyJJUGzBWVMeF9t1BF8y3L8Gx72lQEpX_au8ucdmnEgPoBiyqShrTcRWaqXYk4GAI7ntSQbfhipvRFetIZIZUm4FF0q87F7QJqELEKxoCxwummFw7KtEwqxBzWrBpaXeiv1',
+        'Authorization:key=AAAAeNMm6Do:APA91bHh-rv9gqcaY8YWHRa8rhm91GXK4eMLa8Si9VqgWvmCeMj7AW5N_E8FTR9kizkiE1DLoCdj9ViC-1lypxmVkA9273jCs1ZmQyuUUAkGCFKpy2j7-dpr4CHmTUpE3W7W2XTILPdTiSrkrr6llgKIbmm4qSdKdw',
         'Content-Type: application/json'
     );
 
@@ -107,7 +107,7 @@ function send_notification_individual ($topic, $msg, $category, $fcmToken)
 
 
     $headers = array(
-        'Authorization:key=AAAA5QviajM:APA91bHeRgyJJUGzBWVMeF9t1BF8y3L8Gx72lQEpX_au8ucdmnEgPoBiyqShrTcRWaqXYk4GAI7ntSQbfhipvRFetIZIZUm4FF0q87F7QJqELEKxoCxwummFw7KtEwqxBzWrBpaXeiv1',
+        'Authorization:key=AAAAeNMm6Do:APA91bHh-rv9gqcaY8YWHRa8rhm91GXK4eMLa8Si9VqgWvmCeMj7AW5N_E8FTR9kizkiE1DLoCdj9ViC-1lypxmVkA9273jCs1ZmQyuUUAkGCFKpy2j7-dpr4CHmTUpE3W7W2XTILPdTiSrkrr6llgKIbmm4qSdKdw',
         'Content-Type: application/json'
     );
 
