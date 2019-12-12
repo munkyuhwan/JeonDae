@@ -24,6 +24,7 @@ $reports = $_REQUEST['report_idx'];
 
 ?>
 <body id="page-top">
+
 <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
@@ -127,38 +128,21 @@ $reports = $_REQUEST['report_idx'];
                                 </div>
                             </div>
                         </div>
-                <!-- div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div -->
-                        <button class="btn btn-primary btn-block" type="submit">발행하기</button>
+
+
+                        <div class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with" data-auto-logout-link="false" data-use-continue-as="false"></div>
+                        <button class="btn btn-block" style="margin-top: 20px; border: solid 1px #007bff; vertical-align: middle;" type="submit"><img width="20" style="margin-right: 10px;" src="../img/icon/f_logo.png">페이스북 발행하기</button>
                     </div>
                     </form>
 
-
-
                 </div>
             </div>
-            <!-- p class="small text-center text-muted my-5">
-                <em>More table examples coming soon...</em>
-            </p -->
 
         </div>
-        <!-- /.container-fluid -->
-
-        <!-- Sticky Footer -->
-        <!-- footer class="sticky-footer">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>Copyright © Your Website 2019</span>
-                </div>
-            </div>
-        </footer -->
 
     </div>
-    <!-- /.content-wrapper -->
 
 </div>
-<!-- /#wrapper -->
-
-<!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
 </a>
@@ -182,3 +166,5 @@ $reports = $_REQUEST['report_idx'];
     </div>
 </div>
 <? include $_SERVER['DOCUMENT_ROOT']."/master/include/footer.php"?>
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v5.0&appId=1266716886814110&autoLogAppEvents=1"></script>
