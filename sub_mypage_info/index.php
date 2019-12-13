@@ -54,9 +54,17 @@ $hastag_result = mysqli_query($gconnet, $hashtag_query);
                     <div class="info_con name_con"><input type="text" name="user_name" class="" value="<?=$_SESSION['user_access_name']?>"></div>
                 </div>
                 <div class="user_certi">
-                    <span class="certi1">학교인증</span>
-                    <span class="certi2 on">지역인증</span>
-                </div>
+                    <?if($row['uni'] != 0) {?>
+                        <span class="certi1 on" >인증완료</span>
+                    <?}else {?>
+                        <span class="certi1" onclick="location.href='../sub_certi1'; " >학교인증</span>
+                    <?}?>
+
+                    <?if($row['area_appr_yn'] == 'Y') {?>
+                        <span class="certi2 on" >인증완료</span>
+                    <?}else {?>
+                        <span class="certi2 on" onclick="location.href='../sub_certi2'; " >지역인증</span>
+                    <?}?>                </div>
                 <div class="info_row">
                     <p class="info_tlt">성별</p>
                     <div class="info_con gender">
