@@ -112,17 +112,22 @@ $SIGNUP_NOT_REQUIRED = array(
 
 include $_SERVER["DOCUMENT_ROOT"]."/include/MemberChecker.php";
 $currentLoc = explode("/", $_SERVER['REQUEST_URI'])[1];
-
 if (!in_array($currentLoc, $SIGNUP_NOT_REQUIRED)) {
 
 	$memberCheck = new MemberChecker($gconnet);
-	if ($memberCheck->checkMember() == false) {
+	$isMember = $memberCheck->checkMember();
+
+	echo $isMember;
+
+	if ($isMember == false) {
+
 		?>
 		<script>
 			alert('로그후 이용해 주세요.');
 			location.replace("../intro");
 		</script>
 		<?
+
 	}
 
 }

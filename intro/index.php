@@ -3,6 +3,11 @@
 //session_unset();
 //unset($_SESSION);
 //print_r($_SESSION);
+//$_SESSION['user_access_idx'] = 56;
+if ($_SESSION['user_access_idx'] != "") {
+    echo "<script>location.replace('../main1');</script>";
+}
+
 /*
 $_SESSION['user_access_idx'] = 56;
 

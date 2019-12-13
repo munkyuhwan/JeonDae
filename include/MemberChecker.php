@@ -11,30 +11,28 @@ class MemberChecker
 
     function checkMember() {
 
-        $memberIdx= $_SESSION['user_access_idx'];
-        $checkResponse = true;
-        if ($memberIdx != "") {
-            $memberCheckResult = "SELECT idx FROM member_info WHERE idx=" . $memberIdx;
-            $memberCheckResult = mysqli_query($this->gconnet, $memberCheckResult);
-            if ($memberCheckResult) {
-                $checkResponse = true;
-            }else {
-                $checkResponse = false;
-            }
-        }else {
-            $checkResponse = false;
-        }
+        $checkMem = $_SESSION['user_access_idx'];
 
-        return $checkResponse;
+
+        if ($checkMem == "" || $checkMem == null  ) {
+            return false;
+        }else {
+            $memberCheckQuery = "SELECT idx FROM member_info WHERE idx=($checkMem)";
+            $memberCheckResult = mysqli_query($this->gconnet, $memberCheckQuery);
+            $memberCheckRow = mysqli_fetch_assoc($memberCheckResult);
+
+            if ($memberCheckRow) {
+                return true;
+            }else {
+                session_unset();
+                unset($_SESSION);
+                return false;
+            }
+
+        }
 
     }
 
-
 }
-
-
-
-
-
 
 ?>
