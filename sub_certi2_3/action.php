@@ -17,8 +17,8 @@ $gu_idx = $gu_row['idx'];
 if ($gu_idx!='') {
 //회원 정보 지역 업데이트
     $update_query = "UPDATE member_info SET ";
-    $update_query .= " local=" . $gu_idx . " ";
-    $update_query .= " area_appr_yn='Y', ";
+    $update_query .= " local=" . $gu_idx . ", ";
+    $update_query .= " area_appr_yn='Y' ";
     $update_query .= " WHERE idx=" . $member_idx;
     $update_result = mysqli_query($gconnet, $update_query);
 
@@ -68,7 +68,7 @@ if ($gu_idx!='') {
         }else {?>
             <script>
                 alert('인증이 완료되었습니다.');
-                location.replace('./');
+                location.replace('../main1');
             </script>
         <?}
 
@@ -76,7 +76,7 @@ if ($gu_idx!='') {
     }else {?>
         <script>
             alert('인증이 완료되었습니다.');
-            location.replace('./');
+            location.replace('../main1');
         </script>
         <?
         exit();
@@ -85,7 +85,7 @@ if ($gu_idx!='') {
 }else {?>
     <script>
         alert('인증이 완료되었습니다.');
-        location.replace('./');
+        location.replace('../main1');
     </script>
     <?
 
