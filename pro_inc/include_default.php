@@ -106,7 +106,8 @@ $profile_img = "../upload_file/member/".$_SESSION['profile_img'];
 $SIGNUP_NOT_REQUIRED = array(
 	"sub_area",
 	"sub_write",
-	"intro"
+	"intro",
+	"master"
 );
 
 include $_SERVER["DOCUMENT_ROOT"]."/include/MemberChecker.php";
