@@ -2,7 +2,7 @@
 $hashtag_query = "SELECT * FROM user_hashtags WHERE member_idx=".$_SESSION['user_access_idx']." LIMIT 0,3";
 $hashtag_result = mysqli_query($gconnet, $hashtag_query);
 
-$local_appr = "SELECT local, uni, file_chg FROM member_info WHERE idx=".$_SESSION['user_access_idx'];
+$local_appr = "SELECT local, area_appr_yn, uni, file_chg FROM member_info WHERE idx=".$_SESSION['user_access_idx'];
 $local_res = mysqli_query($gconnet, $local_appr);
 $local = mysqli_fetch_assoc($local_res);
 ?>
@@ -27,7 +27,7 @@ $local = mysqli_fetch_assoc($local_res);
                 <?}else {?>
                     <span class="certi1" onclick="location.href='../sub_certi1'; " >학교인증</span>
                 <?}?>
-                <?if($local['local'] != null) {?>
+                <?if($local['area_appr_yn'] != 'Y') {?>
                     <span class="certi2 on" >인증완료</span>
                 <?}else {?>
                     <span class="certi2 on" onclick="location.href='../sub_certi2'; " >지역인증</span>
