@@ -8,7 +8,8 @@ $continue_idx = trim(sqlfilter($_REQUEST['continue_idx']));
 if ($_SESSION['user_access_idx'] != "") {
     $member_idx = $_SESSION['user_access_idx'];
 }else {
-    $member_idx = 58;
+    //익명 제보자
+    $member_idx = UNKNOW_USER;
 }
 
 /*
@@ -79,18 +80,20 @@ if ($continue_idx != "") {
         $query .= "report_file_name='".$v."'; ";
     }
 }else {
-
+   // $query = "BEGIN;";
     $query = "INSERT INTO report_list  SET ";
     $query .= " member_idx = " . $member_idx . ", ";
     $query .= " report_hashtag = '" . $hash_tags . "', ";
     $query .= " complete_yn = '" . $complete_yn . "', ";
     $query .= " content_text = '" . $input_text . "'; ";
+    $result = mysqli_query($gconnet, $query);
 
-    $query .= "INSERT INTO report_additional_files SET ";
+    $query = "INSERT INTO report_additional_files SET ";
     foreach($file_name_arr as $k=>$v) {
         $query .= "report_idx=LAST_INSERT_ID(), ";
         $query .= "report_file_name='".$v."'; ";
     }
+    //$query .= "COMMIT;";
 
 }
 
