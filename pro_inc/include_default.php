@@ -118,8 +118,6 @@ if (!in_array($currentLoc, $SIGNUP_NOT_REQUIRED)) {
 	$memberCheck = new MemberChecker($gconnet);
 	$isMember = $memberCheck->checkMember();
 
-	echo $isMember;
-
 	if ($isMember == false) {
 
 		?>
