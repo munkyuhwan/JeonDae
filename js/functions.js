@@ -66,6 +66,11 @@ Kakao.init('6e77fd382a50866acb40aec217b3948d');
 
 function goShareKakaoTalk(href, idx) {
     var imgTag = $('#img_'+idx).attr("src")
+    if (imgTag != undefined) {
+        imgTag = imgTag.replace("../", "");
+    }else {
+        imgTag = ""
+    }
     if (typeof App != "undefined") {
         App.kakao_share($('#content_' + idx).html(), "https://djund.com/" + imgTag.replace("../", ""), idx);
     }else {
