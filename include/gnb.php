@@ -27,7 +27,7 @@ $local = mysqli_fetch_assoc($local_res);
                 <?}else {?>
                     <span class="certi1" onclick="location.href='../sub_certi1'; " >학교인증</span>
                 <?}?>
-                <?if($local['area_appr_yn'] != 'Y') {?>
+                <?if($local['area_appr_yn'] == 'Y') {?>
                     <span class="certi2 on" >인증완료</span>
                 <?}else {?>
                     <span class="certi2 on" onclick="location.href='../sub_certi2'; " >지역인증</span>
