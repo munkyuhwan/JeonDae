@@ -19,7 +19,7 @@ $mycomment_cnt = mysqli_fetch_assoc($mycomment_result);
             success:function(response) {
                 $('#myWrite').html(response);
                 $(".pop_call").on("click",function(){
-                    console.log("pop call")
+
                     var name = $(this).attr("data-pop");
                     $(".popup."+name).fadeIn();
                     $(".mask").fadeIn();

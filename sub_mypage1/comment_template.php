@@ -16,7 +16,7 @@ $comment_result = mysqli_query($gconnet, $comment_query);
 <ul>
     <?while ( $comment_row = mysqli_fetch_assoc($comment_result) ) {?>
         <li class="sum_item">
-            <p class="con_box"><?=$comment_row['comment_txt']?><a href="" class="more_btn">...더보기</a></p>
+            <p class="con_box"><?=$comment_row['comment_txt']?><a href="../main_detail?idx=<?=$comment_row['report_idx']?>" class="more_btn">...더보기</a></p>
             <div class="con_info">
                 <p><?=date("m월 d일 h:i", strtotime($comment_row['wdate']) )?></p><p><?=$comment_row['idx']?>번째 제보</p>
                 <p>
