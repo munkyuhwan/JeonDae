@@ -47,6 +47,11 @@ function likeClick(report_idx) {
 function goShare(href, idx) {
     if (typeof App != "undefined") {
         App.fb_share($('#content_' + idx).html(), href, idx)
+
+    }else if (typeof webkit.messageHandlers.fb_share != "undefined" ) {
+
+        webkit.messageHandlers.fb_share.postMessage("{\"content\":\""+ encodeURI($('#content_' + idx).html())+"\", \"href\":\""+encodeURI(href)+"\", \"idx\":\""+idx+"\"}")
+
     } else {
        goFBShare(href, idx)
     }
