@@ -2,6 +2,7 @@
 <?php
 
 $fbId = trim(sqlfilter($_REQUEST['fb_id']));
+$fbName = trim(sqlfilter($_REQUEST['fb_name']));
 $gender= trim(sqlfilter($_REQUEST['gender']));
 $birth= trim(sqlfilter($_REQUEST['birth']));
 $region= trim(sqlfilter($_REQUEST['region']));
@@ -19,6 +20,7 @@ if (intval($checkRow['cnt']) > 0 ) {?>
     $query = "INSERT INTO member_info SET";
     $query .= " member_type='GEN', ";
     $query .= " member_gubun='NOR', ";
+    $query .= " real_name='".$fbName."', ";
     $query .= " user_id='" . $fbId . "', ";
     $query .= " gender='" . $gender . "', ";
     $query .= " birthday= '" . $birth . "', ";

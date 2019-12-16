@@ -1,3 +1,5 @@
+
+
 String.prototype.format = function() {
     a = this;
     for (k in arguments) {
@@ -45,7 +47,7 @@ function likeClick(report_idx) {
 function goShare(href, idx) {
     if (typeof App != "undefined") {
         App.fb_share($('#content_' + idx).html(), href, idx)
-    }else {
+    } else {
        goFBShare(href, idx)
     }
 }

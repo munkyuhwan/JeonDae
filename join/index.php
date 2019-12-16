@@ -1,6 +1,8 @@
 <? include $_SERVER['DOCUMENT_ROOT'] . "/include/head.php" ?>
 <?php
-$fbId = trim(sqlfilter($_REQUEST['fb_id']));
+$fb_id = trim(sqlfilter($_REQUEST['fb_id']));
+$fb_name = trim(sqlfilter($_REQUEST['fb_name']));
+$fb_email = trim(sqlfilter($_REQUEST['fb_email']));
 $year = date("Y", time());
 
 $guQuery = "SELECT * FROM gus ";
@@ -14,7 +16,9 @@ $result = mysqli_query($gconnet, $guQuery);
         <div class="join_form">
             <h2>회원가입</h2>
             <form name="frm" method="post" action="join_action.php">
-                <input type="hidden" name="fb_id" value="<?=$fbId?>">
+                <input type="hidden" name="fb_id" id="fb_id" value="<?=$fb_id?>" >
+                <input type="hidden" name="fb_name" id="fb_name" value="<?=$fb_name?>" >
+                <input type="hidden" name="fb_email" id="fb_email" value="<?=$fb_email?>" >
                 <div class="join_row">
                     <p><input type="radio" id="check_male" name="gender" value="M" required><label for="check_male">남</label></p>
                     <p><input type="radio" id="check_female" name="gender" value="F" required><label for="check_female">녀</label></p>

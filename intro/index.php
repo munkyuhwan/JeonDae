@@ -3,7 +3,8 @@
 //session_unset();
 //unset($_SESSION);
 //print_r($_SESSION);
-//$_SESSION['user_access_idx'] = 56;
+//$_SESSION['user_access_idx'] = 3;
+session_start();
 if ($_SESSION['user_access_idx'] != "") {
     echo "<script>location.replace('../main1');</script>";
 }
@@ -31,6 +32,8 @@ echo "<script>location.replace('../main1');</script>";
 </div>
 <form name="frm" id="frm" action="check_member.php" method="get" >
     <input type="hidden" name="fb_id" id="fb_id" value="" >
+    <input type="hidden" name="fb_name" id="fb_name" value="" >
+    <input type="hidden" name="fb_email" id="fb_email" value="" >
 </form>
 <script>
     window.fbAsyncInit = function() {
@@ -57,7 +60,10 @@ echo "<script>location.replace('../main1');</script>";
 
         if (typeof App != "undefined") {
             App.fb_login();
-        }else {
+        }else if (typeof webkit.messageHandlers.fb_login != "undefined" ) {
+            webkit.messageHandlers.fb_login.postMessage("")
+
+        } else {
 
             FB.getLoginStatus(function (response) {
 
@@ -66,7 +72,7 @@ echo "<script>location.replace('../main1');</script>";
                     FB.api('/me', function (res) {
                         // 제일 마지막에 실행
                         if (res.id != '') {
-                            checkMember(res.id)
+                            checkMember(res.id, res.name, res.user_email)
                             //$('#fb_id').val(res.id)
                             //$('#frm').submit()
                         }
@@ -88,8 +94,10 @@ echo "<script>location.replace('../main1');</script>";
         }
     }
 
-    function checkMember(idx) {
-        $('#fb_id').val(idx);
+    function checkMember(snsID, snsName, snsEmail) {
+        $('#fb_id').val(snsID);
+        $('#fb_name').val(snsName);
+        $('#fb_email').val(snsEmail);
         $('#frm').submit();
         /*
          $.ajax({

@@ -3,6 +3,9 @@
 <body>
 <?
 $fb_id = trim(sqlfilter($_REQUEST['fb_id']));
+$fb_name = trim(sqlfilter($_REQUEST['fb_name']));
+$fb_email = trim(sqlfilter($_REQUEST['fb_email']));
+
 $result = array();
 
 
@@ -33,8 +36,15 @@ if ($fb_id) {
 }
 if ($result['result'] != true) {?>
 
+    <form name="frm" id="frm" action="../join" method="get" >
+        <input type="hidden" name="fb_id" id="fb_id" value="<?=$fb_id?>" >
+        <input type="hidden" name="fb_name" id="fb_name" value="<?=$fb_name?>" >
+        <input type="hidden" name="fb_email" id="fb_email" value="<?=$fb_email?>" >
+    </form>
+
     <script type="application/javascript">
-        location.replace('../join?fb_id=<?=$fb_id?>');
+        document.frm.submit();
+        //location.replace('../join?fb_id=<?=$fb_id?>');
     </script>
 <?}else {?>
     <script type="application/javascript">
