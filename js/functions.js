@@ -121,7 +121,7 @@ function goShareKakaoStory(href, idx) {
     }else {
         imgTag = ""
     }
-    if (typeof webkit.messageHandlers.kakao_share != "undefined" ) {
+    if (typeof webkit.messageHandlers.kakao_story_share != "undefined" ) {
         webkit.messageHandlers.kakao_story_share.postMessage("{\"content\":\""+ encodeURI($('#content_' + idx).html())+"\", \"imgUrl\":\""+"https://djund.com/" + imgTag.replace("../", "")+"\" , \"href\":\""+encodeURI(href)+"\", \"idx\":\""+idx+"\"}")
     }else {
         doKakaoStory(href, idx)
