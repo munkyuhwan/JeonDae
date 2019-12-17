@@ -110,6 +110,7 @@ $SIGNUP_NOT_REQUIRED = array(
 	"intro",
 	"join",
 	"sub_write",
+	"main_detail",
 	"master"
 );
 
