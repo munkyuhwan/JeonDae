@@ -80,8 +80,8 @@ function goShareKakaoTalk(href, idx) {
     }
     if (typeof App != "undefined") {
         App.kakao_share($('#content_' + idx).html(), "https://djund.com/" + imgTag.replace("../", ""), idx);
-    }else if (typeof webkit.messageHandlers.kakao_story_share != "undefined" ) {
-        webkit.messageHandlers.kakao_story_share.postMessage("{\"content\":\""+ encodeURI($('#content_' + idx).html())+"\", \"imgUrl\":\""+"https://djund.com/" + imgTag.replace("../", "")+"\" , \"href\":\""+encodeURI(href)+"\", \"idx\":\""+idx+"\"}")
+    }else if (typeof webkit.messageHandlers.kakao_share != "undefined" ) {
+        webkit.messageHandlers.kakao_share.postMessage("{\"content\":\""+ encodeURI($('#content_' + idx).html())+"\", \"imgUrl\":\""+"https://djund.com/" + imgTag.replace("../", "")+"\" , \"href\":\""+encodeURI(href)+"\", \"idx\":\""+idx+"\"}")
     }else {
         doKakaoTalkSahre(href, idx)
     }
@@ -115,8 +115,18 @@ function doKakaoTalkSahre(href, idx) {
 }
 
 function goShareKakaoStory(href, idx) {
-    Kakao.Story.share({
-        url: href+"?idx="+idx,
-        text: $('#content_'+idx).html()
-    });
+    var imgTag = $('#img_'+idx).attr("src")
+    if (imgTag != undefined) {
+        imgTag = imgTag.replace("../", "");
+    }else {
+        imgTag = ""
+    }
+    if (typeof webkit.messageHandlers.kakao_story_share != "undefined" ) {
+        webkit.messageHandlers.kakao_story_share.postMessage("{\"content\":\""+ encodeURI($('#content_' + idx).html())+"\", \"imgUrl\":\""+"https://djund.com/" + imgTag.replace("../", "")+"\" , \"href\":\""+encodeURI(href)+"\", \"idx\":\""+idx+"\"}")
+    }else {
+        Kakao.Story.share({
+            url: href + "?idx=" + idx,
+            text: $('#content_' + idx).html()
+        });
+    }
 }
