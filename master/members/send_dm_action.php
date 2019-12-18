@@ -9,8 +9,15 @@ $msg = trim(sqlfilter($_REQUEST['msg']));
 $query = "INSERT INTO direct_msg SET ";
 $query .= " member_idx=".$member_idx.", ";
 $query .= " msg_txt='".$msg."' ";
-
 $result = mysqli_query($gconnet, $query);
+
+
+$insert_alarm = "INSERT INTO alarm_list SET ";
+$insert_alarm .= " alarm_type = 'MSG', ";
+$insert_alarm .= " report_idx = 0, ";
+$insert_alarm .= " member_idx = ".$member_idx.", ";
+$insert_alarm .= " alarm_msg = '".$msg."' ";
+$result = mysqli_query($gconnet, $insert_alarm);
 
 if($result){
     ?>
