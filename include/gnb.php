@@ -48,4 +48,4 @@ $local = mysqli_fetch_assoc($local_res);
         </div>
         <button type="button" class="snb_close"></button>
     </div>
-</div>Œ
+</div>
