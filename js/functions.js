@@ -105,8 +105,8 @@ function doKakaoTalkSahre(href, idx) {
             {
                 title: '웹으로 보기',
                 link: {
-                    mobileWebUrl: 'https://developers.kakao.com',
-                    webUrl: 'https://developers.kakao.com'
+                    mobileWebUrl: href,
+                    webUrl: href
                 }
             }
         ]
