@@ -33,7 +33,9 @@ $num = $cnt;
         </div>
         <div class="item_mid">
             <div class="text_box">
-                <p id="content_<?= $row['report_idx'] ?>"><?= nl2br($row['content_text']) ?></p>
+                <p id="content_<?= $row['report_idx'] ?>" style=" overflow:hidden; text-overflow:ellipsis; word-wrap:break-word; display:-webkit-box; -webkit-line-clamp:12; -webkit-box-orient:vertical">
+                    <?= nl2br($row['content_text']) ?>
+                </p>
                 <button type="button" class="more_btn" onclick="$('#content_<?= $row['report_idx'] ?>').gettag ">
                     ...더보기
                 </button>

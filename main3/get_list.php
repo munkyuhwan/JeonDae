@@ -48,7 +48,9 @@ while($row = mysqli_fetch_assoc($category_result)) {
         </div>
         <div class="item_mid">
             <div class="text_box">
-                <p><?=nl2br($row['content_text'])?></p>
+                <p style=" overflow:hidden; text-overflow:ellipsis; word-wrap:break-word; display:-webkit-box; -webkit-line-clamp:12; -webkit-box-orient:vertical" >
+                    <?=nl2br($row['content_text'])?>
+                </p>
                 <button type="button" class="more_btn" onclick="location.href='../main_detail/?idx=<?=$row['idx']?>'; ">...더보기</button>
             </div>
             <?
