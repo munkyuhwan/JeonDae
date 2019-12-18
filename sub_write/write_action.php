@@ -109,7 +109,12 @@ if($result){
     <SCRIPT LANGUAGE="JavaScript">
         <!--
         alert('등록이 정상적으로 완료 되었습니다.');
-        parent.location.href =  "../main1";
+        <?if ($_SESSION['user_access_idx'] != "") {
+        ?>
+            parent.location.href =  "../main1";
+        <?}else {?>
+            parent.location.href =  "./";
+        <?}?>
         //-->
     </SCRIPT>
 <?}else{?>
