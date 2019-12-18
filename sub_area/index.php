@@ -116,7 +116,7 @@ if ($_SESSION['user_access_idx']!='') {
 
     function loadMainData() {
         $.ajax({
-            url:"get_data.php",
+            url:"get_main_list.php",
             data:{"page":page, "block":block, "category_idx":<?=$idx?>, "type":"top"},
             method:"POST",
             success:function(response) {
