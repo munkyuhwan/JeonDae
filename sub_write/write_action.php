@@ -91,10 +91,12 @@ if ($continue_idx != "") {
     $query .= " content_text = '" . $input_text . "'; ";
     $result = mysqli_query($gconnet, $query);
 
-    $query = "INSERT INTO report_additional_files SET ";
-    foreach($file_name_arr as $k=>$v) {
-        $query .= "report_idx=LAST_INSERT_ID(), ";
-        $query .= "report_file_name='".$v."'; ";
+    if (count($file_name_arr)>0) {
+        $query = "INSERT INTO report_additional_files SET ";
+        foreach ($file_name_arr as $k => $v) {
+            $query .= "report_idx=LAST_INSERT_ID(), ";
+            $query .= "report_file_name='" . $v . "'; ";
+        }
     }
     //$query .= "COMMIT;";
 
