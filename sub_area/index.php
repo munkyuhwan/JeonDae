@@ -19,7 +19,7 @@ if ($_SESSION['user_access_idx']!='') {
     var block = 5;
 
     function loadData() {
-        console.log(page)
+        console.log("page: "+page)
         $.ajax({
             url:"get_data.php",
             data:{"page":page, "block":block, "category_idx":<?=$idx?>, "type":"report"},
@@ -55,7 +55,7 @@ if ($_SESSION['user_access_idx']!='') {
     });
 
 </script>
-<body onload="loadData();loadMainData(); ">
+<body onload="loadMainData(); ">
 <div class="wrapper">
     <? include $_SERVER['DOCUMENT_ROOT']."/include/header.php" ?>
     <? include $_SERVER['DOCUMENT_ROOT']."/include/main_nav.php" ?>
