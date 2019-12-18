@@ -56,15 +56,18 @@ checkPopular($report_idx, $gconnet);
 
     <script type="text/javascript" src="../js/jquery-1.12.0.min.js?ver=<?=time()?>"></script>
     <script type="text/javascript" src="../js/main.js?ver=<?=time()?>"></script>
+    <script src="//developers.kakao.com/sdk/js/kakao.min.js" ></script>
+    <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
     <script type="text/javascript" src="../js/swiper.min.js"></script>
     <script type="text/javascript" src="../js/functions.js?ver=<?=time()?>"></script>
 
     <meta property="fb:app_id" content="966680140341971" />
     <meta property="og:title" content="전대전 "/>
     <meta property="og:type" content="article"/>
-    <meta property="og:url" content="https://e26c6017.ngrok.io/main1/?idx=<?=$report_idx?>"/>
+    <meta property="og:url" content="https://djund.com/main1/?idx=<?=$report_idx?>"/>
     <meta property="og:description" content="<?= nl2br($data['content_text']) ?>"/>
-    <meta property="og:image" content="https://e26c6017.ngrok.io/upload_file/report/<?= $img_arr[0]["report_file_name"] ?>"/>
+    <meta property="og:image" content="https://djund.com/upload_file/report/<?= $img_arr[0]["report_file_name"] ?>"/>
+
 </head>
 
 <body>
