@@ -2,7 +2,7 @@
 $hashtag_query = "SELECT * FROM user_hashtags WHERE member_idx=".$_SESSION['user_access_idx']." LIMIT 0,3";
 $hashtag_result = mysqli_query($gconnet, $hashtag_query);
 
-$local_appr = "SELECT local, area_appr_yn, uni, file_chg FROM member_info WHERE idx=".$_SESSION['user_access_idx'];
+$local_appr = "SELECT local, area_appr_yn, uni, file_chg, user_id FROM member_info WHERE idx=".$_SESSION['user_access_idx'];
 $local_res = mysqli_query($gconnet, $local_appr);
 $local = mysqli_fetch_assoc($local_res);
 ?>
@@ -10,7 +10,11 @@ $local = mysqli_fetch_assoc($local_res);
     <div class="snb_wrap">
         <div class="snb_top user_wrap">
             <div class="user_img">
-                <img src="../upload_file/member/<?=$local['file_chg']?>" alt="유저 사진">
+                <?if($local['file_chg'] == "") {?>
+                    <img src="http://graph.facebook.com/<?=$local['user_id']?>/picture?type=normal" alt="유저 사진">
+                <?}else {?>
+                    <img src="../upload_file/member/<?=$local['file_chg']?>" alt="유저 사진">
+                <?}?>
             </div>
             <div class="user_name">
                 <?=$_SESSION['user_access_name']?>
@@ -44,4 +48,4 @@ $local = mysqli_fetch_assoc($local_res);
         </div>
         <button type="button" class="snb_close"></button>
     </div>
-</div>
+</div>Œ
