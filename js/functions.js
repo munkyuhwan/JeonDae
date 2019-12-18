@@ -48,7 +48,7 @@ function goShare(href, idx) {
     if (typeof App != "undefined") {
         App.fb_share($('#content_' + idx).html(), href, idx)
 
-    }else if (typeof webkit.messageHandlers.fb_share != "undefined" ) {
+    }else if (typeof webkit != "undefined" ) {
 
         webkit.messageHandlers.fb_share.postMessage("{\"content\":\""+ encodeURI($('#content_' + idx).html())+"\", \"href\":\""+encodeURI(href)+"\", \"idx\":\""+idx+"\"}")
 
@@ -80,7 +80,7 @@ function goShareKakaoTalk(href, idx) {
     }
     if (typeof App != "undefined") {
         App.kakao_share($('#content_' + idx).html(), "https://djund.com/" + imgTag.replace("../", ""), idx);
-    }else if (typeof webkit.messageHandlers.kakao_share != "undefined" ) {
+    }else if (typeof webkit != "undefined" ) {
         webkit.messageHandlers.kakao_share.postMessage("{\"content\":\""+ encodeURI($('#content_' + idx).html())+"\", \"imgUrl\":\""+"https://djund.com/" + imgTag.replace("../", "")+"\" , \"href\":\""+encodeURI(href)+"\", \"idx\":\""+idx+"\"}")
     }else {
         doKakaoTalkSahre(href, idx)
@@ -121,7 +121,7 @@ function goShareKakaoStory(href, idx) {
     }else {
         imgTag = ""
     }
-    if (typeof webkit.messageHandlers.kakao_story_share != "undefined" ) {
+    if (typeof webkit != "undefined" ) {
         webkit.messageHandlers.kakao_story_share.postMessage("{\"content\":\""+ encodeURI($('#content_' + idx).html())+"\", \"imgUrl\":\""+"https://djund.com/" + imgTag.replace("../", "")+"\" , \"href\":\""+encodeURI(href)+"\", \"idx\":\""+idx+"\"}")
     }else {
         Kakao.Story.share({
