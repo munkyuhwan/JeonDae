@@ -6,7 +6,7 @@
 //$_SESSION['user_access_idx'] = 3;
 session_start();
 if ($_SESSION['user_access_idx'] != "") {
-    echo "<script>location.replace('../main1');</script>";
+   // echo "<script>location.replace('../main1');</script>";
 }
 
 /*
@@ -21,7 +21,7 @@ $_SESSION['user_access_name'] = $row['real_name'];
 echo "<script>location.replace('../main1');</script>";
 */
 ?>
-<body>
+<body onload="checkLoginState()">
 <div class="wrapper">
     <section class="intro_section grd_bg">
         <h1><img src="../images/logo.png" alt="전대전 로고"></h1>
@@ -60,7 +60,7 @@ echo "<script>location.replace('../main1');</script>";
 
         if (typeof App != "undefined") {
             App.fb_login();
-        }else if (typeof webkit.messageHandlers.fb_login != "undefined" ) {
+        }else if (typeof webkit != "undefined" ) {
             webkit.messageHandlers.fb_login.postMessage("")
 
         } else {
