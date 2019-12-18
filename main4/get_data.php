@@ -18,12 +18,12 @@ $result = mysqli_query($gconnet, $query);
         $alarm_content = $detail_row['content_text'];
         ?>
         <li class="item">
-            <div class="alrim_type type1"> <!-- ���� -->
+            <div class="alrim_type type1"> <!-- 발행 -->
                 <img src="../upload_file/category_profile/<?=$detail_row['profile_img']?>" alt="">
             </div>
-            <div class="tlt">�� ������ [<span><?=$alarm_title?></span>]�� ����Ǿ����ϴ�.</div>
+            <div class="tlt">내 제보가 [<span><?=$alarm_title?></span>]에 발행되었습니다.</div>
             <div class="desc"><?=$alarm_content?> </div>
-            <div class="date"><?=date("m�� d�� H:i", strtotime($detail_row['wdate']))?></div>
+            <div class="date"><?=date("m월 d일 H:i", strtotime($detail_row['wdate']))?></div>
         </li>
 
     <?} else if ($row['alarm_type'] == "LIKE") {?>
@@ -33,12 +33,12 @@ $result = mysqli_query($gconnet, $query);
         $detail_row = mysqli_fetch_assoc($detail_result);
         ?>
         <li class="item">
-            <div class="alrim_type type2"> <!-- ���ƿ� -->
+            <div class="alrim_type type2"> <!-- 좋아요 -->
                 <img src="../images/icon_heart.png" alt="" width="32">
             </div>
-            <div class="tlt">�� ������ <span><?=$detail_row['likes']?>��</span>�� ������ ����մϴ�.</div>
+            <div class="tlt">내 제보를 <span><?=$detail_row['likes']?>명</span>이 마음에 들어합니다.</div>
             <div class="desc"><?=$detail_row['content_text']?></div>
-            <div class="date"><?=date("m�� d�� H:i", strtotime($detail_row['wdate']))?></div>
+            <div class="date"><?=date("m월 d일 H:i", strtotime($detail_row['wdate']))?></div>
         </li>
     <?}else if ($row['alarm_type'] == "TOP") {?>
         <?
@@ -47,12 +47,20 @@ $result = mysqli_query($gconnet, $query);
         $detail_row = mysqli_fetch_assoc($detail_result);
         ?>
         <li class="item">
-            <div class="alrim_type type3"> <!-- �α��� -->
+            <div class="alrim_type type3"> <!-- 인기등록 -->
                 <img src="../images/icon_popular.png" alt="" width="20">
             </div>
-            <div class="tlt">�� ������ �α� �Խù��� ��ϵǾ����ϴ�!</div>
+            <div class="tlt">내 제보가 인기 게시물에 등록되었습니다!</div>
             <div class="desc"><?=$detail_row['content_text']?></div>
-            <div class="date"><?=date("m�� d�� H:i", strtotime($detail_row['wdate']))?></div>
+            <div class="date"><?=date("m월 d일 H:i", strtotime($detail_row['wdate']))?></div>
         </li>
-    <?}?>
-<?}?>
+    <?}else if ($row['alarm_type'] == "MSG") {?>
+        <li class="item">
+            <div class="alrim_type type3"> <!-- 인기등록 -->
+                <!-- img src="../images/icon_popular.png" alt="" width="20" -->
+            </div>
+            <div class="tlt">관리자로부터 메세지가 왔습니다!</div>
+            <div class="desc"><?=$row['alarm_msg']?></div>
+            <div class="date"><?=date("m월 d일 H:i", strtotime($row['wdate']))?></div>
+        </li>
+    <?}?><?}?>
