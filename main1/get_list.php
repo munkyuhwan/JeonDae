@@ -73,11 +73,20 @@ if ($_SESSION['user_access_idx']== "") {
     $query = "SELECT report.idx AS report_idx, report.category AS categrory_idx, report.content_text, report.report_hashtag, report.bad_report ";
     $query .= " ,report.likes, (SELECT COUNT(*) FROM report_comments WHERE report_idx=report.idx AND del_yn='N') AS comment_cnt ";
     $query .= " ,member.file_chg, member.real_name, member.user_id ";
-    $query .= " ,clean.non_content_cnt, clean.clean_content_cnt ";
 
-    $query .= "FROM report_list AS report , clean_index AS clean, member_info AS member ";
+    if ( mysqli_num_rows($category_clean_result) > 0 ) {
+        $query .= " ,clean.non_content_cnt, clean.clean_content_cnt ";
+    }
 
-    $query .= " WHERE report.category=clean.category_idx AND report.member_idx=member.idx ";
+    $query .= "FROM report_list AS report , member_info AS member ";
+    if ( mysqli_num_rows($category_clean_result) > 0 ) {
+        $query .= " , clean_index AS clean ";
+    }
+
+    $query .= " WHERE report.member_idx=member.idx ";
+    if ( mysqli_num_rows($category_clean_result) > 0 ) {
+        $query .= " AND report.category=clean.category_idx ";
+    }
     if (mysqli_num_rows($category_clean_result)>0) {
         $query .= " AND ( " . $clean_query . " )";
     }
@@ -87,7 +96,7 @@ if ($_SESSION['user_access_idx']== "") {
 
     $query .= " ORDER BY report.idx DESC ";
     $query_limit .= $query . " LIMIT " . ($page * $block) . " , " . $block;
-//echo $query;
+
     $result = mysqli_query($gconnet, $query_limit);
 
     $cnt_result = mysqli_query($gconnet, $query);
@@ -120,7 +129,7 @@ if ($_SESSION['user_access_idx']== "") {
                         <? $hashtags = explode(",", $row['report_hashtag']) ?>
                         <? foreach ($hashtags as $v) { ?>
                             <button type="button"><?= $v ?></button>
-                        <?
+                            <?
                         } ?>
                     </div>
                 </div>
@@ -311,15 +320,15 @@ if ($_SESSION['user_access_idx']== "") {
                                                 break;
                                             }
                                             ?>
-                                        <?
+                                            <?
                                         } ?>
                                     </ul>
-                                <?
+                                    <?
                                 } ?>
 
 
                             </li>
-                        <?
+                            <?
                         } ?>
                     </ul>
                 </div>
@@ -338,6 +347,6 @@ if ($_SESSION['user_access_idx']== "") {
                 </div>
             </div>
         </li>
-    <?
+        <?
     }
 }?>
