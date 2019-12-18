@@ -9,7 +9,10 @@ if ($_SESSION['user_access_idx'] != "") {
     $member_idx = $_SESSION['user_access_idx'];
 }else {
     //익명 제보자
-    $member_idx = UNKNOW_USER;
+    $select_unknown = "SELECT idx FROM member_info WHERE user_id='unknown' ";
+    $unknown_result= mysqli_query($gconnet, $select_unknown);
+    $unknown_row = mysqli_fetch_assoc($unknown_result);
+    $member_idx = $unknown_row['idx'];
 }
 
 /*
