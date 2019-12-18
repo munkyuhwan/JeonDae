@@ -8,4 +8,3 @@ unset($_SESSION);
 </script>
 <?
 ?>
-
