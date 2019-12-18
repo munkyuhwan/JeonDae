@@ -106,7 +106,6 @@ if ($_SESSION['user_access_idx']== "") {
 
 ?>
 <?if(mysqli_num_rows($result) <= 0){
-    echo "{\"result\":\"false\"}";
     exit();
 }else {
     ?>
