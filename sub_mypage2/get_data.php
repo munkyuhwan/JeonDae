@@ -7,7 +7,8 @@ $block = trim(sqlfilter($_REQUEST['block']));
 $query = "SELECT report.*,
           (SELECT COUNT(*) AS cnt FROM report_comments WHERE report_idx=report.idx) AS comment_cnt,
           (SELECT file_chg FROM member_info WHERE idx=report.member_idx) AS file_chg,
-          (SELECT real_name FROM member_info WHERE idx=report.member_idx) AS real_name
+          (SELECT real_name FROM member_info WHERE idx=report.member_idx) AS real_name,
+          (SELECT user_id FROM member_info WHERE idx=report.member_idx) AS user_id
           FROM scrab_list AS scrab, report_list AS report WHERE 1 ";
 $where = " AND scrab.member_idx=".$_SESSION['user_access_idx']." ";
 $where .= " AND scrab.report_idx = report.idx ";
@@ -21,7 +22,11 @@ while($row = mysqli_fetch_assoc($result) ) {
 <li class="item">
     <div class="item_top user_box">
         <div class="prf_box">
-            <img src="../upload_file/member/<?=$row['file_chg']?>" alt="">
+            <?if($row['file_chg'] == "") {?>
+                <img src="http://graph.facebook.com/<?=$row['user_id']?>/picture?type=normal" alt="유저 사진">
+            <?}else {?>
+                <img src="../upload_file/member/<?=$row['file_chg']?>" alt="">
+            <?}?>
         </div>
         <div class="info_box ">
             <p class="name"><?=$row['real_name']?></p>
@@ -153,7 +158,7 @@ while($row = mysqli_fetch_assoc($result) ) {
     <div class="item_bot">
         <div class="reply_list">
             <?
-            $comment_query = "SELECT comments.report_idx, comments.parent_idx, comments.comment_txt, comments.wdate, member.real_name, member.file_chg FROM report_comments AS comments, member_info AS member WHERE 1 ";
+            $comment_query = "SELECT comments.report_idx, comments.parent_idx, comments.comment_txt, comments.wdate, member.real_name, member.file_chg, member.user_id FROM report_comments AS comments, member_info AS member WHERE 1 ";
             $comment_where = " AND comments.report_idx=".$row['idx'];
             $comment_where .= " AND comments.member_idx=member.idx";
             $comment_orderby = " ORDER BY comments.idx, comments.parent_idx ";
@@ -169,7 +174,11 @@ while($row = mysqli_fetch_assoc($result) ) {
                         <li class="reply_item user_box">
                             <div class="reply_inner">
                                 <div class="prf_box">
-                                    <img src="../upload_file/member/<?=$comment_row['file_chg']?>" alt="">
+                                    <?if($comment_row['file_chg'] == "") {?>
+                                        <img src="http://graph.facebook.com/<?=$comment_row['user_id']?>/picture?type=normal" alt="유저 사진">
+                                    <?}else {?>
+                                        <img src="../upload_file/member/<?=$comment_row['file_chg']?>" alt="">
+                                    <?}?>
                                 </div>
                                 <div class="info_box ">
                                     <div class="reply_top"><p class="name"><?=$comment_row['real_name']?></p><p class="reply_txt"><?=$comment_row['comment_txt']?></p></div>
@@ -184,7 +193,11 @@ while($row = mysqli_fetch_assoc($result) ) {
                             <li class="reply_item user_box">
                                 <div class="reply_inner">
                                     <div class="prf_box">
-                                        <img src="../upload_file/member/<?=$comment_row['file_chg']?>" alt="">
+                                        <?if($comment_row['file_chg'] == "") {?>
+                                            <img src="http://graph.facebook.com/<?=$comment_row['user_id']?>/picture?type=normal" alt="유저 사진">
+                                        <?}else {?>
+                                            <img src="../upload_file/member/<?=$comment_row['file_chg']?>" alt="">
+                                        <?}?>
                                     </div>
                                     <div class="info_box ">
                                         <div class="reply_top"><p class="name"><?=$comment_row['real_name']?></p><p class="reply_txt"><?=$comment_row['comment_txt']?></p></div>

@@ -15,7 +15,7 @@ $category_result = mysqli_query($gconnet, $category_query);
 
 $result = array();
 while($row = mysqli_fetch_assoc($category_result)) {
-    $report_query = "SELECT report.*, (SELECT profile_img FROM report_categories WHERE idx=report.category) AS category_profile, (SELECT COUNT(*) FROM report_comments WHERE report_idx=report.idx ) AS comment_cnt FROM report_list AS report WHERE 1";
+    $report_query = "SELECT report.*, (SELECT profile_img FROM report_categories WHERE idx=report.category) AS category_profile, (SELECT COUNT(*) FROM report_comments WHERE report_idx=report.idx ) AS comment_cnt, (SELECT user_id FROM member_info WHERE idx=report.member_idx) AS user_id, (SELECT file_chg FROM member_info WHERE idx=report.member_idx) AS file_chg FROM report_list AS report WHERE 1";
     $report_query .= " AND report.category = ".$row['category_idx'];
     $report_query .= " AND report.likes >= ".$row['limit_like'];
     $report_query .= " AND report.view_cnt >= ".$row['limit_view'];
@@ -165,7 +165,7 @@ while($row = mysqli_fetch_assoc($category_result)) {
         <div class="item_bot">
             <div class="reply_list">
                 <?
-                $comment_query = "SELECT report.comment_txt, report.idx AS comment_idx, report.parent_idx, report.wdate, (SELECT real_name FROM member_info WHERE idx=report.member_idx ) AS member_name, (SELECT file_chg FROM member_info WHERE idx=report.member_idx ) AS file_chg  FROM report_comments AS report WHERE report.del_yn='N' AND parent_idx=0 AND report.report_idx=".$row['idx']." ORDER BY idx DESC LIMIT 0,2";
+                $comment_query = "SELECT report.comment_txt, report.idx AS comment_idx, report.parent_idx, report.wdate, (SELECT real_name FROM member_info WHERE idx=report.member_idx ) AS member_name, (SELECT file_chg FROM member_info WHERE idx=report.member_idx ) AS file_chg, (SELECT user_id FROM member_info WHERE idx=report.member_idx ) AS user_id  FROM report_comments AS report WHERE report.del_yn='N' AND parent_idx=0 AND report.report_idx=".$row['idx']." ORDER BY idx DESC LIMIT 0,2";
                 $comment_res = mysqli_query($gconnet, $comment_query);
                 ?>
                 <button type="button" class="reply_all">댓글 <span><?=$row['comment_cnt']?></span>개 모두 보기</button>
@@ -174,7 +174,11 @@ while($row = mysqli_fetch_assoc($category_result)) {
                         <li class="reply_item user_box">
                             <div class="reply_inner"  id="div_<?=$r['comment_idx']?>" >
                                 <div class="prf_box">
-                                    <img src="../upload_file/member/<?=$r['file_chg']?>" alt="">
+                                    <?if($r['file_chg'] == "") {?>
+                                        <img src="http://graph.facebook.com/<?=$r['user_id']?>/picture?type=normal" alt="유저 사진">
+                                    <?}else {?>
+                                        <img src="../upload_file/member/<?=$r['file_chg']?>" alt="">
+                                    <?}?>
                                 </div>
                                 <div class="info_box ">
                                     <div class="reply_top"><p class="name"><?=$r['member_name']?></p><p class="reply_txt"><?=$r['comment_txt']?></p></div>
@@ -186,7 +190,7 @@ while($row = mysqli_fetch_assoc($category_result)) {
                                 <button type="button" class="like_btn"></button>
                             </div>
                             <?
-                            $sub_comment_query = "SELECT report.comment_txt, report.idx AS comment_idx, report.wdate, (SELECT real_name FROM member_info WHERE idx=report.member_idx ) AS member_name,(SELECT file_chg FROM member_info WHERE idx=report.member_idx ) AS file_chg  FROM report_comments AS report WHERE report.del_yn='N' AND parent_idx=".$r['comment_idx']." ORDER BY idx DESC LIMIT 0,2";
+                            $sub_comment_query = "SELECT report.comment_txt, report.idx AS comment_idx, report.wdate, (SELECT real_name FROM member_info WHERE idx=report.member_idx ) AS member_name,(SELECT file_chg FROM member_info WHERE idx=report.member_idx ) AS file_chg,(SELECT user_id FROM member_info WHERE idx=report.member_idx ) AS user_id  FROM report_comments AS report WHERE report.del_yn='N' AND parent_idx=".$r['comment_idx']." ORDER BY idx DESC LIMIT 0,2";
                             $sub_comment_res = mysqli_query($gconnet, $sub_comment_query);
                             ?>
                             <? if (mysqli_num_rows($sub_comment_res) > 0 ) {?>
@@ -195,7 +199,11 @@ while($row = mysqli_fetch_assoc($category_result)) {
                                         <li class="reply_item user_box">
                                             <div class="reply_inner" id="div_<?=$r['comment_idx']?>_<?= $sub_row['comment_idx'] ?>">
                                                 <div class="prf_box">
-                                                    <img src="../upload_file/member/<?=$sub_row['file_chg']?>" alt="">
+                                                    <?if($sub_row['file_chg'] == "") {?>
+                                                        <img src="http://graph.facebook.com/<?=$sub_row['user_id']?>/picture?type=normal" alt="유저 사진">
+                                                    <?}else {?>
+                                                        <img src="../upload_file/member/<?=$sub_row['file_chg']?>" alt="">
+                                                    <?}?>
                                                 </div>
                                                 <div class="info_box ">
                                                     <div class="reply_top"><p class="name"><?=$sub_row['member_name']?></p><p class="reply_txt"><?=$sub_row['comment_txt']?></p></div>
@@ -222,7 +230,11 @@ while($row = mysqli_fetch_assoc($category_result)) {
         </div>
         <div class="item_reply_input"  id="main_comment_<?=$row['report_idx']?>" >
             <div class="prf_box">
-                <img src="../upload_file/member/<?=$_SESSION['profile_img']?>" alt="">
+                <?if($row['file_chg'] == "") {?>
+                    <img src="http://graph.facebook.com/<?=$row['user_id']?>/picture?type=normal" alt="유저 사진">
+                <?}else {?>
+                    <img src="../upload_file/member/<?=$row['file_chg']?>" alt="">
+                <?}?>
             </div>
             <div class="input_box">
                 <form action="write_comment_action.php" method="post" name="frm">

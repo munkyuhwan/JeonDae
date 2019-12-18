@@ -5,7 +5,7 @@ $block = trim(sqlfilter($_REQUEST['block']));
 $category_idx = trim(sqlfilter($_REQUEST['category_idx']));
 $type = trim(sqlfilter($_REQUEST['type']));
 
-$query = "SELECT report.idx AS report_idx, report.wdate, report.content_text, report.report_hashtag, report.likes, (SELECT COUNT(*) AS cnt FROM report_comments WHERE report_idx=report.idx) AS comment_cnt,  member.real_name, member.file_chg  FROM report_list AS report, member_info AS member WHERE report.category=".$category_idx." AND report.del_yn='N' AND report.member_idx=member.idx ";
+$query = "SELECT report.idx AS report_idx, report.wdate, report.content_text, report.report_hashtag, report.likes, (SELECT COUNT(*) AS cnt FROM report_comments WHERE report_idx=report.idx) AS comment_cnt,  member.real_name, member.file_chg, member.user_id  FROM report_list AS report, member_info AS member WHERE report.category=".$category_idx." AND report.del_yn='N' AND report.member_idx=member.idx ";
 $query_limit .= $query." LIMIT ".($page*$block)." , ".$block ;
 $result = mysqli_query($gconnet,$query_limit);
 
@@ -18,7 +18,11 @@ while($row = mysqli_fetch_assoc($result) ) {
 <li class="item swiper-slide">
     <div class="item_top user_box">
         <div class="prf_box">
-            <img src="../upload_file/member/<?=$row['file_chg']?>" alt="">
+            <?if($row['file_chg'] == "") {?>
+                <img src="http://graph.facebook.com/<?=$row['user_id']?>/picture?type=normal" alt="유저 사진">
+            <?}else {?>
+                <img src="../upload_file/member/<?=$row['file_chg']?>" alt="">
+            <?}?>
         </div>
         <div class="info_box ">
             <p class="name"><?=$row['real_name']?></p>
@@ -150,7 +154,7 @@ while($row = mysqli_fetch_assoc($result) ) {
     <div class="item_bot">
         <div class="reply_list">
             <?
-            $comment_query = "SELECT comments.idx AS comment_idx, comments.report_idx, comments.parent_idx, comments.comment_txt, comments.wdate, member.real_name, member.file_chg FROM report_comments AS comments, member_info AS member WHERE 1 ";
+            $comment_query = "SELECT comments.idx AS comment_idx, comments.report_idx, comments.parent_idx, comments.comment_txt, comments.wdate, member.real_name, member.file_chg, member.user_id FROM report_comments AS comments, member_info AS member WHERE 1 ";
             $comment_where = " AND comments.report_idx=".$row['report_idx'];
             $comment_where .= " AND comments.member_idx=member.idx";
             $comment_orderby = " ORDER BY comments.idx, comments.parent_idx ";
@@ -166,7 +170,11 @@ while($row = mysqli_fetch_assoc($result) ) {
                         <li class="reply_item user_box">
                             <div class="reply_inner" id="div_<?=$type?>_<?=$comment_row['comment_idx']?>">
                                 <div class="prf_box">
-                                    <img src="../upload_file/member/<?=$comment_row['file_chg']?>" alt="">
+                                    <?if($row['file_chg'] == "") {?>
+                                        <img src="http://graph.facebook.com/<?=$comment_row['user_id']?>/picture?type=normal" alt="유저 사진">
+                                    <?}else {?>
+                                        <img src="../upload_file/member/<?=$comment_row['file_chg']?>" alt="">
+                                    <?}?>
                                 </div>
                                 <div class="info_box ">
                                     <div class="reply_top"><p class="name"><?=$comment_row['real_name']?></p><p class="reply_txt"><?=$comment_row['comment_txt']?></p></div>
@@ -182,7 +190,11 @@ while($row = mysqli_fetch_assoc($result) ) {
                             <li class="reply_item user_box" >
                                 <div class="reply_inner"  id="div_<?=$type?>_<?=$comment_row['parent_idx']?>_<?= $comment_row['comment_idx'] ?>" >
                                     <div class="prf_box">
-                                        <img src="../upload_file/member/<?=$comment_row['file_chg']?>" alt="">
+                                        <?if($row['file_chg'] == "") {?>
+                                            <img src="http://graph.facebook.com/<?=$comment_row['user_id']?>/picture?type=normal" alt="유저 사진">
+                                        <?}else {?>
+                                            <img src="../upload_file/member/<?=$comment_row['file_chg']?>" alt="">
+                                        <?}?>
                                     </div>
                                     <div class="info_box ">
                                         <div class="reply_top"><p class="name"><?=$comment_row['real_name']?></p><p class="reply_txt"><?=$comment_row['comment_txt']?></p></div>
