@@ -6,7 +6,7 @@
 //$_SESSION['user_access_idx'] = 3;
 session_start();
 if ($_SESSION['user_access_idx'] != "") {
-   // echo "<script>location.replace('../main1');</script>";
+    // echo "<script>location.replace('../main1');</script>";
 }
 
 /*
@@ -21,7 +21,7 @@ $_SESSION['user_access_name'] = $row['real_name'];
 echo "<script>location.replace('../main1');</script>";
 */
 ?>
-<body onload="checkLoginState()">
+<body>
 <div class="wrapper">
     <section class="intro_section grd_bg">
         <h1><img src="../images/logo.png" alt="전대전 로고"></h1>
@@ -36,25 +36,13 @@ echo "<script>location.replace('../main1');</script>";
     <input type="hidden" name="fb_email" id="fb_email" value="" >
 </form>
 <script>
-    window.fbAsyncInit = function() {
-        FB.init({
-            appId      : '966680140341971',
-            cookie     : true,
-            xfbml      : true,
-            version    : 'v5.0'
-        });
 
-        FB.AppEvents.logPageView();
-
-    };
-
-    (function(d, s, id){
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {return;}
-        js = d.createElement(s); js.id = id;
-        js.src = "https://connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
+    function checkMember(snsID, snsName, snsEmail) {
+        $('#fb_id').val(snsID);
+        $('#fb_name').val(snsName);
+        $('#fb_email').val(snsEmail);
+        $('#frm').submit();
+    }
 
     function checkLoginState() {
 
@@ -94,38 +82,27 @@ echo "<script>location.replace('../main1');</script>";
         }
     }
 
-    function checkMember(snsID, snsName, snsEmail) {
-        $('#fb_id').val(snsID);
-        $('#fb_name').val(snsName);
-        $('#fb_email').val(snsEmail);
-        $('#frm').submit();
-        /*
-         $.ajax({
-         url:"check_member.php",
-         method:"POST",
-         data:{"fb_id":idx},
-         success:function(response) {
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '966680140341971',
+            cookie     : true,
+            xfbml      : true,
+            version    : 'v5.0'
+        });
 
-         try {
-         var res = JSON.parse(response);
-         console.log(res.result)
-         if (res.result != true ) {
-         location.href = '../join/';
-         }else {
-         location.href = '../main1/';
-         }
+        FB.AppEvents.logPageView();
+        checkLoginState();
+    };
 
-         }catch (e) {
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
 
-         }
 
-         },
-         error:function(error) {
-
-         }
-         })
-         */
-    }
 
 
 
