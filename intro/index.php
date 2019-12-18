@@ -55,10 +55,10 @@ echo "<script>location.replace('../main1');</script>";
 
             FB.getLoginStatus(function (response) {
 
-                console.log(response.status)
                 if (response.status === 'connected') {
-                    FB.api('/me', function (res) {
+                    FB.api('/me?fields=id,name', function (res) {
                         // 제일 마지막에 실행
+                        console.log(res)
                         if (res.id != '') {
                             checkMember(res.id, res.name, res.user_email)
                             //$('#fb_id').val(res.id)
@@ -66,11 +66,14 @@ echo "<script>location.replace('../main1');</script>";
                         }
                         // alert("Success Login : " + response.name);
                     });
+
                 } else if (response.status === 'not_authorized') {
                     // 사람은 Facebook에 로그인했지만 앱에는 로그인하지 않았습니다.
-                    FB.login(function (response) {
+                    FB.login(function (res) {
                         // handle the response
+                        console.log(response)
                         $('#fb_id').val(response.id)
+                        //checkMember(res.id, res.name, res.user_email)
 
                     }, {scope: 'public_profile,email'});
                 } else {
@@ -109,3 +112,4 @@ echo "<script>location.replace('../main1');</script>";
 </script>
 </body>
 </html>
+Œ
