@@ -104,6 +104,20 @@ $incomplete_cnt = mysqli_num_rows($incomplete_result);
         return false;
     };
     */
+
+    function addHashtag() {
+        console.log( $("#hash_tags").val()[0] )
+
+        var str = "";
+
+        if ($("#hash_tags").val()[0] != "#" ) {
+            str = "#" + $("#hash_tags").val().replace(" ", ",#");
+        }else {
+            str = $("#hash_tags").val().replace(" ", ",#");
+        }
+
+        $("#hash_tags").val( str )
+    }
 </script>
 <body>
 <div class="wrapper">
@@ -130,7 +144,7 @@ $incomplete_cnt = mysqli_num_rows($incomplete_result);
             </div>
             <div class="write_bot">
                 <div class="tag_input">
-                    <textarea name="hash_tags" id="hash_tags" placeholder="태그를 입력해주세요. 예) #성동구 #홍대" required><? foreach($categories as $k=>$v){ echo "#".$v;if( $k<(count($categories)-1) ){echo ",";} }?></textarea>
+                    <textarea name="hash_tags" id="hash_tags" placeholder="태그를 입력해주세요. 예) #성동구 #홍대" required onkeyup="addHashtag()"  ><? foreach($categories as $k=>$v){ echo "#".$v;if( $k<(count($categories)-1) ){echo ",";} }?></textarea>
                 </div>
                 <div class="add_wrap" id="photo_wrapper">
                     <button type="button" class="add_img_btn" onclick="addFile();"></button>
