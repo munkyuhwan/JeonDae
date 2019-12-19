@@ -66,7 +66,6 @@ while($row = mysqli_fetch_assoc($category_result)) {
             while($img_row = mysqli_fetch_assoc($img_result)) {
                 array_push($img_res, $img_row);
             }
-            print_r($img_res);
             ?>
             <?if(count($img_res) > 0) {?>
                 <div class="img_wrap">
