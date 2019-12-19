@@ -76,12 +76,6 @@ if ($_SESSION['user_access_idx']!='') {
         <div class="list_wrap popular">
             <p class="desc">이 구역의 인기글은 나야 :)</p>
             <div class="swiper-container2" id="main_list">
-                <!-- ul class="swiper-wrapper" id="main_list">
-
-                </ul>
-                <div class="swiper-pagination" id="main_paging">
-                    <span></span>
-                </div -->
             </div>
             <a href="../main3?sub_idx=<?=$idx?>" class="more_btn">더보기</a>
         </div>
