@@ -6,7 +6,45 @@ session_start();
 date_default_timezone_set('Asia/Seoul');
 header("Pragma: no-cache");
 header("Cache-Control: no-cache,must-revalidate");
-header('Content-Type: text/html; charset=UTF-8'); 
+header('Content-Type: text/html; charset=UTF-8');
+
+function https_redirect($ssl=false)
+{
+	$https = array(
+		'HTTP_X_FORWARDED_PROTO' => 'HTTPS',
+		'HTTP_X_SSL' => 'ON',
+		'HTTPS' => 'ON',
+		'SSL' => 'ON'
+	);
+
+	$protocol = 'https://';
+	foreach($https as $q=>$w)
+	{
+		if(strtoupper($_SERVER[$q]) === $w)
+		{
+			$protocol = false;
+			break;
+		}
+	}
+
+	if($ssl === true)
+	{
+		$protocol = (false === $protocol) ? 'http://' : false;
+	}
+
+	if(false !== $protocol)
+	{
+		header('HTTP/1.0 301 Moved Permanently');
+		header('Location: ' . $protocol .
+
+			$_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+		die();
+	}
+}
+https_redirect();
+
+
+
 
 error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING ^ E_DEPRECATED);  
 ini_set("display_errors", "1");  
@@ -20,14 +58,10 @@ if ($_SESSION['user_access_idx'] == '') {
 <?*/
 }
 
-//echo $_SERVER["HTTP_HOST"];
-if($_SERVER["HTTP_HOST"] == "besuit.net"){
-	//header('Location: https://besuit.co.kr'.$_SERVER['REQUEST_URI']);
-} else {
-	if(!isset($_SERVER["HTTPS"])) { 
-	//	header('Location: https://'.$_SERVER["HTTP_HOST"].$_SERVER['REQUEST_URI']);
-	}
-}
+
+
+
+
 //$TMP_ROOT = "https://3359fda6.ngrok.io";
 include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/user_function.php"; // PHP 유저 함수 모음 
 //include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/erp_db_conn.php"; 
