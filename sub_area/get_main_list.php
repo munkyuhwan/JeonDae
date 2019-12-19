@@ -66,77 +66,78 @@ while($row = mysqli_fetch_assoc($category_result)) {
             while($img_row = mysqli_fetch_assoc($img_result)) {
                 array_push($img_res, $img_row);
             }
+            print_r($img_res);
             ?>
-            <?if(count($img_row) > 0) {?>
+            <?if(count($img_res) > 0) {?>
                 <div class="img_wrap">
                     <div class="flex_wrap">
-                        <?if(count($img_row) == 1) {?>
+                        <?if(count($img_res) == 1) {?>
                             <div class="flex2_wrap item1">
                                 <a href="">
-                                    <img src="../upload_file/report/<?=$img_row[0][2]?>" alt="">
+                                    <img src="../upload_file/report/<?=$img_res[0]["report_file_name"]?>" alt="">
                                 </a>
                             </div>
 
-                        <?} else if(count($img_row) == 2 ) {?>
+                        <?} else if(count($img_res) == 2 ) {?>
                             <div class="flex2_wrap item1">
                                 <a href="">
-                                    <img src="../upload_file/report/<?=$img_row[0][2]?>" alt="">
-                                </a>
-                            </div>
-                            <div class="flex2_wrap item1">
-                                <a href="">
-                                    <img src="../upload_file/report/<?=$img_row[1][2]?>" alt="">
-                                </a>
-                            </div>
-                        <?} else if(count($img_row) == 3 ) {?>
-                            <div class="flex2_wrap item2">
-                                <a href="">
-                                    <img src="../upload_file/report/<?=$img_row[0][2]?>" alt="">
-                                </a>
-                                <a href="">
-                                    <img src="../upload_file/report/<?=$img_row[1][2]?>" alt="">
+                                    <img src="../upload_file/report/<?=$img_res[0]["report_file_name"]?>" alt="">
                                 </a>
                             </div>
                             <div class="flex2_wrap item1">
                                 <a href="">
-                                    <img src="../upload_file/report/<?=$img_row[2][2]?>" alt="">
+                                    <img src="../upload_file/report/<?=$img_res[1]["report_file_name"]?>" alt="">
                                 </a>
                             </div>
-                        <?} else if(count($img_row) == 4 ) {?>
+                        <?} else if(count($img_res) == 3 ) {?>
                             <div class="flex2_wrap item2">
                                 <a href="">
-                                    <img src="../upload_file/report/<?=$img_row[0][2]?>" alt="">
+                                    <img src="../upload_file/report/<?=$img_res[0]["report_file_name"]?>" alt="">
                                 </a>
                                 <a href="">
-                                    <img src="../upload_file/report/<?=$img_row[1][2]?>" alt="">
+                                    <img src="../upload_file/report/<?=$img_res[1]["report_file_name"]?>" alt="">
+                                </a>
+                            </div>
+                            <div class="flex2_wrap item1">
+                                <a href="">
+                                    <img src="../upload_file/report/<?=$img_res[2]["report_file_name"]?>" alt="">
+                                </a>
+                            </div>
+                        <?} else if(count($img_res) == 4 ) {?>
+                            <div class="flex2_wrap item2">
+                                <a href="">
+                                    <img src="../upload_file/report/<?=$img_res[0]["report_file_name"]?>" alt="">
+                                </a>
+                                <a href="">
+                                    <img src="../upload_file/report/<?=$img_res[1]["report_file_name"]?>" alt="">
                                 </a>
                             </div>
                             <div class="flex2_wrap item2">
                                 <a href="">
-                                    <img src="../upload_file/report/<?=$img_row[2][2]?>" alt="">
+                                    <img src="../upload_file/report/<?=$img_res[2]["report_file_name"]?>" alt="">
                                 </a>
                                 <a href="">
-                                    <img src="../upload_file/report/<?=$img_row[3][2]?>" alt="">
+                                    <img src="../upload_file/report/<?=$img_res[3]["report_file_name"]?>" alt="">
                                 </a>
                             </div>
-                        <?} else if(count($img_row) == 5 ) {?>
+                        <?} else if(count($img_res) == 5 ) {?>
                             <div class="flex2_wrap item2">
                                 <a href="">
-                                    <img src="../upload_file/report/<?=$img_row[0][2]?>" alt="">
+                                    <img src="../upload_file/report/<?=$img_res[0]["report_file_name"]?>" alt="">
                                 </a>
                                 <a href="">
-                                    <img src="../upload_file/report/<?=$img_row[1][2]?>" alt="">
+                                    <img src="../upload_file/report/<?=$img_res[1]["report_file_name"]?>" alt="">
                                 </a>
                             </div>
                             <div class="flex2_wrap item3">
                                 <a href="">
-                                    <img src="../upload_file/report/<?=$img_row[2][2]?>" alt="">
+                                    <img src="../upload_file/report/<?=$img_res[2]["report_file_name"]?>" alt="">
                                 </a>
                                 <a href="">
-                                    <img src="../upload_file/report/<?=$img_row[3][2]?>" alt="">
+                                    <img src="../upload_file/report/<?=$img_res[3]["report_file_name"]?>" alt="">
                                 </a>
                                 <a href="">
-                                    <img src="../upload_file/report/<?=$img_row[4][2]?>" alt="">
+                                    <img src="../upload_file/report/<?=$img_res[4]["report_file_name"]?>" alt="">
                                 </a>
                             </div>
                         <?}?>
