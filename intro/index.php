@@ -71,13 +71,13 @@ echo "<script>location.replace('../main1');</script>";
                     // 사람은 Facebook에 로그인했지만 앱에는 로그인하지 않았습니다.
                     FB.login(function (res) {
                         // handle the response
-                        console.log(response)
                         $('#fb_id').val(response.id)
                         //checkMember(res.id, res.name, res.user_email)
 
                     }, {scope: 'public_profile,email'});
                 } else {
                     alert('페이스북에 로그인 해 주세요.');
+                    window.open("https://www.facebook.com/","_blank")
                     // 그 사람은 Facebook에 로그인하지 않았으므로이 앱에 로그인했는지 여부는 확실하지 않습니다.
                 }
 
