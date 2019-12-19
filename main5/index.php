@@ -3,7 +3,7 @@
     var page = 0;
     var block = 10;
     var liFormat = "<li class=\"sum_item\">"+
-                    "   <p class=\"con_box\">{0}<a href=\"\" class=\"more_btn\">...더보기</a></p>"+
+                    "   <p class=\"con_box\" style='overflow:hidden; white-space: pre-line; text-overflow:ellipsis;  word-wrap:break-word; display:-webkit-box; -webkit-line-clamp:8; -webkit-box-orient:vertical; ' >{0}</p><a href=\"../main_detail/?idx={2}\" class=\"more_btn\" >...더보기</a>"+
                     "   <div class=\"con_info\">"+
                     "       <p>{1}</p><p>{2}번째 제보</p><p>{3}</p>"+
                     "   </div>"+
@@ -24,7 +24,6 @@
             url:"get_data.php",
             data:{"keyword":keyword, "page":page, "block":block,"period": $('input[name="sc_opt[]"]:checked').val() },
             success:function(response) {
-                console.log(response)
                 try {
                     var res = JSON.parse(response);
                     var str = "";
