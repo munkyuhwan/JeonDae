@@ -35,6 +35,8 @@ while($row = mysqli_fetch_assoc($category_result)) {
     }
 }
 ?>
+<ul class="swiper-wrapper" id="main_list">
+
 <?foreach ($result as $k=>$v) {?>
     <li class="item swiper-slide">
         <div class="item_top user_box">
@@ -149,4 +151,11 @@ while($row = mysqli_fetch_assoc($category_result)) {
             </div>
         </div>
     </li>
-<?}?>
+<?} ?>
+
+</ul>
+<div class="swiper-pagination" id="main_paging">
+    <?foreach ($result as $k=>$v) {?>
+        <span></span>
+    <?}?>
+</div>

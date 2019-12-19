@@ -19,7 +19,6 @@ if ($_SESSION['user_access_idx']!='') {
     var block = 5;
 
     function loadData() {
-        console.log("page: "+page)
         $.ajax({
             url:"get_data.php",
             data:{"page":page, "block":block, "category_idx":<?=$idx?>, "type":"report"},
@@ -43,8 +42,6 @@ if ($_SESSION['user_access_idx']!='') {
             }
         })
     }
-
-
 
     $(window).on("scroll", function() {
         var scrollHeight = $(document).height();
@@ -78,15 +75,13 @@ if ($_SESSION['user_access_idx']!='') {
         </div>
         <div class="list_wrap popular">
             <p class="desc">이 구역의 인기글은 나야 :)</p>
-            <div class="swiper-container2">
-                <ul class="swiper-wrapper" id="main_list">
+            <div class="swiper-container2" id="main_list">
+                <!-- ul class="swiper-wrapper" id="main_list">
 
                 </ul>
-                <div class="swiper-pagination">
+                <div class="swiper-pagination" id="main_paging">
                     <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
+                </div -->
             </div>
             <a href="../main3?sub_idx=<?=$idx?>" class="more_btn">더보기</a>
         </div>
@@ -98,30 +93,33 @@ if ($_SESSION['user_access_idx']!='') {
     </section>
 </div>
 <script>
-
-    var swiper = new Swiper('.swiper-container2',{
-        effect: "slide",
-        loop: true,
-        navigation:{ nextEl: ".slide_next_btn", prevEl: ".slide_prev_btn" },
-        autoplay: { delay: 3000 },
-        on:{ slideChange: function(){
-            $(".main_visual").removeClass("bounce");
-            setTimeout(function() {
-                $(".main_visual").addClass("bounce")
-            }, 200);
-        }
-
-        }
-    });
-
     function loadMainData() {
         $.ajax({
             url:"get_main_list.php",
             data:{"page":page, "block":block, "category_idx":<?=$idx?>, "type":"top"},
             method:"POST",
             success:function(response) {
-                console.log(response)
-                $('#main_list').append(response);
+
+                $('#main_list').append( response );
+
+                swiper = new Swiper('.swiper-container2',{
+                    effect: "slide",
+                    loop: true,
+                    pagination : { // 페이징 설정
+                        el : '.swiper-pagination',
+                        clickable : true, // 페이징을 클릭하면 해당 영역으로 이동, 필요시 지정해 줘야 기능 작동
+                    },
+                    navigation:{ nextEl: ".slide_next_btn", prevEl: ".slide_prev_btn" },
+                    autoplay: { delay: 3000 },
+                    on:{ slideChange: function(){
+                        $(".main_visual").removeClass("bounce");
+                        setTimeout(function() {
+                            $(".main_visual").addClass("bounce")  }, 200);
+                        }
+                    },
+                });
+                console.log(  )
+
                 swiper.update();
             },
             error:function(error) {
