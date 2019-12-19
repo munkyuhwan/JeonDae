@@ -1,6 +1,6 @@
-<? include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/include_default.php"; // ∞¯≈Î«‘ºˆ ¿Œ≈¨∑ÁµÂ ?>
+<? include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/include_default.php"; // Í≥µÌÜµÌï®Ïàò Ïù∏ÌÅ¥Î£®Îìú ?>
 <?
-$idx = trim(sqlfilter($_REQUEST['idx']));
+$idx = trim(sqlfilter($_REQUEST['category_idx']));
 $query = "SELECT cover_img, profile_img, category_name  FROM report_categories WHERE idx=".$idx;
 $result = mysqli_query($gconnet, $query);
 $row = mysqli_fetch_assoc($result);
@@ -44,7 +44,7 @@ while($row = mysqli_fetch_assoc($category_result)) {
             <div class="info_box ">
                 <p class="name" ><?=$v['real_name']?></p>
                 <div class="etc_info">
-                    <p><?=date("mø˘ d¿œ h:i", strtotime($v['wdate']) )?></p><p><?=$v['idx']?>π¯¬∞ ¡¶∫∏</p>
+                    <p><?=date("mÏõî dÏùº h:i", strtotime($v['wdate']) )?></p><p><?=$v['idx']?>Î≤àÏß∏ Ï†úÎ≥¥</p>
                     <?$hashtags = explode(",",$v['report_hashtag'])?>
                     <?foreach($hashtags as $val) {?>
                         <button type="button"><?=$val?></button>
@@ -55,7 +55,7 @@ while($row = mysqli_fetch_assoc($category_result)) {
         <div class="item_mid">
             <div class="text_box">
                 <p  id="content_<?=$v['idx']?>" ><?=$v['content_text']?></p>
-                <button type="button" class="more_btn">...¥ı∫∏±‚</button>
+                <button type="button" class="more_btn">...ÎçîÎ≥¥Í∏∞</button>
             </div>
             <?
             $img_query = "SELECT * FROM report_additional_files WHERE report_idx=".$v['idx'];

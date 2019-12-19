@@ -120,6 +120,7 @@ if ($_SESSION['user_access_idx']!='') {
             data:{"page":page, "block":block, "category_idx":<?=$idx?>, "type":"top"},
             method:"POST",
             success:function(response) {
+                console.log(response)
                 $('#main_list').append(response);
                 swiper.update();
             },
