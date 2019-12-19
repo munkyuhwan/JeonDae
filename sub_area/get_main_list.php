@@ -60,7 +60,12 @@ while($row = mysqli_fetch_assoc($category_result)) {
             <?
             $img_query = "SELECT * FROM report_additional_files WHERE report_idx=".$v['idx'];
             $img_result = mysqli_query($gconnet, $img_query);
-            $img_row = mysqli_fetch_all($img_result);
+            $img_cnt = mysqli_num_rows($img_result);
+
+            $img_res = array();
+            while($img_row = mysqli_fetch_assoc($img_result)) {
+                array_push($img_res, $img_row);
+            }
             ?>
             <?if(count($img_row) > 0) {?>
                 <div class="img_wrap">
