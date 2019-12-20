@@ -112,9 +112,6 @@ $totalpage	= ($iTotalSubCnt - 1)/$pageScale  + 1;
 </nav>
 
 <div id="wrapper">
-    <a class="float-btn rounded" href="javascript:frmSubmit();" style="display: inline;">
-        <i class="fas fa-angle-up"></i>
-    </a>
     <!-- Sidebar -->
     <? include $_SERVER['DOCUMENT_ROOT']."/master/include/master_left.php" ?>
 
