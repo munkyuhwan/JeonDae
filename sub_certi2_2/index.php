@@ -42,8 +42,8 @@
         </div>
     </section>
 </div>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5598a9e827144b591553f97930795df1&libraries=services"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5598a9e827144b591553f97930795df1" ></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6e77fd382a50866acb40aec217b3948d&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6e77fd382a50866acb40aec217b3948d" ></script>
 <script type="text/javascript" >
     var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
 //126.94771329814067,37.540122492998684
