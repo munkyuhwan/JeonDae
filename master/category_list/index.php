@@ -120,6 +120,7 @@ $jaeboham = mysqli_fetch_assoc($category_result);
                 <div class="title-wrapper">
                     <img class="profile-img" src="../../upload_file/category_profile/<?=$jaeboham['profile_img']?>"><?=$jaeboham['category_name']?><button class="setting-btn" data-toggle="modal" data-target="#editModal" onclick="modiBtn()" ></button>
                 </div>
+                <span><a href="https://djund.com/sub_area/?idx=<?=$category_idx?>" target="_blank" >https://djund.com/sub_area/?idx=<?=$category_idx?></a></span>
             </ol>
 
             <!-- DataTables Example -->
