@@ -85,7 +85,7 @@ $result = mysqli_fetch_assoc($result);
                     </div>
 
                     <button class="btn btn-primary btn-block" type="submit" >답변완료</button>
-                    <button class="btn btn-secondary btn-block" type="button" onclick="location.href='board_list.php?<?=$total_param?>'; "  >취소</button>
+                    <button class="btn btn-secondary btn-block" type="button" onclick="location.href='./'; "  >취소</button>
                 </form>
             </div>
         </div>
