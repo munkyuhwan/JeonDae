@@ -29,7 +29,6 @@ if ($gu_idx!='') {
 
         if (mysqli_num_rows($category_result)) {
             while ($category_row = mysqli_fetch_assoc($category_result)) {
-                print_r($category_row);
                 //재보함 idx
                 $category_idx = $category_row['idx'];
 
