@@ -46,19 +46,14 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6e77fd382a50866acb40aec217b3948d" ></script>
 <script type="text/javascript" >
     var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
-//126.94771329814067,37.540122492998684
+    //126.94771329814067,37.540122492998684
     var options = { //지도를 생성할 때 필요한 기본 옵션
-        center: new kakao.maps.LatLng(37.540122, 126.947713), //지도의 중심좌표.
-        level: 3 //지도의 레벨(확대, 축소 정도)
+        //center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+        //level: 3 //지도의 레벨(확대, 축소 정도)
     };
 
-    var map = new kakao.maps.Map(container, options);
-    var geocoder = new kakao.maps.services.Geocoder();
-
-    kakao.maps.event.addListener(map, 'dragend', function() {
-        searchDetailAddrFromCoords(map.getCenter());
-    });
-
+    var map;
+    var geocoder;
 
     function searchDetailAddrFromCoords(coords) {
         // 좌표로 법정동 상세 주소 정보를 요청합니다
@@ -80,31 +75,41 @@
     function getLocation() {
         if (navigator.geolocation) {
             navigator.geolocation.watchPosition(showPosition);
-
-            searchDetailAddrFromCoords(map.getCenter());
-
         } else {
             console.log( "Geolocation is not supported by this browser." );
         }
     }
 
     function showPosition(position) {
-       console.log("Latitude: " + position.coords.latitude + " Longitude: " + position.coords.longitude );
+        console.log("Latitude: " + position.coords.latitude + " Longitude: " + position.coords.longitude );
+        options = { //지도를 생성할 때 필요한 기본 옵션
+            center: new kakao.maps.LatLng(position.coords.latitude, position.coords.longitude), //지도의 중심좌표.
+            level: 3 //지도의 레벨(확대, 축소 정도)
+        };
+
+        map = new kakao.maps.Map(container, options);
+        geocoder = new kakao.maps.services.Geocoder();
+
+        kakao.maps.event.addListener(map, 'dragend', function() {
+            searchDetailAddrFromCoords(map.getCenter());
+        });
+
+        searchDetailAddrFromCoords(map.getCenter());
     }
     getLocation();
 
     /*
-    function searchAddrFromCoords(coords) {
-        // 좌표로 행정동 주소 정보를 요청합니다
-        var callback = function(result, status) {
-            if (status === kakao.maps.services.Status.OK) {
-                console.log(result)
-            }
-        };
+     function searchAddrFromCoords(coords) {
+     // 좌표로 행정동 주소 정보를 요청합니다
+     var callback = function(result, status) {
+     if (status === kakao.maps.services.Status.OK) {
+     console.log(result)
+     }
+     };
 
-        console.log( geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback) )
-    }
-    */
+     console.log( geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback) )
+     }
+     */
 
 </script>
 
