@@ -52,6 +52,8 @@ $result = mysqli_query($gconnet,$query);
         }
     }
 
+    function hashtag
+
 </script>
 <body>
 <div class="wrapper">
@@ -93,7 +95,12 @@ $result = mysqli_query($gconnet,$query);
                                     $check_result = mysqli_query($gconnet, $check_subscribe);
                                     $check_row = mysqli_fetch_assoc($check_result);
                                     ?>
-                                    <li><input type="checkbox" id="subs<?=$cat_row['idx']?>" <?= intval($check_row['cnt'])>0 ? "checked":"" ?> ><label for="subs1<?=$cat_row['idx']?>"><?=$cat_row['sub_name']?></label></li>
+                                    <li>
+                                        <input type="checkbox" id="subs1<?=$cat_row['idx']?>" <?= intval($check_row['cnt'])>0 ? "checked":"" ?> onchange="console.log(this)" >
+                                        <label for="subs1<?=$cat_row['idx']?>">
+                                            <?=$cat_row['sub_name']?>
+                                        </label>
+                                    </li>
                                 <?}?>
                             </ul>
                         </div>
