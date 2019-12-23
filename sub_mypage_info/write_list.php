@@ -12,7 +12,7 @@ $write_result = mysqli_query($gconnet, $write_query);
     <?while($write_row = mysqli_fetch_assoc($write_result) ) {?>
         <li class="item">
             <div class="item_box">
-                <p class="con_box"><?=$write_row['content_text']?><a href="" class="more_btn">...더보기</a></p>
+                <p class="con_box" style=" overflow:hidden; text-overflow:ellipsis; word-wrap:break-word; display:-webkit-box; -webkit-line-clamp:12; -webkit-box-orient:vertical"><?=nl2br($write_row['content_text'])?></p><a href="../main_detail?idx=<?=$write_row['idx']?>" class="more_btn">...더보기</a>
                 <div class="con_info">
                     <p><?=date("m월 d일 h:i", strtotime($row['wdate']) )?></p>
                     <p><?=$write_row['idx']?>번째 제보</p>
