@@ -26,6 +26,32 @@ $result = mysqli_query($gconnet,$query);
         })
     }
 
+    function cancelSubscribe(idx) {
+        if( confirm("구독 취소를 하시겠습니까?") ) {
+            $.ajax({
+                url: "../main2/subscribe.php",
+                method: "POST",
+                data: {"idx": idx, "sub_yn": false},
+                success: function (response) {
+                    try{
+                        var res = JSON.parse(response);
+
+                        if (res.result == "success") {
+                            alert("구독이 취소되었습니다.");
+                            location.reload();
+                        }
+
+                    }catch (e) {
+
+                    }
+                },
+                error: function (err) {
+
+                }
+            })
+        }
+    }
+
 </script>
 <body>
 <div class="wrapper">
@@ -52,7 +78,7 @@ $result = mysqli_query($gconnet,$query);
                             $subscribe_result = mysqli_query($gconnet, $subscribe_query);
                             $subscribe_row = mysqli_fetch_assoc($subscribe_result);
                             ?>
-                            <button type="button">구독중</button>
+                            <button type="button" onclick="cancelSubscribe('<?=$row['idx']?>')" >구독중</button>
                         </div>
                         <div class="item_mid tag_type">
                             <h3 class="hidden">구독 카테고리</h3>
