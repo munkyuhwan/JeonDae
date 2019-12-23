@@ -52,7 +52,33 @@ $result = mysqli_query($gconnet,$query);
         }
     }
 
-    function hashtag
+    function hashtagSelection(idx, category_idx) {
+        console.log(idx)
+        console.log(category_idx)
+
+        $.ajax({
+            url:"delete_sub_cat.php",
+            data:{"idx":idx,"category_idx":category_idx},
+            success:function(response) {
+                console.log(response)
+                try{
+                    var res = JSON.parse(response);
+
+                    if (res.result == "success") {
+                        alert("해시태그 구독이 취소되었습니다.");
+                        location.reload();
+                    }
+
+                }catch (e) {
+
+                }
+            },
+            error:function(error) {
+
+            }
+        })
+
+    }
 
 </script>
 <body>
@@ -96,7 +122,7 @@ $result = mysqli_query($gconnet,$query);
                                     $check_row = mysqli_fetch_assoc($check_result);
                                     ?>
                                     <li>
-                                        <input type="checkbox" id="subs1<?=$cat_row['idx']?>" <?= intval($check_row['cnt'])>0 ? "checked":"" ?> onchange="console.log(this)" >
+                                        <input type="checkbox" id="subs1<?=$cat_row['idx']?>" <?= intval($check_row['cnt'])>0 ? "checked":"" ?> onclick="hashtagSelection('<?=$cat_row['idx']?>','<?=$row['idx']?>')" >
                                         <label for="subs1<?=$cat_row['idx']?>">
                                             <?=$cat_row['sub_name']?>
                                         </label>
