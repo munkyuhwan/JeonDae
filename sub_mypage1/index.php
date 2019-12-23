@@ -1,6 +1,6 @@
 <? include $_SERVER['DOCUMENT_ROOT'] . "/include/head.php" ?>
 <?
-$mywrite_query="SELECT COUNT(*) AS cnt FROM report_list WHERE member_idx=".$_SESSION['user_access_idx']." AND published_yn='Y' AND complete_yn='Y' AND del_yn='N' ";
+$mywrite_query="SELECT COUNT(*) AS cnt FROM report_list WHERE member_idx=".$_SESSION['user_access_idx']." AND complete_yn='Y' AND del_yn='N' ";
 $mywrite_result = mysqli_query($gconnet, $mywrite_query);
 $mywrite_cnt = mysqli_fetch_assoc($mywrite_result);
 
