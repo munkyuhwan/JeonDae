@@ -83,7 +83,7 @@ if ($_SESSION['user_access_idx']== "") {
         $query .= " , clean_index AS clean ";
     }
 
-    $query .= " WHERE report.member_idx=member.idx AND report.del_yn='N' AND report.published_yn='Y' AND report.complete_yn='Y' ";
+    $query .= " WHERE report.member_idx=member.idx AND report.del_yn='N' AND report.complete_yn='Y' ";
     if ( mysqli_num_rows($category_clean_result) > 0 ) {
         $query .= " AND report.category=clean.category_idx ";
     }
