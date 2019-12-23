@@ -43,7 +43,7 @@ $hastag_result = mysqli_query($gconnet, $hashtag_query);
                 <div class="user_wrap">
                     <div class="user_img_wrap">
                         <div class="user_img">
-                            <img id="profile_img" src="../thumb/thumb.php?src=../upload_file/member/<?=$_SESSION['profile_img']?>&size=400x300" alt="유저 사진">
+                            <img id="profile_img" src="../upload_file/member/<?=$row['file_chg']?>" alt="유저 사진">
                         </div>
                         <input type="file" name="profile_img" id="img_change" onchange="imageSelected(event)" >
                         <label for="img_change" class="img_change_btn"></label>
