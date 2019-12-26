@@ -91,18 +91,26 @@ if ($continue_idx != "") {
     $query .= " content_text = '" . $input_text . "'; ";
     $result = mysqli_query($gconnet, $query);
 
+    $lastIdxQuery = "SELECT idx FROM report_list ORDER BY idx DESC LIMIT 1";
+    $lastIdxResult = mysqli_query($gconnet, $lastIdxQuery);
+    $lastIdxRow = mysqli_fetch_assoc($lastIdxResult);
+    print_r($lastIdxRow);
+    $last_idx = $lastIdxRow['idx'];
+
     if (count($file_name_arr)>0) {
-        $query = "INSERT INTO report_additional_files SET ";
         foreach ($file_name_arr as $k => $v) {
-            $query .= "report_idx=LAST_INSERT_ID(), ";
+            $query = "INSERT INTO report_additional_files SET ";
+            $query .= "report_idx=".$last_idx.", ";
             $query .= "report_file_name='" . $v . "'; ";
+            $result = mysqli_query($gconnet, $query);
         }
+
     }
     //$query .= "COMMIT;";
 
 }
 
-$result = mysqli_query($gconnet, $query);
+
 
 if($result){
     ?>
