@@ -167,13 +167,13 @@ if ($_SESSION['user_access_idx']== "") {
                                 </div>
 
                             <? } else if ($img_cnt == 2) { ?>
-                                <div class="flex2_wrap item2">
+                                <div class="flex2_wrap ">
                                     <a href="javascript:setImages(<?= $row['report_idx'] ?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
                                         <img id="img_<?=$row['report_idx']?>" src="../upload_file/report/<?= $img_res[0]["report_file_name"] ?>"
                                              alt="">
                                     </a>
                                 </div>
-                                <div class="flex2_wrap item2">
+                                <div class="flex2_wrap ">
                                     <a href="javascript:setImages(<?= $row['report_idx']?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
                                         <img src="../upload_file/report/<?= $img_res[1]["report_file_name"]?>"
                                              alt="">
@@ -190,7 +190,7 @@ if ($_SESSION['user_access_idx']== "") {
                                              alt="">
                                     </a>
                                 </div>
-                                <div class="flex2_wrap item2">
+                                <div class="flex2_wrap ">
                                     <a href="javascript:setImages(<?= $row['report_idx'] ?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
                                         <img src="../upload_file/report/<?= $img_res[2]["report_file_name"] ?>"
                                              alt="">
@@ -218,7 +218,7 @@ if ($_SESSION['user_access_idx']== "") {
                                     </a>
                                 </div>
                             <? } else if ($img_cnt == 5) { ?>
-                                <div class="flex2_wrap item3">
+                                <div class="flex2_wrap item2">
                                     <a href="javascript:setImages(<?= $row['report_idx'] ?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
                                         <img id="img_<?=$row['report_idx']?>" src="../upload_file/report/<?= $img_res[0]["report_file_name"] ?>"
                                              alt="">
@@ -228,7 +228,7 @@ if ($_SESSION['user_access_idx']== "") {
                                              alt="">
                                     </a>
                                 </div>
-                                <div class="flex2_wrap item2">
+                                <div class="flex2_wrap item3">
                                     <a href="javascript:setImages(<?= $row['report_idx'] ?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
                                         <img src="../upload_file/report/<?= $img_res[2]["report_file_name"] ?>"
                                              alt="">
