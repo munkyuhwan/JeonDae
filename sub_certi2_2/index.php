@@ -59,7 +59,6 @@
         // 좌표로 법정동 상세 주소 정보를 요청합니다
         var callback = function(result, status) {
             if (status === kakao.maps.services.Status.OK) {
-                console.log(result);
                 $('#oldAddr').val(result[0].address.address_name);
 
                 $('#addr2').html(result[0].address.address_name)
@@ -74,14 +73,24 @@
 
     function getLocation() {
         if (navigator.geolocation) {
-            navigator.geolocation.watchPosition(showPosition);
+            navigator.geolocation.watchPosition(showPosition, errorCallback, positionOptions );
         } else {
             console.log( "Geolocation is not supported by this browser." );
         }
     }
 
+    function errorCallback(error) {
+        if (error.code == 1) {
+            alert('gps를 켜신후 새로고침 해 주세요.');
+        }
+    }
+
+    function positionOptions(options) {
+
+    }
+
     function showPosition(position) {
-        console.log("Latitude: " + position.coords.latitude + " Longitude: " + position.coords.longitude );
+
         options = { //지도를 생성할 때 필요한 기본 옵션
             center: new kakao.maps.LatLng(position.coords.latitude, position.coords.longitude), //지도의 중심좌표.
             level: 3 //지도의 레벨(확대, 축소 정도)
@@ -95,6 +104,7 @@
         });
 
         searchDetailAddrFromCoords(map.getCenter());
+
     }
     getLocation();
 
