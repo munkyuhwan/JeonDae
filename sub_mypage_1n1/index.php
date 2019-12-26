@@ -67,7 +67,7 @@ $result = mysqli_query($gconnet, $query);
             </div>
             <div class="tab_con">
                 <div class="" style="display: block;">
-                    <p class="tab_tlt">자주 묻는 질문 BEST%</p>
+                    <p class="tab_tlt">자주 묻는 질문 BEST</p>
                     <ul id="faq_list">
 
                     </ul>
