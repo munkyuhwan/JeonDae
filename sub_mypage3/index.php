@@ -53,14 +53,11 @@ $result = mysqli_query($gconnet,$query);
     }
 
     function hashtagSelection(idx, category_idx) {
-        console.log(idx)
-        console.log(category_idx)
 
         $.ajax({
             url:"delete_sub_cat.php",
             data:{"idx":idx,"category_idx":category_idx},
             success:function(response) {
-                console.log(response)
                 try{
                     var res = JSON.parse(response);
 
