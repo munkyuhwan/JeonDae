@@ -124,6 +124,7 @@ header { height:50px; }
 .list_wrap .item .img_wrap .flex2_wrap a img { position: absolute; width:100%; height:auto; bottom:0; left:0; min-height:100%;  }
 .list_wrap .item .img_wrap .flex2_wrap.item2 a { height:50%; margin-bottom:2px; }
 .list_wrap .item .img_wrap .flex2_wrap.item2 a + a { height:50%; margin:2px 0 0 0; }
+.list_wrap .item .img_wrap .flex2_wrap.item1 { width:100%; }.list_wrap .item .img_wrap .flex2_wrap.item1 { width:100%; }
 .list_wrap .item .img_wrap .flex2_wrap.item3 a { height:33.3%; margin:2px 0; }
 .list_wrap .item .img_wrap .flex2_wrap.item3 a:last-child { height:33.4%; margin:2px 0 0 0; }
 .list_wrap .item .img_wrap .flex2_wrap.item3 a:first-child { height:33.4%; margin:0 0 2px 0; }
