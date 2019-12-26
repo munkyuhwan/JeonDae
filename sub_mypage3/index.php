@@ -65,7 +65,7 @@ $result = mysqli_query($gconnet,$query);
                     var res = JSON.parse(response);
 
                     if (res.result == "success") {
-                        alert("해시태그 구독이 취소되었습니다.");
+                        //alert("해시태그 구독이 취소되었습니다.");
                         location.reload();
                     }
 
