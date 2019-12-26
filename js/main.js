@@ -66,8 +66,9 @@ $(document).ready(function(){
 		if( $(this).closest(".del_body").length){
 			return false;
 		}else{
+			console.log("ddd")
 			$(this).toggleClass("on");
-			$(this).next().slideToggle();
+			//$(this).next().slideToggle();
 		}
 
 	});
