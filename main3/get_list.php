@@ -77,13 +77,13 @@ while($row = mysqli_fetch_assoc($category_result)) {
                             </div>
 
                         <? } else if ($img_cnt == 2) { ?>
-                            <div class="flex2_wrap item1">
+                            <div class="flex2_wrap item2">
                                 <a href="javascript:setImages(<?= $row['idx'] ?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
                                     <img  id="img_<?=$row['idx']?>" src="../upload_file/report/<?= $img_res[0]["report_file_name"] ?>"
                                          alt="">
                                 </a>
                             </div>
-                            <div class="flex2_wrap item1">
+                            <div class="flex2_wrap item2">
                                 <a href="javascript:setImages(<?= $row['idx']?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
                                     <img src="../upload_file/report/<?= $img_res[1]["report_file_name"]?>"
                                          alt="">
@@ -100,7 +100,7 @@ while($row = mysqli_fetch_assoc($category_result)) {
                                          alt="">
                                 </a>
                             </div>
-                            <div class="flex2_wrap item1">
+                            <div class="flex2_wrap item2">
                                 <a href="javascript:setImages(<?= $row['idx'] ?>,<?=$row['likes']?>,<?=$row['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
                                     <img src="../upload_file/report/<?= $img_res[2]["report_file_name"] ?>"
                                          alt="">
