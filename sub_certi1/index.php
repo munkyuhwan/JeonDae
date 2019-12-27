@@ -20,6 +20,7 @@
         $("#uni_email").html( $("#uni_email_"+idx).val() );
         $("#domain").val( $("#uni_email_"+idx).val() );
         $("#uni_idx").val(idx);
+        $(".result_wrap").show();
     }
 
 </script>
@@ -45,7 +46,7 @@
                 </div>
             </div>
             <!-- 학교 검색 후 이메일 인증 영역 보여짐 -->
-            <div class="result_wrap">
+            <div class="result_wrap" style="display: none;">
                 <h3>학교 인증 이메일</h3>
                 <form name="frm" action="action.php" target="_fra_admin" >
                     <input type="hidden" name="uni_idx" id="uni_idx"  >
