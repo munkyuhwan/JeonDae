@@ -69,6 +69,15 @@ checkPopular($report_idx, $gconnet);
     <meta property="og:image" content="https://djund.com/upload_file/report/<?= $img_arr[0]["report_file_name"] ?>"/>
 
 </head>
+<style>
+    .main_content {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-wrap: break-word;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+    }
+</style>
 
 <body>
 <div class="wrapper">
@@ -98,10 +107,14 @@ checkPopular($report_idx, $gconnet);
                         <button type="button" class="pop_call" data-pop="post_pop" onclick="openEtcPopup(<?= $data['report_idx'] ?>)" ></button>
                     </div>
                     <div class="item_mid">
-                        <div class="text_box">
-                            <p id="content_<?= $data['report_idx'] ?>"><?= nl2br($data['content_text']) ?></p>
+                        <div class="text_box" >
+                            <p id="content_detail" class="main_content" style="display: -webkit-box;" >
+                                <?= nl2br($data['content_text']) ?>
+                            </p>
                         </div>
-
+                        <button type="button" class="more_btn" onclick="$('#content_detail').css('display','inline'); $(this).css('display','none') " >
+                            ...더보기
+                        </button>
                         <? if (($img_num) > 0) { ?>
                             <div class="img_wrap">
                                 <div class="flex_wrap">
