@@ -38,7 +38,7 @@ while($row = mysqli_fetch_assoc($result) ) {
     </div>
     <div class="item_mid">
         <div class="text_box">
-            <p   id="content_<?=$row['report_idx']?>" style=" overflow:hidden; text-overflow:ellipsis; word-wrap:break-word; display:-webkit-box; -webkit-line-clamp:12; -webkit-box-orient:vertical"  >
+            <p   id="content_<?=$row['report_idx']?>" style=" overflow:hidden; text-overflow:ellipsis; word-wrap:break-word; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical"  >
                 <?=nl2br( $row['content_text'] )?>
             </p>
             <button type="button" class="more_btn" onclick="location.href='../main_detail/?idx=<?=$row['report_idx']?>'; ">...더보기</button>
