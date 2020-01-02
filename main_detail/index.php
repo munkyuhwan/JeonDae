@@ -265,19 +265,21 @@ checkPopular($report_idx, $gconnet);
                             </ul>
                         </div>
                     </div>
-                    <div class="item_reply_input" id="write_comment_<?=$data['report_idx']?>">
-                        <div class="prf_box">
-                            <img src="<?= $profile_img ?>" alt="">
+                    <?if ($_SESSION['user_access_idx'] != "") {?>
+                        <div class="item_reply_input" id="write_comment_<?=$data['report_idx']?>">
+                            <div class="prf_box">
+                                <img src="<?= $profile_img ?>" alt="">
+                            </div>
+                            <div class="input_box">
+                                <form action="write_comment_action.php" method="post" name="frm">
+                                    <input type="text" name="content_txt" required>
+                                    <input type="hidden" name="report_idx" id="report_idx" value="<?= $data['report_idx'] ?>">
+                                    <input type="hidden" name="parent_idx" id="parent_idx">
+                                    <button type="submit">게시</button>
+                                </form>
+                            </div>
                         </div>
-                        <div class="input_box">
-                            <form action="write_comment_action.php" method="post" name="frm">
-                                <input type="text" name="content_txt" required>
-                                <input type="hidden" name="report_idx" id="report_idx" value="<?= $data['report_idx'] ?>">
-                                <input type="hidden" name="parent_idx" id="parent_idx">
-                                <button type="submit">게시</button>
-                            </form>
-                        </div>
-                    </div>
+                    <?}?>
                 </li>
                 <?//}?>
             </ul>
