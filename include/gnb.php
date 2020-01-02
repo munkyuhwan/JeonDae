@@ -9,7 +9,7 @@ $local = mysqli_fetch_assoc($local_res);
 <div class="snb">
     <div class="snb_wrap">
         <div class="snb_top user_wrap">
-            <div class="user_img">
+            <div class="user_img" onclick="location.href='../sub_mypage_info' ">
                 <?if($local['file_chg'] == "") {?>
                     <!-- img src="http://graph.facebook.com/<?=$local['user_id']?>/picture?type=normal" alt="유저 사진" -->
                 <?}else {?>
