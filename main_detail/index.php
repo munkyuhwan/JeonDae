@@ -120,70 +120,70 @@ checkPopular($report_idx, $gconnet);
                                 <div class="flex_wrap">
                                     <? if (($img_num) == 1) { ?>
                                         <div class="flex2_wrap item1">
-                                            <a href="javascript:setImages(<?= $data['report_idx']?>,<?=$data['likes']?>,<?=$data['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
+                                            <a href="javascript:setImages('<?= $data['report_idx']?>','<?=$data['likes']?>','<?=$data['comment_cnt']?>','<?= $img_arr[0]["idx"] ?>')" class="pop_call" data-pop="img_pop">
                                                 <img src="../upload_file/report/<?= $img_arr[0]["report_file_name"] ?>" alt="">
                                             </a>
                                         </div>
 
                                     <? } else if (($img_num) == 2) { ?>
                                         <div class="flex2_wrap item1">
-                                            <a href="javascript:setImages(<?= $data['report_idx'] ?>,<?=$data['likes']?>,<?=$data['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
+                                            <a href="javascript:setImages('<?= $data['report_idx']?>','<?=$data['likes']?>','<?=$data['comment_cnt']?>','<?= $img_arr[0]["idx"] ?>')" class="pop_call" data-pop="img_pop">
                                                 <img src="../upload_file/report/<?= $img_arr[0]["report_file_name"] ?>" alt="">
                                             </a>
                                         </div>
                                         <div class="flex2_wrap item1">
-                                            <a href="javascript:setImages(<?= $data['report_idx']?>,<?=$data['likes']?>,<?=$data['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
+                                            <a href="javascript:setImages('<?= $data['report_idx']?>','<?=$data['likes']?>','<?=$data['comment_cnt']?>','<?= $img_arr[1]["idx"] ?>')" class="pop_call" data-pop="img_pop">
                                                 <img src="../upload_file/report/<?= $img_arr[1]["report_file_name"] ?>" alt="">
                                             </a>
                                         </div>
                                     <? } else if (($img_num) == 3) { ?>
                                         <div class="flex2_wrap item2">
-                                            <a href="javascript:setImages(<?= $data['report_idx'] ?>,<?=$data['likes']?>,<?=$data['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
+                                            <a href="javascript:setImages('<?= $data['report_idx']?>','<?=$data['likes']?>','<?=$data['comment_cnt']?>','<?= $img_arr[0]["idx"] ?>')" class="pop_call" data-pop="img_pop">
                                                 <img src="../upload_file/report/<?= $img_arr[0]["report_file_name"] ?>" alt="">
                                             </a>
-                                            <a href="javascript:setImages(<?= $data['report_idx'] ?>,<?=$data['likes']?>,<?=$data['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
+                                            <a href="javascript:setImages('<?= $data['report_idx']?>','<?=$data['likes']?>','<?=$data['comment_cnt']?>','<?= $img_arr[1]["idx"] ?>')" class="pop_call" data-pop="img_pop">
                                                 <img src="../upload_file/report/<?= $img_arr[1]["report_file_name"] ?>" alt="">
                                             </a>
                                         </div>
                                         <div class="flex2_wrap item1">
-                                            <a href="javascript:setImages(<?= $data['report_idx'] ?>,<?=$data['likes']?>,<?=$data['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
+                                            <a href="javascript:setImages('<?= $data['report_idx']?>','<?=$data['likes']?>','<?=$data['comment_cnt']?>','<?= $img_arr[2]["idx"] ?>')" class="pop_call" data-pop="img_pop">
                                                 <img src="../upload_file/report/<?= $img_arr[2]["report_file_name"] ?>" alt="">
                                             </a>
                                         </div>
                                     <? } else if (($img_num) == 4) { ?>
                                         <div class="flex2_wrap item2">
-                                            <a href="javascript:setImages(<?= $data['report_idx'] ?>,<?=$data['likes']?>,<?=$data['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
+                                            <a href="javascript:setImages('<?= $data['report_idx']?>','<?=$data['likes']?>','<?=$data['comment_cnt']?>','<?= $img_arr[0]["idx"] ?>')" class="pop_call" data-pop="img_pop">
                                                 <img src="../upload_file/report/<?= $img_arr[0]["report_file_name"] ?>" alt="">
                                             </a>
-                                            <a href="javascript:setImages(<?= $data['report_idx'] ?>,<?=$data['likes']?>,<?=$data['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
+                                            <a href="javascript:setImages('<?= $data['report_idx']?>','<?=$data['likes']?>','<?=$data['comment_cnt']?>','<?= $img_arr[1]["idx"] ?>')" class="pop_call" data-pop="img_pop">
                                                 <img src="../upload_file/report/<?= $img_arr[1]["report_file_name"] ?>" alt="">
                                             </a>
                                         </div>
                                         <div class="flex2_wrap item2">
-                                            <a href="javascript:setImages(<?= $data['report_idx'] ?>,<?=$data['likes']?>,<?=$data['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
+                                            <a href="javascript:setImages('<?= $data['report_idx']?>','<?=$data['likes']?>','<?=$data['comment_cnt']?>','<?= $img_arr[2]["idx"] ?>')" class="pop_call" data-pop="img_pop">
                                                 <img src="../upload_file/report/<?= $img_arr[2]["report_file_name"] ?>" alt="">
                                             </a>
-                                            <a href="javascript:setImages(<?= $data['report_idx'] ?>,<?=$data['likes']?>,<?=$data['comment_cnt']?>)">
+                                            <a href="javascript:setImages('<?= $data['report_idx']?>','<?=$data['likes']?>','<?=$data['comment_cnt']?>','<?= $img_arr[3]["idx"] ?>')">
                                                 <img src="../upload_file/report/<?= $img_arr[3]["report_file_name"] ?>" alt="">
                                             </a>
                                         </div>
                                     <? } else if (($img_num) == 5) { ?>
                                         <div class="flex2_wrap item2">
-                                            <a href="javascript:setImages(<?= $data['report_idx'] ?>,<?=$data['likes']?>,<?=$data['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
+                                            <a href="javascript:setImages('<?= $data['report_idx']?>','<?=$data['likes']?>','<?=$data['comment_cnt']?>','<?= $img_arr[0]["idx"] ?>')" class="pop_call" data-pop="img_pop">
                                                 <img src="../upload_file/report/<?= $img_arr[0]["report_file_name"] ?>" alt="">
                                             </a>
-                                            <a href="javascript:setImages(<?= $data['report_idx'] ?>,<?=$data['likes']?>,<?=$data['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
+                                            <a href="javascript:setImages('<?= $data['report_idx']?>','<?=$data['likes']?>','<?=$data['comment_cnt']?>','<?= $img_arr[1]["idx"] ?>')" class="pop_call" data-pop="img_pop">
                                                 <img src="../upload_file/report/<?= $img_arr[1]["report_file_name"] ?>" alt="">
                                             </a>
                                         </div>
                                         <div class="flex2_wrap item3">
-                                            <a href="javascript:setImages(<?= $data['report_idx'] ?>,<?=$data['likes']?>,<?=$data['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
+                                            <a href="javascript:setImages('<?= $data['report_idx']?>','<?=$data['likes']?>','<?=$data['comment_cnt']?>','<?= $img_arr[2]["idx"] ?>')" class="pop_call" data-pop="img_pop">
                                                 <img src="../upload_file/report/<?= $img_arr[2]["report_file_name"] ?>" alt="">
                                             </a>
-                                            <a href="javascript:setImages(<?= $data['report_idx'] ?>,<?=$data['likes']?>,<?=$data['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
+                                            <a href="javascript:setImages('<?= $data['report_idx']?>','<?=$data['likes']?>','<?=$data['comment_cnt']?>','<?= $img_arr[3]["idx"] ?>')" class="pop_call" data-pop="img_pop">
                                                 <img src="../upload_file/report/<?= $img_arr[3]["report_file_name"] ?>" alt="">
                                             </a>
-                                            <a href="javascript:setImages(<?= $data['report_idx'] ?>,<?=$data['likes']?>,<?=$data['comment_cnt']?>)" class="pop_call" data-pop="img_pop">
+                                            <a href="javascript:setImages('<?= $data['report_idx']?>','<?=$data['likes']?>','<?=$data['comment_cnt']?>','<?= $img_arr[4]["idx"] ?>')" class="pop_call" data-pop="img_pop">
                                                 <img src="../upload_file/report/<?= $img_arr[4]["report_file_name"] ?>" alt="">
                                             </a>
                                         </div>

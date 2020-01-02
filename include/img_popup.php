@@ -4,8 +4,8 @@
     var popImg = "<li class=\"swiper-slide\" >"+
                  "   <img src=\"{0}\" alt=\"\">"+
                  "</li>"
-    function setImages(report_idx, likeCnt, commentCnt) {
-
+    function setImages(report_idx, likeCnt, commentCnt, imgIdx) {
+        console.log(imgIdx)
         $.ajax({
             url:"get_images.php",
             method:"POST",
@@ -17,8 +17,14 @@
                     $('#pop_comment_cnt').html(commentCnt);
                     var res = JSON.parse(response);
                     var str = "";
+                    var initialIndex = 1
+                    var i=1;
                     for(let obj of res) {
+                        if (obj.idx == imgIdx) {
+                            initialIndex = i;
+                        }
                         str += popImg.format("../upload_file/report/" + obj.report_file_name);
+                        i++;
                     }
                     $("#img_list").html("");
                     $("#img_list").html(str);
@@ -37,6 +43,7 @@
                         }
                         }
                     });
+                    swiper2.activeIndex = initialIndex;
                     swiper2.update();
 
 
