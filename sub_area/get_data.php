@@ -171,7 +171,7 @@ while($row = mysqli_fetch_assoc($result) ) {
                             <div class="reply_inner" id="div_<?=$type?>_<?=$comment_row['comment_idx']?>">
                                 <div class="prf_box">
                                     <?if($row['file_chg'] == "") {?>
-                                        <img src="http://graph.facebook.com/<?=$comment_row['user_id']?>/picture?type=normal" alt="유저 사진">
+                                        <!-- img src="http://graph.facebook.com/<?//=$comment_row['user_id']?>/picture?type=normal" alt="유저 사진" -->
                                     <?}else {?>
                                         <img src="../upload_file/member/<?=$comment_row['file_chg']?>" alt="">
                                     <?}?>
@@ -191,7 +191,7 @@ while($row = mysqli_fetch_assoc($result) ) {
                                 <div class="reply_inner"  id="div_<?=$type?>_<?=$comment_row['parent_idx']?>_<?= $comment_row['comment_idx'] ?>" >
                                     <div class="prf_box">
                                         <?if($row['file_chg'] == "") {?>
-                                            <img src="http://graph.facebook.com/<?=$comment_row['user_id']?>/picture?type=normal" alt="유저 사진">
+                                            <!-- img src="http://graph.facebook.com/<?//=$comment_row['user_id']?>/picture?type=normal" alt="유저 사진" -->
                                         <?}else {?>
                                             <img src="../upload_file/member/<?=$comment_row['file_chg']?>" alt="">
                                         <?}?>

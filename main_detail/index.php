@@ -211,7 +211,10 @@ checkPopular($report_idx, $gconnet);
                                     <li class="reply_item user_box" >
                                         <div class="reply_inner" >
                                             <div class="prf_box">
-                                                <img src="../upload_file/member/<?= $r['file_chg'] ?>" alt="">
+                                                <?if($r['file_chg']=="") {?>
+                                                <?}else {?>
+                                                    <img src="../upload_file/member/<?= $r['file_chg'] ?>" alt="">
+                                                <?}?>
                                             </div>
                                             <div class="info_box ">
                                                 <div class="reply_top">
@@ -236,8 +239,10 @@ checkPopular($report_idx, $gconnet);
                                                     <li class="reply_item user_box" >
                                                         <div class="reply_inner">
                                                             <div class="prf_box">
-                                                                <img src="../upload_file/member/<?= $sub_row['file_chg'] ?>"
-                                                                     alt="">
+                                                                <?if($r['file_chg']=="") {?>
+                                                                <?}else {?>
+                                                                    <img src="../upload_file/member/<?= $sub_row['file_chg'] ?>" alt="">
+                                                                <?}?>
                                                             </div>
                                                             <div class="info_box ">
                                                                 <div class="reply_top"><p

@@ -41,7 +41,7 @@ function https_redirect($ssl=false)
 		die();
 	}
 }
-https_redirect();
+//https_redirect();
 
 
 
