@@ -70,7 +70,7 @@ if ($_SESSION['user_access_idx']== "") {
 
     $hashtag_like_query = substr($hashtag_like_query, 0, -3);
 
-    $query = "SELECT report.idx AS report_idx, report.category AS categrory_idx, report.content_text, report.report_hashtag, report.bad_report ";
+    $query = "SELECT report.idx AS report_idx, report.category AS categrory_idx, report.content_text, report.report_hashtag, report.bad_report, report.wdate ";
     $query .= " ,report.likes, (SELECT COUNT(*) FROM report_comments WHERE report_idx=report.idx AND del_yn='N') AS comment_cnt ";
     $query .= " ,member.file_chg, member.real_name, member.user_id ";
 
