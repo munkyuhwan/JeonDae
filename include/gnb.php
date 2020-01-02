@@ -11,9 +11,9 @@ $local = mysqli_fetch_assoc($local_res);
         <div class="snb_top user_wrap">
             <div class="user_img">
                 <?if($local['file_chg'] == "") {?>
-                    <img src="http://graph.facebook.com/<?=$local['user_id']?>/picture?type=normal" alt="유저 사진">
+                    <!-- img src="http://graph.facebook.com/<?=$local['user_id']?>/picture?type=normal" alt="유저 사진" -->
                 <?}else {?>
-                    <img src="../upload_file/member/<?=$local['file_chg']?>" alt="유저 사진">
+                    <img src="../upload_file/member/<?=$local['file_chg']?>" alt="유저 사진" >
                 <?}?>
             </div>
             <div class="user_name">
