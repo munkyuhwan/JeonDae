@@ -4,6 +4,7 @@ $block = trim(sqlfilter($_REQUEST['block']));;
 $scroll_num = trim(sqlfilter($_REQUEST['page']));;
 
 $query = "SELECT report.idx AS report_idx, report.wdate, report.content_text, report.report_hashtag, report.likes, (SELECT COUNT(*) AS cnt FROM report_comments WHERE report_idx=report.idx) AS comment_cnt,  member.real_name, member.file_chg, member.user_id  FROM report_list AS report, member_info AS member WHERE report.del_yn='N' AND report.complete_yn='Y' AND report.del_yn='N' AND report.member_idx=member.idx AND report.member_idx=".$_SESSION['user_access_idx'];
+$query .= " ORDER BY report.idx DESC ";
 $query_limit .= $query." LIMIT ".($block*$scroll_num)." , ".$block ;
 $result = mysqli_query($gconnet,$query_limit);
 

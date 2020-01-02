@@ -7,7 +7,8 @@ $comment_cnt_query = "SELECT COUNT(*) AS cnt FROM report_comments AS comm, repor
 $comment_cnt_result = mysqli_query($gconnet, $comment_cnt_query);
 $comment_cnt_row = mysqli_fetch_assoc($comment_cnt_result);
 
-$comment_query = "SELECT comm.comment_txt, comm.idx, report.content_text, report.report_hashtag, report.idx AS report_idx, member.file_chg, member.real_name FROM report_comments AS comm, report_list AS report, member_info AS member WHERE comm.member_idx=".$_SESSION['user_access_idx']." AND comm.report_idx=report.idx AND comm.member_idx=member.idx ";
+$comment_query = "SELECT comm.comment_txt, comm.idx, comm.wdate, report.content_text, report.report_hashtag, report.idx AS report_idx, member.file_chg, member.real_name FROM report_comments AS comm, report_list AS report, member_info AS member WHERE comm.member_idx=".$_SESSION['user_access_idx']." AND comm.report_idx=report.idx AND comm.member_idx=member.idx ";
+$comment_query .= " ORDER BY comm.idx DESC ";
 $limit = " LIMIT ".($block*$scroll_num).",".$block;
 $comment_query .= $limit;
 
