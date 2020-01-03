@@ -1,5 +1,6 @@
 <? include $_SERVER['DOCUMENT_ROOT'] . "/include/head.php" ?>
 <?
+/*
 $category_query = "SELECT report.category_idx, pop.view_cnt, pop.comment_cnt, pop.like_cnt, (SELECT COUNT(*) AS comment_cnt FROM report_comments WHERE report_idx=report.category_idx ) AS reply_cnt ";
 $category_query .= "FROM subscribe_list AS report, popular_feeds AS pop WHERE 1 ";
 $category_query .= " AND report.member_idx=".$_SESSION['user_access_idx']." AND report.category_idx=pop.category_idx ";
@@ -24,7 +25,14 @@ while($row = mysqli_fetch_assoc($category_result)) {
         array_push($categories, $sub_row['sub_name']);
 
     }
-
+}
+*/
+$query_category = "SELECT cat_name.sub_name FROM subscribe_list AS subscribe, report_sub_categories AS cat_name  WHERE subscribe.member_idx=".$_SESSION['user_access_idx']." AND subscribe.sub_category_idx=cat_name.idx ";
+$query_category_result = mysqli_query($gconnet, $query_category);
+$hashtag_str = "";
+while($row = mysqli_fetch_assoc($query_category_result)) {
+    $hashtag_str .= "#".$row['sub_name'].",";
+    array_push($categories, $row['sub_name']);
 }
 $select_incomplete = "SELECT report.idx, report.content_text, report.wdate, report.report_hashtag ";
 //$select_incomplete .= " , add_files.idx AS file_idx, add_files.report_file_name ";
@@ -143,7 +151,7 @@ $incomplete_cnt = mysqli_num_rows($incomplete_result);
             </div>
             <div class="write_bot">
                 <div class="tag_input">
-                    <textarea name="hash_tags" id="hash_tags" placeholder="태그를 입력해주세요. 예) #성동구 #홍대" required onkeyup="addHashtag()"  ><? foreach($categories as $k=>$v){ echo "#".$v; echo ","; }?></textarea>
+                    <textarea name="hash_tags" id="hash_tags" placeholder="태그를 입력해주세요. 예) #성동구 #홍대" required onkeyup="addHashtag()"  ><?=$hashtag_str?></textarea>
                 </div>
                 <div class="add_wrap" id="photo_wrapper">
                     <button type="button" class="add_img_btn" onclick="addFile();"></button>
