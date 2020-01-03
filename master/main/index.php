@@ -32,6 +32,32 @@ $result = mysqli_query($gconnet,$query);
         $("#addFrm").submit();
     }
 </script>
+<script>
+
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '966680140341971',
+            cookie     : true,
+            xfbml      : true,
+            version    : 'v5.0'
+        });
+
+        FB.AppEvents.logPageView();
+        //checkLoginState();
+    };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+
+
+
+</script>
 <body id="page-top">
 
 <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
@@ -108,6 +134,7 @@ $result = mysqli_query($gconnet,$query);
                     </div>
                 </div>
             </div>
+            <div class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with" data-auto-logout-link="false" data-use-continue-as="false"></div>
 
         </div>
 
@@ -115,6 +142,18 @@ $result = mysqli_query($gconnet,$query);
     <!-- /.content-wrapper -->
 
 </div>
+
+
+
+<!-- /#wrapper -->
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v5.0&appId=966680140341971&autoLogAppEvents=1"></script>
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+
 <!-- /#wrapper -->
 
 <!-- Scroll to Top Button-->
