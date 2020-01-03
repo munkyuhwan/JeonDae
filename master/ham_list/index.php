@@ -31,7 +31,7 @@ $s_order = trim(sqlfilter($_REQUEST['s_order'])); // 목록 정렬
 ################## 파라미터 조합 #####################
 $total_param = 'bmenu='.$bmenu.'&smenu='.$smenu.'&field='.$field.'&keyword='.$keyword.'&v_sect='.$v_sect.'&s_gubun='.$s_gubun.'&s_level='.$s_level.'&s_gender='.$s_gender.'&s_sect1='.$s_sect1.'&s_sect2='.$s_sect2.'&s_cnt='.$s_cnt.'&s_order='.$s_order;
 
-$query = "SELECT report.idx AS report_idx, report.content_text, report.report_hashtag, report.category, report.likes, member.real_name, member.file_chg  FROM report_list AS report, member_info AS member WHERE report.del_yn='N' AND report.member_idx=member.idx ";
+$query = "SELECT report.idx AS report_idx, report.content_text, report.report_hashtag, report.category, report.likes, member.real_name, member.file_chg  FROM report_list AS report, member_info AS member WHERE report.del_yn='N' AND report.complete_yn='Y' AND report.member_idx=member.idx ";
 $query .= " ORDER BY report.idx DESC ";
 $query_limit .= $query." LIMIT ".$StarRowNum." , ".$EndRowNum ;
 $result = mysqli_query($gconnet,$query_limit);
