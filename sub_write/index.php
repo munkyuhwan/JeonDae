@@ -57,40 +57,62 @@ $incomplete_cnt = mysqli_num_rows($incomplete_result);
         "   <input hidden type=\"file\" name=\"add_pic[]\" onblur='onFileChoose(event,this)' onchange=\"onFileChoose(event, this)\" >"+
         "</div>";
 
-    function onFileChoose(event, el) {
+    var fileReaderObj = new Array();
 
-        var str = "";
-        var reader = new FileReader;
-        reader.onload = function() {
-            str = addPicTmp.format(reader.result);
-            var idx = $("input[name='add_pic[]']").index(el)
-            $("img[name='tmp_img']")[idx].src=reader.result;
-        };
-        reader.readAsDataURL(event.target.files[0]);
-        $("#picCnt").html( $("div[name='img_wrapper']").length );
-    }
+    function onFileChoose(event) {
 
-    function addFile() {
-        if ( checkCnt() == true ) {
-            var str = "";
-            str = addPicTmp.format("");
-            $('#photo_wrapper').append(str);
-            var inpLength = $("input[name='add_pic[]']").length;
-            $("input[name='add_pic[]']")[inpLength - 1].click()
+        var i=0;
 
-        }else {
-            alert('5개 이상 추가하실 수 없습니다.');
+        for (let obj of event.target.files) {
+            if (i >= 4) break;
+            var reader = new FileReader;
+            reader.onload = function(e) {
+                fileReaderObj.push(e)
+                if (i >= (event.target.files.length-1) ) {
+                    setDisplay();
+                }
+                i++;
+
+            };
+            reader.readAsDataURL(obj);
         }
 
     }
 
+    function setDisplay() {
+
+        if (fileReaderObj.length >= 5) {
+            $("#add_btn").css("display","none")
+        }else {
+            $("#add_btn").css("display","block")
+        }
+
+        var i=0;
+        for(let data of fileReaderObj) {
+            $("div[name='img_wrapper[]']")[i].style.display = "block"
+            $("img[name='tmp_img[]']")[i].src = data.srcElement.result
+            i++
+        }
+
+    }
+
+    function addFile() {
+        if ( checkCnt() == true ) {
+            $("#img_select").click()
+        }else {
+            alert('5개 이상 추가하실 수 없습니다.');
+        }
+    }
+
     function deleteFile(ord) {
         var idx = $("button[name=del_btn]").index(ord);
-        $("div[name='img_wrapper']")[idx].remove()
+        fileReaderObj.splice(idx,1)
+        $("div[name='img_wrapper[]']")[idx].style.display = "none"
+        setDisplay()
     }
 
     function checkCnt() {
-        if ($("div[name='img_wrapper']").length < 5) {
+        if (fileReaderObj.length < 5) {
             return true;
         }else {
             return false;
@@ -98,21 +120,6 @@ $incomplete_cnt = mysqli_num_rows($incomplete_result);
     }
 </script>
 <script>
-    /*
-    window.onbeforeunload = function (e) {
-        $("#complete_yn").val("N")
-        var message = "Your confirmation message goes here.",
-            e = e || window.event;
-        // For IE and Firefox
-        if (e) {
-            e.returnValue = message;
-        }
-        $("#cancelBtn").click()
-        // For Safari
-        return false;
-    };
-    */
-
     function addHashtag() {
 
         var str = "";
@@ -154,7 +161,38 @@ $incomplete_cnt = mysqli_num_rows($incomplete_result);
                     <textarea name="hash_tags" id="hash_tags" placeholder="태그를 입력해주세요. 예) #성동구 #홍대" required onkeyup="addHashtag()"  ><?=$hashtag_str?></textarea>
                 </div>
                 <div class="add_wrap" id="photo_wrapper">
-                    <button type="button" class="add_img_btn" onclick="addFile();"></button>
+                    <input type="file" name="img_select" id="img_select" onblur='onFileChoose(event,this)' onchange="onFileChoose(event, this)" style="display: none;" multiple accept="image/*" >
+                    <button type="button" class="add_img_btn" id="add_btn" onclick="addFile();"></button>
+
+                    <div class="added_img" name='img_wrapper[]' style="display: none;" >
+                        <img alt="" name='tmp_img[]' src='' >
+                        <button  type="button" class="img_del" name='del_btn' onclick='deleteFile(this)'></button>
+                        <input hidden type="file" name="add_pic[]" onblur='onFileChoose(event,this)' onchange="onFileChoose(event, this)" >
+                    </div>
+
+                    <div class="added_img" name='img_wrapper[]'  style="display: none;">
+                        <img alt="" name='tmp_img[]' src='' >
+                        <button  type="button" class="img_del" name='del_btn' onclick='deleteFile(this)'></button>
+                        <input hidden type="file" name="add_pic[]" onblur='onFileChoose(event,this)' onchange="onFileChoose(event, this)" >
+                    </div>
+
+                    <div class="added_img" name='img_wrapper[]' style="display: none;" >
+                        <img alt="" name='tmp_img[]' src='' >
+                        <button  type="button" class="img_del" name='del_btn' onclick='deleteFile(this)'></button>
+                        <input hidden type="file" name="add_pic[]" onblur='onFileChoose(event,this)' onchange="onFileChoose(event, this)" >
+                    </div>
+
+                    <div class="added_img" name='img_wrapper[]' style="display: none;" >
+                        <img alt="" name='tmp_img[]' src='' >
+                        <button  type="button" class="img_del" name='del_btn' onclick='deleteFile(this)'></button>
+                        <input hidden type="file" name="add_pic[]" onblur='onFileChoose(event,this)' onchange="onFileChoose(event, this)" >
+                    </div>
+
+                    <div class="added_img" name='img_wrapper[]' style="display: none;" >
+                        <img alt="" name='tmp_img[]' src='' >
+                        <button  type="button" class="img_del" name='del_btn' onclick='deleteFile(this)'></button>
+                        <input hidden type="file" name="add_pic[]" onblur='onFileChoose(event,this)' onchange="onFileChoose(event, this)" >
+                    </div>
                 </div>
                 <p class="img_cnt"><span id="picCnt">0</span> / 5</p>
             </div>
