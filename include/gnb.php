@@ -6,7 +6,7 @@ $local_appr = "SELECT local, area_appr_yn, uni, file_chg, user_id FROM member_in
 $local_res = mysqli_query($gconnet, $local_appr);
 $local = mysqli_fetch_assoc($local_res);
 ?>
-<div class="snb">
+<div class="snb" onclick="$('.snb_close').click(); ">
     <div class="snb_wrap">
         <div class="snb_top user_wrap">
             <div class="user_img" onclick="location.href='../sub_mypage_info' ">
