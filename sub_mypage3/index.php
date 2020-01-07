@@ -11,6 +11,7 @@ $result = mysqli_query($gconnet,$query);
             url:"update_clean_index.php",
             data:{"categoryIdx":categoryIdx,"cleanIdx":cleanIndex},
             success:function(response) {
+
                 try {
                     var res = JSON.parse(response);
                     if(res.result==true) {

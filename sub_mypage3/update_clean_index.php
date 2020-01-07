@@ -3,7 +3,7 @@
 $categoryIdx = trim(sqlfilter($_REQUEST['categoryIdx']));
 $cleanIdx = trim(sqlfilter($_REQUEST['cleanIdx']));
 
-$select ="SELECT idx FROM user_clean_index WHERE member_idx=".$_SESSION['user_access_idx']." AND categoryIdx=".$categoryIdx;
+$select ="SELECT idx FROM user_clean_index WHERE member_idx=".$_SESSION['user_access_idx']." AND category_idx=".$categoryIdx;
 $select_result = mysqli_query($gconnet, $select);
 $select_cnt = mysqli_num_rows($select_result);
 
