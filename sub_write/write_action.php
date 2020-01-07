@@ -94,7 +94,6 @@ if ($continue_idx != "") {
     $lastIdxQuery = "SELECT idx FROM report_list ORDER BY idx DESC LIMIT 1";
     $lastIdxResult = mysqli_query($gconnet, $lastIdxQuery);
     $lastIdxRow = mysqli_fetch_assoc($lastIdxResult);
-    print_r($lastIdxRow);
     $last_idx = $lastIdxRow['idx'];
 
     if (count($file_name_arr)>0) {
