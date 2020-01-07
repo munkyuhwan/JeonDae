@@ -194,14 +194,14 @@ checkPopular($report_idx, $gconnet);
                             <?
                         } ?>
                         <div class="btn_box">
-                            <button type="button" class="like_btn" onclick="likeClick(<?= $data['report_idx'] ?>)" ><?= $data['likes'] ?></button>
+                            <button type="button" class="like_btn" id="like_btn_<?=$row['report_idx']?>" onclick="likeClick(<?= $data['report_idx'] ?>)" ><?= $data['likes'] ?></button>
                             <span class="reply_cnt"><?= $data['comment_cnt'] ?></span>
                         </div>
                     </div>
                     <div class="item_bot">
                         <div class="reply_list">
                             <?
-                            $comment_query = "SELECT report.comment_txt, report.idx AS comment_idx, report.parent_idx, report.wdate, (SELECT real_name FROM member_info WHERE idx=report.member_idx ) AS member_name, (SELECT file_chg FROM member_info WHERE idx=report.member_idx ) AS file_chg  FROM report_comments AS report WHERE report.del_yn='N' AND parent_idx=0 AND report.report_idx=" . $data['report_idx'] . " ORDER BY idx DESC LIMIT 0,2";
+                            $comment_query = "SELECT report.comment_txt, report.idx AS comment_idx, report.parent_idx, report.wdate, (SELECT real_name FROM member_info WHERE idx=report.member_idx ) AS member_name, (SELECT file_chg FROM member_info WHERE idx=report.member_idx ) AS file_chg  FROM report_comments AS report WHERE report.del_yn='N' AND parent_idx=0 AND report.report_idx=" . $data['report_idx'] . " ORDER BY idx DESC ";
                             $comment_res = mysqli_query($gconnet, $comment_query);
                             ?>
                             <button type="button" class="reply_all">댓글 <span><?= $data['comment_cnt'] ?></span>개 모두 보기</button>

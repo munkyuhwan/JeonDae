@@ -23,9 +23,22 @@ function addToAlarm($alarmType, $reportIdx, $memberIdx, $alarmMsg, $gconnet) {
 }
 */
 if (intval($my_like['cnt']) > 0) {
+
+    $delete_query = "DELETE FROM report_likes WHERE report_idx=".$report_idx." AND member_idx=".$_SESSION['user_access_idx'];
+    $delete_result = mysqli_query($gconnet, $delete_query);
+
+    $select_query = "SELECT likes, member_idx FROM report_list WHERE idx=" . $report_idx;
+    $select_result = mysqli_query($gconnet, $select_query);
+    $select_row = mysqli_fetch_assoc($select_result);
+    $likes_cnt = $select_row['likes'];
+
+    $update_query = "UPDATE report_list SET likes=" . ($likes_cnt - 1) . " WHERE idx=" . $report_idx;
+    $update_result = mysqli_query($gconnet, $update_query);
+
     $response = array(
         "result"=>"fail",
-        "msg" => "이미 좋아요를 하셨습니다."
+        "like_cnt" => ($likes_cnt - 1),
+        "msg" => "좋아요가 취소되었습니다."
     );
 }else {
 
@@ -51,6 +64,7 @@ if (intval($my_like['cnt']) > 0) {
     if ($update_result) {
         $response = array(
             "result" => "success",
+            "like_cnt" => ($likes_cnt + 1),
             "msg" => "좋아요를 하셨습니다."
         );
     } else {
@@ -62,4 +76,5 @@ if (intval($my_like['cnt']) > 0) {
 
 }
 echo json_encode($response);
+exit();
 ?>

@@ -146,7 +146,7 @@ while($row = mysqli_fetch_assoc($category_result)) {
                 </div>
             <?}?>
             <div class="btn_box">
-                <button type="button" class="like_btn"><?=$v['likes']?></button>
+                <button type="button" id="like_btn_<?=$row['idx']?>" class="like_btn"><?=$v['likes']?></button>
                 <span class="reply_cnt"><?=$v['comment_cnt']?></span>
             </div>
         </div>

@@ -31,6 +31,7 @@ function likeClick(report_idx) {
 
             try{
                 var res = JSON.parse(response);
+                $("#like_btn_"+report_idx).html(res.like_cnt)
                 toast(res.msg)
             }catch(e) {
 

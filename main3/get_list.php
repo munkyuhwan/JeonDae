@@ -158,7 +158,7 @@ while($row = mysqli_fetch_assoc($category_result)) {
                 </div>
             <?}?>
             <div class="btn_box">
-                <button type="button" class="like_btn" onclick="likeClick(<?= $row['idx'] ?>)" ><?=$row['likes']?></button>
+                <button type="button" class="like_btn" id="like_btn_<?=$row['idx']?>" onclick="likeClick(<?= $row['idx'] ?>)" ><?=$row['likes']?></button>
                 <span class="reply_cnt" ><?=$row['comment_cnt']?></span>
             </div>
         </div>
