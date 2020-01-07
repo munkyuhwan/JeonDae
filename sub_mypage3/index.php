@@ -95,7 +95,7 @@ $result = mysqli_query($gconnet,$query);
                     <li class="item">
                         <div class="item_top">
                             <div class="subs_img">
-                                <img src="../thumb/thumb.php?src=../upload_file/category_profile/<?=$row['profile_img']?>" alt="">
+                                <img src="../upload_file/category_profile/<?=$row['profile_img']?>" alt="">
                             </div>
                             <h2 class="subs_tlt"><?=$row['category_name']?> 대신 전해 드립니다</h2>
                             <?
