@@ -2,19 +2,40 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/email_approval/index.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/external_write/index.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/include/etc_popup.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/include/head.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/include/header.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/include/like_clicked.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/index.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/intro/index.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/join/index.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/join/join_action.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js/functions.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/logout/index.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/main1/additional_action.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/main1/get_list.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/main1/index.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/main1/write_comment_action.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/main3/additional_action.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/main3/get_list.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/main3/index.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/main3/write_comment_action.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/main4/get_data.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/main_detail/index.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/main_detail/write_comment_action.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/main_shared/index.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/master/category_list/edit_action.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/master/enquery/action.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/master/enquery/detail.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/master/enquery/index.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pro_inc/send_email.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sub_area/additional_action.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sub_area/do_subscribe.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sub_area/get_data.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sub_area/get_main_list.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sub_area/write_comment_action.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sub_certi1/email_approve.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sub_certi1/index.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sub_certi2/index.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sub_certi2_1/index.php" charset="UTF-8" />
@@ -24,14 +45,22 @@
     <file url="file://$PROJECT_DIR$/sub_mypage1/comment_template.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sub_mypage1/index.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sub_mypage1/list_template.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sub_mypage2/additional_action.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sub_mypage2/get_data.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sub_mypage2/index.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sub_mypage3/index.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sub_mypage3/update_clean_index.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sub_mypage_1n1/action.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sub_mypage_1n1/index.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sub_mypage_1n1/modify.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sub_mypage_1n1/modify_action.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sub_mypage_alrim/index.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sub_mypage_info/edit_action.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sub_mypage_info/get_comment_list.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sub_mypage_info/get_like_list.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sub_mypage_info/get_write_list.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sub_mypage_noti/index.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sub_write/get_additional_files.php" charset="UTF-8" />
     <file url="PROJECT" charset="EUC-KR" />
   </component>
 </project>

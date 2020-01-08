@@ -44,6 +44,7 @@ $local = mysqli_fetch_assoc($local_res);
                 <li class="snb_menu2"><a href="../sub_mypage2"><p><img src="../images/icon_snb_menu2.png" width="10" alt=""></p> 스크랩 한 글</a></li>
                 <li class="snb_menu3"><a href="../sub_mypage3"><p><img src="../images/icon_snb_menu3.png" width="15" alt=""></p> 구독관리</a></li>
                 <li class="snb_menu4"><a href="../sub_mypage4"><p><img src="../images/icon_snb_menu4.png" width="15" alt=""></p> 일반설정</a></li>
+                <li class="snb_menu4"><a href="../logout">로그아웃</a></li>
             </ul>
         </div>
         <button type="button" class="snb_close"></button>
