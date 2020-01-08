@@ -1,4 +1,4 @@
-<? include $_SERVER['DOCUMENT_ROOT'] . "/include/head.php" ?>
+<? include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/include_default.php"; // ê³µí†µí•¨ìˆ˜ ì¸í´ë£¨ë“œ ?>
 <?
 $total_param = trim(sqlfilter($_REQUEST['total_param']));
 $idx = trim(sqlfilter($_REQUEST['idx']));
@@ -9,12 +9,12 @@ $result = mysqli_query($gconnet, $query);
 $response = array();
 if($result) {
     $response = array(
-        "msg"=>"»èÁ¦µÇ¾ú½À´Ï´Ù."
+        "msg"=>"ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤."
     );
 }else {
 
     $response = array(
-        "msg"=>"¿À·ù°¡ ¹ß»ıÇß½À´Ï´Ù."
+        "msg"=>"ì˜¤ë¥˜ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤."
     );
 }
 echo json_encode($response);

@@ -1,8 +1,5 @@
 <? include $_SERVER['DOCUMENT_ROOT'] . "/include/head.php" ?>
-<?
-$query = "SELECT * FROM enquries_list WHERE member_idx=".$_SESSION['user_access_idx']." ORDER BY idx DESC ";
-$result = mysqli_query($gconnet, $query);
-?>
+
 <script>
     var page = 0;
     var block = 10;
@@ -27,6 +24,8 @@ $result = mysqli_query($gconnet, $query);
 
         })
     }
+    var questionPage=0;
+    var questionBlock = 5;
 
     function deleteFaq(idx) {
         if(confirm('삭제 하시겠습니까?')) {
@@ -38,7 +37,9 @@ $result = mysqli_query($gconnet, $query);
                     try {
                         var res = JSON.parse(response);
                         alert(res.msg);
-                        location.reload();
+                        questionPage = 0;
+                        getQuestions(true);
+                        //location.reload();
                     }catch (e) {
 
                     }
@@ -50,6 +51,52 @@ $result = mysqli_query($gconnet, $query);
         }
     }
 
+
+    function getQuestions(init) {
+        $.ajax({
+            url: "get_my_question.php",
+            data: {"page":questionPage,"block":questionBlock},
+            method: "post",
+            success: function (response) {
+
+                if (response != "") {
+                    if (init) {
+                        $("#question_list").html("")
+                        $("#question_list").html(response);
+                        $(".slide_top").on("click",function(){
+                            if( $(this).closest(".del_body").length){
+                                return false;
+                            }else{
+                                $(this).toggleClass("on");
+                                $(this).next().slideToggle();
+                            }
+                        });
+                    }else {
+                        $("#question_list").append(response);
+
+                    }
+
+                    questionPage += questionBlock
+                }
+
+            },
+            error: function (error) {
+
+            }
+        })
+    }
+
+    $(document).ready(function() {
+        getQuestions(false);
+    })
+
+    $(window).on("scroll", function() {
+        var scrollHeight = $(document).height();
+        var scrollPosition = $(window).height() + $(window).scrollTop();
+        if ((scrollHeight - scrollPosition) / scrollHeight === 0) {
+            getQuestions();
+        }
+    });
 </script>
 <body onload="getFaq();">
 <div class="wrapper">
@@ -63,7 +110,7 @@ $result = mysqli_query($gconnet, $query);
         <div class="inquiry_list">
             <div class="tab_menu">
                 <button type="button" class="on">자주묻는질문</button>
-                <button type="button" class="">1:1문의</button>
+                <button type="button" class="" onclick="getQuestions()">1:1문의</button>
             </div>
             <div class="tab_con">
                 <div class="" style="display: block;">
@@ -81,32 +128,9 @@ $result = mysqli_query($gconnet, $query);
                         </form>
                     </div>
                     <p class="tab_tlt">내 문의내역</p>
-                    <ul>
+                    <ul id="question_list">
                         <!-- <li class="empty">문의 내역이 없습니다.</li> -->
-                        <?while($row = mysqli_fetch_assoc($result)) {?>
-                            <li>
-                                <div class="slide_top" >
-                                    <p class="answer <?= str_replace(["Y","N"],["on",""],$row['reply_yn']) ?>" ><?= str_replace(["Y","N"],["답변 완료","답변 대기"],$row['reply_yn']) ?></p>
-                                    <p class="date"><?=date("Y년 m월d일", strtotime($row['wdate']))?></p>
-                                    <p class="tlt"><?=$row['q_title']?></p>
-                                </div>
-                                <div class="slide_bot">
-                                    <div class="ques">
-                                        <?=$row['q_text']?>
-                                        <?if($row['member_idx']==$_SESSION['user_access_idx']) {?>
-                                            <div class="btn_row">
-                                                <button type="button" class="blue_btn" onclick="location.href='modify.php?idx=<?=$row['idx']?>'; " >수정</button><button type="button" onclick="deleteFaq(<?=$row['idx']?>)" >삭제</button>
-                                            </div>
-                                        <?}?>
-                                    </div>
-                                    <? if($row['reply_yn'] == "Y" ) {?>
-                                        <div class="answer">
-                                            <?=$row['q_reply']?>
-                                        </div>
-                                    <?}?>
-                                </div>
-                            </li>
-                        <?}?>
+
                     </ul>
                 </div>
             </div>
