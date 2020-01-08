@@ -164,8 +164,8 @@ if (!in_array($currentLoc, $SIGNUP_NOT_REQUIRED)) {
 
 		?>
 		<script>
-			//alert('로그인 후 이용해 주세요.');
-			//location.replace("../intro");
+			alert('로그인 후 이용해 주세요.');
+			location.replace("../intro");
 		</script>
 		<?
 
