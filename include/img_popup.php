@@ -2,10 +2,9 @@
 
 <script type="application/javascript">
     var popImg = "<li class=\"swiper-slide\" >"+
-                 "   <img src=\"{0}\" alt=\"\">"+
+                 "   <img src=\"../thumb/thumb.php?src={0}&size=<500\" alt=\"\">"+
                  "</li>"
     function setImages(report_idx, likeCnt, commentCnt, imgIdx) {
-        console.log(imgIdx)
         $.ajax({
             url:"get_images.php",
             method:"POST",
