@@ -9,7 +9,10 @@ $category_query .= "FROM subscribe_list AS report, popular_feeds AS pop WHERE 1 
 if ( trim(sqlfilter($_REQUEST['sub_idx'])) ) {
     $category_query .= " AND report.category_idx=".trim(sqlfilter($_REQUEST['sub_idx']))." ";
 }
-$category_query .= " AND report.member_idx=".$_SESSION['user_access_idx']." AND report.category_idx=pop.category_idx ";
+if ($_SESSION['user_access_idx'] != "") {
+    $category_query .= " AND report.member_idx=" . $_SESSION['user_access_idx'];
+}
+$category_query .= " AND report.category_idx=pop.category_idx ";
 $category_query .= " GROUP BY report.category_idx, pop.view_cnt, pop.comment_cnt, pop.like_cnt ";
 $category_result = mysqli_query($gconnet, $category_query);
 
