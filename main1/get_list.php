@@ -16,8 +16,9 @@ if ($_SESSION['user_access_idx']== "") {
 
     $query .= "FROM report_list AS report , clean_index AS clean, member_info AS member ";
 
-    $query .= " WHERE report.category=clean.category_idx AND report.member_idx=member.idx AND report.category=".$category;
+    $query .= " WHERE report.category=clean.category_idx AND report.member_idx=member.idx ";
     $query .= " ORDER BY report.idx DESC ";
+
     $query_limit .= $query . " LIMIT " . ($page * $block) . " , " . $block;
 
     $result = mysqli_query($gconnet, $query_limit);
