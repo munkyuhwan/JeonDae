@@ -1,3 +1,5 @@
+<?ob_start();
+session_start(); ?>
 <!DOCTYPE html>
 <html lang="ko">
     <head>
@@ -18,6 +20,6 @@
         <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
 
     </head>
-    <? include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/include_default.php"; // 공통함수 인클루드 ?>
-    <? include $_SERVER["DOCUMENT_ROOT"]."/include/toast_msg.php"; // 공통함수 인클루드 ?>
+    <?include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/include_default.php";?>
+    <?include $_SERVER["DOCUMENT_ROOT"]."/include/toast_msg.php";?>
 

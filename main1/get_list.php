@@ -1,4 +1,4 @@
-<? include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/include_default.php"; // 공통함수 인클루드 ?>
+<? include$_SERVER["DOCUMENT_ROOT"]."/pro_inc/include_default.php"; // 공통함수 인클루드 ?>
 <?
 //
 $page = trim(sqlfilter($_REQUEST['page']));
@@ -161,7 +161,7 @@ if ($_SESSION['user_access_idx']== "") {
 
                                 <div class="flex2_wrap item1">
                                     <a href="javascript:setImages('<?= $row['report_idx']?>','<?=$row['likes']?>','<?=$row['comment_cnt']?>', '<?=$img_res[0]["idx"]?>')" class="pop_call" data-pop="img_pop">
-                                        <img id="img_<?=$row['report_idx']?>" src="../upload_file/report/<?= $img_res[0]["report_file_name"] ?>"
+                                        <img id="img_<?=$row['report_idx']?>" src="../thumb/thumb.php?src=../upload_file/report/<?= $img_res[0]["report_file_name"] ?>&size400"
                                              alt="">
                                     </a>
                                 </div>
@@ -169,13 +169,13 @@ if ($_SESSION['user_access_idx']== "") {
                             <? } else if ($img_cnt == 2) { ?>
                                 <div class="flex2_wrap ">
                                     <a href="javascript:setImages('<?= $row['report_idx']?>','<?=$row['likes']?>','<?=$row['comment_cnt']?>', '<?=$img_res[0]["idx"]?>')" class="pop_call" data-pop="img_pop">
-                                        <img id="img_<?=$row['report_idx']?>" src="../upload_file/report/<?= $img_res[0]["report_file_name"] ?>"
+                                        <img id="img_<?=$row['report_idx']?>" src="../thumb/thumb.php?src=../upload_file/report/<?= $img_res[0]["report_file_name"] ?>"
                                              alt="">
                                     </a>
                                 </div>
                                 <div class="flex2_wrap ">
                                     <a href="javascript:setImages('<?= $row['report_idx']?>','<?=$row['likes']?>','<?=$row['comment_cnt']?>', '<?=$img_res[1]["idx"]?>')" class="pop_call" data-pop="img_pop">
-                                        <img src="../upload_file/report/<?= $img_res[1]["report_file_name"]?>"
+                                        <img src="../thumb/thumb.php?src=../upload_file/report/<?= $img_res[1]["report_file_name"]?>"
                                              alt="">
                                     </a>
                                 </div>

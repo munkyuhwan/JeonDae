@@ -1,9 +1,10 @@
 <?
-ini_set("session.cache_expire", 60000); // 세션 유효시간 : 분 
+session_start();
+ini_set("session.cache_expire", 60000); // 세션 유효시간 : 분
 ini_set("session.gc_maxlifetime", 3600000); // 세션 가비지 컬렉션(로그인시 세션지속 시간) : 초 
 session_cache_limiter("private");
-session_start();
 date_default_timezone_set('Asia/Seoul');
+
 header("Pragma: no-cache");
 header("Cache-Control: no-cache,must-revalidate");
 header('Content-Type: text/html; charset=UTF-8');
@@ -41,7 +42,9 @@ function https_redirect($ssl=false)
 		die();
 	}
 }
-//https_redirect();
+if ($_SERVER['HTTP_HOST']!=="localhost:8888") {
+	https_redirect();
+}
 
 
 
@@ -63,11 +66,11 @@ if ($_SESSION['user_access_idx'] == '') {
 
 
 //$TMP_ROOT = "https://3359fda6.ngrok.io";
-include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/user_function.php"; // PHP 유저 함수 모음 
+include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/user_function.php"; // PHP 유저 함수 모음
 //include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/erp_db_conn.php"; 
-include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/db_conn.php"; 
+include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/db_conn.php";
 //include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/function_counter.php"; // 카운터함수  
-include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/function_query.php"; // 유저 DB 함수 모음 
+include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/function_query.php"; // 유저 DB 함수 모음
 //include $_SERVER["DOCUMENT_ROOT"]."/login/session_mysql.php"; // 세션 DB 관리 파일
 
 define("SUBSCRIBE_IOS", "fcm_ios");
@@ -150,6 +153,7 @@ $SIGNUP_NOT_REQUIRED = array(
 
 include $_SERVER["DOCUMENT_ROOT"]."/include/MemberChecker.php";
 $currentLoc = explode("/", $_SERVER['REQUEST_URI'])[1];
+//echo "<br><br><br><br><br><br>".$_SESSION['user_access_idx'];
 if (!in_array($currentLoc, $SIGNUP_NOT_REQUIRED)) {
 
 	$memberCheck = new MemberChecker($gconnet);
@@ -157,12 +161,14 @@ if (!in_array($currentLoc, $SIGNUP_NOT_REQUIRED)) {
 
 	if ($isMember == false) {
 
+
 		?>
 		<script>
-			alert('로그인 후 이용해 주세요.');
-			location.replace("../intro");
+			//alert('로그인 후 이용해 주세요.');
+			//location.replace("../intro");
 		</script>
 		<?
+
 
 	}
 

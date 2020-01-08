@@ -4,7 +4,7 @@
 //unset($_SESSION);
 //print_r($_SESSION);
 //$_SESSION['user_access_idx'] = 3;
-session_start();
+//session_start();
 //$_SESSION['user_access_idx'] = 3;
 if ($_SESSION['user_access_idx'] != "") {
      //echo "<script>location.replace('../main1');</script>";

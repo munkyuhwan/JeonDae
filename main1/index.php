@@ -1,4 +1,10 @@
 <? include $_SERVER['DOCUMENT_ROOT'] . "/include/head.php" ?>
+<?
+
+//echo "<br><br><br><br>";
+//echo $_SESSION['user_access_idx'];
+
+?>
 <script>
     var page = 0;
     var block = 5;
