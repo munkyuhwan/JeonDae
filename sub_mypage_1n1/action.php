@@ -14,7 +14,9 @@ if($result) {
     ?>
     <script>
         alert('작성되었습니다.');
-        parent.location.reload();
+        window.parent.questionPage = 0;
+        window.parent.getQuestions(true);
+        window.parent.resetText();
     </script>
     <?
 }else {

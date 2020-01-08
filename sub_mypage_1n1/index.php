@@ -58,7 +58,6 @@
             data: {"page":questionPage,"block":questionBlock},
             method: "post",
             success: function (response) {
-
                 if (response != "") {
                     if (init) {
                         $("#question_list").html("")
@@ -97,6 +96,12 @@
             getQuestions();
         }
     });
+
+    function resetText() {
+        $("#query_title").val("")
+        $("#query_text").val("")
+    }
+
 </script>
 <body onload="getFaq();">
 <div class="wrapper">
