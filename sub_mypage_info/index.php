@@ -22,17 +22,6 @@ $hastag_result = mysqli_query($gconnet, $hashtag_query);
 ?>
 <body>
 
-<script type="application/javascript">
-
-    function imageSelected(event) {
-        var reader = new FileReader;
-        reader.onload = function() {
-            $("#profile_img").attr("src",reader.result);
-        };
-        reader.readAsDataURL(event.target.files[0]);
-    }
-
-</script>
 <div class="wrapper">
     <? include $_SERVER['DOCUMENT_ROOT']."/include/gnb.php"?>
     <? include $_SERVER['DOCUMENT_ROOT']."/include/header.php"?>
@@ -163,9 +152,9 @@ $hastag_result = mysqli_query($gconnet, $hashtag_query);
 
             <div class="mylist">
             <div class="tab_menu">
-                <button type="button" class="on">작성한 글</button>
-                <button type="button">작성한 댓글</button>
-                <button type="button">좋아요한 글</button>
+                <button type="button" onclick="getWriteList()" id="write_list_tab" class="on">작성한 글</button>
+                <button type="button" onclick="getCommentList()" id="comment_list_tab"  >작성한 댓글</button>
+                <button type="button" onclick="getLikeList()" id="like_list_tab" >좋아요한 글</button>
             </div>
             <div class="tab_con">
                 <div class="con1" style="display:block">
@@ -182,6 +171,44 @@ $hastag_result = mysqli_query($gconnet, $hashtag_query);
     </section>
 </div>
 
+<script type="application/javascript">
+    $(document).ready(function() {
+        getWriteList()
+    })
+
+    $(window).on("scroll", function() {
+        var scrollHeight = $(document).height();
+        var scrollPosition = $(window).height() + $(window).scrollTop();
+        if ((scrollHeight - scrollPosition) / scrollHeight === 0) {
+
+            if ($("#write_list_tab").attr("class") == "on" ) {
+                if (writePage > 0) {
+                    getWriteList()
+                }
+            }
+            else if ($("#comment_list_tab").attr("class") == "on" ) {
+                if (commentPage > 0) {
+                    getCommentList()
+                }
+            }
+            else if ($("#like_list_tab").attr("class") == "on" ) {
+                if (likePage > 0) {
+                    getLikeList()
+                }
+            }
+
+        }
+    });
+
+    function imageSelected(event) {
+        var reader = new FileReader;
+        reader.onload = function() {
+            $("#profile_img").attr("src",reader.result);
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+</script>
 </body>
 </html>
 
