@@ -23,6 +23,11 @@
         $(".result_wrap").show();
     }
 
+    function mailDone() {
+        alert('인증메일이 발송되었습니다.');
+        location.replace('../main1');
+    }
+
 </script>
 <body>
 <div class="wrapper">
@@ -46,9 +51,9 @@
                 </div>
             </div>
             <!-- 학교 검색 후 이메일 인증 영역 보여짐 -->
-            <div class="result_wrap" style="display: none;">
+            <div class="result_wrap" style="display: none;" >
                 <h3>학교 인증 이메일</h3>
-                <form name="frm" action="action.php"  >
+                <form name="frm" action="action.php" target="iframe1" method="post" >
                     <input type="hidden" name="uni_idx" id="uni_idx"  >
                     <input type="hidden" name="domain" id="domain" value="@gmail.com" >
                     <input type="text" name="email_id" > <span id="uni_email">@hanyang.ac.kr</span>
@@ -62,7 +67,9 @@
 
     </section>
 </div>
-<? include $_SERVER['DOCUMENT_ROOT']."/include/footer.php" ?>
+<iframe name="iframe1" style="display:none;"></iframe>
+
+<?// include $_SERVER['DOCUMENT_ROOT']."/include/footer.php" ?>
 </body>
 </html>
 

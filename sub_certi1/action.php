@@ -1,12 +1,5 @@
 <?
-/*
-$mailheaders .= "From: $from_name<$from_email> \r\n";
-$mailheaders .= "Reply-To: $from_name<$from_email>\r\n";
-$mailheaders .= "Return-Path: $from_name<$from_email>\r\n";
-$mailheaders .= "Content-Type: text/html; charset=\"utf-8\"\r\n";
 
-mail("moonkyuhwan@naver.com","test","test",$mailheaders,'-f'."admin@djund.com");
-*/
 include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/include_default.php"; // 공통함수 인클루드 ?>
 <? include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/send_email.php"; // 공통함수 인클루드 ?>
 <?
@@ -14,7 +7,6 @@ $email_id = trim(sqlfilter($_REQUEST['email_id']));
 $domain = trim(sqlfilter($_REQUEST['domain']));
 $uni_idx = trim(sqlfilter($_REQUEST['uni_idx']));
 $hashStr = hash("sha256", $_SESSION['user_access_name']."jeondae");
-echo $email_id.$domain;
 $body ='
 
 <!DOCTYPE html>
@@ -69,7 +61,18 @@ $body ='
 
 $query = "INSERT INTO uni_approval SET member_idx=".$_SESSION['user_access_idx'].", approve_code='".$hashStr."'";
 $result = mysqli_query($gconnet,$query);
+//mail_utf("admin@djund.com","전대전",$email_id.$domain,"전대전 인증 이메일입니다.",$body);
+if (mail_utf("moonkyuhwan@naver.com","전대전",$email_id.$domain,"전대전 인증 이메일입니다.",$body)) {
 
-mail_utf("admin@djund.com","전대전",$email_id.$domain,"전대전 인증 이메일입니다.",$body);
+    ?>
+    <script>
+        alert('인증메일이 발송되었습니다.');
+        parent.location.replace('../main1');
+    </script>
+
+    <?
+}
+
+
 
 ?>
