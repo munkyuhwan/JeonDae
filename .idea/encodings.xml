@@ -35,6 +35,7 @@
     <file url="file://$PROJECT_DIR$/sub_area/get_data.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sub_area/get_main_list.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sub_area/write_comment_action.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sub_certi1/action.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sub_certi1/email_approve.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sub_certi1/index.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sub_certi2/index.php" charset="UTF-8" />
@@ -51,6 +52,8 @@
     <file url="file://$PROJECT_DIR$/sub_mypage3/index.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sub_mypage3/update_clean_index.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sub_mypage_1n1/action.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sub_mypage_1n1/delete.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sub_mypage_1n1/get_my_question.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sub_mypage_1n1/index.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sub_mypage_1n1/modify.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sub_mypage_1n1/modify_action.php" charset="UTF-8" />

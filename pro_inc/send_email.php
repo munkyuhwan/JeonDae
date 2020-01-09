@@ -18,7 +18,7 @@ function send_smtp_email($title, $body, $email) {
         $mail->Port = 465; // email 보낼때 사용할 포트를 지정
         $mail->SMTPSecure = "ssl"; // SSL을 사용함
         $mail->Username   = "moonkyuhwan@naver.com"; // Gmail 계정
-        $mail->Password   = "ansrb8432"; // 패스워드
+        $mail->Password   = "ansrB4901!"; // 패스워드
         $mail->SMTPDebug = 2;
         $mail->CharSet = "utf-8";  //한글깨짐 방지를 위한 문자 인코딩설정
 
@@ -36,5 +36,4 @@ function send_smtp_email($title, $body, $email) {
     }
 }
 
-$title = trim(sqlfilter($_))
 ?>

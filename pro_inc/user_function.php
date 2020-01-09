@@ -1690,9 +1690,11 @@ function mail_utf($from_email,$from_name,$to_email,$subject,$body,$file=""){
 	echo "bodytext = ".$bodytext."<br>";
 	echo "mailheaders = ".$mailheaders."<br>";
 	echo "from_email = ".$from_email."<br>";*/
-    if(!mail($to_email,$subject,$bodytext,$mailheaders,'-f'.$from_email)) {return 0;} 
-    return 1; 
-} 
+    //if(!mail($to_email,$subject,$bodytext,$mailheaders,'-f'.$from_email)) {return 0;}
+    //return 1;
+	return mail($to_email,$subject,$bodytext,$mailheaders,'-f'.$from_email);
+
+}
 
 //날짜형태 바꾸기
 function tranStrDate($dates, $type=""){
