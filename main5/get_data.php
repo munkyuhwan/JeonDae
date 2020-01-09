@@ -1,4 +1,4 @@
-<? include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/include_default.php"; // °øÅëÇÔ¼ö ÀÎÅ¬·çµå ?>
+<? include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/include_default.php"; // ê³µí†µí•¨ìˆ˜ ì¸í´ë£¨ë“œ ?>
 <?
 $keyword = trim(sqlfilter($_REQUEST['keyword']));
 $page = trim(sqlfilter($_REQUEST['page']));
@@ -9,7 +9,7 @@ if (str_replace(" ","", $keyword) != '') {
 
     $query = "SELECT idx, content_text, report_hashtag, wdate FROM report_list WHERE 1 ";
     $count_query = "SELECT COUNT(*) AS cnt FROM report_list WHERE 1 ";
-    $where = " AND ( content_text LIKE '%" . $keyword . "%' OR report_hashtag LIKE '%" . $keyword . "%' ) AND published_yn='Y' AND del_yn='N' AND complete_yn='Y' ";
+    $where = " AND ( content_text LIKE '%" . $keyword . "%' OR report_hashtag LIKE '%" . $keyword . "%' ) AND del_yn='N' AND complete_yn='Y' ";
 
     $where .= $period != "" ? " AND wdate >= NOW() - INTERVAL 1 " . $period : "";
     $limit = " LIMIT ".$page*$block.",".$block;
