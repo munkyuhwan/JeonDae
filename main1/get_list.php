@@ -261,11 +261,89 @@ if ($_SESSION['user_access_idx']== "") {
             <div class="item_bot">
                 <div class="reply_list">
                     <?
+                    // 쿼리 수정
+                    // SELECT mom.*,son.* FROM report_comments as mom RIGHT JOIN report_inner_comment as son ON mom.idx=son.parent_idx
                     $comment_query = "SELECT report.comment_txt, report.idx AS comment_idx, report.parent_idx, report.wdate, (SELECT real_name FROM member_info WHERE idx=report.member_idx ) AS member_name, (SELECT file_chg FROM member_info WHERE idx=report.member_idx ) AS file_chg, (SELECT user_id FROM member_info WHERE idx=report.member_idx ) AS user_id  FROM report_comments AS report WHERE report.del_yn='N' AND parent_idx=0 AND report.report_idx=" . $row['report_idx'] . " ORDER BY idx DESC LIMIT 0,2";
                     $comment_res = mysqli_query($gconnet, $comment_query);
                     ?>
                     <button type="button" class="reply_all">댓글 <span><?= $row['comment_cnt'] ?></span>개 모두 보기</button>
                     <ul>
+                        <!-- li class="reply_item user_box">
+                            <div class="reply_inner" id="div_4">
+                                <div class="prf_box">
+                                    <img src="../thumb/thumb.php?src=../upload_file/member/1576216321-CFWWL.jpg&amp;size=<500" alt="">
+                                </div>
+                                <div class="info_box ">
+                                    <div class="reply_top">
+                                        <p class="name">아이유</p>
+                                        <p class="reply_txt">댓글 2</p>
+                                    </div>
+                                    <div class="etc_info">
+                                        <p>01월 09일 04:35</p>
+                                        <button type="button" onclick=" addCommentField('4', '19','1576216321-CFWWL.jpg' );  //$('#write_comment_4').toggle(); ">답글 달기</button>
+                                    </div>
+                                </div>
+                                <button type="button" class="like_btn"></button>
+                            </div>
+                            <ul>
+                                <li class="reply_item user_box">
+                                    <div class="reply_inner" id="div_4_7">
+                                        <div class="prf_box">
+                                            <img src="../thumb/thumb.php?src=../upload_file/member/1576216321-CFWWL.jpg&amp;size=<500" alt="">
+                                        </div>
+                                        <div class="info_box ">
+                                            <div class="reply_top"><p class="name">아이유</p>
+                                                <p class="reply_txt">댓글 2의 댓글 1의 댓글 1</p>
+                                            </div>
+                                            <div class="etc_info">
+                                                <p>01월 09일 04:36</p>
+                                                <button type="button" onclick="addInnerCommentField('4',7, '19','1576216321-CFWWL.jpg' );">답글 달기</button>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="like_btn"></button>
+                                    </div>
+                                </li>
+                                <li class="reply_item user_box">
+                                    <div class="reply_inner" id="div_4_6">
+                                        <div class="prf_box">
+                                            <img src="../thumb/thumb.php?src=../upload_file/member/1576216321-CFWWL.jpg&amp;size=<500" alt="">
+                                        </div>
+                                        <div class="info_box ">
+                                            <div class="reply_top"><p class="name">아이유</p>
+                                                <p class="reply_txt">댓글 2의 댓글 2</p>
+                                            </div>
+                                            <div class="etc_info">
+                                                <p>01월 09일 04:36</p>
+                                                <button type="button" onclick="addInnerCommentField('4',6, '19','1576216321-CFWWL.jpg' );">답글 달기</button>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="like_btn"></button>
+                                    </div>
+                                 </li>
+                            </ul>
+                        </li>
+
+                        <li class="reply_item user_box">
+                            <div class="reply_inner" id="div_3">
+                                <div class="prf_box">
+                                    <img src="../thumb/thumb.php?src=../upload_file/member/1576216321-CFWWL.jpg&amp;size=<500" alt="">
+                                </div>
+                                <div class="info_box ">
+                                    <div class="reply_top">
+                                        <p class="name">아이유</p>
+                                        <p class="reply_txt">댓글 1</p>
+                                    </div>
+                                    <div class="etc_info">
+                                        <p>01월 09일 04:34</p>
+                                        <button type="button" onclick=" addCommentField('3', '19','1576216321-CFWWL.jpg' );  //$('#write_comment_3').toggle(); ">답글 달기</button>
+                                    </div>
+                                </div>
+                                <button type="button" class="like_btn"></button>
+                            </div>
+                        </li>
+                    </ul -->
+
+
                         <? while ($r = mysqli_fetch_assoc($comment_res)) { ?>
 
                             <li class="reply_item user_box" >
@@ -305,7 +383,6 @@ if ($_SESSION['user_access_idx']== "") {
                                                         <?}else {?>
                                                             <img src="../thumb/thumb.php?src=../upload_file/member/<?= $sub_row['file_chg'] ?>&size=<500" alt="">
                                                         <?}?>
-                                                        <img src="../thumb/thumb.php?src=../upload_file/member/<?= $sub_row['file_chg'] ?>&size=<500" alt="">
                                                     </div>
                                                     <div class="info_box ">
                                                         <div class="reply_top"><p
@@ -336,7 +413,6 @@ if ($_SESSION['user_access_idx']== "") {
                             </li>
                             <?
                         } ?>
-                    </ul>
                 </div>
             </div>
             <div class="item_reply_input" id="main_comment_<?=$row['report_idx']?>" >
