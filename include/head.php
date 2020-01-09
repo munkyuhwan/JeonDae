@@ -23,3 +23,17 @@ session_start(); ?>
     <?include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/include_default.php";?>
     <?include $_SERVER["DOCUMENT_ROOT"]."/include/toast_msg.php";?>
 
+
+    <style>
+        .main_content {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            word-wrap: break-word;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            display: -webkit-box !important;
+        }
+        .main_content_open {
+            display: inline !important;
+        }
+    </style>

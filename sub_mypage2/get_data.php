@@ -42,10 +42,17 @@ while($row = mysqli_fetch_assoc($result) ) {
     </div>
     <div class="item_mid">
         <div class="text_box">
-            <p style=" overflow:hidden; text-overflow:ellipsis; word-wrap:break-word; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical">
+            <p class="main_content" id="content_<?=$row['idx']?>" >
                 <?=nl2br($row['content_text'])?>
-            </p>
-            <button type="button" class="more_btn">...더보기</button>
+            </p><?
+            $lineNum = substr_count($row['content_text'],"\n");
+            $textCnt = mb_strlen($row['content_text'],"utf-8");
+            ?>
+            <? if($lineNum > 3 || $textCnt > 120) {?>
+                <button type="button" onclick="$('#content_<?= $row['idx'] ?>').attr('class','main_content_open'); $(this).css('display','none'); ">
+                    ...더보기
+                </button>
+            <?}?>
         </div>
         <?
         $img_query = "SELECT * FROM report_additional_files WHERE report_idx=" . $row['idx'];

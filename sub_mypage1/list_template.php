@@ -38,12 +38,18 @@ $num = $cnt;
         </div>
         <div class="item_mid">
             <div class="text_box">
-                <p id="content_<?= $row['report_idx'] ?>" style=" overflow:hidden; text-overflow:ellipsis; word-wrap:break-word; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical">
+                <p id="content_<?= $row['report_idx'] ?>" class="main_content">
                     <?= nl2br($row['content_text']) ?>
                 </p>
-                <button type="button" class="more_btn" onclick="$('#content_<?= $row['report_idx'] ?>').gettag ">
-                    ...더보기
-                </button>
+                <?
+                $lineNum = substr_count($row['content_text'],"\n");
+                $textCnt = mb_strlen($row['content_text'],"utf-8");
+                ?>
+                <? if($lineNum > 3 || $textCnt > 120) {?>
+                    <button type="button" onclick="$('#content_<?= $row['report_idx'] ?>').attr('class','main_content_open'); $(this).css('display','none'); ">
+                        ...더보기
+                    </button>
+                <?}?>
             </div>
             <?
             $img_query = "SELECT * FROM report_additional_files WHERE report_idx=" . $row['report_idx'];

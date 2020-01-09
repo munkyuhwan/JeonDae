@@ -57,7 +57,16 @@ while($row = mysqli_fetch_assoc($category_result)) {
         <div class="item_mid">
             <div class="text_box">
                 <p  id="content_<?=$v['idx']?>" ><?=$v['content_text']?></p>
-                <button type="button" class="more_btn">...더보기</button>
+                <?
+                $lineNum = substr_count($v['content_text'],"\n");
+                $textCnt = mb_strlen($v['content_text'],"utf-8");
+                ?>
+                <? if($lineNum > 3 || $textCnt > 120) {?>
+                    <button type="button" onclick="$('#content_<?= $v['idx'] ?>').attr('class','main_content_open'); $(this).css('display','none'); ">
+                        ...더보기
+                    </button>
+                <?}?>
+                <!-- button type="button" class="more_btn">...더보기</button -->
             </div>
             <?
             $img_query = "SELECT * FROM report_additional_files WHERE report_idx=".$v['idx'];
