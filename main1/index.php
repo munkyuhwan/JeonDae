@@ -103,7 +103,20 @@
         }else {
             $('#div_'+parent_idx+'_' + comment_idx).after(str);
             $('#main_comment_'+report_idx).hide();
-        }
+
+    }
+
+    function setCommentList(reportIdx) {
+        $.ajax({
+            url:"../include/get_comment_list.php",
+            data:{"report_idx":reportIdx},
+            success:function(response) {
+                $("#comment_list_"+reportIdx).html(response);
+            },
+            error:function(error) {
+
+            }
+        })
     }
 
 
