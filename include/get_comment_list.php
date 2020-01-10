@@ -28,7 +28,7 @@ $comment_res = mysqli_query($gconnet, $comment_query);
                     <button type="button" onclick="$('#comment_box_<?= $r['idx'] ?>').toggle() " >답글 달기</button>
                 </div>
             </div>
-            <button type="button" class="like_btn" ></button>
+            <button type="button" class="like_btn" onclick="commentLikeClicked(<?=$r['idx']?>);" ></button>
         </div>
         <?
         $son_comment_query = "SELECT son.*,
@@ -73,7 +73,7 @@ $comment_res = mysqli_query($gconnet, $comment_query);
                                 <button type="button" onclick="$('#comment_box_<?= $son['idx'] ?>').toggle() " >답글 달기</button>
                             </div>
                         </div>
-                        <button type="button" class="like_btn" ></button>
+                        <button type="button" class="like_btn" onclick=" commentLikeClicked(<?=$son['idx']?>); " ></button>
                     </div>
                     <div class="item_reply_input" id="comment_box_<?=$son['idx']?>" style="display: none;" >
                         <div class="prf_box">

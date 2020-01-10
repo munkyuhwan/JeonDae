@@ -43,6 +43,29 @@ function likeClick(report_idx) {
     });
 }
 
+function commentLikeClicked(comment_idx) {
+    $.ajax({
+        url:"../include/comment_like_action.php",
+        data:{"comment_idx":comment_idx},
+        success:function(response) {
+            try{
+                var res = JSON.parse(response);
+                if ( $("#comment_like_"+comment_idx).attr('class') == "like_btn" ) {
+                    $("#comment_like_" + comment_idx).attr('class', 'like_btn on');
+                }else {
+                    $("#comment_like_" + comment_idx).attr('class', 'like_btn');
+                }
+                toast(res.msg)
+            }catch(e) {
+
+            }
+        },
+        error:function(error) {
+
+        }
+    });
+}
+
 
 
 function goShare(href, idx) {

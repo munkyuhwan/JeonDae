@@ -101,8 +101,9 @@
             $("#write_comment_"+parent_idx+"_"+comment_idx).remove()
             $('#main_comment_'+report_idx).show();
         }else {
-            $('#div_'+parent_idx+'_' + comment_idx).after(str);
-            $('#main_comment_'+report_idx).hide();
+            $('#div_' + parent_idx + '_' + comment_idx).after(str);
+            $('#main_comment_' + report_idx).hide();
+        }
 
     }
 
@@ -116,7 +117,8 @@
             error:function(error) {
 
             }
-        })
+        });
+
     }
 
 

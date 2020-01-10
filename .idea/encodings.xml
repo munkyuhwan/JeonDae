@@ -3,6 +3,7 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/email_approval/index.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/external_write/index.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/include/comment_like_action.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/include/etc_popup.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/include/get_comment_list.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/include/head.php" charset="UTF-8" />
