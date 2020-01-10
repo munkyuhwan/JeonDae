@@ -48,7 +48,7 @@ $comment_res = mysqli_query($gconnet, $comment_query);
                 <div class="input_box">
                     <form action="write_comment_action.php" method="post" name="frm">
                         <input type="text" name="content_txt" required>
-                        <input type="hidden" name="report_idx" id="report_idx" value="<?= $row['report_idx'] ?>">
+                        <input type="hidden" name="report_idx" id="report_idx" value="<?= $report_idx ?>">
                         <input type="hidden" name="parent_idx" id="parent_idx" value="<?=$r['idx']?>">
                         <button type="submit">게시</button>
                     </form>
@@ -82,7 +82,7 @@ $comment_res = mysqli_query($gconnet, $comment_query);
                         <div class="input_box">
                             <form action="write_comment_action.php" method="post" name="frm">
                                 <input type="text" name="content_txt" required>
-                                <input type="hidden" name="report_idx" id="report_idx" value="<?= $row['report_idx'] ?>">
+                                <input type="hidden" name="report_idx" id="report_idx" value="<?= $report_idx?>">
                                 <input type="hidden" name="parent_idx" id="parent_idx" value="<?= $r['idx'] ?>">
                                 <input type="hidden" name="comment_to" id="comment_to" value="<?= $son['idx'] ?>">
                                 <input type="hidden" name="seq" id="seq" value="<?=$son['seq']?>">
