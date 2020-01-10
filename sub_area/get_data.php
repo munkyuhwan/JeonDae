@@ -14,6 +14,7 @@ $cnt = mysqli_num_rows($cnt_result);
 $num = ($cnt);
 
 while($row = mysqli_fetch_assoc($result) ) {
+    $comment_i=0;
 ?>
 <li class="item swiper-slide">
     <div class="item_top user_box">
@@ -214,6 +215,7 @@ while($row = mysqli_fetch_assoc($result) ) {
                                         <input type="text" name="content_txt" required>
                                         <input type="hidden" name="report_idx" id="report_idx" value="<?= $row['report_idx'] ?>">
                                         <input type="hidden" name="parent_idx" id="parent_idx" value="<?=$r['idx']?>">
+                                        <input type="hidden" name="category_idx" id="category_idx" value="<?=$category_idx?>">
                                         <button type="submit">게시</button>
                                     </form>
                                 </div>
@@ -249,6 +251,7 @@ while($row = mysqli_fetch_assoc($result) ) {
                                                 <input type="hidden" name="report_idx" id="report_idx" value="<?= $row['report_idx'] ?>">
                                                 <input type="hidden" name="parent_idx" id="parent_idx" value="<?= $r['idx'] ?>">
                                                 <input type="hidden" name="comment_to" id="comment_to" value="<?= $son['idx'] ?>">
+                                                <input type="hidden" name="category_idx" id="category_idx" value="<?=$category_idx?>">
                                                 <input type="hidden" name="seq" id="seq" value="<?=$son['seq']?>">
                                                 <button type="submit">게시</button>
                                             </form>

@@ -21,7 +21,7 @@ if ($_SESSION['user_access_idx']!='') {
     function loadData() {
         $.ajax({
             url:"get_data.php",
-            data:{"page":page, "block":block, "category_idx":<?=$idx?>, "type":"report"},
+            data:{"page":page, "block":block, "category_idx":'<?=$idx?>', "type":"report"},
             method:"POST",
             success:function(response) {
                 if (response != "" ) {

@@ -2,11 +2,12 @@
 <?
 $parentIdx = trim(sqlfilter($_REQUEST['parent_idx']));
 $commentTo = trim(sqlfilter($_REQUEST['comment_to']));
-
+$category_idx = trim(sqlfilter($_REQUEST['category_idx']));
 $reportIdx = trim(sqlfilter($_REQUEST['report_idx']));
 $commentTxt = trim(sqlfilter($_REQUEST['content_txt']));
 $userIdx = $_SESSION['user_access_idx'];
 
+print_r($_REQUEST);
 
 if ($parentIdx) {
 //자식 댓글
@@ -95,7 +96,7 @@ if($result){?>
     <SCRIPT LANGUAGE="JavaScript">
         <!--
         alert('등록이 정상적으로 완료 되었습니다.');
-        parent.location.href =  "./";
+        parent.location.href =  "./?idx=<?=$category_idx?>";
         //-->
     </SCRIPT>
 <?}else{?>
