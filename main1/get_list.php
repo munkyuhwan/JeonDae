@@ -349,7 +349,7 @@ if ($_SESSION['user_access_idx']== "") {
                                                 $select_row = mysqli_fetch_assoc($select_result);
                                                 $cnt = $select_row['cnt'];
                                                 ?>
-                                                <button type="button" class="like_btn  <?=$cnt > 0 ? 'on':'';?>"  id="comment_like_<?=$r['idx']?>"  onclick=" commentLikeClicked(<?=$son['idx']?>); "  ></button>
+                                                <button type="button" class="like_btn  <?=$cnt > 0 ? 'on':'';?>"  id="comment_like_<?=$son['idx']?>"  onclick=" commentLikeClicked(<?=$son['idx']?>); "  ></button>
                                             </div>
                                             <div class="item_reply_input" id="comment_box_<?=$son['idx']?>" style="display: none;" >
                                                 <div class="prf_box">

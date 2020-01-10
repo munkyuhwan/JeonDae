@@ -209,7 +209,13 @@ while($row = mysqli_fetch_assoc($category_result)) {
                                         <button type="button" onclick="$('#comment_box_<?= $r['idx'] ?>').toggle() " >답글 달기</button>
                                     </div>
                                 </div>
-                                <button type="button" class="like_btn" ></button>
+                                <?
+                                $select = "SELECT COUNT(*) cnt FROM comment_likes WHERE comment_idx=".$r['idx']." AND member_idx=".$_SESSION['user_access_idx'];
+                                $select_result = mysqli_query($gconnet, $select);
+                                $select_row = mysqli_fetch_assoc($select_result);
+                                $cnt = $select_row['cnt'];
+                                ?>
+                                <button type="button" class="like_btn <?=$cnt > 0 ? 'on':'';?>" id="comment_like_<?=$r['idx']?>" onclick=" commentLikeClicked(<?=$r['idx']?>); "  ></button>
                             </div>
                             <?
                             $son_comment_query = "SELECT son.*,
@@ -254,7 +260,13 @@ while($row = mysqli_fetch_assoc($category_result)) {
                                                     <button type="button" onclick="$('#comment_box_<?= $son['idx'] ?>').toggle() " >답글 달기</button>
                                                 </div>
                                             </div>
-                                            <button type="button" class="like_btn" ></button>
+                                            <?
+                                            $select = "SELECT COUNT(*) cnt FROM comment_likes WHERE comment_idx=".$son['idx']." AND member_idx=".$_SESSION['user_access_idx'];
+                                            $select_result = mysqli_query($gconnet, $select);
+                                            $select_row = mysqli_fetch_assoc($select_result);
+                                            $cnt = $select_row['cnt'];
+                                            ?>
+                                            <button type="button" class="like_btn  <?=$cnt > 0 ? 'on':'';?>"  id="comment_like_<?=$son['idx']?>"  onclick=" commentLikeClicked(<?=$son['idx']?>); "  ></button>
                                         </div>
                                         <div class="item_reply_input" id="comment_box_<?=$son['idx']?>" style="display: none;" >
                                             <div class="prf_box">
