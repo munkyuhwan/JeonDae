@@ -12,7 +12,9 @@ $cnt_result = mysqli_query($gconnet,$query);
 $cnt = mysqli_num_rows($cnt_result);
 $num = $cnt;
 ?>
-<? while ($row = mysqli_fetch_assoc($result)) { ?>
+<? while ($row = mysqli_fetch_assoc($result)) {
+    $comment_i=0;
+    ?>
     <li class="item">
         <div class="item_top user_box">
             <div class="prf_box">
@@ -162,20 +164,23 @@ $num = $cnt;
         <div class="item_bot">
             <div class="reply_list">
                 <?
-                $comment_query = "SELECT report.comment_txt, report.idx AS comment_idx, report.parent_idx, report.wdate, (SELECT real_name FROM member_info WHERE idx=report.member_idx ) AS member_name, (SELECT file_chg FROM member_info WHERE idx=report.member_idx ) AS file_chg, (SELECT user_id FROM member_info WHERE idx=report.member_idx ) AS user_id   FROM report_comments AS report WHERE report.del_yn='N' AND parent_idx=0 AND report.report_idx=" . $row['report_idx'] . " ORDER BY idx DESC LIMIT 0,2";
+                $comment_cnt_query = "SELECT COUNT(*) AS comment_cnt FROM report_comments WHERE report_idx=".$row['report_idx'];
+                $comment_cnt_result = mysqli_query($gconnet, $comment_cnt_query);
+                $comment_cnt = mysqli_fetch_assoc($comment_cnt_result);
+
+                $comment_query = "SELECT mom.*, (SELECT real_name FROM member_info WHERE idx=mom.member_idx ) AS member_name, (SELECT file_chg FROM member_info WHERE idx=mom.member_idx ) AS file_chg, (SELECT user_id FROM member_info WHERE idx=mom.member_idx ) AS user_id  FROM report_comments AS mom WHERE mom.report_idx=".$row['report_idx']." AND mom.parent_idx=0  ";
+                $comment_query .= " LIMIT 0,3 ";
                 $comment_res = mysqli_query($gconnet, $comment_query);
                 ?>
-                <button type="button" class="reply_all">댓글 <span><?= $row['comment_cnt'] ?></span>개 모두 보기</button>
-                <ul>
+                <button type="button" class="reply_all" onclick="setCommentList(<?=$row['report_idx']?>)">댓글 <span><?= $comment_cnt['comment_cnt'] ?></span>개 모두 보기</button>
+                <ul id="comment_list_<?=$row['report_idx']?>">
                     <? while ($r = mysqli_fetch_assoc($comment_res)) { ?>
-
                         <li class="reply_item user_box" >
-                            <div class="reply_inner" >
+                            <div class="reply_inner" id="div_<?=$r['comment_idx']?>" >
                                 <div class="prf_box">
-                                    <?if($r['file_chg'] == "") {?>
-                                        <img src="http://graph.facebook.com/<?=$r['user_id']?>/picture?type=normal" alt="유저 사진">
+                                    <?if ($r['file_chg'] == "") {?>
                                     <?}else {?>
-                                        <img src="../thumb/thumb.php?src=../upload_file/member/<?= $r['file_chg'] ?>" alt="">
+                                        <img src="../thumb/thumb.php?src=../upload_file/member/<?= $r['file_chg'] ?>&size=<500" alt="">
                                     <?}?>
                                 </div>
                                 <div class="info_box ">
@@ -185,56 +190,88 @@ $num = $cnt;
                                     </div>
                                     <div class="etc_info">
                                         <p><?= date("m월 d일 h:i", strtotime($r['wdate'])) ?></p>
-                                        <button type="button" onclick="$('#write_comment_<?=$row['report_idx']?>').appendTo('#comment_<?= $row['report_idx']."_".$r['comment_idx']?>'); " >답글 달기</button>
+                                        <button type="button" onclick="$('#comment_box_<?= $r['idx'] ?>').toggle() " >답글 달기</button>
                                     </div>
                                 </div>
                                 <button type="button" class="like_btn" ></button>
                             </div>
-                            <div id="comment_<?=$row['report_idx']."_".$r['comment_idx'] ?>" ></div>
                             <?
-                            $sub_comment_query = "SELECT report.comment_txt, report.idx AS comment_idx, report.parent_idx, report.wdate, (SELECT real_name FROM member_info WHERE idx=report.member_idx ) AS member_name,(SELECT file_chg FROM member_info WHERE idx=report.member_idx ) AS file_chg, (SELECT user_id FROM member_info WHERE idx=report.member_idx ) AS user_id  FROM report_comments AS report WHERE report.del_yn='N' AND parent_idx=" . $r['comment_idx'] . " ORDER BY idx DESC LIMIT 0,2";
-                            $sub_comment_res = mysqli_query($gconnet, $sub_comment_query);
+                            $son_comment_query = "SELECT son.*,
+                                                            (SELECT real_name FROM member_info WHERE idx=son.member_idx ) AS member_name,
+                                                            (SELECT file_chg FROM member_info WHERE idx=son.member_idx ) AS file_chg,
+                                                            (SELECT user_id FROM member_info WHERE idx=son.member_idx ) AS user_id
+                                                            FROM report_comments AS son
+                                                            WHERE parent_idx=".$r['idx']." ORDER BY seq ASC " ;
+
+                            $son_comment_result = mysqli_query($gconnet, $son_comment_query);
                             ?>
-                            <? if (mysqli_num_rows($sub_comment_res) > 0) { ?>
-                                <ul>
-                                    <? while ($sub_row = mysqli_fetch_assoc($sub_comment_res)) { ?>
-                                        <li class="reply_item user_box" >
-                                            <div class="reply_inner">
-                                                <div class="prf_box">
-                                                    <?if($sub_row['file_chg'] == "") {?>
-                                                        <img src="http://graph.facebook.com/<?=$sub_row['user_id']?>/picture?type=normal" alt="유저 사진">
-                                                    <?}else {?>
-                                                        <img src="../thumb/thumb.php?src=../upload_file/member/<?= $sub_row['file_chg'] ?>" alt="">
-                                                    <?}?>
-                                                </div>
-                                                <div class="info_box ">
-                                                    <div class="reply_top"><p
-                                                            class="name"><?= $sub_row['member_name'] ?></p>
-                                                        <p class="reply_txt"><?= $sub_row['comment_txt'] ?></p>
-                                                    </div>
-                                                    <div class="etc_info">
-                                                        <p><?= date("m월 d일 h:i", strtotime($sub_row['wdate'])) ?></p>
-                                                        <button type="button" >답글 달기</button>
-                                                    </div>
-                                                </div>
-                                                <button type="button" class="like_btn"></button>
+                            <ul>
+                                <div class="item_reply_input" id="comment_box_<?=$r['idx']?>" style="display: none;" >
+                                    <div class="prf_box">
+                                        <img src="../thumb/thumb.php?src=../upload_file/member/<?= $profile_img_assoc["file_chg"] ?>&size=<300" alt="">
+                                    </div>
+                                    <div class="input_box">
+                                        <form action="write_comment_action.php" method="post" name="frm">
+                                            <input type="text" name="content_txt" required>
+                                            <input type="hidden" name="report_idx" id="report_idx" value="<?= $row['report_idx'] ?>">
+                                            <input type="hidden" name="parent_idx" id="parent_idx" value="<?=$r['idx']?>">
+                                            <button type="submit">게시</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <? while($son=mysqli_fetch_assoc($son_comment_result)) {?>
+                                    <li class="reply_item user_box" >
+                                        <div class="reply_inner" id="div_<?=$son['comment_idx']?>" >
+                                            <div class="prf_box">
+                                                <?if ($son['file_chg'] == "") {?>
+                                                <?}else {?>
+                                                    <img src="../thumb/thumb.php?src=../upload_file/member/<?= $son['file_chg'] ?>&size=<500" alt="">
+                                                <?}?>
                                             </div>
-                                        </li>
-                                        <?
-                                        if (mysqli_num_rows($sub_comment_res) > 2) {
-                                            break;
-                                        }
-                                        ?>
-                                        <?
-                                    } ?>
-                                </ul>
-                                <?
-                            } ?>
-
-
+                                            <div class="info_box ">
+                                                <div class="reply_top">
+                                                    <p class="name"><?= $son['member_name'] ?></p>
+                                                    <p class="reply_txt"><?= $son['comment_txt'] ?></p>
+                                                </div>
+                                                <div class="etc_info">
+                                                    <p><?= date("m월 d일 h:i", strtotime($son['wdate'])) ?></p>
+                                                    <button type="button" onclick="$('#comment_box_<?= $son['idx'] ?>').toggle() " >답글 달기</button>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="like_btn" ></button>
+                                        </div>
+                                        <div class="item_reply_input" id="comment_box_<?=$son['idx']?>" style="display: none;" >
+                                            <div class="prf_box">
+                                                <img src="../thumb/thumb.php?src=../upload_file/member/<?= $profile_img_assoc["file_chg"] ?>&size=<300" alt="">
+                                            </div>
+                                            <div class="input_box">
+                                                <form action="write_comment_action.php" method="post" name="frm">
+                                                    <input type="text" name="content_txt" required>
+                                                    <input type="hidden" name="report_idx" id="report_idx" value="<?= $row['report_idx'] ?>">
+                                                    <input type="hidden" name="parent_idx" id="parent_idx" value="<?= $r['idx'] ?>">
+                                                    <input type="hidden" name="comment_to" id="comment_to" value="<?= $son['idx'] ?>">
+                                                    <input type="hidden" name="seq" id="seq" value="<?=$son['seq']?>">
+                                                    <button type="submit">게시</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <?
+                                    if ($comment_i >= 2) {
+                                        break;
+                                    }
+                                    $comment_i++;
+                                }?>
+                            </ul>
                         </li>
+
                         <?
-                    } ?>
+                        if ($comment_i >= 2) {
+                            break;
+                        }
+                        $comment_i++;
+
+                    }?>
                 </ul>
             </div>
         </div>
