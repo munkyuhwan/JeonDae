@@ -26,15 +26,17 @@ while($row = mysqli_fetch_assoc($category_result)) {
 
     }
 }
-*/
 $query_category = "SELECT cat_name.sub_name FROM subscribe_list AS subscribe, report_sub_categories AS cat_name  WHERE subscribe.member_idx=".$_SESSION['user_access_idx']." AND subscribe.sub_category_idx=cat_name.idx ";
 $query_category_result = mysqli_query($gconnet, $query_category);
 $hashtag_str = "";
+$categories = array();
 while($row = mysqli_fetch_assoc($query_category_result)) {
     $hashtag_str .= "#".$row['sub_name'].",";
     array_push($categories, $row['sub_name']);
 }
-$select_incomplete = "SELECT report.idx, report.content_text, report.wdate, report.report_hashtag ";
+*/
+
+$select_incomplete = "SELECT report.idx, report.content_text, report.wdate, report.report_hashtag, report.category ";
 //$select_incomplete .= " , add_files.idx AS file_idx, add_files.report_file_name ";
 $select_incomplete .= " FROM report_list AS report";
 //$select_incomplete .= " , report_additional_files AS add_files";
@@ -46,16 +48,32 @@ $select_incomplete .= " WHERE report.member_idx=".$_SESSION['user_access_idx']."
 $incomplete_result = mysqli_query($gconnet, $select_incomplete);
 $incomplete_cnt = mysqli_num_rows($incomplete_result);
 
+// 재보함 종류 지역 / 학교
+$categoryType = trim(sqlfilter($_REQUEST['top_cat']));
+$allCategoriesQuery = "SELECT category_name, idx FROM report_categories ";
+
+if ($categoryType != "") {
+    if ($categoryType == "area") {
+        $allCategoriesQuery .= " WHERE area_idx != 0 ";
+    }
+    else if ($categoryType == "school") {
+        $allCategoriesQuery .= " WHERE school_idx != 0 ";
+    }
+}
+
+$categoryResult = mysqli_query($gconnet, $allCategoriesQuery);
+
 ?>
 <script type="text/javascript" >
 
-
+    /*
     var addPicTmp = "" +
         "<div class=\"added_img\" name='img_wrapper' >"+
         "   <img alt=\"\" name='tmp_img' src='{0}' >"+
         "   <button  type=\"button\" class=\"img_del\" name='del_btn' onclick='deleteFile(this)'></button>"+
         "   <input hidden type=\"file\" name=\"add_pic[]\" onblur='onFileChoose(event,this)' onchange=\"onFileChoose(event, this)\" >"+
         "</div>";
+    */
 
     var fileReaderObj = new Array();
 
@@ -68,6 +86,7 @@ $incomplete_cnt = mysqli_num_rows($incomplete_result);
             var reader = new FileReader;
             reader.onload = function(e) {
                 fileReaderObj.push(e)
+
                 if (i >= (event.target.files.length-1) ) {
                     setDisplay();
                 }
@@ -76,6 +95,8 @@ $incomplete_cnt = mysqli_num_rows($incomplete_result);
             };
             reader.readAsDataURL(obj);
         }
+
+        //console.log(fileReaderObj)
 
     }
 
@@ -91,6 +112,8 @@ $incomplete_cnt = mysqli_num_rows($incomplete_result);
         for(let data of fileReaderObj) {
             $("div[name='img_wrapper[]']")[i].style.display = "block"
             $("img[name='tmp_img[]']")[i].src = data.srcElement.result
+            //console.log($("input[name='add_pic[]']")[i].value[0])
+            //$("input[name='add_pic[]']")[i].value = (data.srcElement.result)
             i++
         }
 
@@ -110,6 +133,7 @@ $incomplete_cnt = mysqli_num_rows($incomplete_result);
         $("div[name='img_wrapper[]']")[idx].style.display = "none"
         setDisplay()
     }
+
 
     function checkCnt() {
         if (fileReaderObj.length < 5) {
@@ -133,71 +157,107 @@ $incomplete_cnt = mysqli_num_rows($incomplete_result);
         $("#hash_tags").val( str )
     }
 </script>
+
+<script>
+    function onCategorySelected(idx) {
+
+        $.ajax({
+            url:"get_subcategories.php",
+            data:{"category_idx":idx},
+            metho:"POST",
+            success:function(response) {
+                $("#subcategory_list").html("");
+                $("#subcategory_list").html(response);
+            },
+            error:function(error) {
+
+            }
+        })
+
+    }
+</script>
+
 <body>
 <div class="wrapper">
-    <form name="frm" action="write_action.php" method="post" enctype="multipart/form-data" >
+    <form name="frm" action="write_action.php" onsubmit="" method="post" enctype="multipart/form-data" >
         <input type="hidden" name="complete_yn" id="complete_yn" value="Y" >
         <input type="hidden" name="continue_idx" id="continue_idx" >
-    <header>
-        <div class="header grd_bg write">
-            <h1 class="hidden">제보하기</h1>
-            <button type="submit" class="complte_btn">제보</button>
-            <button type="button" class="pop_call cancle_btn" data-pop="confirm_pop" id="cancelBtn" >취소</button>
-            <?if (intval($incomplete_cnt)>0) {?>
-                <button type="button" class="pop_call temp_list_btn" data-pop="temp_pop" style="display:block" >임시보관함</button>
-            <?}?>
-        </div>
-    </header>
-    <section class="main_section">
-        <div class="wirte_wrap">
-            <div class="write_top">
-                <div class="prf_box">
-                    <img src="<?=$profile_img?>" alt="">
-                </div>
-                <textarea name="input_text" id="input_text" cols="" rows="" placeholder="어떤 이야기를 제보해 주시겠어요?" required ></textarea>
+        <header>
+            <div class="header grd_bg write">
+                <h1 class="hidden">제보하기</h1>
+                <button type="submit" class="complte_btn">제보</button>
+                <button type="button" class="pop_call cancle_btn" data-pop="confirm_pop" id="cancelBtn" >취소</button>
+                <?if (intval($incomplete_cnt)>0) {?>
+                    <button type="button" class="pop_call temp_list_btn" data-pop="temp_pop" style="display:block" >임시보관함</button>
+                <?}?>
             </div>
-            <div class="write_bot">
-                <div class="tag_input">
-                    <textarea name="hash_tags" id="hash_tags" placeholder="태그를 입력해주세요. 예) #성동구 #홍대" required onkeyup="addHashtag()"  ><?=$hashtag_str?></textarea>
+        </header>
+        <section class="main_section">
+            <div class="wirte_wrap">
+                <div class="write_top">
+                    <div class="prf_box">
+                        <img src="<?=$profile_img?>" alt="">
+                    </div>
+                    <textarea name="input_text" id="input_text" cols="" rows="" placeholder="어떤 이야기를 제보해 주시겠어요?" required ></textarea>
                 </div>
-                <div class="add_wrap" id="photo_wrapper">
-                    <input type="file" name="img_select" id="img_select" onblur='onFileChoose(event,this)' onchange="onFileChoose(event, this)" style="display: none;" multiple accept="image/*" >
-                    <button type="button" class="add_img_btn" id="add_btn" onclick="addFile();"></button>
-
-                    <div class="added_img" name='img_wrapper[]' style="display: none;" >
-                        <img alt="" name='tmp_img[]' src='' >
-                        <button  type="button" class="img_del" name='del_btn' onclick='deleteFile(this)'></button>
-                        <input hidden type="file" name="add_pic[]" onblur='onFileChoose(event,this)' onchange="onFileChoose(event, this)" >
-                    </div>
-
-                    <div class="added_img" name='img_wrapper[]'  style="display: none;">
-                        <img alt="" name='tmp_img[]' src='' >
-                        <button  type="button" class="img_del" name='del_btn' onclick='deleteFile(this)'></button>
-                        <input hidden type="file" name="add_pic[]" onblur='onFileChoose(event,this)' onchange="onFileChoose(event, this)" >
-                    </div>
-
-                    <div class="added_img" name='img_wrapper[]' style="display: none;" >
-                        <img alt="" name='tmp_img[]' src='' >
-                        <button  type="button" class="img_del" name='del_btn' onclick='deleteFile(this)'></button>
-                        <input hidden type="file" name="add_pic[]" onblur='onFileChoose(event,this)' onchange="onFileChoose(event, this)" >
-                    </div>
-
-                    <div class="added_img" name='img_wrapper[]' style="display: none;" >
-                        <img alt="" name='tmp_img[]' src='' >
-                        <button  type="button" class="img_del" name='del_btn' onclick='deleteFile(this)'></button>
-                        <input hidden type="file" name="add_pic[]" onblur='onFileChoose(event,this)' onchange="onFileChoose(event, this)" >
-                    </div>
-
-                    <div class="added_img" name='img_wrapper[]' style="display: none;" >
-                        <img alt="" name='tmp_img[]' src='' >
-                        <button  type="button" class="img_del" name='del_btn' onclick='deleteFile(this)'></button>
-                        <input hidden type="file" name="add_pic[]" onblur='onFileChoose(event,this)' onchange="onFileChoose(event, this)" >
-                    </div>
+                <div class="item_mid tag_type_category">
+                    <ul>
+                        <? while($category = mysqli_fetch_assoc($categoryResult)) {?>
+                            <li>
+                                <input type="radio" name="categories[]" value="<?=$category['idx']?>" id="category_<?=$category['idx']?>" onclick="onCategorySelected(<?=$category['idx']?>)" >
+                                <label for="category_<?=$category['idx']?>">
+                                    <?=$category['category_name']?>
+                                </label>
+                            </li>
+                        <?}?>
+                    </ul>
                 </div>
-                <p class="img_cnt"><span id="picCnt">0</span> / 5</p>
+                <div class="item_mid tag_type_subcategory">
+                    <ul id="subcategory_list">
+                    </ul>
+                </div>
+                <div class="write_bot">
+                    <div class="tag_input">
+                        <textarea name="hash_tags" id="hash_tags" rows="1" cols="1" placeholder="태그를 입력해주세요. 예) #성동구 #홍대" required onkeyup="addHashtag()"  ><?=$hashtag_str?></textarea>
+                    </div>
+                    <div class="add_wrap" id="photo_wrapper">
+                        <input type="file" name="img_select" id="img_select" onblur='onFileChoose(event,this)' onchange="onFileChoose(event, this)" style="display: none;" multiple accept="image/*" >
+                        <button type="button" class="add_img_btn" id="add_btn" onclick="addFile();"></button>
+
+                        <div class="added_img" name='img_wrapper[]' style="display: none;" >
+                            <img alt=""  name='tmp_img[]' src='' >
+                            <button  type="button" class="img_del" name='del_btn' onclick='deleteFile(this)'></button>
+                            <input  type="file" name="add_pic[]" onblur='onFileChoose(event,this)'  >
+                        </div>
+
+                        <div class="added_img" name='img_wrapper[]'  style="display: none;">
+                            <img alt="" name='tmp_img[]' src='' >
+                            <button  type="button" class="img_del" name='del_btn' onclick='deleteFile(this)'></button>
+                            <input  type="file" name="add_pic[]" onblur='onFileChoose(event,this)' >
+                        </div>
+
+                        <div class="added_img" name='img_wrapper[]' style="display: none;" >
+                            <img alt="" name='tmp_img[]' src='' >
+                            <button  type="button" class="img_del" name='del_btn' onclick='deleteFile(this)'></button>
+                            <input  type="file" name="add_pic[]" onblur='onFileChoose(event,this)' >
+                        </div>
+
+                        <div class="added_img" name='img_wrapper[]' style="display: none;" >
+                            <img alt="" name='tmp_img[]' src='' >
+                            <button  type="button" class="img_del" name='del_btn' onclick='deleteFile(this)'></button>
+                            <input  type="file" name="add_pic[]" onblur='onFileChoose(event,this)'  >
+                        </div>
+
+                        <div class="added_img" name='img_wrapper[]' style="display: none;" >
+                            <img alt="" name='tmp_img[]' src='' >
+                            <button  type="button" class="img_del" name='del_btn' onclick='deleteFile(this)'></button>
+                            <input  type="file" name="add_pic[]" onblur='onFileChoose(event,this)'  >
+                        </div>
+                    </div>
+                    <p class="img_cnt"><span id="picCnt">0</span> / 5</p>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
     </form>
 
 </div>
@@ -210,6 +270,7 @@ $incomplete_cnt = mysqli_num_rows($incomplete_result);
                     <p class="confirm_desc">임시 저장을 사용해  내용을 저장하고<br>나중에  다시 작업할 수 있습니다.</p></li>
                 <li><button type="button" class="blue_txt pop_close" onclick="$('#complete_yn').val('N'); document.frm.submit(); ">임시 저장</button></li>
                 <li><button type="button" class="pop_close" onclick="history.back();" >삭제</button></li>
+                <li><button type="button" class="pop_close" >닫기</button></li>
             </ul>
         </div>
     </div>
@@ -218,77 +279,17 @@ $incomplete_cnt = mysqli_num_rows($incomplete_result);
     <div class="pop_head grd_bg">
         <h2>임시보관함</h2>
         <button type="button" class="pop_close" id="tmp_close"></button>
-        <button type="button" class="revise_btn" id="edit_delete">편집</button>
+        <button type="button" class="revise_btn" id="edit_delete" >편집</button>
     </div>
-    <!-- 내용 클릭시 임시저장내용 볼러옴 -->
-    <script>
-        function deletePrevFile(fileName,fileIdx) {
-            $.ajax({
-                url:"del_prev_file.php",
-                data:{"fileName":fileName,"fileIdx":fileIdx},
-                success:function(response) {
-
-                },
-                error:function(error) {
-
-                }
-
-            })
-        }
-    </script>
-    <script>
-        var tmpContent="";
-        var tmpHashtags="";
-        var tmpReportIdx = "";
-        var prevAddPicTmp = "" +
-            "<div class=\"added_img\" name='img_wrapper' >"+
-            "   <img alt=\"\" name='tmp_img' src='../upload_file/report/{0}' >"+
-            "   <button  type=\"button\" class=\"img_del\" name='del_btn' onclick=\"deletePrevFile('{0}','{1}')\"></button>"+
-            "   <input hidden type=\"file\" name=\"add_pic[]\" onblur='onFileChoose(event,this)' onchange=\"onFileChoose(event, this)\" >"+
-            "</div>";
-        function onTmpSelected(report_idx, content, hashtag) {
-            $("#input_text").val(content);
-            $("#hash_tags").val(hashtag);
-            $('#continue_idx').val(report_idx)
-            $.ajax({
-                url:"get_additional_files.php",
-                data:{"report_idx":report_idx},
-                success:function(response) {
-                    try {
-                        var res = JSON.parse(response);
-                        var str = ""
-                        for(let obj of res) {
-                            str += prevAddPicTmp.format(obj.report_file_name, obj.idx);
-                        }
-                        $('#photo_wrapper').html("<button type=\"button\" class=\"add_img_btn\" onclick=\"addFile();\" ></button>")
-                        $('#photo_wrapper').append(str);
-
-
-                    }catch (e) {
-
-                    }
-                },
-                error:function(error) {
-
-                }
-            })
-            $("#tmp_close").click();
-        }
-
-        $("#edit_delete").on('click', function() {
-
-        });
-
-    </script>
     <div class="pop_body">
         <ul>
             <?while($row = mysqli_fetch_assoc($incomplete_result) ) {?>
                 <li>
                     <div class="slide_top">
                         <p class="tlt"><?=date("Y년 m월 d일",strtotime($row['wdate']))?> 임시저장</p>
-                        <button type="button" class="temp_del_btn"></button>
+                        <button type="button" class="temp_del_btn" onclick="deleteReport('<?=$row['idx']?>')"></button>
                     </div>
-                    <div class="slide_bot" onclick="onTmpSelected('<?=$row['idx']?>', '<?=$row['content_text']?>', '<?=$row['report_hashtag']?>') ">
+                    <div class="slide_bot" onclick="onTmpSelected('<?=$row['idx']?>', '<?=$row['content_text']?>', '<?=$row['report_hashtag']?>','<?=$row['category']?>') ">
                         <?=$row['content_text']?>
                     </div>
                 </li>
@@ -296,6 +297,116 @@ $incomplete_cnt = mysqli_num_rows($incomplete_result);
         </ul>
     </div>
 </div>
+
+<!-- 내용 클릭시 임시저장내용 볼러옴 -->
+<script>
+
+    function deleteReport(idx) {
+        $.ajax({
+            url:"delete_report.php",
+            data:{"report_idx":idx},
+            success:function(response) {
+                console.log(response)
+            },
+            error:function(error) {
+
+            }
+
+        })
+    }
+
+    function deletePrevFile(fileName,fileIdx) {
+        $.ajax({
+            url:"del_prev_file.php",
+            data:{"fileName":fileName,"fileIdx":fileIdx},
+            success:function(response) {
+
+            },
+            error:function(error) {
+
+            }
+
+        })
+    }
+</script>
+<script>
+    var tmpContent="";
+    var tmpHashtags="";
+    var tmpReportIdx = "";
+    var prevAddPicTmp = "" +
+        "<div class=\"added_img\" name='img_wrapper[]' >"+
+        "   <img alt=\"\" name='tmp_img' src='../upload_file/report/{0}' >"+
+        "   <button  type=\"button\" class=\"img_del\" name='del_btn' onclick=\"deletePrevFile('{0}','{1}')\"></button>"+
+        "   <input hidden type=\"file\" name=\"add_pic[]\" onblur='onFileChoose(event,this)' onchange=\"onFileChoose(event, this)\" >"+
+        "</div>";
+
+    var tt = "<input type=\"file\" name=\"img_select\" id=\"img_select\" onblur='onFileChoose(event,this)' onchange=\"onFileChoose(event, this)\" style=\"display: none;\" multiple accept=\"image/*\" > <button type=\"button\" class=\"add_img_btn\" id=\"add_btn\" onclick=\"addFile();\"></button>"
+
+    function onTmpSelected(report_idx, content, hashtag, mainCategory) {
+        $("#input_text").val(content);
+        $('#continue_idx').val(report_idx)
+
+        $("#category_"+mainCategory).on("click", function() {
+
+        })
+        $("#category_"+mainCategory).click();
+        //var hashtags = $("#hash_tags").val(hashtag).split(",");
+
+
+        var setint = setInterval(function() {
+            var hashtags = hashtag.split(",")
+
+            for(let hash of hashtags) {
+                var hshs = hash.replace("#","");
+                for(let subs of $("input[name='subcategories[]']") ) {
+                    if (subs.value == hshs) {
+                        subs.checked=true
+                        hashtag = hashtag.replace("#"+subs.value+",", "");
+                        break;
+                    }else {
+
+                    }
+                }
+
+            }
+            clearInterval(setint)
+            $("#hash_tags").val(hashtag)
+        },500)
+
+
+        $.ajax({
+            url:"get_additional_files.php",
+            data:{"report_idx":report_idx},
+            success:function(response) {
+                console.log(response)
+                try {
+                    var res = JSON.parse(response);
+                    var str = ""
+
+                    /*
+                    for(let obj of res) {
+                        str += prevAddPicTmp.format(obj.report_file_name, obj.idx);
+                    }
+                    $('#photo_wrapper').html(tt)
+                    $('#photo_wrapper').append(str);
+                    */
+
+                }catch (e) {
+
+                }
+            },
+            error:function(error) {
+
+            }
+        })
+        $("#tmp_close").click();
+    }
+
+    $("#edit_delete").on('click', function() {
+
+    });
+
+</script>
 </body>
 </html>
 

@@ -1,12 +1,44 @@
 <? include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/include_default.php"; // 공통함수 인클루드 ?>
 <?php
+
+$category = $_REQUEST['categories'];
+
 $input_text = trim(sqlfilter($_REQUEST['input_text']));
 $hash_tags = trim(sqlfilter($_REQUEST['hash_tags']));
 $complete_yn = trim(sqlfilter($_REQUEST['complete_yn']));
 $continue_idx = trim(sqlfilter($_REQUEST['continue_idx']));
+$subcategories = $_REQUEST['subcategories'];
+
+if($continue_idx == "") {
+    $hash_tags .= ',';
+}
+foreach($subcategories as $v) {
+    $hash_tags .= "#".$v.",";
+}
+$hash_tags = substr($hash_tags,1,-1);
+$hash_tags .= ',';
+
+print_r($_FILES['add_pic']);
+
+/*
+
 
 if ($_SESSION['user_access_idx'] != "") {
     $member_idx = $_SESSION['user_access_idx'];
+
+    //사용자 연령대 받기
+    $getAgeQuery = "SELECT birthday FROM member_info WHERE idx=".$member_idx;
+    $getAgeResult = mysqli_query($gconnet, $getAgeQuery);
+    $ageRow = mysqli_fetch_assoc($getAgeResult);
+
+    $yNow = date("Y",time());
+    $myBirth = $ageRow['birthday'];
+
+    $ageBand = floor( (intval($yNow)-intval($myBirth))/10 )*10;
+
+    $hash_tags .= "#".$ageBand."대,";
+
+
 }else {
     //익명 제보자
     $select_unknown = "SELECT idx FROM member_info WHERE user_id='unknown' ";
@@ -15,29 +47,7 @@ if ($_SESSION['user_access_idx'] != "") {
     $member_idx = $unknown_row['idx'];
 }
 
-/*
-if ($continue_idx != "") {
-    $query = "UPDATE report_list SET ";
-    $query .= " complete_yn='Y', ";
-    $query .= " report_hashtag = '" . $hash_tags . "', ";
-    $query .= " content_text = '" . $input_text . "' ";
-    $query .= " WHERE idx=" . $continue_idx . " ";
-}else {
-    $query = "INSERT INTO report_list SET ";
-    $query .= " member_idx = " . $member_idx . ", ";
-    $query .= " report_hashtag = '" . $hash_tags . "', ";
-    $query .= " complete_yn = '" . $complete_yn . "', ";
-    $query .= " content_text = '" . $input_text . "' ";
-}
 
-$result = mysqli_query($gconnet, $query);
-*/
-/*
-$select_idx_query = "SELECT idx FROM report_list WHERE member_idx=".$member_idx." ORDER BY idx DESC limit 1 ";
-$select_result = mysqli_query($gconnet, $select_idx_query);
-$select_assoc = mysqli_fetch_assoc($select_result);
-$report_idx = $select_assoc['idx'];
-*/
 
 
 $bbs = "report";
@@ -46,12 +56,14 @@ $_P_DIR_WEB_FILE = $_P_DIR_WEB_FILE.$bbs."/";
 
 $file_array = array();
 
+
 foreach ($_FILES['add_pic'] as $k=>$v) {
+    echo "<br>";
     foreach ($v as $key=>$item) {
+        print_r($item);
         $file_array[$key][$k] = $item;
     }
 }
-
 $file_name_arr = array();
 foreach ($file_array as $k=>$v) {
     $_FILES['img_plus_'.$k]['name'] = $v['name'];
@@ -74,17 +86,23 @@ foreach ($file_array as $k=>$v) {
 
 if ($continue_idx != "") {
     $query = "UPDATE report_list SET ";
-    $query .= " complete_yn='Y', ";
+    $query .= " complete_yn='".$complete_yn."', ";
+    $query .= " category = ".$category[0].", ";
     $query .= " report_hashtag = '" . $hash_tags . "', ";
     $query .= " content_text = '" . $input_text . "' ";
     $query .= " WHERE idx=" . $continue_idx . " ";
     foreach($file_name_arr as $k=>$v) {
-        $query .= "report_idx=LAST_INSERT_ID(), ";
+        $query .= "report_idx=".$continue_idx.", ";
         $query .= "report_file_name='".$v."'; ";
     }
+    $result = mysqli_query($gconnet, $query);
+
+    print_r($file_name_arr);
+
 }else {
    // $query = "BEGIN;";
     $query = "INSERT INTO report_list  SET ";
+    $query .= " category = ".$category[0].", ";
     $query .= " member_idx = " . $member_idx . ", ";
     $query .= " report_hashtag = '" . $hash_tags . "', ";
     $query .= " complete_yn = '" . $complete_yn . "', ";
@@ -110,7 +128,7 @@ if ($continue_idx != "") {
 }
 
 
-
+/*
 if($result){
     ?>
     <SCRIPT LANGUAGE="JavaScript">
@@ -131,6 +149,6 @@ if($result){
         //-->
     </SCRIPT>
 <?}
-
+*/
 
 ?>
