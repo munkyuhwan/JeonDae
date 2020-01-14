@@ -80,7 +80,6 @@ $categoryResult = mysqli_query($gconnet, $allCategoriesQuery);
     function onFileChoose(event) {
 
         var i=0;
-        console.log(event)
         for (let obj of event.target.files) {
 
             if (i >= 4) break;
@@ -97,7 +96,6 @@ $categoryResult = mysqli_query($gconnet, $allCategoriesQuery);
             reader.readAsDataURL(obj);
         }
 
-        //console.log(fileReaderObj)
 
     }
 
@@ -117,22 +115,17 @@ $categoryResult = mysqli_query($gconnet, $allCategoriesQuery);
             $("div[name='img_wrapper[]']")[prevImg+i].style.display = "block"
             $("img[name='tmp_img[]']")[prevImg+i].src = data.srcElement.result
 
-            //console.log($("input[name='add_pic[]']")[i].value[0])
-            //$("input[name='add_pic[]']")[i].value = (data.srcElement.result)
             i++
         }
 
     }
 
     function addFile() {
-        console.log("add file")
         if ( checkCnt() == true ) {
             //$("#img_select").click()
             var i=0;
             for (let imgs of $("img[name='tmp_img[]']") ) {
-                console.log(imgs.getAttribute("src") )
                 if (imgs.getAttribute("src") == "" || imgs.getAttribute("src") == undefined) {
-                    console.log(i+"번째")
                     $("input[name='add_pic[]']")[i].click();
                     break;
                 }
@@ -324,7 +317,7 @@ $categoryResult = mysqli_query($gconnet, $allCategoriesQuery);
             url:"delete_report.php",
             data:{"report_idx":idx},
             success:function(response) {
-                console.log(response)
+
             },
             error:function(error) {
 
@@ -396,7 +389,7 @@ $categoryResult = mysqli_query($gconnet, $allCategoriesQuery);
             url:"get_additional_files.php",
             data:{"report_idx":report_idx},
             success:function(response) {
-                console.log(response)
+
                 try {
                     var res = JSON.parse(response);
                     var str = ""
