@@ -18,10 +18,6 @@ foreach($subcategories as $v) {
 $hash_tags = substr($hash_tags,1,-1);
 $hash_tags .= ',';
 
-print_r($_FILES['add_pic']);
-
-/*
-
 
 if ($_SESSION['user_access_idx'] != "") {
     $member_idx = $_SESSION['user_access_idx'];
@@ -58,9 +54,7 @@ $file_array = array();
 
 
 foreach ($_FILES['add_pic'] as $k=>$v) {
-    echo "<br>";
     foreach ($v as $key=>$item) {
-        print_r($item);
         $file_array[$key][$k] = $item;
     }
 }
@@ -86,18 +80,23 @@ foreach ($file_array as $k=>$v) {
 
 if ($continue_idx != "") {
     $query = "UPDATE report_list SET ";
-    $query .= " complete_yn='".$complete_yn."', ";
+    $query .= " complete_yn='Y', ";
     $query .= " category = ".$category[0].", ";
     $query .= " report_hashtag = '" . $hash_tags . "', ";
     $query .= " content_text = '" . $input_text . "' ";
     $query .= " WHERE idx=" . $continue_idx . " ";
-    foreach($file_name_arr as $k=>$v) {
-        $query .= "report_idx=".$continue_idx.", ";
-        $query .= "report_file_name='".$v."'; ";
-    }
     $result = mysqli_query($gconnet, $query);
+    if (count($file_name_arr)>0) {
+        foreach ($file_name_arr as $k => $v) {
+            $query = "INSERT INTO report_additional_files SET ";
+            $query .= "report_idx=".$continue_idx.", ";
+            $query .= "report_file_name='" . $v . "'; ";
+            $result = mysqli_query($gconnet, $query);
+        }
 
-    print_r($file_name_arr);
+    }
+    //echo $query;
+    //$result = mysqli_query($gconnet, $query);
 
 }else {
    // $query = "BEGIN;";
@@ -128,7 +127,7 @@ if ($continue_idx != "") {
 }
 
 
-/*
+
 if($result){
     ?>
     <SCRIPT LANGUAGE="JavaScript">
@@ -149,6 +148,6 @@ if($result){
         //-->
     </SCRIPT>
 <?}
-*/
+
 
 ?>

@@ -80,8 +80,9 @@ $categoryResult = mysqli_query($gconnet, $allCategoriesQuery);
     function onFileChoose(event) {
 
         var i=0;
-
+        console.log(event)
         for (let obj of event.target.files) {
+
             if (i >= 4) break;
             var reader = new FileReader;
             reader.onload = function(e) {
@@ -100,6 +101,7 @@ $categoryResult = mysqli_query($gconnet, $allCategoriesQuery);
 
     }
 
+    var prevImg = 0;
     function setDisplay() {
 
         if (fileReaderObj.length >= 5) {
@@ -109,9 +111,12 @@ $categoryResult = mysqli_query($gconnet, $allCategoriesQuery);
         }
 
         var i=0;
+
         for(let data of fileReaderObj) {
-            $("div[name='img_wrapper[]']")[i].style.display = "block"
-            $("img[name='tmp_img[]']")[i].src = data.srcElement.result
+
+            $("div[name='img_wrapper[]']")[prevImg+i].style.display = "block"
+            $("img[name='tmp_img[]']")[prevImg+i].src = data.srcElement.result
+
             //console.log($("input[name='add_pic[]']")[i].value[0])
             //$("input[name='add_pic[]']")[i].value = (data.srcElement.result)
             i++
@@ -120,10 +125,22 @@ $categoryResult = mysqli_query($gconnet, $allCategoriesQuery);
     }
 
     function addFile() {
+        console.log("add file")
         if ( checkCnt() == true ) {
-            $("#img_select").click()
+            //$("#img_select").click()
+            var i=0;
+            for (let imgs of $("img[name='tmp_img[]']") ) {
+                console.log(imgs.getAttribute("src") )
+                if (imgs.getAttribute("src") == "" || imgs.getAttribute("src") == undefined) {
+                    console.log(i+"번째")
+                    $("input[name='add_pic[]']")[i].click();
+                    break;
+                }
+                i++;
+                prevImg = i
+            }
+
         }else {
-            alert('5개 이상 추가하실 수 없습니다.');
         }
     }
 
@@ -139,6 +156,7 @@ $categoryResult = mysqli_query($gconnet, $allCategoriesQuery);
         if (fileReaderObj.length < 5) {
             return true;
         }else {
+            alert('5개 이상 추가하실 수 없습니다.');
             return false;
         }
     }
@@ -227,31 +245,31 @@ $categoryResult = mysqli_query($gconnet, $allCategoriesQuery);
                         <div class="added_img" name='img_wrapper[]' style="display: none;" >
                             <img alt=""  name='tmp_img[]' src='' >
                             <button  type="button" class="img_del" name='del_btn' onclick='deleteFile(this)'></button>
-                            <input  type="file" name="add_pic[]" onblur='onFileChoose(event,this)'  >
+                            <input  type="file" name="add_pic[]" onblur='onFileChoose(event,this)' onchange="onFileChoose(event, this)"  >
                         </div>
 
                         <div class="added_img" name='img_wrapper[]'  style="display: none;">
                             <img alt="" name='tmp_img[]' src='' >
-                            <button  type="button" class="img_del" name='del_btn' onclick='deleteFile(this)'></button>
-                            <input  type="file" name="add_pic[]" onblur='onFileChoose(event,this)' >
+                            <button  type="button" class="img_del" name='del_btn' onclick='deleteFile(this)' ></button>
+                            <input  type="file" name="add_pic[]" onblur='onFileChoose(event,this)' onchange="onFileChoose(event, this)"  >
                         </div>
 
                         <div class="added_img" name='img_wrapper[]' style="display: none;" >
                             <img alt="" name='tmp_img[]' src='' >
                             <button  type="button" class="img_del" name='del_btn' onclick='deleteFile(this)'></button>
-                            <input  type="file" name="add_pic[]" onblur='onFileChoose(event,this)' >
+                            <input  type="file" name="add_pic[]" onblur='onFileChoose(event,this)' onchange="onFileChoose(event, this)"  >
                         </div>
 
                         <div class="added_img" name='img_wrapper[]' style="display: none;" >
                             <img alt="" name='tmp_img[]' src='' >
                             <button  type="button" class="img_del" name='del_btn' onclick='deleteFile(this)'></button>
-                            <input  type="file" name="add_pic[]" onblur='onFileChoose(event,this)'  >
+                            <input  type="file" name="add_pic[]" onblur='onFileChoose(event,this)' onchange="onFileChoose(event, this)"  >
                         </div>
 
                         <div class="added_img" name='img_wrapper[]' style="display: none;" >
                             <img alt="" name='tmp_img[]' src='' >
                             <button  type="button" class="img_del" name='del_btn' onclick='deleteFile(this)'></button>
-                            <input  type="file" name="add_pic[]" onblur='onFileChoose(event,this)'  >
+                            <input  type="file" name="add_pic[]" onblur='onFileChoose(event,this)' onchange="onFileChoose(event, this)"  >
                         </div>
                     </div>
                     <p class="img_cnt"><span id="picCnt">0</span> / 5</p>
@@ -335,7 +353,7 @@ $categoryResult = mysqli_query($gconnet, $allCategoriesQuery);
     var tmpReportIdx = "";
     var prevAddPicTmp = "" +
         "<div class=\"added_img\" name='img_wrapper[]' >"+
-        "   <img alt=\"\" name='tmp_img' src='../upload_file/report/{0}' >"+
+        "   <img alt=\"\" name='tmp_img[]' src='../upload_file/report/{0}' >"+
         "   <button  type=\"button\" class=\"img_del\" name='del_btn' onclick=\"deletePrevFile('{0}','{1}')\"></button>"+
         "   <input hidden type=\"file\" name=\"add_pic[]\" onblur='onFileChoose(event,this)' onchange=\"onFileChoose(event, this)\" >"+
         "</div>";
@@ -383,13 +401,19 @@ $categoryResult = mysqli_query($gconnet, $allCategoriesQuery);
                     var res = JSON.parse(response);
                     var str = ""
 
-                    /*
+
+                    var i=0;
                     for(let obj of res) {
-                        str += prevAddPicTmp.format(obj.report_file_name, obj.idx);
+                        //str += prevAddPicTmp.format(obj.report_file_name, obj.idx);
+
+                        $("div[name='img_wrapper[]']")[i].style.display = "block"
+                        $("img[name='tmp_img[]']")[i].src = "../upload_file/report/"+obj.report_file_name
+
+                        i++;
                     }
-                    $('#photo_wrapper').html(tt)
-                    $('#photo_wrapper').append(str);
-                    */
+                    //$('#photo_wrapper').html(tt)
+                    //$('#photo_wrapper').append(str);
+
 
                 }catch (e) {
 
