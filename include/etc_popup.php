@@ -64,7 +64,7 @@
     }
 
 </script>
-<div class="popup post_pop">
+<div class="popup post_pop" onclick="$('.popup').fadeOut();" >
     <div class="popup_wrap post_btn">
         <div class="post_btn_wrap">
             <input type="hidden" id="report_idx" name="report_idx" >
