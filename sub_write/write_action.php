@@ -80,7 +80,7 @@ foreach ($file_array as $k=>$v) {
 
 if ($continue_idx != "") {
     $query = "UPDATE report_list SET ";
-    $query .= " complete_yn='Y', ";
+    $query .= " complete_yn='".$complete_yn."', ";
     $query .= " category = ".$category[0].", ";
     $query .= " report_hashtag = '" . $hash_tags . "', ";
     $query .= " content_text = '" . $input_text . "' ";
@@ -101,11 +101,14 @@ if ($continue_idx != "") {
 }else {
    // $query = "BEGIN;";
     $query = "INSERT INTO report_list  SET ";
-    $query .= " category = ".$category[0].", ";
+    if ($category[0] != "") {
+        $query .= " category = ".$category[0].", ";
+    }
     $query .= " member_idx = " . $member_idx . ", ";
     $query .= " report_hashtag = '" . $hash_tags . "', ";
     $query .= " complete_yn = '" . $complete_yn . "', ";
     $query .= " content_text = '" . $input_text . "'; ";
+
     $result = mysqli_query($gconnet, $query);
 
     $lastIdxQuery = "SELECT idx FROM report_list ORDER BY idx DESC LIMIT 1";
