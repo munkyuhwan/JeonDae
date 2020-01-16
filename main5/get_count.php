@@ -6,9 +6,8 @@ $cnt = 0;
 if (str_replace(" ","", $keyword) != '') {
 
     $count_query = "SELECT COUNT(*) AS cnt FROM report_list WHERE 1 ";
-    $where = " AND ( content_text LIKE '%" . $keyword . "%' OR report_hashtag LIKE '%" . $keyword . "%' ) AND published_yn='Y' AND del_yn='N' AND complete_yn='Y' ";
+    $where = " AND ( content_text LIKE '%" . $keyword . "%' OR report_hashtag LIKE '%" . $keyword . "%' ) AND del_yn='N' AND complete_yn='Y' ";
     $where .= $period != "" ? " AND wdate >= NOW() - INTERVAL 1 " . $period : "";
-
 
     $count_query = $count_query . $where;
     $count_result = mysqli_query($gconnet, $count_query);
