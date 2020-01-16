@@ -173,7 +173,9 @@ while($row = mysqli_fetch_assoc($result) ) {
             $comment_query .= " LIMIT 0,3 ";
             $comment_res = mysqli_query($gconnet, $comment_query);
             ?>
-            <button type="button" class="reply_all" onclick="setCommentList(<?=$row['idx']?>)">댓글 <span><?= $comment_cnt['comment_cnt'] ?></span>개 모두 보기</button>
+            <button type="button" class="reply_all" onclick="setCommentList(<?=$row['idx']?>, this, '댓글 <span><?= $comment_cnt['comment_cnt'] ?></span>개 ')">댓글 <span><?= $comment_cnt['comment_cnt'] ?></span>개 모두 보기</button>
+            <ul id="comment_list_whole_<?=$row['idx']?>" style="display: none;" >
+            </ul>
             <ul id="comment_list_<?=$row['idx']?>">
                 <? while ($r = mysqli_fetch_assoc($comment_res)) { ?>
                     <li class="reply_item user_box" >

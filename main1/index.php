@@ -107,20 +107,6 @@
 
     }
 
-    function setCommentList(reportIdx) {
-        $.ajax({
-            url:"../include/get_comment_list.php",
-            data:{"report_idx":reportIdx},
-            success:function(response) {
-                $("#comment_list_"+reportIdx).html(response);
-            },
-            error:function(error) {
-
-            }
-        });
-
-    }
-
 
 </script>
 <body>

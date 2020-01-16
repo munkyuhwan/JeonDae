@@ -155,3 +155,29 @@ function goShareKakaoStory(href, idx) {
         });
     }
 }
+
+
+function setCommentList(reportIdx, el, txt) {
+    $.ajax({
+        url:"../include/get_comment_list.php",
+        data:{"report_idx":reportIdx},
+        success:function(response) {
+
+            if ( $("#comment_list_whole_"+reportIdx).css("display") == "none" ) {
+                $("#comment_list_whole_" + reportIdx).css("display", "block")
+                $("#comment_list_whole_" + reportIdx).html(response);
+                $("#comment_list_" + reportIdx).css("display", "none");
+                el.innerHTML = txt+"닫기"
+            }else {
+                $("#comment_list_whole_" + reportIdx).css("display", "none")
+                $("#comment_list_whole_" + reportIdx).html(response);
+                $("#comment_list_" + reportIdx).css("display", "block");
+                el.innerHTML = txt+"모두보기"
+            }
+        },
+        error:function(error) {
+
+        }
+    });
+
+}
