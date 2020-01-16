@@ -50,13 +50,14 @@ function commentLikeClicked(comment_idx) {
         success:function(response) {
             try{
                 var res = JSON.parse(response);
-                console.log( $("#comment_like_"+comment_idx).attr('class') )
+
                 if ( $("#comment_like_"+comment_idx).attr('class').replace(" ","") == "like_btn" ) {
                     $("#comment_like_" + comment_idx).attr('class', 'like_btn on');
                 }else {
                     $("#comment_like_" + comment_idx).attr('class', 'like_btn');
                 }
                 toast(res.msg)
+                $("#comment_cnt_"+comment_idx).html(res.cnt)
             }catch(e) {
 
             }

@@ -13,8 +13,14 @@ if (intval($cnt) > 0) {
     $query = "DELETE FROM comment_likes WHERE comment_idx=".$commentIdx." AND member_idx=".$memberIdx;
     $result = mysqli_query($gconnet, $query);
 
+    $select = "SELECT COUNT(*) cnt FROM comment_likes WHERE comment_idx=".$commentIdx." AND member_idx=".$memberIdx;
+    $select_result = mysqli_query($gconnet, $select);
+    $select_row = mysqli_fetch_assoc($select_result);
+    $cnt = $select_row['cnt'];
+
     if ($result) {
         $response = array(
+            "cnt" => $cnt,
             "msg"=>"좋아요가 취소되었습니다."
         );
     }
@@ -23,8 +29,15 @@ if (intval($cnt) > 0) {
     $query = "INSERT INTO comment_likes SET comment_idx=".$commentIdx.", member_idx=".$memberIdx;
     $result = mysqli_query($gconnet, $query);
 
+    $select = "SELECT COUNT(*) cnt FROM comment_likes WHERE comment_idx=".$commentIdx." AND member_idx=".$memberIdx;
+    $select_result = mysqli_query($gconnet, $select);
+    $select_row = mysqli_fetch_assoc($select_result);
+    $cnt = $select_row['cnt'];
+
+
     if ($result) {
         $response = array(
+            "cnt" => $cnt,
             "msg"=>"좋아요를 하셨습니다."
         );
     }
