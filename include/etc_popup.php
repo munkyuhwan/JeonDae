@@ -5,7 +5,7 @@
     }
     function doScrab() {
         $.ajax({
-            url:"additional_action.php",
+            url:"../main1/additional_action.php",
             data:{"reportIdx":$('#report_idx').val(), "action":"scrab"},
             success:function(response) {
                 responseResult(response)
@@ -18,7 +18,7 @@
     function doScrabCancel() {
 
         $.ajax({
-            url:"additional_action.php",
+            url:"../main1/additional_action.php",
             data:{"reportIdx":$('#report_idx').val(), "action":"scrab_cancel"},
             success:function(response) {
                 responseResult(response)
@@ -31,7 +31,7 @@
     }
     function badReport() {
         $.ajax({
-            url:"additional_action.php",
+            url:"../main1/additional_action.php",
             data:{"reportIdx":$('#report_idx').val(), "action":"badReport"},
             success:function(response) {
                 responseResult(response)
@@ -43,7 +43,7 @@
     }
     function cancelSubscribe() {
         $.ajax({
-            url:"additional_action.php",
+            url:"../main1/additional_action.php",
             data:{"reportIdx":$('#report_idx').val(), "action":"cancelSub"},
             success:function(response) {
                 responseResult(response)
