@@ -4,7 +4,13 @@ $parentIdx = trim(sqlfilter($_REQUEST['parent_idx']));
 $reportIdx = trim(sqlfilter($_REQUEST['report_idx']));
 $commentTxt = trim(sqlfilter($_REQUEST['content_txt']));
 $userIdx = $_SESSION['user_access_idx'];
-
+/*
+$writerQuery = "SELECT member_idx FROM report_list WHERE idx=".$reportIdx;
+$writerResult = mysqli_query($gconnet, $writerQuery);
+$writerAssoc = mysqli_fetch_assoc($writerResult);
+$receiver = $writerAssoc['member_idx'];
+addToAlarm("CMNT", $reportIdx, $receiver, "새로운 댓글이 있습니다.", $gconnet);
+*/
 $query = "INSERT INTO report_comments SET ";
 if ($parentIdx!='') {
     $query .= " parent_idx= ".$parentIdx.", ";
