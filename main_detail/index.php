@@ -27,16 +27,16 @@ while($img_r = mysqli_fetch_assoc($img_result)) {
 
 //조회수 추가
 
-$checkIp = "SELECT COUNT(*) cnt FROM view_host WHERE ip_addr='".$_SERVER['HTTP_HOST']."'";
+$checkIp = "SELECT COUNT(*) cnt FROM view_host WHERE ip_addr='".$_SERVER['REMOTE_ADDR']."' AND report_idx=".$report_idx;
 $checkIpResult = mysqli_query($gconnet, $checkIp);
 $checkIpRow = mysqli_fetch_assoc($checkIpResult);
 $ipCnt = $checkIpRow['cnt'];
-
 if (intval($ipCnt)<=0) {
+
     $update = "UPDATE report_list SET view_cnt=" . (intval($view_cnt) + 1) . " WHERE idx=" . $report_idx;
     $update_result = mysqli_query($gconnet, $update);
 
-    $insert_ip = "INSERT INTO view_host SET ip_addr='".$_SERVER['HTTP_HOST']."'";
+    $insert_ip = "INSERT INTO view_host SET ip_addr='".$_SERVER['REMOTE_ADDR']."', report_idx=".$report_idx;
     $insert_ip_result = mysqli_query($gconnet, $insert_ip);
 }
 checkPopular($report_idx, $gconnet);
