@@ -272,7 +272,7 @@ $categoryResult = mysqli_query($gconnet, $allCategoriesQuery);
     </form>
 
 </div>
-<div class="popup confirm_pop">
+<div class="popup confirm_pop" onclick="$('.popup').fadeOut();">
     <div class="popup_wrap post_btn">
         <h2 class="hidden">임시</h2>
         <div class="post_btn_wrap">
