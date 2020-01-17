@@ -14,7 +14,7 @@ function addToAlarm($alarmType, $reportIdx, $receiver, $alarmMsg, $gconnet) {
     $select_push_result = mysqli_query($gconnet, $select_push_yn);
     $select_push = mysqli_fetch_assoc($select_push_result);
 
-    if ($select_push == 'Y') {
+    if ($select_push[$push_type[$alarmType]] == 'Y') {
         $query = "INSERT INTO alarm_list SET ";
         $query .= " alarm_type='" . $alarmType . "', ";
         $query .= " report_idx=" . $reportIdx . ", ";
