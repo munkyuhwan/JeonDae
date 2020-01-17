@@ -1,4 +1,5 @@
 <? include $_SERVER['DOCUMENT_ROOT'] . "/include/head.php" ?>
+<? include $_SERVER['DOCUMENT_ROOT'] . "/include/spinner.php" ?>
 <?
 
 $idx = $_SESSION['user_access_idx'];
@@ -32,7 +33,9 @@ $hastag_result = mysqli_query($gconnet, $hashtag_query);
                 <div class="user_wrap">
                     <div class="user_img_wrap">
                         <div class="user_img">
-                            <img id="profile_img" src="../upload_file/member/<?=$row['file_chg']?>" alt="유저 사진">
+                            <?if($row['file_chg'] != "") {?>
+                                <img id="profile_img" src="../upload_file/member/<?=$row['file_chg']?>" alt="유저 사진">
+                            <?}?>
                         </div>
                         <input type="file" name="profile_img" id="img_change" onchange="imageSelected(event)" >
                         <label for="img_change" class="img_change_btn"></label>
