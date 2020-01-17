@@ -58,7 +58,7 @@
             url:"get_count.php",
             data:{"keyword":keyword,"period":$('input[name="sc_opt[]"]:checked').val()},
             success:function(response) {
-                console.log(response)
+
                 try {
                     var res = JSON.parse(response);
                     var str = "'"+res.result+"개'의 게시물이 검색되었습니다.";
@@ -82,8 +82,8 @@
         <h2 class="hidden">검색</h2>
         <div class="sc_wrap">
             <div class="sc_box">
-                <input type="text" class="search_input" placeholder="검색어를 입력해 주세요." id="keyword">
-                <button type="button" class="search_btn" onclick="init(); getData($('#keyword').val()); getCount($('#keyword').val()); " >검색</button>
+                <input type="text" class="search_input" placeholder="검색어를 입력해 주세요." id="keyword"  >
+                <button type="button" id="search" class="search_btn" onclick="init(); getData($('#keyword').val()); getCount($('#keyword').val()); " >검색</button>
             </div>
             <div class="sc_option">
                 <div class="option_top">
@@ -116,6 +116,20 @@
         </div>
     </section>
 </div>
+
+<script type="application/javascript">
+    var input = document.getElementById("keyword");
+
+
+
+    input.addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("search").click();
+        }
+    });
+
+</script>
 <? include $_SERVER['DOCUMENT_ROOT']."/include/gnb.php" ?>
 
 </body>
