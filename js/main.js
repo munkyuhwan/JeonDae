@@ -45,6 +45,11 @@ $(document).ready(function(){
 			swiper.update();
 		}
 	});
+	$(".popup").on("click",function(){
+		$(".popup").fadeOut();
+		$("html").removeClass("scroll_no");
+	});
+
 	$(".pop_close").on("click",function(){
 		$(".popup").fadeOut();
 		$("html").removeClass("scroll_no");
