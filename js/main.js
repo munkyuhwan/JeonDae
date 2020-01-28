@@ -18,11 +18,13 @@ $(document).ready(function(){
 
 
 	/* snb */
-	$(".snb_btn").on("click",function(){
+	$(".snb_btn").on("click",function(e){
+		e.stopPropagation()
 		$(".snb").fadeIn(100);
 		$(".snb_wrap").addClass("on");
 	});
-	$(".snb_close").on("click",function(){
+	$(".snb_close").on("click",function(e){
+		e.stopPropagation()
 		$(".snb").fadeOut(100);
 		$(".snb_wrap").removeClass("on")
 	});
@@ -44,10 +46,6 @@ $(document).ready(function(){
 		if (swiper) {
 			swiper.update();
 		}
-	});
-	$(".popup").on("click",function(){
-		$(".popup").fadeOut();
-		$("html").removeClass("scroll_no");
 	});
 
 	$(".pop_close").on("click",function(){

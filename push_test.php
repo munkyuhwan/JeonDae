@@ -73,9 +73,31 @@ function send_notification_individual ($topic, $msg, $category, $fcmToken)
             "title" => "Title",
         )
     );
-
-    $url = 'https://fcm.googleapis.com/fcm/send';
     $fields = array(
+        "time_to_live" => 60,
+        "content_available" => true,
+        "priority" => "high",
+        "registration_ids" => array($fcmToken),
+        "notification" => array(
+            "body" => $msg,
+            "category" => $category,
+            "title" => "tttt",
+            "sound" => "default",
+        ),
+        "data" => array(
+            "body" => $msg,
+            "category" => $category,
+            "title" => "test",
+            "sound" => "default",
+            'badge' => 1,
+            'link' => "https://jobbridge.kr/en/about/01.php",
+            'content-available' => 1,
+            'show_in_foreground'=> true,
+            'show_in_backround'=> true,
+        ),
+    );
+    $url = 'https://fcm.googleapis.com/fcm/send';
+    /*$fields = array(
         "time_to_live" => 60,
         "content_available" => true,
         "priority" => "high",
@@ -92,7 +114,7 @@ function send_notification_individual ($topic, $msg, $category, $fcmToken)
             'show_in_backround'=> true,
              ),
 
-    );
+    );*/
 
 
     $headers = array(
@@ -120,6 +142,6 @@ function send_notification_individual ($topic, $msg, $category, $fcmToken)
 }
 
 //send_notification("first_class");
-send_notification_individual("","test","test","dZSi9bAcX8I:APA91bE4_ckL4iigmHug4pBPCHh4fX0CR3h-UB8G1pgEMkoUA1aihUd3cIC8JtScBQdEoCehsCnVNoQCym47QEoYy0txQXzNIX6mgBPg-kfK5lL3fCdmj3HqEfvJuZOhqPlPIUwCTZaj");
+send_notification_individual("","test","test","e4OVMALdf0o:APA91bHF7lU3CSflAoZN2oTqDnzw1FqdrTPP4DClynBwXfTOslBfRj_1YsuJJ4HDjDISVfNRWzB40zJrqIQMl6giaQavb7mB1leyjNsK50jVDYDQak-47cGx7BJ-477JGGfV87K4JKyk");
 
 ?>
