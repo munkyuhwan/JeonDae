@@ -81,11 +81,19 @@ echo "<script>location.replace('../main1');</script>";
 
     function checkLoginState() {
 
-        if (typeof App != "undefined") {
+        try{
             App.fb_login();
-        }else if (typeof webkit != "undefined" ) {
             webkit.messageHandlers.fb_login.postMessage("")
 
+        }catch (exp) {
+            goWebLogin()
+        }
+
+        /*
+        if ( (typeof App).toString() !== "undefined" ) {
+            App.fb_login();
+        } else if ( (typeof webkit).toString() !== "undefined" ) {
+            webkit.messageHandlers.fb_login.postMessage("")
         } else {
 
             FB.login(function (res) {
@@ -118,13 +126,40 @@ echo "<script>location.replace('../main1');</script>";
 
             }, {scope: 'public_profile,email'});
 
-            /*
-
-             */
-
-
-
         }
+        */
+    }
+
+    function goWebLogin() {
+        FB.login(function (res) {
+            // handle the response
+
+            if (res.status == "unknown") {
+                alert('페이스북에 로그인 해 주세요.');
+                window.open("https://www.facebook.com/","_blank")
+            }else if(res.status == "not_authorized") {
+
+            } else if (res.status == "connected") {
+                //checkMember(res.id, res.name, res.user_email)
+                //checkStatus()
+                FB.api('/me?fields=id,name', function (res) {
+                    // 제일 마지막에 실행
+
+                    if (res.id != '') {
+                        checkMember(res.id, res.name, res.user_email)
+                        //$('#fb_id').val(res.id)
+                        //$('#frm').submit()
+                    }
+                    // alert("Success Login : " + response.name);
+                });
+            }
+
+            $('#fb_id').val(response.id)
+            //checkMember(res.id, res.name, res.user_email)
+
+
+
+        }, {scope: 'public_profile,email'});
     }
 
     window.fbAsyncInit = function() {
