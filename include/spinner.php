@@ -6,7 +6,7 @@
         display: none;
         opacity: .6;
         background: silver;
-        position: fixed;
+        position: absolute;
     }
     #my-spinner div {
         width: 100%; height: 100%;

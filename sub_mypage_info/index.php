@@ -1,5 +1,4 @@
 <? include $_SERVER['DOCUMENT_ROOT'] . "/include/head.php" ?>
-<? include $_SERVER['DOCUMENT_ROOT'] . "/include/spinner.php" ?>
 <?
 
 $idx = $_SESSION['user_access_idx'];
