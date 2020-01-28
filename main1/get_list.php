@@ -45,13 +45,13 @@ if ($_SESSION['user_access_idx']== "") {
 
         switch ($row['clean_index']) {
             case 0:
-                $clean_query .= " ( report.category=" . $rows['category_idx'] . " AND (report.bad_report >=" . $lowest . ") ) OR ";
+                $clean_query .= " ( report.category=" . $rows['category_idx'] . " AND (report.bad_report <=" . $lowest . ") ) OR ";
                 break;
             case 1:
-                $clean_query .= " ( report.category=" . $rows['category_idx'] . " AND (report.bad_report >=" . $lowest . " AND report.bad_report <=" . $highest . ") ) OR ";
+                $clean_query .= " ( report.category=" . $rows['category_idx'] . " AND (report.bad_report <=" . $lowest . " AND report.bad_report >=" . $highest . ") ) OR ";
                 break;
             case 2:
-                $clean_query .= " ( report.category=" . $rows['category_idx'] . " AND (report.bad_report <=" . $highest . ") ) OR ";
+                $clean_query .= " ( report.category=" . $rows['category_idx'] . " AND (report.bad_report >=" . $highest . ") ) OR ";
                 break;
             default:
                 break;
