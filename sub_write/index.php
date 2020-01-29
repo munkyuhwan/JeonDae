@@ -187,16 +187,27 @@ $categoryResult = mysqli_query($gconnet, $allCategoriesQuery);
 
     }
 </script>
+<script>
+    function beforeSubmit() {
 
+        if ($("input[name='subcategories[]']:checked").length <= 0) {
+            alert('카테고리를 선택 해 주세요.');
+            return false;
+        }else {
+            return true;
+        }
+
+    }
+</script>
 <body>
 <div class="wrapper">
-    <form name="frm" action="write_action.php" onsubmit="" method="post" enctype="multipart/form-data" >
+    <form name="frm" action="write_action.php"  method="post" onsubmit="return beforeSubmit();" enctype="multipart/form-data" >
         <input type="hidden" name="complete_yn" id="complete_yn" value="Y" >
         <input type="hidden" name="continue_idx" id="continue_idx" >
         <header>
             <div class="header grd_bg write">
                 <h1 class="hidden">제보하기</h1>
-                <button type="submit" class="complte_btn">제보</button>
+                <button type="submit" class="complte_btn" >제보</button>
                 <button type="button" class="pop_call cancle_btn" data-pop="confirm_pop" id="cancelBtn" >취소</button>
                 <?if (intval($incomplete_cnt)>0) {?>
                     <button type="button" class="pop_call temp_list_btn" data-pop="temp_pop" style="display:block" >임시보관함</button>
