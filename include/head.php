@@ -22,6 +22,7 @@ session_start(); ?>
     </head>
     <?include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/include_default.php";?>
     <?include $_SERVER["DOCUMENT_ROOT"]."/include/toast_msg.php";?>
+    <?include $_SERVER["DOCUMENT_ROOT"]."/include/base_spinner.php";?>
 
 
     <style>
