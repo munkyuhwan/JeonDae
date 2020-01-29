@@ -7,7 +7,11 @@ $s_gubun = "NOR";
 $sub_category_id = trim(sqlfilter($_REQUEST['idx']));
 
 
-$query = "UPDATE report_sub_categories SET del_yn='Y' WHERE idx=".$sub_category_id;
+//$query = "UPDATE report_sub_categories SET del_yn='Y' WHERE idx=".$sub_category_id;
+$query = "DELETE FROM report_sub_categories WHERE idx=".$sub_category_id;
+$result = mysqli_query($gconnet,$query);
+
+$query = "DELETE FROM subscribe_list WHERE sub_category_idx=".$sub_category_id;
 $result = mysqli_query($gconnet,$query);
 
 if($result) {
