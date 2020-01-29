@@ -5,7 +5,7 @@ $block = trim(sqlfilter($_REQUEST['block']));
 $category_idx = trim(sqlfilter($_REQUEST['category_idx']));
 $type = trim(sqlfilter($_REQUEST['type']));
 
-$query = "SELECT report.idx AS report_idx, report.wdate, report.content_text, report.report_hashtag, report.likes, (SELECT COUNT(*) AS cnt FROM report_comments WHERE report_idx=report.idx) AS comment_cnt,  member.real_name, member.file_chg, member.user_id  FROM report_list AS report, member_info AS member WHERE report.category=".$category_idx." AND report.del_yn='N' AND report.member_idx=member.idx ";
+$query = "SELECT report.idx AS report_idx, report.wdate, report.content_text, report.report_hashtag, report.likes, (SELECT COUNT(*) AS cnt FROM report_comments WHERE report_idx=report.idx) AS comment_cnt,  member.real_name, member.file_chg, member.user_id  FROM report_list AS report, member_info AS member WHERE report.category=".$category_idx." AND report.del_yn='N' AND report.complete_yn='Y' AND report.member_idx=member.idx ";
 $query_limit .= $query." LIMIT ".($page*$block)." , ".$block ;
 $result = mysqli_query($gconnet,$query_limit);
 
