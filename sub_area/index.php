@@ -190,11 +190,10 @@ if ($_SESSION['user_access_idx']!='') {
 
 <script>
     $(window).scroll(function (e) {
-        if ( Math.ceil($(window).innerHeight() + $(window).scrollTop()) >= $("body").height()) {
-            //do stuff
-            console.log("► End of scroll");
+        if (isScrolledBottom(e)) {
             getList();
         }
+
     });
 </script>
 </html>

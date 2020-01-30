@@ -182,3 +182,60 @@ function setCommentList(reportIdx, el, txt) {
     });
 
 }
+function getMobileOperatingSystem() {
+    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+    //console.log(userAgent);
+    // Windows Phone must come first because its UA also contains "Android"
+    if (/windows phone/i.test(userAgent)) {
+        return "Windows Phone";
+    }
+
+    if (/android/i.test(userAgent)) {
+        return "Android";
+    }
+
+    // iOS detection from: http://stackoverflow.com/a/9039885/177710
+    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        return "iOS";
+    }
+
+    if (/Safari/.test(userAgent) && !window.MSStream ) {
+        return "iOS";
+    }
+
+    return "unknown";
+}
+
+function isScrolledBottom(e) {
+
+    //안드로이드, 브라우저
+    if (getMobileOperatingSystem() == "Android") {
+        if ( Math.ceil($(window).innerHeight() + $(window).scrollTop()) >= $("body").height()) {
+            return true;
+        }else {
+            return false;
+        }
+    }else if (getMobileOperatingSystem() == "iOS") {
+        if ( (Math.ceil($(window).innerHeight() + $(window).scrollTop())) === ($("body").height()-64) ) {
+            e.preventDefault();
+
+            return true;
+        }else {
+            return false;
+        }
+    }else {
+
+
+        if ( Math.ceil($(window).innerHeight() + $(window).scrollTop()) >= $("body").height()) {
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+
+
+
+
+}

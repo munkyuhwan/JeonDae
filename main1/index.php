@@ -113,12 +113,12 @@
 
 </script>
 <body>
-<div class="wrapper"  >
+<div class="wrapper"  onscroll="console.log('scrolling wrapper')" >
     <? include $_SERVER['DOCUMENT_ROOT']."/include/header.php"?>
     <? include $_SERVER['DOCUMENT_ROOT']."/include/main_nav.php"?>
-    <section class="main_section" >
-        <div class="list_wrap" >
-            <ul id="main_list" >
+    <section class="main_section" onscroll="console.log('scrolling section')" >
+        <div class="list_wrap" onscroll="console.log('scrolling div')" >
+            <ul id="main_list"  onscroll="console.log('scrolling ul')" >
             </ul>
         </div>
         <a href="../sub_write" class="post_write_btn"></a>
@@ -126,11 +126,10 @@
 </div>
 <script>
     $(window).scroll(function (e) {
-        if ( Math.ceil($(window).innerHeight() + $(window).scrollTop()) >= $("body").height()) {
-            //do stuff
-            console.log("► End of scroll");
+        if (isScrolledBottom(e)) {
             getList();
         }
+
     });
 </script>
 <? include $_SERVER['DOCUMENT_ROOT']."/include/gnb.php" ?>

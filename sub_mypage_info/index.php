@@ -218,9 +218,7 @@ $hastag_result = mysqli_query($gconnet, $hashtag_query);
 
 <script>
     $(window).scroll(function (e) {
-        if ( Math.ceil($(window).innerHeight() + $(window).scrollTop()) >= $("body").height()) {
-            //do stuff
-            console.log("► End of scroll");
+        if (isScrolledBottom(e)) {
             if ($("#write_list_tab").attr("class") == "on" ) {
                 if (writePage > 0) {
                     getWriteList()
@@ -237,6 +235,7 @@ $hastag_result = mysqli_query($gconnet, $hashtag_query);
                 }
             }
         }
+
     });
 </script>
 </html>
