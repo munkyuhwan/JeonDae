@@ -18,13 +18,15 @@
         })
     }
 
+    /*
     $(window).on("scroll", function() {
         var scrollHeight = $(document).height();
         var scrollPosition = $(window).height() + $(window).scrollTop();
-        if ( (scrollHeight - scrollPosition) / scrollHeight <= 0.1) {
+        if ( (scrollHeight - scrollPosition) / scrollHeight === 0) {
             getData();
         }
     });
+    */
 
 </script>
 <div class="wrapper" >
@@ -45,4 +47,14 @@
 <?include $_SERVER['DOCUMENT_ROOT']."/include/share_pop.php"?>
 
 </body>
+
+<script>
+    $(window).scroll(function (e) {
+        if ( Math.ceil($(window).innerHeight() + $(window).scrollTop()) >= $("body").height()) {
+            //do stuff
+            console.log("? End of scroll");
+            getList();
+        }
+    });
+</script>
 </html>

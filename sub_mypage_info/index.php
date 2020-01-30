@@ -179,10 +179,11 @@ $hastag_result = mysqli_query($gconnet, $hashtag_query);
         getWriteList()
     })
 
+    /*
     $(window).on("scroll", function() {
         var scrollHeight = $(document).height();
         var scrollPosition = $(window).height() + $(window).scrollTop();
-        if ( (scrollHeight - scrollPosition) / scrollHeight <= 0.1) {
+        if ( (scrollHeight - scrollPosition) / scrollHeight === 0) {
 
             if ($("#write_list_tab").attr("class") == "on" ) {
                 if (writePage > 0) {
@@ -202,6 +203,7 @@ $hastag_result = mysqli_query($gconnet, $hashtag_query);
 
         }
     });
+    */
 
     function imageSelected(event) {
         var reader = new FileReader;
@@ -213,6 +215,30 @@ $hastag_result = mysqli_query($gconnet, $hashtag_query);
 
 </script>
 </body>
+
+<script>
+    $(window).scroll(function (e) {
+        if ( Math.ceil($(window).innerHeight() + $(window).scrollTop()) >= $("body").height()) {
+            //do stuff
+            console.log("► End of scroll");
+            if ($("#write_list_tab").attr("class") == "on" ) {
+                if (writePage > 0) {
+                    getWriteList()
+                }
+            }
+            else if ($("#comment_list_tab").attr("class") == "on" ) {
+                if (commentPage > 0) {
+                    getCommentList()
+                }
+            }
+            else if ($("#like_list_tab").attr("class") == "on" ) {
+                if (likePage > 0) {
+                    getLikeList()
+                }
+            }
+        }
+    });
+</script>
 </html>
 
 <!--

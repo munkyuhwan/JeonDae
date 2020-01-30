@@ -44,14 +44,16 @@
         })
     }
     getList();
+    /*
     $(window).on("scroll", function() {
         var scrollHeight = $(document).height();
         var scrollPosition = $(window).height() + $(window).scrollTop();
 
-        if ( (scrollHeight - scrollPosition) / scrollHeight <= 0.1) {
+        if ( (scrollHeight - scrollPosition) / scrollHeight === 0) {
             getList();
         }
     });
+    */
 
 </script>
 <script>
@@ -111,17 +113,26 @@
 
 </script>
 <body>
-<div class="wrapper">
+<div class="wrapper"  >
     <? include $_SERVER['DOCUMENT_ROOT']."/include/header.php"?>
     <? include $_SERVER['DOCUMENT_ROOT']."/include/main_nav.php"?>
-    <section class="main_section">
-        <div class="list_wrap">
-            <ul id="main_list">
+    <section class="main_section" >
+        <div class="list_wrap" >
+            <ul id="main_list" >
             </ul>
         </div>
         <a href="../sub_write" class="post_write_btn"></a>
     </section>
 </div>
+<script>
+    $(window).scroll(function (e) {
+        if ( Math.ceil($(window).innerHeight() + $(window).scrollTop()) >= $("body").height()) {
+            //do stuff
+            console.log("► End of scroll");
+            getList();
+        }
+    });
+</script>
 <? include $_SERVER['DOCUMENT_ROOT']."/include/gnb.php" ?>
 <? include $_SERVER['DOCUMENT_ROOT']."/include/etc_popup.php" ?>
 <? include $_SERVER['DOCUMENT_ROOT']."/include/img_popup.php" ?>
