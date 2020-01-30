@@ -1,6 +1,6 @@
 <?
 session_start();
-ini_set("session.cache_expire", 60000); // 세션 유효시간 : 분
+ini_set("session.cache_expire", 3600000); // 세션 유효시간 : 분
 ini_set("session.gc_maxlifetime", 3600000); // 세션 가비지 컬렉션(로그인시 세션지속 시간) : 초 
 session_cache_limiter("private");
 date_default_timezone_set('Asia/Seoul');
