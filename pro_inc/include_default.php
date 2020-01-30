@@ -43,7 +43,7 @@ function https_redirect($ssl=false)
 	}
 }
 if ($_SERVER['HTTP_HOST']!=="localhost:8888") {
-	https_redirect();
+	//https_redirect();
 }
 
 

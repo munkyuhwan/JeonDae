@@ -53,7 +53,7 @@
             <!-- 학교 검색 후 이메일 인증 영역 보여짐 -->
             <div class="result_wrap" style="display: none;" >
                 <h3>학교 인증 이메일</h3>
-                <form name="frm" action="action.php" target="iframe1" method="post" >
+                <form name="frm" action="action.php"  method="post" >
                     <input type="hidden" name="uni_idx" id="uni_idx"  >
                     <input type="hidden" name="domain" id="domain" value="@gmail.com" >
                     <input type="text" name="email_id" > <span id="uni_email">@hanyang.ac.kr</span>

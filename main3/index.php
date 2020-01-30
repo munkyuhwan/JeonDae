@@ -32,7 +32,7 @@
     $(window).on("scroll", function() {
         var scrollHeight = $(document).height();
         var scrollPosition = $(window).height() + $(window).scrollTop();
-        if ((scrollHeight - scrollPosition) / scrollHeight === 0) {
+        if ( (scrollHeight - scrollPosition) / scrollHeight <= 0.1) {
             getList();
         }
     });

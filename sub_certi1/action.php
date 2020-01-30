@@ -59,10 +59,69 @@ $body ='
 
         ';
 
+
+require_once "../include/PHPMailer/PHPMailerAutoload.php"; // PHPMailer 클래스 인클루드
+
+/*
+if($_REQUEST['email2'] == "naver.com"){
+    $smtp_use = 'smtp.naver.com'; //네이버 메일 발송서버
+    $s_msg = "네이버를 이용해 메일을 전송하였습니다.";
+} elseif($_REQUEST['email2'] == "gmail.com"){
+    $smtp_use = 'smtp.gmail.com'; //구글 메일 발송서버
+    $s_msg = "구글을 이용해 메일을 전송하였습니다.";
+}
+*/
+echo !extension_loaded('openssl')?"Not Available":"Available";
+
+$smtp_use = 'smtp.naver.com'; //네이버 메일 발송서버
+
+
+$smtp_mail_id = "moonkyuhwan@naver.com"; //  발송하는 메일계정. 예)test@naver.com 혹은 test@gmail.com 형식
+$smtp_mail_pw = "ansrB4901!"; // 발송하는 메일계정의 비밀번호.
+
+$to_email = $email_id.$domain;// 받는 메일. 예) test@naver.com
+$title = "전대전 인증 이메일입니다."; // 메일제목
+$from_name = "전대전 관리자"; // 발송자이름
+$from_email = "moonkyuhwan@naver.com"; // 발송자 메일
+$content = $body; // 메일내용. html 태그가능. 태그 사용하지 않을경우 nl2br($_REQUEST['memo'])
+
+
+$mail = new PHPMailer(true); // 인클루드한 PHPMailer 클래스 객체선언
+$mail->IsSMTP();
+
+try {
+    $mail->Host = $smtp_use;   // email 보낼때 사용할 서버를 지정
+    $mail->SMTPAuth = true;          // SMTP 인증을 사용함
+    $mail->Port = 465;            // email 보낼때 사용할 포트를 지정
+    $mail->SMTPSecure = "ssl";        // SSL을 사용함
+    $mail->Username   = $smtp_mail_id; // 계정
+    $mail->Password   = $smtp_mail_pw; // 패스워드
+    $mail->SetFrom($from_email, $from_name); // 보내는 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
+    $mail->AddAddress($to_email);  // 받을 사람 email 주소
+    $mail->Subject = $title;         // 메일 제목
+    $mail->MsgHTML($content);         // 메일 내용 (HTML 형식도 되고 그냥 일반 텍스트도 사용 가능함)
+
+    $mail->Send(); // 메일 발송
+
+    ?>
+    <script>
+        alert('인증메일이 발송되었습니다.');
+        parent.location.replace('../main1');
+    </script>
+
+    <?
+
+} catch (phpmailerException $e) {
+    echo $e->errorMessage();
+} catch (Exception $e) {
+    echo $e->getMessage();
+}
+
+/*
 $query = "INSERT INTO uni_approval SET member_idx=".$_SESSION['user_access_idx'].", approve_code='".$hashStr."'";
 $result = mysqli_query($gconnet,$query);
 //mail_utf("admin@djund.com","전대전",$email_id.$domain,"전대전 인증 이메일입니다.",$body);
-if (mail_utf("moonkyuhwan@naver.com","전대전",$email_id.$domain,"전대전 인증 이메일입니다.",$body)) {
+if (mail_utf("admin@djund.com","전대전",$email_id.$domain,"전대전 인증 이메일입니다.",$body)) {
 
     ?>
     <script>
@@ -72,7 +131,7 @@ if (mail_utf("moonkyuhwan@naver.com","전대전",$email_id.$domain,"전대전 �
 
     <?
 }
-
+*/
 
 
 ?>

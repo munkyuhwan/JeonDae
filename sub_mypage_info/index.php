@@ -182,7 +182,7 @@ $hastag_result = mysqli_query($gconnet, $hashtag_query);
     $(window).on("scroll", function() {
         var scrollHeight = $(document).height();
         var scrollPosition = $(window).height() + $(window).scrollTop();
-        if ((scrollHeight - scrollPosition) / scrollHeight === 0) {
+        if ( (scrollHeight - scrollPosition) / scrollHeight <= 0.1) {
 
             if ($("#write_list_tab").attr("class") == "on" ) {
                 if (writePage > 0) {
