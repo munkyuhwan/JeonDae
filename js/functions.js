@@ -234,8 +234,19 @@ function isScrolledBottom(e) {
         }
     }
 
+}
+function checkPlatform() {
+    var userAgent=navigator.userAgent.toLowerCase();
 
-
+    if (userAgent.indexOf("ANDROID_WEBVIEW")) {
+        return "app_android"
+    }
+    else if (userAgent.indexOf("ANDROID_WEBVIEW")) {
+        return "app_ios"
+    }
+    else {
+        return "browser"
+    }
 
 
 }

@@ -82,11 +82,16 @@ echo "<script>location.replace('../main1');</script>";
     function checkLoginState() {
 
         try{
-            App.fb_login();
-            webkit.messageHandlers.fb_login.postMessage("")
+            if (checkPlatform()=="app_android") {
+                App.fb_login();
+            }else if (checkPlatform()=="app_ios") {
+                webkit.messageHandlers.fb_login.postMessage("")
+            }
+            else {
+                goWebLogin()
+            }
 
         }catch (exp) {
-            goWebLogin()
         }
 
         /*
