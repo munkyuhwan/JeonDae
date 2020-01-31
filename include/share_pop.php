@@ -1,4 +1,4 @@
-<div class="popup share_pop">
+<div class="popup share_pop" onclick="$('.popup').fadeOut();" >
     <h2 class="hidden">공유하기</h2>
     <div class="popup_wrap">
         <div class="share_top grd_bg">
