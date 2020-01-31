@@ -17,6 +17,22 @@ window.fbAsyncInit = function() {
 };
 
 
+function checkPlatform() {
+    var userAgent=navigator.userAgent.toLowerCase();
+
+    if (userAgent.indexOf("ANDROID_WEBVIEW")) {
+        return "app_android"
+    }
+    else if (userAgent.indexOf("ANDROID_WEBVIEW")) {
+        return "app_ios"
+    }
+    else {
+        return "browser"
+    }
+
+
+}
+
 var isApp=false;
 function setIsApp() {
     isApp = true;
@@ -71,10 +87,10 @@ function commentLikeClicked(comment_idx) {
 
 
 function goShare(href, idx) {
-    if (typeof App != "undefined") {
+    if (checkPlatform() == "app_android") {
         App.fb_share($('#content_' + idx).html(), href, idx)
 
-    }else if (typeof webkit != "undefined" ) {
+    }else if (checkPlatform() == "app_ios" ) {
 
         webkit.messageHandlers.fb_share.postMessage("{\"content\":\""+ encodeURI($('#content_' + idx).html())+"\", \"href\":\""+encodeURI(href)+"\", \"idx\":\""+idx+"\"}")
 
@@ -104,9 +120,11 @@ function goShareKakaoTalk(href, idx) {
     }else {
         imgTag = ""
     }
-    if (typeof App != "undefined") {
-        App.kakao_share($('#content_' + idx).html(), "https://djund.com/" + imgTag.replace("../", ""), idx);
-    }else if (typeof webkit != "undefined" ) {
+    if (checkPlatform() == "app_android") {
+        App.kakao_share($('#content_' + idx).html(), "https://djund.com/" + imgTag,href, idx);
+        //App.kakao_share($('#content_' + idx).html(), href, idx);
+
+    }else if (checkPlatform() == "app_ios") {
         webkit.messageHandlers.kakao_share.postMessage("{\"content\":\""+ encodeURI($('#content_' + idx).html())+"\", \"imgUrl\":\""+"https://djund.com/" + imgTag.replace("../", "")+"\" , \"href\":\""+encodeURI(href)+"\", \"idx\":\""+idx+"\"}")
     }else {
         doKakaoTalkSahre(href, idx)
@@ -147,7 +165,7 @@ function goShareKakaoStory(href, idx) {
     }else {
         imgTag = ""
     }
-    if (typeof webkit != "undefined" ) {
+    if (checkPlatform() == "app_ios" ) {
         webkit.messageHandlers.kakao_story_share.postMessage("{\"content\":\""+ encodeURI($('#content_' + idx).html())+"\", \"imgUrl\":\""+"https://djund.com/" + imgTag.replace("../", "")+"\" , \"href\":\""+encodeURI(href)+"\", \"idx\":\""+idx+"\"}")
     }else {
         Kakao.Story.share({
@@ -233,20 +251,5 @@ function isScrolledBottom(e) {
             return false;
         }
     }
-
-}
-function checkPlatform() {
-    var userAgent=navigator.userAgent.toLowerCase();
-
-    if (userAgent.indexOf("ANDROID_WEBVIEW")) {
-        return "app_android"
-    }
-    else if (userAgent.indexOf("ANDROID_WEBVIEW")) {
-        return "app_ios"
-    }
-    else {
-        return "browser"
-    }
-
 
 }
