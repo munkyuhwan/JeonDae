@@ -380,7 +380,7 @@ header { height:50px; }
 .write_top { display:flex; padding:15px 15px 10px 15px; }
 .write_top .prf_box { width:40px; height:40px; display:flex; justify-content: center; overflow:hidden; border-radius:50%; border:1px solid #eee; }
 .write_top .prf_box  img { height: 100%; width: auto; max-width: unset;  }
-.write_top textarea { width:calc(100% - 40px); padding:10px 0 0 15px; font-size:14px; color:#505050; height:50vh;   }
+.write_top textarea { width:calc(100% - 40px); padding:10px 0 0 15px; font-size:14px; color:#505050; height:40vh;   }
 .write_bot { position:fixed; bottom:0; left:0; right:0; border-top:1px solid #ededed; padding:10px 15px; }
 .write_bot .add_wrap { display:flex; }
 .write_bot .tag_input { position:absolute; top:-30px; left:0; right:0; padding:0 15px; height:20px; overflow: hidden;  }
