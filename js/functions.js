@@ -20,10 +20,10 @@ window.fbAsyncInit = function() {
 function checkPlatform() {
     var userAgent=navigator.userAgent.toLowerCase();
 
-    if (userAgent.indexOf("ANDROID_WEBVIEW")==true) {
+    if (userAgent.includes("android_webview")==true) {
         return "app_android"
     }
-    else if (userAgent.indexOf("IOS_WEBVIEW")==true) {
+    else if (userAgent.includes("ios_webview")==true) {
         return "app_ios"
     }
     else {
