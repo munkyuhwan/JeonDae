@@ -74,8 +74,13 @@ function send_notification_individual ($topic, $msg, $category, $fcmToken)
         )
     );
 
+    $fcmData = explode("://",$fcmToken);
+
+    $device = $fcmData[0];
+    $fcmToken = $fcmData[1];
+
     $url = 'https://fcm.googleapis.com/fcm/send';
-    if ($topic == SUBSCRIBE_IOS) {
+    if ($device == "app_ios") {
         $fields = array(
             "time_to_live" => 60,
             "content_available" => true,
@@ -130,6 +135,5 @@ function send_notification_individual ($topic, $msg, $category, $fcmToken)
 }
 
 //send_notification("first_class");
-
 
 ?>

@@ -1,5 +1,4 @@
-<?ob_start();
-session_start(); ?>
+<?ob_start(); ?>
 <!DOCTYPE html>
 <html lang="ko">
     <head>
@@ -38,3 +37,10 @@ session_start(); ?>
             display: inline !important;
         }
     </style>
+
+<script>
+    $(document).ready(function() {
+        getFcmId();
+    })
+
+</script>

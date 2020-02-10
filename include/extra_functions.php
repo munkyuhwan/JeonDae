@@ -10,7 +10,7 @@ function addToAlarm($alarmType, $reportIdx, $receiver, $alarmMsg, $gconnet) {
         "TOP" => "push4_yn",
     );
 
-    $select_push_yn = "SELECT ".$push_type[$alarmType]." FROM member_info WHERE idx=".$receiver;
+    $select_push_yn = "SELECT ".$push_type[$alarmType].", push_key, real_name FROM member_info WHERE idx=".$receiver;
     $select_push_result = mysqli_query($gconnet, $select_push_yn);
     $select_push = mysqli_fetch_assoc($select_push_result);
 
@@ -21,7 +21,10 @@ function addToAlarm($alarmType, $reportIdx, $receiver, $alarmMsg, $gconnet) {
         $query .= " member_idx=" . $receiver . ", ";
         $query .= " alarm_msg='" . $alarmMsg . "' ";
         $result = mysqli_query($gconnet, $query);
+
+        send_notification_individual ("", $alarmMsg, "like", $select_push['push_key']);
     }
+
 
 }
 

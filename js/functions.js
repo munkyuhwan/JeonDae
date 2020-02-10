@@ -39,12 +39,14 @@ function setIsApp() {
     alert(isApp)
 }
 
+
+
 function likeClick(report_idx) {
     $.ajax({
        url:"../include/like_clicked.php",
         data:{"report_idx":report_idx},
         success:function(response) {
-
+            console.log(response)
             try{
                 var res = JSON.parse(response);
                 $("#like_btn_"+report_idx).html(res.like_cnt)
@@ -251,5 +253,32 @@ function isScrolledBottom(e) {
             return false;
         }
     }
+
+}
+
+function getFcmId() {
+    try {
+        if (getMobileOperatingSystem() == "Android") {
+            App.get_fcm_token()
+        } else if (getMobileOperatingSystem() == "iOS") {
+            webkit.messageHandlers.get_fcm_token.postMessage()
+        }
+    }catch(e) {
+
+    }
+}
+
+function fcmid_callback(token) {
+    $.ajax({
+        url:"../include/add_fcm.php",
+        method:"POST",
+        data:{"token":token,"device":checkPlatform()},
+        success:function(response) {
+
+        },
+        error:function(err) {
+            console.log(err)
+        }
+    })
 
 }
