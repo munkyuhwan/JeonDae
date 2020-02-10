@@ -22,7 +22,7 @@ function addToAlarm($alarmType, $reportIdx, $receiver, $alarmMsg, $gconnet) {
         $query .= " alarm_msg='" . $alarmMsg . "' ";
         $result = mysqli_query($gconnet, $query);
 
-        send_notification_individual ("", $alarmMsg, "like", $select_push['push_key']);
+        send_notification_individual ("", $alarmMsg, $alarmType, $select_push['push_key']);
     }
 
 
@@ -48,7 +48,7 @@ function checkPopular($reportIdx, $gconnet) {
     $popularity_data = mysqli_fetch_assoc($popularity_result);
 
     if ( intval($popularity_data['cnt']) > 0 ) {
-        addToAlarm("TOP", $reportIdx, $member_idx, "", $gconnet);
+        addToAlarm("TOP", $reportIdx, $member_idx, "내 제보가 임기 게시물에 등록되었습니다.", $gconnet);
     }
 
 
