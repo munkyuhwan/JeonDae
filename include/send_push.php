@@ -42,7 +42,7 @@ function send_notification ($topic, $msg, $category)
 
 
     $headers = array(
-        'Authorization:key=AAAAeNMm6Do:APA91bHh-rv9gqcaY8YWHRa8rhm91GXK4eMLa8Si9VqgWvmCeMj7AW5N_E8FTR9kizkiE1DLoCdj9ViC-1lypxmVkA9273jCs1ZmQyuUUAkGCFKpy2j7-dpr4CHmTUpE3W7W2XTILPdTiSrkrr6llgKIbmm4qSdKdw',
+        'Authorization:key=AAAAPS9SAHM:APA91bFGiFsCGESdnVUSzhupTbw3nwlFKkEsft1jQ5q_QI61acrvlmi1XEGyfik6z5O33wPd4MG6yXognACOm_IxgbG2UkMfhI-clfxk-KB3UBJeNWjlZ7UpgL2kD8YaePdB7lVbqNJh',
         'Content-Type: application/json'
     );
 
@@ -112,7 +112,7 @@ function send_notification_individual ($topic, $msg, $category, $fcmToken)
 
 
     $headers = array(
-        'Authorization:key=AAAAeNMm6Do:APA91bHh-rv9gqcaY8YWHRa8rhm91GXK4eMLa8Si9VqgWvmCeMj7AW5N_E8FTR9kizkiE1DLoCdj9ViC-1lypxmVkA9273jCs1ZmQyuUUAkGCFKpy2j7-dpr4CHmTUpE3W7W2XTILPdTiSrkrr6llgKIbmm4qSdKdw',
+        'Authorization:key=AAAAPS9SAHM:APA91bFGiFsCGESdnVUSzhupTbw3nwlFKkEsft1jQ5q_QI61acrvlmi1XEGyfik6z5O33wPd4MG6yXognACOm_IxgbG2UkMfhI-clfxk-KB3UBJeNWjlZ7UpgL2kD8YaePdB7lVbqNJh',
         'Content-Type: application/json'
     );
 
@@ -131,9 +131,10 @@ function send_notification_individual ($topic, $msg, $category, $fcmToken)
         die('Curl failed: ' . curl_error($ch));
     }
     curl_close($ch);
+
     return $result;
 }
-
+//send_notification_individual ("", "test", "cat", "android://fW6mf_h6JJA:APA91bHSsEcwvchlVrIGQS1Af2S5ABlPsT6QIdCJ2PD5kPk6Myk9p8QGZfKB5yyHI1rBlLwwAA9eAVbsFDjuRa_2Pq-CPqIrwaQElwOTNnv88aiuldjd9Lr_LjNYvQQ2Xa7RUFmI3sCE")
 //send_notification("first_class");
 
 ?>
