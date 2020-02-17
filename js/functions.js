@@ -46,10 +46,16 @@ function likeClick(report_idx) {
        url:"../include/like_clicked.php",
         data:{"report_idx":report_idx},
         success:function(response) {
-            console.log(response)
             try{
                 var res = JSON.parse(response);
                 $("#like_btn_"+report_idx).html(res.like_cnt)
+
+                if ( $("#like_btn_"+report_idx).attr('class').replace(" ","") == "like_btn" ) {
+                    //$("#like_btn_"+report_idx).attr('class', 'like_btn on')
+                }else {
+                   // $("#like_btn_"+report_idx).attr('class', 'like_btn')
+                }
+
                 toast(res.msg)
             }catch(e) {
 
@@ -66,13 +72,14 @@ function commentLikeClicked(comment_idx) {
         url:"../include/comment_like_action.php",
         data:{"comment_idx":comment_idx},
         success:function(response) {
+            console.log(comment_idx)
             try{
                 var res = JSON.parse(response);
 
                 if ( $("#comment_like_"+comment_idx).attr('class').replace(" ","") == "like_btn" ) {
-                    $("#comment_like_" + comment_idx).attr('class', 'like_btn on');
+                  //  $("#comment_like_" + comment_idx).attr('class', 'like_btn on');
                 }else {
-                    $("#comment_like_" + comment_idx).attr('class', 'like_btn');
+                  //  $("#comment_like_" + comment_idx).attr('class', 'like_btn');
                 }
                 toast(res.msg)
                 $("#comment_cnt_"+comment_idx).html(res.cnt)
