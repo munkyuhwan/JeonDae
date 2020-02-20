@@ -68,6 +68,11 @@ if($which == "true") {
     $del_subs .= " member_idx=".$_SESSION['user_access_idx']." AND category_idx=".$category_idx;
     $del_result = mysqli_query($gconnet,$del_subs);
 
+    // 클린필더 삭제
+    $del_filter = "DELETE FROM user_clean_index WHERE member_idx=".$_SESSION['user_access_idx']." AND category_idx=".$category_idx;
+    $del_result = mysqli_query($gconnet,$del_filter);
+
+
     if ($del_result) {
         $result = array(
             "result"=>"success"
