@@ -535,3 +535,9 @@ header { height:50px; }
 .alrim_wrap .desc { font-size:12px; font-weight:350; line-height:1.4em; padding-top:10px; }
 .alrim_wrap .date { text-align: right; font-size:11px; font-weight:300; }
 
+
+/*제보하기 추가 */
+.tag_type_category .select_div:after, .myinfo_wrap .name_con:after { position:absolute; bottom:0; right:0; content:""; display: inline-block; height:30px; width:30px; }
+.tag_type_category .select_div { border:1px solid #dcdcdc; width:200px; margin-left: 20px; }
+.tag_type_category .select_div:after {  background:url(../images/icon_select.png) no-repeat center; background-size:12px auto;}
+.tag_type_category .select_div select { height:30px; background:transparent; padding:5px 30px 5px 10px; }

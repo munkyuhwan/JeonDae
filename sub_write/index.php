@@ -50,17 +50,21 @@ $incomplete_cnt = mysqli_num_rows($incomplete_result);
 
 // 재보함 종류 지역 / 학교
 $categoryType = trim(sqlfilter($_REQUEST['top_cat']));
-$allCategoriesQuery = "SELECT category_name, idx FROM report_categories ";
-
-if ($categoryType != "") {
-    if ($categoryType == "area") {
-        $allCategoriesQuery .= " WHERE area_idx != 0 ";
-    }
-    else if ($categoryType == "school") {
-        $allCategoriesQuery .= " WHERE school_idx != 0 ";
-    }
+if ($_SESSION['user_access_idx'] == "") {
+    $allCategoriesQuery = "SELECT category_name, idx FROM report_categories ";
+}else {
+    $allCategoriesQuery = "SELECT (SELECT category_name FROM report_categories WHERE idx=subc.category_idx) AS category_name, subc.category_idx AS idx FROM subscribe_list AS subc WHERE subc.member_idx=".$_SESSION['user_access_idx']." GROUP BY subc.category_idx ";
 }
 
+if ($_SESSION['user_access_idx'] == "") {
+    if ($categoryType != "") {
+        if ($categoryType == "area") {
+            $allCategoriesQuery .= " WHERE area_idx != 0 ";
+        } else if ($categoryType == "school") {
+            $allCategoriesQuery .= " WHERE school_idx != 0 ";
+        }
+    }
+}
 $categoryResult = mysqli_query($gconnet, $allCategoriesQuery);
 
 ?>
@@ -224,13 +228,26 @@ $categoryResult = mysqli_query($gconnet, $allCategoriesQuery);
                 </div>
                 <div class="item_mid tag_type_category">
                     <ul>
-                        <? while($category = mysqli_fetch_assoc($categoryResult)) {?>
-                            <li>
-                                <input type="radio" name="categories[]" value="<?=$category['idx']?>" id="category_<?=$category['idx']?>" onclick="onCategorySelected(<?=$category['idx']?>)" >
-                                <label for="category_<?=$category['idx']?>">
-                                    <?=$category['category_name']?>
-                                </label>
-                            </li>
+                        <?if ($_SESSION['user_access_idx'] != "") { ?>
+                            <? while ($category = mysqli_fetch_assoc($categoryResult)) { ?>
+                                <li>
+                                    <input type="radio" name="categories[]" value="<?= $category['idx'] ?>"
+                                           id="category_<?= $category['idx'] ?>"
+                                           onclick="onCategorySelected(<?= $category['idx'] ?>)">
+                                    <label for="category_<?= $category['idx'] ?>">
+                                        <?= $category['category_name'] ?>
+                                    </label>
+                                </li>
+                            <?}
+                        }else {?>
+                            <div class="select_div">
+                                <select name="categories[]" onchange="onCategorySelected(this.value)">
+                                    <? while ($category = mysqli_fetch_assoc($categoryResult)) { ?>
+                                        <option value="<?=$category['idx']?>"  ><?=$category['category_name']?></option>
+                                    <?}?>
+                                </select>
+                            </div>
+
                         <?}?>
                     </ul>
                 </div>
