@@ -1,6 +1,7 @@
 <? include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/include_default.php"; // 공통함수 인클루드 ?>
 <?php
 
+
 $category = $_REQUEST['categories'];
 
 $input_text = trim(sqlfilter($_REQUEST['input_text']));
@@ -32,7 +33,9 @@ if ($_SESSION['user_access_idx'] != "") {
 
     $ageBand = floor( (intval($yNow)-intval($myBirth))/10 )*10;
 
-    $hash_tags .= "#".$ageBand."대,";
+    if (strpos($hash_tags,"#".$ageBand."대") < 0 ) {
+        $hash_tags .= "#" . $ageBand . "대,";
+    }
 
 
 }else {
