@@ -9,7 +9,7 @@ $query = "SELECT * FROM uni_list WHERE uni_name LIKE '%".$keyword."%' ";
 $result = mysqli_query($gconnet, $query);
 $response = array();
 while($row = mysqli_fetch_assoc($result)) {?>
-    <li onclick="console.log('ddd'); onUniSelect(<?=$row['idx']?>); " >
+    <li onclick="onUniSelect('<?=$row['idx']?>','<?=$row['uni_name']?>'); " >
         <input type="hidden" value="<?=$row['idx']?>" id="uni_<?=$row['idx']?>" >
         <input type="hidden" value="<?=$row['email']?>" id="uni_email_<?=$row['idx']?>" >
         <?=$row['uni_name']?>
