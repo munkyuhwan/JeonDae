@@ -292,7 +292,7 @@ if ($_SESSION['user_access_idx']== "") {
                                         </div>
                                         <div class="etc_info">
                                             <p><?= date("m월 d일 h:i", strtotime($r['wdate'])) ?></p>
-                                            <button type="button" onclick="$('#comment_box_<?= $r['idx'] ?>').toggle() " >답글 달기</button>
+                                            <button type="button" onclick="$('.item_reply_input').hide(); $('.item_replay_main').show(); $('#comment_box_<?= $r['idx'] ?>').toggle() " >답글 달기</button>
                                         </div>
                                     </div>
                                     <?
@@ -345,7 +345,7 @@ if ($_SESSION['user_access_idx']== "") {
                                                     </div>
                                                     <div class="etc_info">
                                                         <p><?= date("m월 d일 h:i", strtotime($son['wdate'])) ?></p>
-                                                        <button type="button" onclick="$('#comment_box_<?= $son['idx'] ?>').toggle() " >답글 달기</button>
+                                                        <button type="button" onclick="$('.item_reply_input').hide(); $('.item_replay_main').show(); $('#comment_box_<?= $son['idx'] ?>').toggle() " >답글 달기</button>
                                                     </div>
                                                 </div>
                                                 <?
@@ -393,7 +393,7 @@ if ($_SESSION['user_access_idx']== "") {
                     </ul>
                 </div>
             </div>
-            <div class="item_reply_input" id="main_comment_<?=$row['report_idx']?>" >
+            <div class="item_reply_input item_replay_main" id="main_comment_<?=$row['report_idx']?>" >
                 <div class="prf_box">
                     <img src="../thumb/thumb.php?src=../upload_file/member/<?= $profile_img_assoc["file_chg"] ?>&size=<300" alt="">
                 </div>

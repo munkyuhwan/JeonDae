@@ -209,7 +209,7 @@ while($row = mysqli_fetch_assoc($category_result)) {
                                     </div>
                                     <div class="etc_info">
                                         <p><?= date("m월 d일 h:i", strtotime($r['wdate'])) ?></p>
-                                        <button type="button" onclick="$('#comment_box_<?= $r['idx'] ?>').toggle() " >답글 달기</button>
+                                        <button type="button" onclick="$('.item_reply_input').hide(); $('.item_replay_main').show();$('#comment_box_<?= $r['idx'] ?>').toggle() " >답글 달기</button>
                                     </div>
                                 </div>
                                 <?
@@ -263,7 +263,7 @@ while($row = mysqli_fetch_assoc($category_result)) {
                                                 </div>
                                                 <div class="etc_info">
                                                     <p><?= date("m월 d일 h:i", strtotime($son['wdate'])) ?></p>
-                                                    <button type="button" onclick="$('#comment_box_<?= $son['idx'] ?>').toggle() " >답글 달기</button>
+                                                    <button type="button" onclick="$('.item_reply_input').hide(); $('.item_replay_main').show(); $('#comment_box_<?= $son['idx'] ?>').toggle() " >답글 달기</button>
                                                 </div>
                                             </div>
                                             <?
@@ -309,74 +309,9 @@ while($row = mysqli_fetch_assoc($category_result)) {
 
                     }?>
                 </ul>
-
-
-                <?/*
-                $comment_query = "SELECT report.comment_txt, report.idx AS comment_idx, report.parent_idx, report.wdate, (SELECT real_name FROM member_info WHERE idx=report.member_idx ) AS member_name, (SELECT file_chg FROM member_info WHERE idx=report.member_idx ) AS file_chg, (SELECT user_id FROM member_info WHERE idx=report.member_idx ) AS user_id  FROM report_comments AS report WHERE report.del_yn='N' AND parent_idx=0 AND report.report_idx=".$row['idx']." ORDER BY idx DESC LIMIT 0,2";
-                $comment_res = mysqli_query($gconnet, $comment_query);
-                ?>
-                <button type="button" class="reply_all">댓글 <span><?=$row['comment_cnt']?></span>개 모두 보기</button>
-                <ul>
-                    <?while ($r = mysqli_fetch_assoc($comment_res)) {?>
-                        <li class="reply_item user_box">
-                            <div class="reply_inner"  id="div_<?=$r['comment_idx']?>" >
-                                <div class="prf_box">
-                                    <?if($r['file_chg'] == "") {?>
-                                        <!-- img src="http://graph.facebook.com/<?//=$r['user_id']?>/picture?type=normal" alt="유저 사진" -->
-                                    <?}else {?>
-                                        <img src="../thumb/thumb.php?src=../upload_file/member/<?=$r['file_chg']?>&size=<500" alt="">
-                                    <?}?>
-                                </div>
-                                <div class="info_box ">
-                                    <div class="reply_top"><p class="name"><?=$r['member_name']?></p><p class="reply_txt"><?=$r['comment_txt']?></p></div>
-                                    <div class="etc_info">
-                                        <p><?=date("m월 d일 h:i", strtotime($r['wdate']) )?></p>
-                                        <button type="button" onclick=" addCommentField('<?=$r['comment_idx']?>', '<?= $row['report_idx'] ?>','<?= $profile_img_assoc["file_chg"] ?>' );" >답글 달기</button>
-                                    </div>
-                                </div>
-                                <button type="button" class="like_btn"></button>
-                            </div>
-                            <?
-                            $sub_comment_query = "SELECT report.comment_txt, report.idx AS comment_idx, report.wdate, (SELECT real_name FROM member_info WHERE idx=report.member_idx ) AS member_name,(SELECT file_chg FROM member_info WHERE idx=report.member_idx ) AS file_chg,(SELECT user_id FROM member_info WHERE idx=report.member_idx ) AS user_id  FROM report_comments AS report WHERE report.del_yn='N' AND parent_idx=".$r['comment_idx']." ORDER BY idx DESC LIMIT 0,2";
-                            $sub_comment_res = mysqli_query($gconnet, $sub_comment_query);
-                            ?>
-                            <? if (mysqli_num_rows($sub_comment_res) > 0 ) {?>
-                                <ul>
-                                    <?while ($sub_row = mysqli_fetch_assoc($sub_comment_res) ) {?>
-                                        <li class="reply_item user_box">
-                                            <div class="reply_inner" id="div_<?=$r['comment_idx']?>_<?= $sub_row['comment_idx'] ?>">
-                                                <div class="prf_box">
-                                                    <?if($sub_row['file_chg'] == "") {?>
-                                                        <!-- img src="http://graph.facebook.com/<?//=$sub_row['user_id']?>/picture?type=normal" alt="유저 사진" -->
-                                                    <?}else {?>
-                                                        <img src="../thumb/thumb.php?src=../upload_file/member/<?=$sub_row['file_chg']?>&size=<500" alt="">
-                                                    <?}?>
-                                                </div>
-                                                <div class="info_box ">
-                                                    <div class="reply_top"><p class="name"><?=$sub_row['member_name']?></p><p class="reply_txt"><?=$sub_row['comment_txt']?></p></div>
-                                                    <div class="etc_info">
-                                                        <p><?=date("m월 d일 h:i", strtotime($sub_row['wdate']) )?></p>
-                                                        <button type="button" onclick="addInnerCommentField('<?=$r['comment_idx']?>',<?= $sub_row['comment_idx'] ?>, '<?= $row['report_idx'] ?>','<?= $profile_img_assoc["file_chg"] ?>' );">답글 달기</button>
-                                                    </div>
-                                                </div>
-                                                <button type="button" class="like_btn"></button>
-                                            </div>
-                                        </li>
-                                        <?
-                                        if (mysqli_num_rows($sub_comment_res) > 2) {
-                                            break;
-                                        }
-                                        ?>
-                                    <?}?>
-                                </ul>
-                            <?}?>
-                        </li>
-                    <?}?>
-                </ul>
-                <?*/?>
             </div>
         </div>
-        <div class="item_reply_input"  id="main_comment_<?=$row['idx']?>" >
+        <div class="item_reply_input item_replay_main"  id="main_comment_<?=$row['idx']?>" >
             <div class="prf_box">
                 <?if($row['file_chg'] == "") {?>
                     <img src="http://graph.facebook.com/<?=$row['user_id']?>/picture?type=normal" alt="유저 사진">

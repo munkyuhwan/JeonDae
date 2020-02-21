@@ -25,7 +25,7 @@ $comment_res = mysqli_query($gconnet, $comment_query);
                 </div>
                 <div class="etc_info">
                     <p><?= date("m월 d일 h:i", strtotime($r['wdate'])) ?></p>
-                    <button type="button" onclick="$('#comment_box_<?= $r['idx'] ?>').toggle() " >답글 달기</button>
+                    <button type="button" onclick="$('.item_reply_input').hide(); $('.item_replay_main').show(); $('#comment_box_<?= $r['idx'] ?>').toggle() " >답글 달기</button>
                 </div>
             </div>
             <?
@@ -79,7 +79,7 @@ $comment_res = mysqli_query($gconnet, $comment_query);
                             </div>
                             <div class="etc_info">
                                 <p><?= date("m월 d일 h:i", strtotime($son['wdate'])) ?></p>
-                                <button type="button" onclick="$('#comment_box_<?= $son['idx'] ?>').toggle() " >답글 달기</button>
+                                <button type="button" onclick="$('.item_reply_input').hide(); $('.item_replay_main').show(); $('#comment_box_<?= $son['idx'] ?>').toggle() " >답글 달기</button>
                             </div>
                         </div>
                         <?
