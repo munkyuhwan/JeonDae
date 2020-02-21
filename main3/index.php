@@ -9,7 +9,6 @@
             method:"POST",
             data:{"page":page,"block":block,"sub_idx":'<?=$_REQUEST['sub_idx']?>' },
             success:function(response) {
-                console.log(response)
                 if (response!="") {
                     $("#main_list").append(response);
                     $(".pop_call").on("click", function () {
