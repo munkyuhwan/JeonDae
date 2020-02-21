@@ -4,7 +4,7 @@
 <? include $_SERVER["DOCUMENT_ROOT"]."/master/include/check_login.php"; // 관리자 로그인여부 확인?>
 <?
 $total_param = 'bmenu='.$bmenu.'&smenu='.$smenu.'&field='.$field.'&keyword='.$keyword.'&bbs_code='.$bbs_code.'&v_sect='.$v_sect.'&s_cate_code='.$s_cate_code.'&s_sect1='.$s_sect1.'&s_sect2='.$s_sect2.'&s_gender='.$s_gender.'&s_level='.$s_level;
-$query = "SELECT enquery.*, member.real_name FROM enquries_list AS enquery, member_info AS member WHERE enquery.member_idx=member.idx ORDER BY enquery.idx DESC";
+$query = "SELECT enquery.*, enquery.reply_yn, member.real_name FROM enquries_list AS enquery, member_info AS member WHERE enquery.member_idx=member.idx ORDER BY enquery.idx DESC";
 $result = mysqli_query($gconnet, $query);
 ?>
     <body id="page-top">
@@ -64,6 +64,9 @@ $result = mysqli_query($gconnet, $query);
                                 <tr>
                                     <td onclick="location.href='detail.php?idx=<?=$row['idx']?>&<?=$total_param?>'; ">
                                         <?=$row[q_title]?>
+                                        <?if ($row['reply_yn'] =='Y' ) {?>
+                                            <span style="color: #007bff;">답변완료</span>
+                                        <?}?>
                                     </td>
                                 </tr>
                             <?}?>

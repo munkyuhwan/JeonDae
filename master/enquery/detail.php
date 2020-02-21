@@ -80,7 +80,7 @@ $result = mysqli_fetch_assoc($result);
                     </div>
                     <div class="card-body">
                         <div class="form-label-group">
-                            <textarea style="width: 100%;" name="reply" ></textarea>
+                            <textarea style="width: 100%;" name="reply" ><?=$result['q_reply']?></textarea>
                         </div>
                     </div>
 
