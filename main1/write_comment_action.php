@@ -13,6 +13,7 @@ $writerAssoc = mysqli_fetch_assoc($writerResult);
 $receiver = $writerAssoc['member_idx'];
 addToAlarm("CMNT", $reportIdx, $receiver, "새로운 댓글이 있습니다.", $gconnet);
 */
+$closeIdx = 0;
 if ($parentIdx) {
 //자식 댓글
 
@@ -44,6 +45,7 @@ if ($parentIdx) {
         $query .= " comment_txt= '".$commentTxt."' ";
         $result = mysqli_query($gconnet, $query);
 
+        $closeIdx = $parentIdx;
 
     }else {
 
@@ -73,6 +75,8 @@ if ($parentIdx) {
         $query .= " comment_txt= '".$commentTxt."' ";
         $result = mysqli_query($gconnet, $query);
 
+        $closeIdx = $commentTo;
+
     }
 
 }else {
@@ -100,7 +104,9 @@ if($result){?>
     <SCRIPT LANGUAGE="JavaScript">
         <!--
         alert('등록이 정상적으로 완료 되었습니다.');
-        parent.location.href =  "./";
+        //parent.location.href =  "./";
+        parent.getList();
+        $("#comment_box_<?=$closeIdx?>").hide();
         //-->
     </SCRIPT>
 <?}else{?>

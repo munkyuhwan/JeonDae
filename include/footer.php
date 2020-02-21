@@ -1,1 +1,1 @@
-<iframe name="_fra_admin" width="90%" height="300" style="display:<?=$show_iframe==TRUE?"":"none"?>"></iframe>
+<iframe name="_fra_submit" width="90%" height="300" style="display: none;;"></iframe>

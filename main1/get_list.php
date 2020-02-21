@@ -321,7 +321,7 @@ if ($_SESSION['user_access_idx']== "") {
                                             <img src="../thumb/thumb.php?src=../upload_file/member/<?= $profile_img_assoc["file_chg"] ?>&size=<300" alt="">
                                         </div>
                                         <div class="input_box">
-                                            <form action="write_comment_action.php" method="post" name="frm">
+                                            <form action="write_comment_action.php" target="_fra_submit" method="post" name="frm">
                                                 <input type="text" name="content_txt" required>
                                                 <input type="hidden" name="report_idx" id="report_idx" value="<?= $row['report_idx'] ?>">
                                                 <input type="hidden" name="parent_idx" id="parent_idx" value="<?=$r['idx']?>">
@@ -363,7 +363,7 @@ if ($_SESSION['user_access_idx']== "") {
                                                     <img src="../thumb/thumb.php?src=../upload_file/member/<?= $profile_img_assoc["file_chg"] ?>&size=<300" alt="">
                                                 </div>
                                                 <div class="input_box">
-                                                    <form action="write_comment_action.php" method="post" name="frm">
+                                                    <form action="write_comment_action.php" target="_fra_submit" method="post" name="frm">
                                                         <input type="text" name="content_txt" required>
                                                         <input type="hidden" name="report_idx" id="report_idx" value="<?= $row['report_idx'] ?>">
                                                         <input type="hidden" name="parent_idx" id="parent_idx" value="<?= $r['idx'] ?>">
@@ -398,7 +398,7 @@ if ($_SESSION['user_access_idx']== "") {
                     <img src="../thumb/thumb.php?src=../upload_file/member/<?= $profile_img_assoc["file_chg"] ?>&size=<300" alt="">
                 </div>
                 <div class="input_box">
-                    <form action="write_comment_action.php" method="post" name="frm">
+                    <form action="write_comment_action.php" method="post" target="_fra_submit" name="frm">
                         <input type="text" name="content_txt" required>
                         <input type="hidden" name="report_idx" id="report_idx" value="<?= $row['report_idx'] ?>">
                         <input type="hidden" name="parent_idx" id="parent_idx">

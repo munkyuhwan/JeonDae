@@ -9,7 +9,7 @@
     var page = 0;
     var block = 5;
     function getList() {
-
+        console.log("get list")
         $.ajax({
             url:"get_list.php",
             cache:true,
@@ -136,6 +136,7 @@
 <? include $_SERVER['DOCUMENT_ROOT']."/include/etc_popup.php" ?>
 <? include $_SERVER['DOCUMENT_ROOT']."/include/img_popup.php" ?>
 <?include $_SERVER['DOCUMENT_ROOT']."/include/share_pop.php"?>
+<?include $_SERVER['DOCUMENT_ROOT']."/include/footer.php"?>
 </body>
 </html>
 
