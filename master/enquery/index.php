@@ -63,10 +63,10 @@ $result = mysqli_query($gconnet, $query);
                             <?while($row = mysqli_fetch_assoc($result) ) {?>
                                 <tr>
                                     <td onclick="location.href='detail.php?idx=<?=$row['idx']?>&<?=$total_param?>'; ">
-                                        <?=$row[q_title]?>
                                         <?if ($row['reply_yn'] =='Y' ) {?>
                                             <span style="color: #007bff;">답변완료</span>
                                         <?}?>
+                                        <?=$row[q_title]?>
                                     </td>
                                 </tr>
                             <?}?>
