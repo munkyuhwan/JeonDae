@@ -1,5 +1,9 @@
 <? include $_SERVER["DOCUMENT_ROOT"]."/pro_inc/include_default.php"; // 공통함수 인클루드 ?>
 <?php
+
+print_r($_REQUEST);
+
+/*
 $oldAddr = trim(sqlfilter($_REQUEST['oldAddr']));
 $newAddr = trim(sqlfilter($_REQUEST['newAddr']));
 $sggNm = trim(sqlfilter($_REQUEST['sggNm']));
@@ -90,6 +94,6 @@ if ($gu_idx!='') {
 
     exit();
 }
-
+*/
 
 ?>

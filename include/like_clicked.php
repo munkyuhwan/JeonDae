@@ -58,7 +58,7 @@ if (intval($my_like['cnt']) > 0) {
 
     //5개 단위로 알림 보냄
     //if ( (($likes_cnt + 1)%5) == 0 ) {
-    addToAlarm("LIKE", $report_idx, $writer_idx, "내 제보를 명이 ".($likes_cnt + 1)."명이 마음에 들어합니다.", $gconnet);
+    addToAlarm("LIKE", $report_idx, $writer_idx, "내 제보를 ".($likes_cnt + 1)."명이 마음에 들어합니다.", $gconnet);
     //}
 
     if ($update_result) {

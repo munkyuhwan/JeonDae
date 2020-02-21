@@ -10,14 +10,14 @@ if ($userIdx != "") {
     $selectResult = mysqli_query($gconnet, $select);
     $row = mysqli_fetch_assoc($selectResult);
 
-    if ($row['push_key']== "" || $row['push_key']==null) {
+    //if ($row['push_key']== "" || $row['push_key']==null) {
 
         $updatePushKey = "UPDATE member_info SET push_key='".$device."://".$fcmToken."' WHERE idx=".$userIdx;
         $result = mysqli_query($gconnet, $updatePushKey);
 
-    }else {
+    //}else {
         exit();
-    }
+    //}
 
 }else {
     exit();
