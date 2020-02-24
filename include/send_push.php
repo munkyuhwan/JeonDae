@@ -34,7 +34,6 @@ function send_notification ($topic, $msg, $category)
                 "category" => $category,
                 "title" => "전대전",
                 "sound" => "default",
-                'badge' => 1,
                 'content-available' => 1
             ),
         );
@@ -104,7 +103,6 @@ function send_notification_individual ($topic, $msg, $category, $fcmToken)
                 "category" => $category,
                 "title" => "전대전",
                 "sound" => "default",
-                'badge' => 1,
                 'content-available' => 1
             ),
         );
