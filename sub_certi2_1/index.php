@@ -17,7 +17,7 @@
                     <input type="hidden" name="countPerPage" id="countPerPage" >
                     <!-- input type="hidden" name="keyword" value="<?//=trim(sqlfilter($_REQUEST['addr_inp']))?>" -->
                     <input type="hidden" name="returnUrl" >
-                    <input type="hidden" name="confmKey" value="devU01TX0FVVEgyMDE5MTEyNjEyMzA1NTEwOTIyMTM=" >
+                    <input type="hidden" name="confmKey" value="U01TX0FVVEgyMDIwMDIyNDEzNDI0NzEwOTQ5MDg=" >
                     <input type="text" name="keyword" id="keyword" value="<?=trim(sqlfilter($_REQUEST['keyword']))?>">
                     <button type="submit" class="input_btn"></button>
                 </form>
@@ -81,6 +81,7 @@
             ,dataType:"jsonp"
             ,crossDomain:true
             ,success:function(jsonStr) {
+                console.log(jsonStr)
 
                 $("#listRoadSearch").html("");
                 var errCode = jsonStr.results.common.errorCode;

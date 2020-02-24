@@ -35,6 +35,10 @@ if ($gu_idx!='') {
                 //재보함 idx
                 $category_idx = $category_row['idx'];
 
+                //ㄱㅣ존 지역 구독 삭제
+                $delete_query = "DELETE FROM subscribe_list WHERE member_idx=".$member_idx." AND "." category_idx=".$category_idx;
+                $del_result = mysqli_query($gconnet, $delete_query);
+
                 //제보함에 해당하는 구독 해시태그 받아오기
                 $hashtag_query = "SELECT idx FROM report_sub_categories WHERE report_idx=".$category_idx;
                 $hashtag_result = mysqli_query($gconnet, $hashtag_query);
