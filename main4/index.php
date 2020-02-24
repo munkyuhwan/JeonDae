@@ -8,7 +8,6 @@
             url:"get_data.php",
             data:{"page":page, "block":block},
             success:function(response) {
-                console.log(response)
                 $("#msg_list").append(response)
                 page++;
             },

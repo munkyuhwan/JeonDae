@@ -1,6 +1,10 @@
 <? include $_SERVER['DOCUMENT_ROOT']."/pro_inc/include_default.php";?>
 <?
+$page = sqlfilter(trim($_REQUEST['page']));
+$block = sqlfilter(trim($_REQUEST['block']));
+
 $query = "SELECT alarm.* FROM alarm_list AS alarm WHERE alarm.member_idx=".$_SESSION['user_access_idx']." ";
+$query .= " LIMIT ".($page*$block).", ".$block;
 $result = mysqli_query($gconnet, $query);
 
 ?>
