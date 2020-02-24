@@ -81,7 +81,6 @@
             ,dataType:"jsonp"
             ,crossDomain:true
             ,success:function(jsonStr) {
-                console.log(jsonStr)
 
                 $("#listRoadSearch").html("");
                 var errCode = jsonStr.results.common.errorCode;
@@ -98,7 +97,7 @@
                     currentPage++;
 
                 }else {
-                    alert('검색 결과가 없습니다.')
+                    alert(jsonStr.results.common.errorMessage)
                 }
             }
             ,error: function(xhr,status, error){
