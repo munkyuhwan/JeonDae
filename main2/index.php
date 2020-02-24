@@ -53,7 +53,7 @@ $result = mysqli_query($gconnet,$query);
         return $('#key').val().replace(" ","") != "";
     }
 </script>
-<div class="wrapper">
+<div class="wrapper" >
     <? include $_SERVER['DOCUMENT_ROOT']."/include/header.php"?>
     <? include $_SERVER['DOCUMENT_ROOT']."/include/main_nav.php"?>
     <section class="main_section">

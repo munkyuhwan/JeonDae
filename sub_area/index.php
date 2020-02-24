@@ -55,7 +55,7 @@ if ($_SESSION['user_access_idx']!='') {
 
 </script>
 <body onload="loadMainData(); ">
-<div class="wrapper">
+<div class="wrapper" id="mainWrapper">
     <? include $_SERVER['DOCUMENT_ROOT']."/include/header.php" ?>
     <? include $_SERVER['DOCUMENT_ROOT']."/include/main_nav.php" ?>
     <section class="main_section">

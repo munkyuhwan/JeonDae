@@ -9,7 +9,7 @@
     var page = 0;
     var block = 5;
     function getList() {
-        console.log("get list")
+
         $.ajax({
             url:"get_list.php",
             cache:true,
@@ -112,8 +112,9 @@
 
 
 </script>
+
 <body>
-<div class="wrapper"  onscroll="console.log('scrolling wrapper')" >
+<div class="wrapper" id="mainWrapper"  onscroll="console.log('scrolling wrapper')" >
     <? include $_SERVER['DOCUMENT_ROOT']."/include/header.php"?>
     <? include $_SERVER['DOCUMENT_ROOT']."/include/main_nav.php"?>
     <section class="main_section" onscroll="console.log('scrolling section')" >

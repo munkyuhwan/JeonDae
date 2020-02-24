@@ -96,7 +96,7 @@
 
 </script>
 <body>
-<div class="wrapper">
+<div class="wrapper" id="mainWrapper">
     <? include $_SERVER['DOCUMENT_ROOT']."/include/header.php"?>
     <? include $_SERVER['DOCUMENT_ROOT']."/include/main_nav.php"?>
     <section class="main_section">
@@ -111,6 +111,7 @@
 <? include $_SERVER['DOCUMENT_ROOT']."/include/etc_popup.php" ?>
 <? include $_SERVER['DOCUMENT_ROOT']."/include/img_popup.php" ?>
 <?include $_SERVER['DOCUMENT_ROOT']."/include/share_pop.php"?>
+<?include $_SERVER['DOCUMENT_ROOT']."/include/footer.php"?>
 
 </body>
 
