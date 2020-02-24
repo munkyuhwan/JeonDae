@@ -48,7 +48,7 @@ function checkPopular($reportIdx, $gconnet) {
     $popularity_data = mysqli_fetch_assoc($popularity_result);
 
     if ( intval($popularity_data['cnt']) > 0 ) {
-        addToAlarm("TOP", $reportIdx, $member_idx, "Ё╩ а╕╨╦╟║ юс╠Б ╟т╫ц╧╟©║ ╣Н╥о╣г╬З╫ю╢о╢ы.", $gconnet);
+        addToAlarm("TOP", $reportIdx, $member_idx, "К┌╢ Л═°КЁ╢Й╟─ Л·└Й╦╟ Й╡▄Л▀°К╛╪Л≈░ К⌠╠К║²К░≤Л≈┬Л┼╣К▀┬К▀╓.", $gconnet);
     }
 
 
