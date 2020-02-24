@@ -256,7 +256,14 @@ if ($_SESSION['user_access_idx']== "") {
                     </div>
                 <?}?>
                 <div class="btn_box">
-                    <button type="button" class="like_btn" id="like_btn_<?=$row['report_idx']?>" onclick="likeClick(<?= $row['report_idx'] ?>)" ><?= $row['likes'] ?></button>
+                    <?
+                    $select = "SELECT COUNT(*) cnt FROM report_likes WHERE report_idx=".$row['report_idx']." AND member_idx=".$_SESSION['user_access_idx'];
+                    $select_result = mysqli_query($gconnet, $select);
+                    $select_row = mysqli_fetch_assoc($select_result);
+                    $cnt = $select_row['cnt'];
+                    ?>
+
+                    <button type="button" class="like_btn  <?=$cnt > 0 ? 'on':'';?>" id="like_btn_<?=$row['report_idx']?>" onclick="likeClick(<?= $row['report_idx'] ?>)" ><?= $row['likes'] ?></button>
                     <span class="reply_cnt"><?= $row['comment_cnt'] ?></span>
                 </div>
             </div>
