@@ -54,7 +54,7 @@ if ($_SESSION['user_access_idx']!='') {
     */
 
 </script>
-<body onload="loadMainData(); ">
+<body >
 <div class="wrapper" id="mainWrapper">
     <? include $_SERVER['DOCUMENT_ROOT']."/include/header.php" ?>
     <? include $_SERVER['DOCUMENT_ROOT']."/include/main_nav.php" ?>
@@ -189,9 +189,13 @@ if ($_SESSION['user_access_idx']!='') {
 </body>
 
 <script>
+    $(document).ready(function() {
+        loadData();
+        loadMainData();
+    })
     $(window).scroll(function (e) {
         if (isScrolledBottom(e)) {
-            getList();
+            loadData();
         }
 
     });
