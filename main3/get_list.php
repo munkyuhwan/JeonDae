@@ -18,12 +18,14 @@ $category_result = mysqli_query($gconnet, $category_query);
 
 $result = array();
 while($row = mysqli_fetch_assoc($category_result)) {
+
     $report_query = "SELECT report.*, (SELECT profile_img FROM report_categories WHERE idx=report.category) AS category_profile, (SELECT COUNT(*) FROM report_comments WHERE report_idx=report.idx ) AS comment_cnt, (SELECT user_id FROM member_info WHERE idx=report.member_idx) AS user_id, (SELECT file_chg FROM member_info WHERE idx=report.member_idx) AS file_chg FROM report_list AS report WHERE 1";
     $report_query .= " AND report.category = ".$row['category_idx'];
     $report_query .= " AND report.likes >= ".$row['limit_like'];
     $report_query .= " AND report.view_cnt >= ".$row['limit_view'];
     $report_query .= " AND (SELECT COUNT(*) FROM report_comments WHERE report_idx=report.idx ) >= ".$row['limit_comment'];
     $report_query .= " LIMIT ".($page*$block).",".$block;
+
     $report_result = mysqli_query($gconnet, $report_query);
     while( $report_row = mysqli_fetch_assoc($report_result) ) {
         array_push($result, $report_row);

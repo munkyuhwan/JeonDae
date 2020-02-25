@@ -32,7 +32,6 @@ if (count($row)>0) {
 }
 $result = mysqli_query($gconnet,$query);
 
-echo $query;
 if($result){
     ?>
     <SCRIPT LANGUAGE="JavaScript">
