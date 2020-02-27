@@ -19,6 +19,7 @@ foreach($subcategories as $v) {
 $hash_tags = substr($hash_tags,1,-1);
 $hash_tags .= ',';
 
+$hash_tags = str_replace(",\\",",",$hash_tags);
 
 if ($_SESSION['user_access_idx'] != "") {
     $member_idx = $_SESSION['user_access_idx'];
@@ -33,7 +34,7 @@ if ($_SESSION['user_access_idx'] != "") {
 
     $ageBand = floor( (intval($yNow)-intval($myBirth))/10 )*10;
 
-    if (strpos($hash_tags,"#".$ageBand."대") < 0 ) {
+    if ( !strpos($hash_tags,"#".$ageBand."대") ) {
         $hash_tags .= "#" . $ageBand . "대,";
     }
 
@@ -45,7 +46,6 @@ if ($_SESSION['user_access_idx'] != "") {
     $unknown_row = mysqli_fetch_assoc($unknown_result);
     $member_idx = $unknown_row['idx'];
 }
-
 
 
 
