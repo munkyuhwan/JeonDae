@@ -76,7 +76,6 @@ foreach($hashtags_idx_array as $k=>$v) {
     $sub_result = mysqli_query($gconnet,$sub_category_query);
     while ($row = mysqli_fetch_assoc($sub_result) ) {
         $insert_subscribe_list  = "INSERT INTO subscribe_list SET category_idx=".$row['report_idx'].", sub_category_idx=".$v.", member_idx=".$member_idx;
-        echo "<br>".$insert_subscribe_list."<br>";
         $inser_sub_result = mysqli_query($gconnet,$insert_subscribe_list);
     }
 
