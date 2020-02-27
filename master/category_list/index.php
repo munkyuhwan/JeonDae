@@ -44,7 +44,7 @@ if (str_replace(" ","", $keyword) != "") {
         $query .= " AND report.bad_report LIKE '%".$keyword."%' ";
     }
 }
-$query_limit .= $query."ORDER BY idx DESC LIMIT ".$StarRowNum." , ".$EndRowNum ;
+$query_limit .= $query." ORDER BY idx DESC LIMIT ".$StarRowNum." , ".$EndRowNum ;
 
 $result = mysqli_query($gconnet,$query_limit);
 
