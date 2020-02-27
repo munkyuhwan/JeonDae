@@ -43,16 +43,46 @@ $update_clean_index = "UPDATE user_clean_index SET clean_index=".$clean_filter."
 $update_clean_result = mysqli_query($gconnet, $update_clean_index);
 
 
-$del_subscribes = "DELETE FROM subscribe_list WHERE member_idx=".$member_idx;
-$sub_result = mysqli_query($gconnet,$del_subscribes);
+
+
+
+//$del_subscribes = "DELETE FROM subscribe_list WHERE member_idx=".$member_idx;
+//$sub_result = mysqli_query($gconnet,$del_subscribes);
 
 
 
 $subscribes = ($_REQUEST['hashtags']);
+$hashtags_idx_array = array();
+foreach($subscribes as $v) {
+
+    $select = "SELECT idx FROM report_sub_categories WHERE sub_name='".$v."' ";
+    $selRes = mysqli_query($gconnet, $select);
+
+    while( $row = mysqli_fetch_assoc($selRes) ) {
+        array_push($hashtags_idx_array, $row['idx']);
+    }
+
+}
+
+
 $del_subscribes = "DELETE FROM subscribe_list WHERE member_idx=".$member_idx;
 $sub_result = mysqli_query($gconnet,$del_subscribes);
 
 
+
+foreach($hashtags_idx_array as $k=>$v) {
+
+    $sub_category_query = "SELECT report_idx FROM report_sub_categories WHERE del_yn='N' AND idx=".$v;
+    $sub_result = mysqli_query($gconnet,$sub_category_query);
+    while ($row = mysqli_fetch_assoc($sub_result) ) {
+        $insert_subscribe_list  = "INSERT INTO subscribe_list SET category_idx=".$row['report_idx'].", sub_category_idx=".$v.", member_idx=".$member_idx;
+        echo "<br>".$insert_subscribe_list."<br>";
+        $inser_sub_result = mysqli_query($gconnet,$insert_subscribe_list);
+    }
+
+}
+
+/*
 foreach ($subscribes as $k=>$v) {
     $sub_category_query = "SELECT report_idx FROM report_sub_categories WHERE del_yn='N' AND idx=".$v;
     $sub_result = mysqli_query($gconnet,$sub_category_query);
@@ -62,6 +92,7 @@ foreach ($subscribes as $k=>$v) {
         $inser_sub_result = mysqli_query($gconnet,$insert_subscribe_list);
     //}
 }
+*/
 
 if($result){
     if ($_FILES['profile_img']['size']>0) {

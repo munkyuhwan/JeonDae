@@ -90,28 +90,44 @@ $hastag_result = mysqli_query($gconnet, $hashtag_query);
                         <div class="selected_tag">
                             <?
                             $selected_sub_cat = array();
+                            $selected_sub_cat_name = array();
                             while($sub_cat_row = mysqli_fetch_assoc($hastag_result)) {?>
                                 <? array_push($selected_sub_cat, $sub_cat_row["idx"]) ?>
-                                <span>#<?=$sub_cat_row["sub_name"]?></span>
+                                <? array_push($selected_sub_cat_name, $sub_cat_row["sub_name"]) ?>
                             <?}?>
-                             <button type="button" class="tag_arrow"></button>
+                            <?
+                            $selected_sub_cat_name = array_unique($selected_sub_cat_name);
+                            ?>
+                            <? foreach($selected_sub_cat_name as $k=>$v) { ?>
+                                <span>#<?=$v?></span>
+                            <?}?>
+                            <button type="button" class="tag_arrow"></button>
                         </div>
                         <div class="tag_type">
                             <ul>
-                                <? while($main_cat_row = mysqli_fetch_assoc($main_cat_result) ) {?>
+                                <?
+                                $hashtags_array = array();
+                                $hashtags_idx_array = array();
+                                ?>
+                                <?while($main_cat_row = mysqli_fetch_assoc($main_cat_result) ) {?>
                                     <?
                                     $sub_query = "SELECT * FROM report_sub_categories WHERE report_idx=".$main_cat_row['category_idx'];
                                     $sub_query_res = mysqli_query($gconnet, $sub_query);
                                     ?>
                                     <?while ($sub_row = mysqli_fetch_assoc($sub_query_res)) {?>
-                                        <li>
-                                            <input type="checkbox" name="hashtags[]" id="subs<?=$sub_row['idx']?>" value="<?=$sub_row['idx']?>" <?= in_array($sub_row['idx'],$selected_sub_cat) ? "checked":"" ?> >
-                                            <label for="subs<?=$sub_row['idx']?>">
-                                                <?=$sub_row['sub_name']?>
-                                            </label>
-                                        </li>
+                                        <?array_push($hashtags_array, $sub_row['sub_name'])?>
+                                        <?array_push($hashtags_idx_array, $sub_row['idx'])?>
                                     <?}?>
-                               <?}?>
+                                <?}?>
+                                <? $hashtags_array = array_unique($hashtags_array); ?>
+                                <? foreach($hashtags_array as $k=>$v ) {?>
+                                    <li>
+                                        <input type="checkbox" name="hashtags[]" id="subs_<?=$hashtags_idx_array[$k]?>" value="<?=$v?>" <?= in_array($hashtags_idx_array[$k],$selected_sub_cat) ? "checked":"" ?>>
+                                        <label for="subs_<?=$hashtags_idx_array[$k]?>"><?=$v?>
+                                        </label>
+                                    </li>
+                                <?}?>
+
                             </ul>
                         </div>
                     </div>
