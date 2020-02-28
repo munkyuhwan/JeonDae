@@ -5,6 +5,7 @@
     <file url="file://$PROJECT_DIR$/external_write/index.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/include/comment_like_action.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/include/etc_popup.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/include/extra_functions.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/include/get_comment_list.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/include/head.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/include/header.php" charset="UTF-8" />
@@ -15,6 +16,7 @@
     <file url="file://$PROJECT_DIR$/join/join_action.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/js/functions.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/js/ptr.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/like_test.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/logout/index.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/main1/additional_action.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/main1/get_list.php" charset="UTF-8" />
